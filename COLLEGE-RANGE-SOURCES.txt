@@ -1,0 +1,19 @@
+ScorePath V10 — College Range Explorer Sources
+
+This feature is a score-range explorer, NOT an admission probability calculator.
+It compares a ScorePath practice estimate with selected institutions' reported SAT/ACT ranges.
+Admissions decisions consider many factors beyond test scores.
+
+Data used in this V10 preview:
+- MIT — 2025-26 Common Data Set: SAT 1520-1570; ACT 34-35.
+- Boston University — 2024 enrolled student CDS: SAT 1430-1510; ACT 32-34.
+- University of Florida — Class of 2030 admitted profile, updated July 2026: SAT 1420-1520; ACT 32-35.
+- Florida State University — Florida SUS 2025-26 fall matrix: SAT 1370-1460; ACT 30-33.
+- University of Central Florida — Florida SUS 2025-26 fall matrix: SAT 1310-1430; ACT 28-32.
+- University of South Florida — Florida SUS 2025-26 fall matrix: SAT 1260-1410; ACT 27-31.
+- Florida International University — Florida SUS 2025-26 fall matrix: SAT 1250-1390; ACT 27-31.
+- Florida Atlantic University — Florida SUS 2025-26 fall matrix: SAT 1100-1280; ACT 22-28.
+- Florida Gulf Coast University — Florida SUS 2025-26 fall matrix: SAT 1070-1240; ACT 21-26.
+- Florida A&M University — Florida SUS 2025-26 fall matrix: SAT 1080-1230; ACT 22-27.
+
+Recheck all ranges before public launch and periodically afterward.

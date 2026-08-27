@@ -1,0 +1,10 @@
+ScorePath V10 — Desmos Production Setup
+
+V10 private preview uses the Desmos demo API key shown in Desmos API documentation.
+Before publishing the site publicly:
+1. Request your own Desmos API key at https://www.desmos.com/my-api
+2. Open index.html.
+3. Find: https://www.desmos.com/api/v1.12/calculator.js?apiKey=
+4. Replace the demo key with your production key.
+
+The ScorePath label must remain clear that this is a practice integration and not the College Board Bluebook interface.
