@@ -15,6 +15,39 @@ body{background:linear-gradient(180deg,#f4f7fb 0,#eef3f9 100%)}.top{padding:12px
 .v18HelpStrip{border-radius:16px!important;background:linear-gradient(135deg,#f8fbff,#edf5ff)!important;border:1px solid #d8e7f7!important;margin-bottom:14px!important}.hero{grid-template-columns:1.15fr .85fr;gap:14px}.heroCard,.panel{border-radius:20px;box-shadow:0 12px 32px rgba(15,23,42,.055)}.heroPrimary{background:radial-gradient(circle at 85% 10%,rgba(56,189,248,.22),transparent 28%),linear-gradient(135deg,#0a1a37,#174b94 70%,#1d4ed8)}.heroCard h1{font-size:clamp(30px,3.3vw,44px);max-width:720px}.roomHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.roomLabel{font-size:10px;font-weight:950;letter-spacing:1.2px;color:#64748b}.roomHint{font-size:10px;font-weight:850;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;padding:6px 8px;border-radius:999px}.roomCode{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:42px;letter-spacing:7px;color:#1d4ed8;margin:4px 0 9px}.roomActions .btn{min-height:42px}.joinBox{background:#f8fbff;border-style:solid;border-color:#d8e7f7}.joinHelp{font-size:11px;color:#475569;margin:5px 0 8px;line-height:1.5}.joinUrl{background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:9px}.grid{grid-template-columns:340px 1fr;gap:14px;align-items:start}.panel{padding:20px}.fields{grid-template-columns:1fr}.fields label:nth-child(1),.fields label:nth-child(2){grid-column:auto}.modeGrid{grid-template-columns:1fr 1fr}.mode{min-height:96px;transition:.2s ease}.mode:hover{transform:translateY(-1px);border-color:#93c5fd}.sessionBar{gap:8px}.metric{background:#fbfdff;padding:12px}.students{min-height:180px;border:1px dashed #d6e0eb;border-radius:15px;padding:10px;background:#fbfdff}.analytics{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px;box-shadow:0 12px 32px rgba(15,23,42,.05)}.tabs{padding-bottom:10px}.tab.active{background:#173d7e;border-color:#173d7e}.btn:disabled{opacity:.45;cursor:not-allowed}.actions .btn{transition:.18s ease}.actions .btn:hover:not(:disabled){transform:translateY(-1px)}
 @media(max-width:980px){.hero,.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr 1fr}.fields label:nth-child(1),.fields label:nth-child(2){grid-column:1/-1}}@media(max-width:650px){.fields,.modeGrid{grid-template-columns:1fr}.fields label:nth-child(1),.fields label:nth-child(2){grid-column:auto}.roomCode{font-size:34px;letter-spacing:5px}.roomActions .btn{flex:1 1 46%}.v20BackHome{margin-left:auto!important}}
 </style>
+<style id="v22-teacher-professional">
+.top{position:relative;overflow:visible}.top:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:linear-gradient(90deg,#6d4aff,#2f67e8,#17a987)}
+.mark{box-shadow:0 6px 16px rgba(37,99,235,.35)}
+.roomCode{position:relative;display:inline-block;padding:2px 4px}
+.heroCard.heroPrimary .authDot{box-shadow:0 0 0 5px rgba(34,197,94,.16),0 0 10px rgba(34,197,94,.5)}
+.btn{border-radius:12px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
+.btn:hover:not(:disabled){filter:brightness(1.04)}
+.btn.primary{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.btn.good{background:linear-gradient(135deg,#16a34a,#0f9d58)}
+.btn.warn{background:linear-gradient(135deg,#f59e0b,#ea8a06)}
+.btn.danger{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+.sessionBar .metric{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff,#f8fafc)}
+.sessionBar .metric:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+.sessionBar .metric:nth-child(1):before{background:#2563eb}
+.sessionBar .metric:nth-child(2):before{background:#0ea5e9}
+.sessionBar .metric:nth-child(3):before{background:#16a34a}
+.sessionBar .metric:nth-child(4):before{background:#7c3aed}
+.sessionBar .metric:nth-child(5):before{background:#ea580c}
+.sessionBar .metric b{font-variant-numeric:tabular-nums;letter-spacing:.2px}
+.student{transition:transform .15s ease,box-shadow .15s ease}
+.student:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(15,23,42,.09)}
+.avatar{background:linear-gradient(135deg,#e0e7ff,#eef2ff);box-shadow:inset 0 0 0 1px rgba(67,56,202,.15)}
+.status{letter-spacing:.3px}
+.status.working:before{content:"● ";font-size:8px}
+.miniBtn,.remove{transition:transform .15s ease}
+.miniBtn:hover,.remove:hover{transform:translateY(-1px)}
+.tab{transition:transform .15s ease,background .15s ease}
+.tab:hover:not(.active){background:#f1f5f9}
+.kpi,.card,.qcard{transition:box-shadow .15s ease}
+.kpi:hover,.card:hover,.qcard:hover{box-shadow:0 10px 26px rgba(15,23,42,.09)}
+.liveNote{background:linear-gradient(135deg,#ecfeff,#f0f9ff)}
+.roomCode:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:2px;opacity:.55}
+</style>
 </head><body>
 <header class="top"><div class="nav"><div class="brand"><span class="mark">S</span>ScorePath Teacher</div><a class="push v20BackHome" href="index.html">← Back to ScorePath</a><a href="index.html#practice-hub">Student Practice</a><a href="teacher-login.html" class="loginPill" id="teacherAccount">Teacher Account</a></div></header>
 <main class="wrap"><div class="v18HelpStrip"><div><b>New to Teacher Classroom?</b><span>See the 6-step guide for creating a room, controlling a live session, and reading student error analysis.</span></div><button class="guideBtn" data-v18-guide type="button">Teacher Guide</button></div><section class="hero"><div class="heroCard heroPrimary"><span class="eyebrow">LIVE CLASSROOM + LEARNING ANALYTICS</span><h1>Run practice. See mistakes. Know what to teach next.</h1><p>Create a class code, control practice in real time, and turn student responses into clear question, skill, and pacing insights.</p><div class="authNote"><i class="authDot"></i>Teacher account required • Student account optional</div></div><div class="heroCard"><div class="roomHeader"><div><span class="roomLabel">CLASS CODE</span><div class="roomCode" id="roomCode">— — —</div></div><span class="roomHint">Letters + numbers</span></div><div class="muted" id="roomState">Create a classroom to generate a secure 6-character code.</div><div class="actions roomActions" style="margin-top:13px"><button class="btn primary" id="createRoom">Create Classroom</button><button class="btn ghost" id="copyCode" disabled>Copy Code</button><button class="btn ghost" id="copyLink">Copy Join Link</button></div><div class="joinBox"><b>Students can join two ways</b><div class="joinHelp">1. Enter the class code on the Student Join page &nbsp;•&nbsp; 2. Open the join link</div><div class="joinUrl" id="joinUrl">Join link appears after classroom creation.</div></div></div></section>
