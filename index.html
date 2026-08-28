@@ -297,6 +297,17 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 .practiceShell.show .letter{width:40px!important;height:40px!important;min-width:40px!important;font-size:16px!important;border-radius:12px!important}
 .practiceShell.show .passage{font-size:17px!important;line-height:1.78!important}
 @media(max-width:760px){.practiceShell.show .question{font-size:20px!important;line-height:1.55!important}.practiceShell.show .option{font-size:17px!important;min-height:66px!important;padding:14px 13px!important}.practiceShell.show .letter{width:36px!important;height:36px!important;min-width:36px!important}.practiceShell.show .passage{font-size:16px!important;line-height:1.72!important}}
+
+/* V22 — cleaner account/teacher header actions */
+.v22NavActions{gap:9px!important}
+.v22NavActions .v22TeacherBtn{display:inline-flex!important;align-items:center;gap:7px;color:#fff!important;background:linear-gradient(135deg,#7c3aed,#2563eb)!important;border:1px solid rgba(167,139,250,.55)!important;box-shadow:0 8px 22px rgba(79,70,229,.22);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+.v22NavActions .v22TeacherBtn:hover{transform:translateY(-1px);box-shadow:0 11px 28px rgba(79,70,229,.34);filter:brightness(1.08)}
+.v22NavActions .v22SignIn{display:inline-flex!important;align-items:center;color:#eef2ff!important;background:rgba(255,255,255,.045)!important;border:1px solid rgba(191,219,254,.22)!important}
+.v22NavActions .v22SignIn:hover{background:rgba(255,255,255,.10)!important;border-color:rgba(191,219,254,.42)!important}
+.v22NavActions .v22SignUp{display:inline-flex!important;align-items:center;gap:7px;background:linear-gradient(135deg,#ffffff,#eef2ff)!important;color:#5b21b6!important;border:1px solid rgba(196,181,253,.75)!important;box-shadow:0 8px 22px rgba(99,102,241,.20)!important}
+.v22NavActions .v22SignUp:hover{background:linear-gradient(135deg,#fff,#e0e7ff)!important;color:#4338ca!important;transform:translateY(-1px)}
+@media(max-width:1120px){.v22NavActions .v22TeacherBtn,.v22NavActions .v22SignIn{display:none!important}.v22NavActions .v22SignUp{display:inline-flex!important}}
+@media(max-width:720px){.v22NavActions .v22SignUp{font-size:11px!important;padding:9px 11px!important}.v22NavActions{margin-left:4px!important}}
 </style>
 
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -521,11 +532,10 @@ html{scroll-behavior:smooth}.v18-particles{position:fixed;inset:0;z-index:-2;poi
   </div>
  </div>
 </div>
-<div class="navProLinks v20NavLinks" aria-label="Quick actions">
- <a href="teachers.html">Teachers</a>
- <a href="resources.html">Resources</a>
- <a href="student-account.html" class="v20SignIn">Sign In</a>
- <a class="navCta" href="#practice-hub">Start Practice →</a>
+<div class="navProLinks v20NavLinks v22NavActions" aria-label="Account and teacher actions">
+ <a href="teachers.html" class="v22TeacherBtn"><span aria-hidden="true">👩‍🏫</span> Teachers</a>
+ <a href="student-account.html" class="v20SignIn v22SignIn">Sign In</a>
+ <a href="student-account.html#signup" class="navCta v22SignUp">Sign Up <span aria-hidden="true">→</span></a>
 </div>
 </nav>
 </header>
