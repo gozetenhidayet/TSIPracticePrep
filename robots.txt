@@ -1,6 +1,11 @@
+# ScorePath Practice — robots.txt
+# Public practice and info pages are indexable. Account/session pages are
+# marked noindex in their own meta tags and disallowed here as well.
+
 User-agent: *
 Allow: /
-Disallow: /student-room.html
 Disallow: /teacher-login.html
 Disallow: /student-account.html
+Disallow: /student-room.html
+
 Sitemap: https://scorepathpractice.com/sitemap.xml

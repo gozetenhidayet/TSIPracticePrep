@@ -1,26 +1,120 @@
-(function(){
- const CFG=window.SCOREPATH_FIREBASE_CONFIG||{};
- const configured=!!(CFG.apiKey&&CFG.projectId&&CFG.databaseURL);
- const PROFILE='scorepath_v19_profile';
- const SYNC_KEYS=['scorepath_v2_goal','scorepath_v13_goals','scorepath_v13_notes','scorepath_review_schedule','scorepath_error_reasons','scorepath_sAT_store','scorepath_aCT_store','scorepath_tSI_store'];
- function profile(){try{return JSON.parse(localStorage.getItem(PROFILE)||'null')}catch(e){return null}}
- function saveProfile(p){localStorage.setItem(PROFILE,JSON.stringify(p));window.dispatchEvent(new CustomEvent('scorepath:profile',{detail:p}))}
- function exportData(){const data={profile:profile(),savedAt:new Date().toISOString(),items:{}};for(const k of Object.keys(localStorage)){if(k.startsWith('scorepath'))data.items[k]=localStorage.getItem(k)}return data}
- function importData(data){if(!data||!data.items)return;Object.entries(data.items).forEach(([k,v])=>{if(k.startsWith('scorepath')&&typeof v==='string')localStorage.setItem(k,v)});if(data.profile)saveProfile(data.profile)}
- async function firebase(){if(!configured)return null; try{
-  const [{initializeApp,getApps},{getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut:fbSignOut},{getFirestore,doc,setDoc,getDoc,serverTimestamp}]=await Promise.all([
-   import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js'),
-   import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js'),
-   import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js')]);
-  const app=getApps().length?getApps()[0]:initializeApp(CFG),auth=getAuth(app),db=getFirestore(app);
-  return {auth,db,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,fbSignOut,doc,setDoc,getDoc,serverTimestamp};
- }catch(e){console.warn('ScorePath cloud sync unavailable; using local fallback.',e);return null}}
- async function cloudSave(){const f=await firebase();if(!f||!f.auth.currentUser)return false;await f.setDoc(f.doc(f.db,'students',f.auth.currentUser.uid),{payload:exportData(),updatedAt:f.serverTimestamp()},{merge:true});return true}
- async function cloudLoad(){const f=await firebase();if(!f||!f.auth.currentUser)return false;const snap=await f.getDoc(f.doc(f.db,'students',f.auth.currentUser.uid));if(snap.exists()&&snap.data().payload)importData(snap.data().payload);return true}
- async function createAccount(email,password,p){const f=await firebase();if(!f)throw new Error('Cloud account setup is not configured yet.');const c=await f.createUserWithEmailAndPassword(f.auth,email,password);saveProfile({...p,email,uid:c.user.uid,cloud:true});await cloudSave();return c.user}
- async function signIn(email,password){const f=await firebase();if(!f)throw new Error('Cloud account setup is not configured yet.');const c=await f.signInWithEmailAndPassword(f.auth,email,password);await cloudLoad();return c.user}
- async function signOut(){const f=await firebase();if(f)await f.fbSignOut(f.auth)}
- function deviceProfile(p){saveProfile({...p,cloud:false,deviceOnly:true});return profile()}
- async function boot(){document.documentElement.dataset.scorepathCloud=configured?'ready':'local'; if(configured){const f=await firebase();if(f)f.onAuthStateChanged(f.auth,u=>window.dispatchEvent(new CustomEvent('scorepath:auth',{detail:{user:u}})))}}
- window.ScorePathSync={configured,profile,saveProfile,deviceProfile,exportData,importData,cloudSave,cloudLoad,createAccount,signIn,signOut,boot};
+/*
+ * ScorePath Practice — student account sync engine
+ *
+ * Exposes window.ScorePathSync = { configured, boot(), signIn(), createAccount(), deviceProfile() }
+ *
+ * Without a real Firebase config (see firebase-config.js), every method
+ * that would need a server is honest about it: signIn/createAccount throw
+ * a clear, friendly error instead of pretending to create a cloud account.
+ * deviceProfile() always works — it's just local storage, no password,
+ * no network, matching what student-account.html tells the user.
+ */
+(function () {
+  const LOCAL_KEY = "scorepath_device_profile_v1";
+  const FIREBASE_JS_BASE = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const CONFIG = window.SCOREPATH_FIREBASE_CONFIG || null;
+
+  let app = null;
+  let auth = null;
+  let db = null;
+  let firebaseReadyPromise = null;
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-scorepath-fb="' + src + '"]');
+      if (existing) return resolve();
+      const s = document.createElement("script");
+      s.src = src;
+      s.setAttribute("data-scorepath-fb", src);
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("Could not load " + src));
+      document.head.appendChild(s);
+    });
+  }
+
+  async function ensureFirebase() {
+    if (!CONFIG) return false;
+    if (firebaseReadyPromise) return firebaseReadyPromise;
+    firebaseReadyPromise = (async () => {
+      try {
+        await loadScript(FIREBASE_JS_BASE + "firebase-app-compat.js");
+        await loadScript(FIREBASE_JS_BASE + "firebase-auth-compat.js");
+        await loadScript(FIREBASE_JS_BASE + "firebase-firestore-compat.js");
+        await loadScript(FIREBASE_JS_BASE + "firebase-database-compat.js");
+        if (!window.firebase) return false;
+        if (!window.firebase.apps.length) app = window.firebase.initializeApp(CONFIG);
+        else app = window.firebase.apps[0];
+        auth = window.firebase.auth();
+        db = window.firebase.firestore();
+        return true;
+      } catch (e) {
+        return false;
+      }
+    })();
+    return firebaseReadyPromise;
+  }
+
+  function boot() {
+    if (CONFIG) ensureFirebase();
+  }
+
+  const NOT_CONFIGURED_MSG =
+    'Cloud sync is not configured yet on this deployment. Use "Continue on This Device Only" instead, or ask the site owner to complete the Firebase setup in FIREBASE-SETUP.md.';
+
+  async function signIn(email, password) {
+    if (!CONFIG) throw new Error(NOT_CONFIGURED_MSG);
+    const ok = await ensureFirebase();
+    if (!ok) throw new Error("Could not reach the sync service. Check your connection or use device-only mode.");
+    const cred = await auth.signInWithEmailAndPassword(email, password);
+    return cred.user;
+  }
+
+  async function createAccount(email, password, profile) {
+    if (!CONFIG) throw new Error(NOT_CONFIGURED_MSG);
+    const ok = await ensureFirebase();
+    if (!ok) throw new Error("Could not reach the sync service. Check your connection or use device-only mode.");
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    try {
+      await db
+        .collection("students")
+        .doc(cred.user.uid)
+        .set({
+          firstName: (profile && profile.firstName) || "",
+          grade: (profile && profile.grade) || "",
+          createdAt: new Date().toISOString(),
+        });
+    } catch (e) {
+      // Account creation still succeeded even if the profile write failed;
+      // surface nothing scary to the student here.
+    }
+    return cred.user;
+  }
+
+  function deviceProfile(profile) {
+    localStorage.setItem(
+      LOCAL_KEY,
+      JSON.stringify({
+        firstName: (profile && profile.firstName) || "",
+        grade: (profile && profile.grade) || "",
+        savedAt: new Date().toISOString(),
+      })
+    );
+  }
+
+  function getDeviceProfile() {
+    try {
+      return JSON.parse(localStorage.getItem(LOCAL_KEY) || "null");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  window.ScorePathSync = {
+    configured: !!CONFIG,
+    boot,
+    signIn,
+    createAccount,
+    deviceProfile,
+    getDeviceProfile,
+  };
 })();

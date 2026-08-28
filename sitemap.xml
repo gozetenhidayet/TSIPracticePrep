@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  teacher-login.html, student-account.html, and student-room.html are left out
+  on purpose — they are account/session entry points, already marked
+  noindex,nofollow in their own meta tags, and listed in robots.txt Disallow.
+  The skills/*.html pages linked from sat.html, act.html, and tsia2.html are
+  not yet built (see README "Known gaps") and are intentionally left off this
+  sitemap until real, written content exists at those URLs.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://scorepathpractice.com/</loc></url>
-<url><loc>https://scorepathpractice.com/sat.html</loc></url>
-<url><loc>https://scorepathpractice.com/act.html</loc></url>
-<url><loc>https://scorepathpractice.com/tsia2.html</loc></url>
-<url><loc>https://scorepathpractice.com/resources.html</loc></url>
-<url><loc>https://scorepathpractice.com/about.html</loc></url>
-<url><loc>https://scorepathpractice.com/editorial-standards.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-english-conventions.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-english-knowledge-of-language.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-english-production-of-writing.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-math-algebra-functions.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-math-geometry-statistics.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-math-number-quantity.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-reading-craft-integration.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/act-reading-key-ideas-details.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-advanced-math.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-algebra.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-craft-and-structure.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-expression-of-ideas.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-geometry-and-trigonometry.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-information-and-ideas.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-problem-solving-and-data-analysis.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/sat-standard-english-conventions.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-algebraic-reasoning.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-geometric-spatial-reasoning.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-probabilistic-statistical-reasoning.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-quantitative-reasoning.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-reading-focused-elar.html</loc></url>
-<url><loc>https://scorepathpractice.com/skills/tsia2-writing-focused-elar.html</loc></url>
+  <url><loc>https://scorepathpractice.com/index.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://scorepathpractice.com/sat.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://scorepathpractice.com/act.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://scorepathpractice.com/tsia2.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://scorepathpractice.com/teachers.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://scorepathpractice.com/about.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://scorepathpractice.com/resources.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/graduation-guide.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/editorial-standards.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://scorepathpractice.com/disclaimer.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://scorepathpractice.com/privacy.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://scorepathpractice.com/terms.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://scorepathpractice.com/contact.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>
