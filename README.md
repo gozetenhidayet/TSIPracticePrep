@@ -143,6 +143,28 @@ Fixed by changing `.v10Hero .heroIn` from a two-column grid to a stacked block l
 
 Verified with Playwright: layout now matches the reference (centered text block, then three large full-width cards), the redesign holds up cleanly at tablet width (768px, no horizontal overflow), all card buttons still route correctly, zero console errors, and the regression suite is still clean.
 
+## Twelfth pass: SEO-optimized name for the TSI practice page
+
+The user asked for a page name/title for the TSI practice page that would stand out in search. Researched actual search behavior and competitor naming (Mometrix, TestPrep-Online, TestPrepReview, PracticeTestMaster, tsipracticetest.com, plus official college pages like Austin Community College and Collin College) — virtually every top-ranking result leads with the short, colloquial **"TSI"**, not the technically correct current exam name **"TSIA2"** (Texas Success Initiative Assessment 2.0). Even official college testing-office pages use "TSI" as the primary label, reserving "TSIA2" as a clarifying detail. Competitor titles also consistently include a year ("2026") and the word "Free."
+
+Updated `tsia2.html`'s `<title>`, meta description, Open Graph/Twitter tags, `<h1>`, and hero pill badge to lead with "TSI Practice Test 2026" (with "TSIA2" kept as a clarifying secondary term), matching the pattern that ranks well for this specific competitive term. Left the file's URL (`tsia2.html`) and the site's internal nav label ("TSI (TSIA2)") unchanged — renaming the URL would cost existing SEO equity for no benefit, and the nav label already reads well as a hybrid ("TSI (TSIA2)") for first-time visitors who may know it by either name.
+
+Before → after:
+- Title: "TSIA2 Practice Tests & Skill Practice | ScorePath" → "TSI Practice Test 2026 | Free TSIA2 Practice Questions | ScorePath"
+- H1: "TSIA2 Practice That Leads to the Next Step" → "TSI Practice Test — Free TSIA2 Math & ELAR Questions"
+
+Verified the page still loads cleanly and the full regression suite is unaffected.
+
+## Thirteenth pass: goal-aware post-test analysis, and Daily Focus / Score Goal card polish
+
+The user asked for two things. First: after a student finishes any TSIA2, SAT, or ACT practice test, show them a real-exam-style analysis — how many they missed, how far they are from their saved target, and what to do next, always phrased positively. Second: the blue "Daily Focus" card's buttons and the white "Score Goal" card both needed a visual refresh — the user said the Score Goal card looked flat/dull next to the blue card, and asked for animated effects on both.
+
+**Post-test analysis (`goalAwareAnalysis`).** Found that the TSI results screen's "Performance Analysis" paragraph was a genuine pre-existing bug — the placeholder text ("Analysis will appear after the test") was never actually replaced by any code, so TSI students never got an analysis at all. SAT/ACT had one (`analysisText`), but it only reported strongest/weakest skill and pacing — it never mentioned the student's saved target, never stated a plain mistake count, and wasn't consistently positive in tone. Added a new `goalAwareAnalysis(exam, set, answers)` function, wired in after the last finish-handler wrap for all three exams, that: states how many questions were missed in plain language; for SAT/ACT, compares the practice score estimate to the student's saved target and states the point gap (or congratulates them if they're already there); for TSIA2 (which deliberately never gets a fabricated numeric score, per the existing honesty design), breaks the result into Math and ELAR accuracy against their own goals and readiness labels; and always ends with one concrete, positive next step naming the specific weakest skill or domain. Verified with Playwright by completing real TSI, SAT, and ACT sets and reading the rendered analysis text for all three — correct mistake counts, correct target-gap math, positive framing throughout, zero console errors.
+
+(One implementation note: the first version of this referenced a few helper functions — `pct`, `satEstimate`, `actEstimate`, `goals`, `tsiaReadinessLabel` — that turned out to be scoped inside their own separate IIFEs elsewhere in the file and weren't actually reachable from where the new code needed to run. Rewrote `goalAwareAnalysis` to be fully self-contained with its own local copies of that math, so it doesn't depend on any other script block's internal scope.)
+
+**Card visual refresh.** Daily Focus buttons got icons and a left-border accent matching each exam's color (TSI purple, SAT orange, ACT blue). The Score Goal card got an animated flowing gradient top border, a slow-rotating soft-colored decoration in the corner (mirroring the Daily Focus card's existing one), colored top accents on its four target inputs matching the same exam colors, a hover lift, and a subtle shine animation across the progress bar. Both cards now fade/slide in on scroll using the site's existing reveal-on-scroll pattern. All animation is disabled under `prefers-reduced-motion`, matching how the rest of the site already handles that.
+
 ## Recommended next steps for performance, brand, and quality
 
 Not done in this pass, but worth doing before or shortly after launch, roughly in priority order:
