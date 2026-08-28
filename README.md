@@ -121,6 +121,28 @@ Also a deliberate scope decision: did not physically move the giant `sat-center`
 
 Verified with Playwright: hero card order, nav dropdown order (and that the mega-menu still opens on hover), footer links, goal card field order, daily/review buttons, all three selects, progress tabs, and cross-page nav order across all 12 secondary pages all read TSIA2 → SAT → ACT. Full regression suite (6 passes, 15 pages) still clean — the one flagged item (`net::ERR_TUNNEL_CONNECTION_FAILED` on the AdSense script) is this sandbox blocking an outbound ad-network call, unrelated to this change and present before it too.
 
+## Tenth pass: header + hero redesign on the homepage
+
+The user sent a mockup of a new header/hero look and asked to redesign "the top part" of the site to match it. Scope: `index.html`'s sticky header and hero section only (the 11 secondary pages use a much simpler plain-text nav with no equivalent hero, so there was nothing analogous to restyle there).
+
+Changes made to match the reference:
+- **Brand mark**: "ScorePath Practice" + "Practice Smarter. Progress Further." became a stacked "ScorePath" / "PRACTICE" lockup (small letter-spaced caps), matching the mockup's logo treatment.
+- **Nav pills**: TSI, SAT, and ACT dropdown buttons recolored to purple, orange, and blue respectively (previously blue/purple/orange) with matching icons (🎓 TSI, 📘 SAT, 🎯 ACT), including their hover states.
+- **Headline and copy**: "Practice. Improve. Know Your Next Step." → "Practice Smarter. Score Higher.", subheading and the three trust badges ("Realistic Questions", "Instant Feedback", "Track Progress") updated to match the reference copy. Removed the generic "Start Practice / Take Diagnostic" button row from the hero text column — it's redundant with each exam card's own buttons below (and the old "Take Diagnostic" button always opened the SAT diagnostic regardless of which exam a student meant, so this also removes a small pre-existing rough edge).
+- **Exam cards**: recolored to blue (TSI) / orange (SAT) / green (ACT) to match the mockup, added an icon glyph in the colored badge, a colored subtitle ("Texas Success Initiative" / "Digital SAT" / "The ACT Test"), a divider, and a short description line per card. Kept both the primary "Start [Exam] Practice →" button and the secondary "Diagnostic" button (reference only shows one button per card, but dropping Diagnostic would have removed a working feature, so it stays as a smaller secondary action).
+- **Texas watermark**: added a very low-opacity Texas outline + star as a decorative background element in the hero, right side, hidden below 1120px width — a nod to the site's Texas focus and the artwork visible in the reference.
+- **Stat bar**: the existing dark band below the hero (previously "Diagnostic / Timed or Untimed / Why it was wrong / Instant estimate") now reads "Join Thousands / 100% Free / Better Scores / No Sign-Up Needed" with matching icons, per the reference.
+
+Verified with Playwright: zero console errors, the nav dropdown mega-menus still open on hover, all three exam-card buttons still route to the correct practice section, mobile view (390px) has no horizontal overflow and the redesigned hero reflows cleanly, and the full regression suite is still clean (same pre-existing sandbox-only AdSense network failure as before, unrelated to this change).
+
+## Eleventh pass: hero layout fix — stacked, full-width cards
+
+After the Tenth pass redesign, the user pointed out the result still didn't match the mockup: the hero kept its old two-column layout (copy text on the left ~37% width, the three exam cards squeezed into the right ~63%), while the reference shows a single centered text block on top and three much bigger cards spanning the full width in a row underneath.
+
+Fixed by changing `.v10Hero .heroIn` from a two-column grid to a stacked block layout: the hero copy (eyebrow, headline, subtext, trust badges) is now a centered block up to 820px wide, and the exam cards sit below it as a full-width three-column row (up to 1300px), each card enlarged (more padding, bigger icon badge, bigger heading) to match the size and prominence in the reference. This also made the Texas watermark added in the previous pass clearly visible for the first time, since it's no longer covered by the cards column.
+
+Verified with Playwright: layout now matches the reference (centered text block, then three large full-width cards), the redesign holds up cleanly at tablet width (768px, no horizontal overflow), all card buttons still route correctly, zero console errors, and the regression suite is still clean.
+
 ## Recommended next steps for performance, brand, and quality
 
 Not done in this pass, but worth doing before or shortly after launch, roughly in priority order:
