@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — shared cookie-consent banner
+ * ScorePath Practice — shared cookie-consent banner + AdSense activation
  *
  * Self-installs on any page that loads this script: injects its own CSS,
  * the banner markup, and a "Cookie Preferences" reopen link into whatever
@@ -8,13 +8,21 @@
  * banner, so a visitor's choice is consistent across the whole site.
  *
  * index.html does NOT load this file — it already has its own inline copy
- * wired directly to its AdSense activation code. This file is for every
- * other page (sat/act/tsia2/teachers, and the info pages), which don't
- * show ads themselves but should still offer the same consent control and
- * respect the same choice, since Privacy policy applies site-wide.
+ * wired directly to its AdSense activation code (see the
+ * "scorepath-adsense-consent" script there). This file is for every other
+ * content page (sat/act/tsia2, and the info pages) that carries its own
+ * .spAdSlot placeholder(s): it shows the same consent banner AND, once a
+ * visitor accepts, fills any .spAdSlot on the page with a real AdSense unit
+ * — using the same off-by-default pattern as index.html.
+ *
+ * Off by default. Fill in ADSENSE_CLIENT_ID below once your AdSense account
+ * is approved (see README "Turning on ads"). Until then this file only
+ * manages the consent banner; .spAdSlot placements stay exactly as hidden
+ * as they were before.
  */
 (function () {
   var CONSENT_KEY = "scorepath_consent_v1";
+  var ADSENSE_CLIENT_ID = ""; // e.g. "ca-pub-1234567890123456" — same value as index.html's copy
 
   function getConsent() {
     try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
@@ -22,6 +30,43 @@
   function setConsent(v) {
     try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {}
   }
+
+  function loadAdSenseScript() {
+    if (!ADSENSE_CLIENT_ID) return;
+    if (document.getElementById("adsbygoogle-js")) return;
+    var s = document.createElement("script");
+    s.id = "adsbygoogle-js"; s.async = true; s.crossOrigin = "anonymous";
+    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(ADSENSE_CLIENT_ID);
+    document.head.appendChild(s);
+  }
+
+  function fillSlot(container, slotId) {
+    if (!container || !slotId || container.querySelector("ins.adsbygoogle")) return;
+    var ins = document.createElement("ins");
+    ins.className = "adsbygoogle";
+    ins.style.display = "block";
+    ins.setAttribute("data-ad-client", ADSENSE_CLIENT_ID);
+    ins.setAttribute("data-ad-slot", slotId);
+    ins.setAttribute("data-ad-format", "auto");
+    ins.setAttribute("data-full-width-responsive", "true");
+    container.innerHTML = "";
+    container.appendChild(ins);
+  }
+
+  function activateAds() {
+    if (!ADSENSE_CLIENT_ID || getConsent() !== "accepted") return;
+    loadAdSenseScript();
+    document.body.classList.add("ads-enabled");
+    document.querySelectorAll('.spAdSlot[data-ad-ready="true"]').forEach(function (el) {
+      fillSlot(el.querySelector("span") || el, el.getAttribute("data-ad-slot-id") || "");
+    });
+    setTimeout(function () {
+      document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(function () {
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+      });
+    }, 250);
+  }
+  window.__spActivateAds = activateAds;
 
   function injectStyles() {
     if (document.getElementById("sp-consent-shared-css")) return;
@@ -38,7 +83,12 @@
       ".spConsentBtn.accept{background:#2563eb;color:#fff}" +
       ".spConsentBtn.decline{background:rgba(255,255,255,.08);color:#e2e8f0;border:1px solid rgba(255,255,255,.18)}" +
       "@media(max-width:640px){.spConsent{padding:14px}.spConsentActions{margin-left:0;width:100%}.spConsentBtn{flex:1}}" +
-      ".spCookiePrefsFab{position:fixed;left:14px;bottom:14px;z-index:9998;background:#0f172a;color:#93c5fd;font-size:11px;font-weight:800;padding:8px 12px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.25);text-decoration:none}";
+      ".spCookiePrefsFab{position:fixed;left:14px;bottom:14px;z-index:9998;background:#0f172a;color:#93c5fd;font-size:11px;font-weight:800;padding:8px 12px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.25);text-decoration:none}" +
+      ".spAdSlot{display:none;margin:22px auto;max-width:970px;min-height:90px;border:1px dashed #cbd5e1;border-radius:13px;background:#fafafa;place-items:center;color:#94a3b8;font-size:11px}" +
+      '.spAdSlot span:before{content:"Advertisement";letter-spacing:.5px}' +
+      ".spAdSafeNote{display:none;max-width:970px;margin:-10px auto 22px;font-size:10.5px;color:#94a3b8;text-align:center}" +
+      ".ads-enabled .spAdSlot{display:grid!important}.ads-enabled .spAdSafeNote{display:block!important}" +
+      ".spAdSlot ins.adsbygoogle{display:block;width:100%}";
     document.head.appendChild(style);
   }
 
@@ -82,6 +132,7 @@
     injectFooterLink();
 
     if (!getConsent()) banner.classList.remove("hidden");
+    else if (getConsent() === "accepted") activateAds();
 
     document.getElementById("spConsentAccept").addEventListener("click", function () {
       setConsent("accepted");
