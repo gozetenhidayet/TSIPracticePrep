@@ -1,3 +1,32 @@
+/* Portable DOM stub: when question-bank-core.js/practice-engine-core.js are
+ * loaded on a page that doesn't have the main practice UI's elements (e.g.
+ * student-room.html, which only needs the real question bank, not the full
+ * TSI/SAT/ACT dashboard), $()/$v3() return this instead of null so any
+ * .value / .onclick= / .classList.add() style call on a "missing" element is
+ * a harmless no-op instead of a page-halting TypeError. On index.html itself
+ * every referenced id exists, so document.getElementById() always succeeds
+ * first and this stub is never actually used there — zero behavior change.
+ */
+var DOM_STUB = (function(){
+  function makeStub(){
+    var handler = {
+      get: function(target, prop){
+        if(prop === 'value' || prop === 'textContent' || prop === 'innerHTML' || prop === 'outerHTML' || prop === 'id' || prop === 'className') return '';
+        if(prop === 'style' || prop === 'dataset') return makeStub();
+        if(prop === 'classList') return {add:function(){},remove:function(){},toggle:function(){return false},contains:function(){return false}};
+        if(prop === 'children' || prop === 'childNodes' || prop === 'options') return [];
+        if(prop === 'checked' || prop === 'disabled' || prop === 'hidden') return false;
+        if(typeof prop === 'symbol') return undefined;
+        var fn = function(){ return makeStub() };
+        return new Proxy(fn, handler);
+      },
+      set: function(){ return true; },
+      apply: function(){ return makeStub(); }
+    };
+    return new Proxy(function(){}, handler);
+  }
+  return makeStub();
+})();
 
 
 const SAT_QUESTIONS = [
@@ -145,7 +174,7 @@ const QUESTIONS = [
 let store=JSON.parse(localStorage.getItem("scorepathTSI")||'{"answered":0,"correct":0,"mistakes":[],"bookmarks":[],"history":[],"essay":""}');
 let state={set:[],i:0,answers:{},confidence:{},flags:[],timed:false,start:0,seconds:0,timerId:null,mode:"",submitted:{}};
 
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id)||DOM_STUB;
 function save(){localStorage.setItem("scorepathTSI",JSON.stringify(store));updateDash()}
 function updateDash(){
  $("statAnswered").textContent=store.answered||0;
@@ -170,7 +199,7 @@ function selectSet(mode){
  return [];
 }
 function startTest(mode){
- if(mode==="essay"){hideAll();$("essayLab").classList.add("show");$("essayText").value=store.essay||"";updateWords();location.hash="tsi-center";return}
+ if(mode==="essay"){hideAll();$("essayLab").classList.add("show");$("essayText").value=store.essay||"";const ep=store.essayPlan||{};$("planThesis").value=ep.thesis||"";$("planOne").value=ep.one||"";$("planTwo").value=ep.two||"";$("planConclusion").value=ep.conclusion||"";updateWords();$("essayEstimateBox").style.display="none";if(typeof renderEssayHistory==="function")renderEssayHistory("essayHistoryList","scorepathTSIEssayHistory");location.hash="tsi-center";return}
  clearInterval(state.timerId);
  const set=selectSet(mode);
  if(!set.length){alert("There are no saved questions in this list yet.");showDash();return}
@@ -290,7 +319,9 @@ $("bookmarkBtn").onclick=()=>{const q=state.set[state.i];store.bookmarks=store.b
 $("reviewMistakesBtn").onclick=()=>startTest("mistakes");$("backDashBtn").onclick=showDash;$("closeEssay").onclick=showDash;$("closeList").onclick=showDash;
 $("practiceSavedBtn").onclick=e=>startTest(e.currentTarget.dataset.type);
 $("essayText").addEventListener("input",()=>{updateWords();store.essay=$("essayText").value;localStorage.setItem("scorepathTSI",JSON.stringify(store))});
-$("saveEssay").onclick=()=>{store.essay=$("essayText").value;save();alert("Essay draft saved in this browser.")};
+function saveEssayPlan(){store.essayPlan={thesis:$("planThesis").value,one:$("planOne").value,two:$("planTwo").value,conclusion:$("planConclusion").value};localStorage.setItem("scorepathTSI",JSON.stringify(store))}
+["planThesis","planOne","planTwo","planConclusion"].forEach(id=>$(id).addEventListener("input",saveEssayPlan));
+$("saveEssay").onclick=()=>{store.essay=$("essayText").value;saveEssayPlan();save();alert("Essay draft saved in this browser.")};
 function safeClick(id,fn){const el=document.getElementById(id);if(el)el.onclick=fn}
 safeClick("heroTimed",()=>setTimeout(()=>startTest("timed"),50));
 
@@ -798,7 +829,7 @@ function genTSIMath(){
  const out=[];
  for(let n=0;n<24;n++){
    const a=randInt(2,9),x=randInt(2,15),b=randInt(1,12),rhs=a*x+b;
-   out.push({id:`TSI-GEN-ALG-${Date.now().toString(36)}-${n}`,exam:"TSI",section:"Mathematics",skill:"Algebraic Reasoning",difficulty:n%3===0?"Easy":n%3===1?"Medium":"Hard",
+   out.push({id:`TSI-GEN-ALG-${Date.now().toString(36)}-${n}`,exam:"TSI",section:"Mathematics",skill:"Algebraic Reasoning",difficulty:n%2===0?"Easy":"Medium",
    q:`Solve for x: ${a}x + ${b} = ${rhs}.`,choices:[String(x),String(x+1),String(Math.max(0,x-2)),String(x+3)],a:0,
    ex:`Subtract ${b} from both sides to get ${a}x = ${a*x}. Then divide by ${a}, so x = ${x}.`,
    why:[`${x} satisfies the equation.`,`${x+1} makes the left side too large.`,`${Math.max(0,x-2)} does not satisfy the equation.`,`${x+3} makes the left side too large.`],strategy:"Use inverse operations and check the solution by substitution."});
@@ -916,6 +947,8 @@ function saveACTWriting(){
 }
 function openACTWriting(){
  actHideAll();$("actWritingLab").classList.add("show");
+ if($("actEssayEstimateBox"))$("actEssayEstimateBox").style.display="none";
+ if(typeof renderEssayHistory==="function")renderEssayHistory("actEssayHistoryList","scorepathACTWritingHistory");
  if(!actWritingStore.prompt)setACTWritingPrompt();else $("actWritingPromptBox").innerHTML=`<b>Issue:</b> ${actWritingStore.prompt.issue}<br><br><b>Perspective 1:</b> ${actWritingStore.prompt.perspectives[0]}<br><b>Perspective 2:</b> ${actWritingStore.prompt.perspectives[1]}<br><b>Perspective 3:</b> ${actWritingStore.prompt.perspectives[2]}<br><br><b>Your task:</b> Write an essay in which you develop your own perspective on the issue and analyze the relationship between your perspective and at least one other perspective.`;
  $("actWritingText").value=actWritingStore.draft||"";$("actPosition").value=actWritingStore.position||"";$("actPerspectivePlan").value=actWritingStore.perspective||"";$("actCounterPlan").value=actWritingStore.counter||"";$("actEvidencePlan").value=actWritingStore.evidence||"";
  updateACTWritingWords();
@@ -930,3 +963,242 @@ $("actWritingText").addEventListener("input",()=>{updateACTWritingWords();saveAC
 
 updateSATDash();updateACTDash();
 updateDash();
+
+/* ---------- Essay Practice Estimate (heuristic, not an official score) ----------
+ * Computed only from real, measurable signals in what the student actually typed:
+ * word/sentence/paragraph counts, transition-word usage, sentence-length variety,
+ * and whether the planning fields (thesis/reasons/counterargument) are echoed in
+ * the draft. This never attempts grammar-correctness or fact-checking, and it is
+ * never shown as an official TSIA2/ACT score — every result is explicitly labeled
+ * "Practice Estimate," matching this project's standing rule against ever
+ * fabricating an official-looking score (the same rule that keeps TSIA2 from
+ * showing a fake 910–990 composite elsewhere on the site). Short/blank drafts
+ * are flagged as "not enough writing" rather than given a falsely confident level. */
+function ptWordCount(s){s=(s||"").trim();return s?s.split(/\s+/).length:0}
+function ptSentences(s){return (s||"").split(/(?<=[.!?])\s+/).map(x=>x.trim()).filter(Boolean)}
+function ptParagraphs(s){return (s||"").split(/\n{2,}/).map(x=>x.trim()).filter(x=>ptWordCount(x)>3)}
+const PT_TRANSITIONS=["however","therefore","furthermore","moreover","in addition","additionally","for example","for instance","in contrast","on the other hand","as a result","consequently","in conclusion","finally","first,","second,","third,","similarly","likewise","because","although","despite","while","whereas","overall","in summary","on balance"];
+function ptTransitionCount(text){const t=(text||"").toLowerCase();return PT_TRANSITIONS.reduce((n,w)=>n+(t.split(w).length-1),0)}
+function ptWordOverlap(a,b){const norm=s=>new Set((s||"").toLowerCase().match(/[a-z']{4,}/g)||[]);const A=norm(a),B=norm(b);if(!A.size||!B.size)return 0;let hit=0;A.forEach(w=>{if(B.has(w))hit++});return hit/A.size}
+function ptSentenceVariety(sentences){if(sentences.length<3)return 0;const lens=sentences.map(s=>ptWordCount(s));const avg=lens.reduce((a,b)=>a+b,0)/lens.length;const variance=lens.reduce((a,b)=>a+(b-avg)*(b-avg),0)/lens.length;return Math.sqrt(variance)}
+const PT_LEVELS=["Emerging","Developing","Proficient","Strong"];
+function ptLevelClass(i){return PT_LEVELS[i-1].toLowerCase().replace(/\s+/g,"")}
+function ptQuote(s,max){s=(s||"").trim().replace(/\s+/g," ");if(!s)return"";return s.length>max?s.slice(0,max).trim()+"…":s}
+/* ---------- Writing Mechanics scan (pattern-based only) ----------
+ * Deliberately narrow: only flags patterns that can be detected reliably with
+ * zero real NLP (repeated adjacent words, very long comma-less run-on
+ * sentences, very short sentence fragments, and a raw vocabulary-repetition
+ * ratio). This is NOT a grammar checker — it does not and cannot check
+ * subject-verb agreement, verb tense, or true sentence-boundary grammar,
+ * and it never auto-corrects. It only underlines/lists what it found so the
+ * student can judge and fix it themselves. */
+function ptRepeatedWords(essay){
+ const out=[],re=/\b([a-zA-Z']+)\s+\1\b/gi;let m;
+ while((m=re.exec(essay))&&out.length<3){out.push(ptQuote(essay.slice(Math.max(0,m.index-20),m.index+m[0].length+20),70))}
+ return out;
+}
+function ptRunOnSentences(sentences){
+ return sentences.filter(s=>ptWordCount(s)>40&&!/[,;:]/.test(s)).slice(0,2).map(s=>ptQuote(s,110));
+}
+function ptFragmentCandidates(sentences){
+ return sentences.filter(s=>{const w=ptWordCount(s);return w>0&&w<=3}).slice(0,2).map(s=>ptQuote(s,60));
+}
+function ptVocabDiversity(essay){
+ const words=(essay.toLowerCase().match(/[a-z']{2,}/g)||[]);
+ if(words.length<20)return 1;
+ return new Set(words).size/words.length;
+}
+function computeMechanics(essay,sentences){
+ const repeats=ptRepeatedWords(essay),runOns=ptRunOnSentences(sentences),fragments=ptFragmentCandidates(sentences);
+ const diversity=ptVocabDiversity(essay),diversityFlag=diversity<0.4;
+ return{repeats,runOns,fragments,diversity,diversityFlag,clean:!repeats.length&&!runOns.length&&!fragments.length&&!diversityFlag};
+}
+/* ---------- Real-exam-scale scoring ----------
+ * Verified against official documentation before building this:
+ * - ACT Writing: 4 official domains (Ideas & Analysis, Development & Support,
+ *   Organization, Language Use & Conventions), each domain officially reported
+ *   2-12 (two human readers score 1-6 and their scores are summed), and the
+ *   four domain scores are averaged and rounded to the final reported ACT
+ *   Writing score, also 2-12. ACT's own scoring page states plainly that the
+ *   writing test result does NOT affect the Composite score. Source: act.org
+ *   "Understanding ACT Writing Test Scores."
+ * - TSIA2 Essay: one official holistic score, 1-8, plus six named writing
+ *   dimensions used for feedback (purpose and focus; organization and
+ *   structure; development and support; sentence variety and style;
+ *   mechanical conventions; critical thinking) that are NOT themselves
+ *   separately reported as numbers. A student needs an essay score of 5 or
+ *   higher (paired with the ELAR multiple-choice CRC or Diagnostic result) to
+ *   be classified college-ready in ELAR. Source: College Board/ACCUPLACER
+ *   TSIA2 Technical Manual and "Interpreting Your Scores."
+ * This site has no human readers and no certified NLP scoring engine, so
+ * neither function below claims to reproduce an official score. Both are
+ * explicitly labeled "Practice Estimate" and computed only from the same
+ * measurable signals used elsewhere on this site (length, paragraph/sentence
+ * structure, transition usage, sentence variety, thesis echo, and the
+ * pattern-based Mechanics scan) — just mapped onto the real reporting scale
+ * of the exam it's practicing for, instead of an invented 1-4 scale, so a
+ * student sees a number that means the same thing as the real test's number. */
+function scoreLevel1to4(conds){return Math.min(4,1+conds.filter(Boolean).length)}
+function scoreLevel1to6(conds){return Math.min(6,1+conds.filter(Boolean).length)}
+function essaySignals(fields){
+ const essay=fields.essay||"",words=ptWordCount(essay);
+ const paragraphs=ptParagraphs(essay),sentences=ptSentences(essay),transitions=ptTransitionCount(essay),variety=ptSentenceVariety(sentences);
+ const thesisWords=ptWordCount(fields.thesis),thesisEcho=ptWordOverlap(fields.thesis,essay.slice(0,400));
+ const r1=ptWordCount(fields.reason1),r2=ptWordCount(fields.reason2);
+ const counterWords=ptWordCount(fields.counter),hasCounter=counterWords>=6;
+ const mechanics=computeMechanics(essay,sentences);
+ return{essay,words,paragraphs:paragraphs.length,sentences,transitions,variety,thesisWords,thesisEcho,r1,r2,counterWords,hasCounter,mechanics};
+}
+function act6Label(raw){if(raw<=2)return"Emerging";if(raw<=4)return"Developing";if(raw===5)return"Proficient";return"Strong"}
+
+/* ---------- TSIA2 Essay: 1-8 holistic, 6 named dimensions (feedback only, not sub-scored per official docs) ---------- */
+const TSI_DIMENSIONS=["Purpose & Focus","Organization & Structure","Development & Support","Sentence Variety & Style","Mechanical Conventions","Critical Thinking"];
+function tsiDimensionLevel(name,s){
+ switch(name){
+  case "Purpose & Focus":return scoreLevel1to4([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3]);
+  case "Organization & Structure":return scoreLevel1to4([s.paragraphs>=3,s.paragraphs>=4,s.transitions>=3]);
+  case "Development & Support":return scoreLevel1to4([s.r1>=8,s.r2>=8,s.words>=250]);
+  case "Sentence Variety & Style":return scoreLevel1to4([s.sentences.length>=6,s.variety>=3,s.sentences.length>0&&s.sentences.every(x=>ptWordCount(x)<=55)]);
+  case "Mechanical Conventions":{let b=4;if(s.mechanics.repeats.length)b--;if(s.mechanics.runOns.length)b--;if(s.mechanics.fragments.length)b--;if(s.mechanics.diversityFlag)b--;return Math.max(1,b)}
+  case "Critical Thinking":return scoreLevel1to4([s.hasCounter,s.counterWords>=15,s.counterWords>=25]);
+ }
+ return 1;
+}
+function computeTSIEssayEstimate(fields){
+ const s=essaySignals(fields);
+ if(s.words<60)return{insufficient:true,words:s.words};
+ const dims=TSI_DIMENSIONS.map(name=>({name,level:tsiDimensionLevel(name,s)}));
+ const rawSum=dims.reduce((a,d)=>a+d.level,0); // 6..24
+ const holistic=Math.max(1,Math.min(8,Math.round(1+(rawSum-6)*(7/18)))); // maps onto TSIA2's real 1-8 essay scale
+ const band=Math.max(1,Math.min(4,Math.ceil(holistic/2)));
+ const gateMet=holistic>=5;
+ const byName=n=>dims.find(d=>d.name===n).level;
+ const candidates=[
+  {level:byName("Purpose & Focus"),text:s.thesisWords<6?"Your thesis/position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned thesis ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':null)},
+  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned reasons are very short ("+(s.r1<8?'reason 1: "'+ptQuote(fields.reason1,50)+'"':'reason 2: "'+ptQuote(fields.reason2,50)+'"')+") — each should include a specific example or explanation, not just a one-line claim.":(s.words<250?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null)},
+  {level:byName("Organization & Structure"),text:s.paragraphs<3?"Your essay reads as "+s.paragraphs+" paragraph"+(s.paragraphs===1?"":"s")+" (separated by a blank line) — a typical response has an introduction, at least two body paragraphs, and a conclusion.":(s.transitions<3?'Few transition words were detected ("however," "for example," "as a result," etc.) — these help connect your ideas explicitly.':null)},
+  {level:byName("Sentence Variety & Style"),text:(s.variety<3&&s.sentences.length>=3)?"Your sentences are fairly uniform in length — varying short and long sentences usually reads more clearly.":null},
+  {level:byName("Mechanical Conventions"),text:s.mechanics.runOns.length?'One sentence runs long without a comma or break: "'+s.mechanics.runOns[0]+'" — consider splitting it.':(s.mechanics.repeats.length?'A word repeats back-to-back: "'+s.mechanics.repeats[0]+'" — check for a typo or duplicated word.':null)},
+  {level:byName("Critical Thinking"),text:!s.hasCounter?"Consider addressing a counterargument or alternate viewpoint, then explain why your position still holds — TSIA2's Critical Thinking dimension looks for this directly.":(s.counterWords<15?'Your counterargument note ("'+ptQuote(fields.counter,50)+'") is brief — develop it a bit more before explaining why your position still holds.':null)}
+ ].filter(c=>c.text).sort((a,b)=>a.level-b.level);
+ const improvements=candidates.slice(0,3).map(c=>c.text);
+ const strengths=[];
+ if(byName("Purpose & Focus")>=3)strengths.push(s.thesisWords>=6?'Your thesis ("'+ptQuote(fields.thesis,70)+'") is clearly stated and reflected in your essay.':"Your position is clearly stated and maintained.");
+ if(byName("Development & Support")>=3)strengths.push("Your reasons are developed with real length and detail, not just brief claims.");
+ if(byName("Organization & Structure")>=3)strengths.push("Your essay is organized into "+s.paragraphs+" clear paragraphs"+(s.transitions>=3?" with visible transitions connecting ideas.":"."));
+ if(byName("Sentence Variety & Style")>=3)strengths.push("Your sentences vary in length and structure rather than reading as repetitive.");
+ if(byName("Mechanical Conventions")>=3)strengths.push("No major mechanical issues were flagged — no repeated words, run-on sentences, or short fragments detected.");
+ if(byName("Critical Thinking")>=3)strengths.push("You engage with a counterargument or alternate viewpoint before returning to your own position.");
+ return{insufficient:false,exam:"tsi",words:s.words,dims,holistic,band,bandLabel:PT_LEVELS[band-1],gateMet,strengths:strengths.slice(0,3),improvements,mechanics:s.mechanics};
+}
+
+/* ---------- ACT Writing: 4 official domains, each reported 2-12, overall 2-12 (kept out of the ACT Composite) ---------- */
+const ACT_DOMAINS=["Ideas & Analysis","Development & Support","Organization","Language Use & Conventions"];
+function actDomainLevel(name,s){
+ switch(name){
+  case "Ideas & Analysis":return scoreLevel1to6([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3,s.hasCounter,s.counterWords>=15]);
+  case "Development & Support":return scoreLevel1to6([s.r1>=8,s.r2>=8,s.words>=200,s.words>=300,s.words>=400]);
+  case "Organization":return scoreLevel1to6([s.paragraphs>=3,s.paragraphs>=4,s.paragraphs>=5,s.transitions>=2,s.transitions>=4]);
+  case "Language Use & Conventions":return scoreLevel1to6([s.sentences.length>=6,s.variety>=3,s.variety>=6,s.sentences.length>0&&s.sentences.every(x=>ptWordCount(x)<=55),s.mechanics.clean]);
+ }
+ return 1;
+}
+function computeACTWritingEstimate(fields){
+ const s=essaySignals(fields);
+ if(s.words<60)return{insufficient:true,words:s.words};
+ const domains=ACT_DOMAINS.map(name=>{const raw=actDomainLevel(name,s);return{label:name,raw,reported:raw*2}});
+ const overall=Math.round(domains.reduce((a,d)=>a+d.reported,0)/domains.length);
+ const byName=n=>domains.find(d=>d.label===n).raw;
+ const candidates=[
+  {level:byName("Ideas & Analysis"),text:s.thesisWords<6?"Your position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned position ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':(!s.hasCounter?"Consider engaging more directly with another perspective on the issue, then explain the relationship between it and your own view.":null))},
+  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned perspectives/evidence notes are very short — each should include a specific example or explanation, not just a one-line claim.":(s.words<300?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null)},
+  {level:byName("Organization"),text:s.paragraphs<3?"Your essay reads as "+s.paragraphs+" paragraph"+(s.paragraphs===1?"":"s")+" — a typical response has an introduction, body paragraphs for each idea, and a conclusion.":(s.transitions<2?'Few transition words were detected — these help connect your ideas explicitly.':null)},
+  {level:byName("Language Use & Conventions"),text:(s.variety<3&&s.sentences.length>=3)?"Your sentences are fairly uniform in length — varying short and long sentences usually reads more clearly.":(s.mechanics.runOns.length?'One sentence runs long without a comma or break: "'+s.mechanics.runOns[0]+'" — consider splitting it.':(s.mechanics.repeats.length?'A word repeats back-to-back: "'+s.mechanics.repeats[0]+'" — check for a typo or duplicated word.':null))}
+ ].filter(c=>c.text).sort((a,b)=>a.level-b.level);
+ const improvements=candidates.slice(0,3).map(c=>c.text);
+ const strengths=[];
+ if(byName("Ideas & Analysis")>=4)strengths.push("You state a clear position and engage with another perspective on the issue.");
+ if(byName("Development & Support")>=4)strengths.push("Your reasoning is developed with real length and detail, not just brief claims.");
+ if(byName("Organization")>=4)strengths.push("Your essay is organized into "+s.paragraphs+" clear paragraphs"+(s.transitions>=2?" with visible transitions connecting ideas.":"."));
+ if(byName("Language Use & Conventions")>=4)strengths.push("Your sentences vary in length and structure, and no mechanical issues were flagged.");
+ return{insufficient:false,exam:"act",words:s.words,domains,overall,strengths:strengths.slice(0,3),improvements,mechanics:s.mechanics};
+}
+
+function saveEssayHistoryEntry(key,result,promptText){
+ if(result.insufficient)return;
+ const raw=localStorage.getItem(key);let hist=[];try{hist=raw?JSON.parse(raw):[]}catch(e){hist=[]}
+ const entry=result.exam==="tsi"
+  ?{date:new Date().toISOString(),words:result.words,overall:result.holistic,scaleMax:8,label:result.bandLabel,prompt:ptQuote(promptText||"",60)}
+  :{date:new Date().toISOString(),words:result.words,overall:result.overall,scaleMax:12,label:act6Label(Math.round(result.overall/2)),prompt:ptQuote(promptText||"",60)};
+ hist.unshift(entry);
+ hist=hist.slice(0,10);
+ localStorage.setItem(key,JSON.stringify(hist));
+ return hist;
+}
+function renderEssayHistory(listId,key){
+ const el=$(listId);if(!el)return;
+ const raw=localStorage.getItem(key);let hist=[];try{hist=raw?JSON.parse(raw):[]}catch(e){hist=[]}
+ if(!hist.length){el.innerHTML='<span class="estimateCaveat">No checked drafts yet in this browser. Each time you use "Check My Essay," the result is added here so you can see your progress across drafts.</span>';return}
+ el.innerHTML="<b>Your Practice Estimate history (this browser only):</b><ul>"+hist.map(h=>{const d=new Date(h.date);const when=isNaN(d)?"":d.toLocaleDateString()+" "+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});return "<li>"+when+" — <b>"+h.label+"</b> ("+h.overall+"/"+h.scaleMax+", "+h.words+" words)"+(h.prompt?' — <i>"'+h.prompt+'"</i>':"")+"</li>"}).join("")+"</ul>";
+}
+function mechanicsHtml(m){
+ let html='<div class="estimateMechanics"><b>Writing Mechanics scan</b><span class="estimateCaveat">Pattern-based only — not a full grammar checker. It does not check verb tense or subject-verb agreement, and it never auto-corrects; review each item yourself.</span>';
+ if(m.clean)html+="<div>No repeated words, very long comma-less sentences, or very short fragments were detected.</div>";
+ else{
+  html+="<ul>";
+  m.repeats.forEach(r=>html+='<li>Repeated word: "'+r+'"</li>');
+  m.runOns.forEach(r=>html+='<li>Long sentence with no internal comma/break: "'+r+'"</li>');
+  m.fragments.forEach(r=>html+='<li>Very short sentence/possible fragment: "'+r+'"</li>');
+  if(m.diversityFlag)html+="<li>Vocabulary looks repetitive across the essay — try varying word choice where you can.</li>";
+  html+="</ul>";
+ }
+ return html+"</div>";
+}
+function renderTSIEstimate(boxId,overallId,domainsId,notesId,result,historyListId,historyKey,promptText){
+ const box=$(boxId);if(!box)return;box.style.display="block";
+ if(result.insufficient){
+  $(domainsId).innerHTML="";
+  $(overallId).textContent="Practice Estimate: not enough writing yet";
+  $(notesId).innerHTML='<div class="estimateInsufficient">Only '+result.words+" word"+(result.words===1?"":"s")+' detected — write at least 60 words so structure and development can be measured. Short or blank essays are not scored, to avoid a misleading result.</div>';
+  if(historyListId)renderEssayHistory(historyListId,historyKey);
+  return;
+ }
+ $(overallId).textContent="Practice Estimate: "+result.holistic+" / 8 ("+result.bandLabel+") — TSIA2's real Essay scale";
+ $(domainsId).innerHTML=result.dims.map(d=>'<div class="estimateDomain"><b>'+d.name+'<span class="level '+ptLevelClass(d.level)+'">'+PT_LEVELS[d.level-1]+"</span></b></div>").join("");
+ let html='<div class="estimateGate '+(result.gateMet?"met":"notmet")+'">'+(result.gateMet?"This estimate ("+result.holistic+"/8) meets the ≥5 essay score TSIA2 requires as part of ELAR college-ready classification — real classification still requires pairing this with your multiple-choice CRC or Diagnostic result; this is a practice estimate, not an official score.":"Real TSIA2 ELAR college-ready classification requires an essay score of 5 or higher, paired with your multiple-choice CRC or Diagnostic result. This practice estimate ("+result.holistic+"/8) is below that threshold — treat it as a signal to strengthen the essay, not a final judgment.")+'</div>';
+ if(result.strengths.length)html+="<b>Strengths detected:</b><ul>"+result.strengths.map(n=>"<li>"+n+"</li>").join("")+"</ul>";
+ if(result.improvements.length)html+="<b>What to check first (top "+result.improvements.length+"):</b><ul>"+result.improvements.map(n=>"<li>"+n+"</li>").join("")+"</ul>";
+ if(!result.strengths.length&&!result.improvements.length)html+="<b>Solid structural signals detected.</b> This still isn't a grammar or fact check — reread your draft once more for clarity and correctness.";
+ html+=mechanicsHtml(result.mechanics);
+ $(notesId).innerHTML=html;
+ if(historyListId&&historyKey){saveEssayHistoryEntry(historyKey,result,promptText);renderEssayHistory(historyListId,historyKey)}
+}
+function renderACTEstimate(boxId,overallId,domainsId,notesId,result,historyListId,historyKey,promptText){
+ const box=$(boxId);if(!box)return;box.style.display="block";
+ if(result.insufficient){
+  $(domainsId).innerHTML="";
+  $(overallId).textContent="Practice Estimate: not enough writing yet";
+  $(notesId).innerHTML='<div class="estimateInsufficient">Only '+result.words+" word"+(result.words===1?"":"s")+' detected — write at least 60 words so structure and development can be measured. Short or blank essays are not scored, to avoid a misleading result.</div>';
+  if(historyListId)renderEssayHistory(historyListId,historyKey);
+  return;
+ }
+ $(overallId).textContent="Practice Estimate: "+result.overall+" / 12 — ACT Writing's real scale (not part of your ACT Composite)";
+ $(domainsId).innerHTML=result.domains.map(d=>'<div class="estimateDomain"><b>'+d.label+'<span class="level '+ptLevelClass(Math.max(1,Math.min(4,Math.ceil(d.raw/1.5))))+'">'+d.reported+"/12</span></b></div>").join("");
+ let html="";
+ if(result.strengths.length)html+="<b>Strengths detected:</b><ul>"+result.strengths.map(n=>"<li>"+n+"</li>").join("")+"</ul>";
+ if(result.improvements.length)html+="<b>What to check first (top "+result.improvements.length+"):</b><ul>"+result.improvements.map(n=>"<li>"+n+"</li>").join("")+"</ul>";
+ if(!result.strengths.length&&!result.improvements.length)html+="<b>Solid structural signals detected.</b> This still isn't a grammar or fact check — reread your draft once more for clarity and correctness.";
+ html+=mechanicsHtml(result.mechanics);
+ $(notesId).innerHTML=html;
+ if(historyListId&&historyKey){saveEssayHistoryEntry(historyKey,result,promptText);renderEssayHistory(historyListId,historyKey)}
+}
+if($("checkEssay"))$("checkEssay").onclick=()=>{
+ const result=computeTSIEssayEstimate({essay:$("essayText").value,thesis:$("planThesis").value,reason1:$("planOne").value,reason2:$("planTwo").value,counter:$("planConclusion").value});
+ renderTSIEstimate("essayEstimateBox","essayEstimateOverall","essayEstimateDomains","essayEstimateNotes",result,"essayHistoryList","scorepathTSIEssayHistory",$("essayPromptBox")?$("essayPromptBox").textContent:"");
+};
+if($("checkActWriting"))$("checkActWriting").onclick=()=>{
+ const result=computeACTWritingEstimate({essay:$("actWritingText").value,thesis:$("actPosition").value,reason1:$("actPerspectivePlan").value,reason2:$("actEvidencePlan").value,counter:$("actCounterPlan").value});
+ renderACTEstimate("actEssayEstimateBox","actEssayEstimateOverall","actEssayEstimateDomains","actEssayEstimateNotes",result,"actEssayHistoryList","scorepathACTWritingHistory",$("actWritingPromptBox")?$("actWritingPromptBox").textContent:"");
+};
+if($("essayHistoryList"))renderEssayHistory("essayHistoryList","scorepathTSIEssayHistory");
+if($("actEssayHistoryList"))renderEssayHistory("actEssayHistoryList","scorepathACTWritingHistory");

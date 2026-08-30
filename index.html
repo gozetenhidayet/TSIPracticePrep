@@ -277,7 +277,26 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 .selfCheck label{display:flex;gap:8px;align-items:flex-start;border:1px solid #e5e7eb;border-radius:10px;padding:9px;background:#fff;font-size:12px}
 .selfCheck input{width:auto;margin-top:2px}
 .practiceDepth{margin-top:14px;padding:13px;border:1px solid #dbeafe;background:#eff6ff;border-radius:12px;color:#334155;font-size:12px;line-height:1.55}
-@media(max-width:700px){.bankInfo,.essayRubric,.selfCheck{grid-template-columns:1fr}}
+.essayEstimate{margin-top:14px;padding:14px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:14px}
+.essayEstimate .estimateHead b{display:block;font-size:15px;margin-bottom:4px}
+.essayEstimate .estimateCaveat{display:block;font-size:11px;color:#475569;line-height:1.55}
+.estimateDomains{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
+.estimateDomain{border:1px solid #e0f2fe;border-radius:10px;padding:10px;background:#fff}
+.estimateDomain b{display:flex;justify-content:space-between;font-size:12px}
+.estimateDomain .level{font-weight:900}
+.estimateDomain .level.emerging{color:#b45309}.estimateDomain .level.developing{color:#a16207}.estimateDomain .level.proficient{color:#0369a1}.estimateDomain .level.strong{color:#166534}
+.estimateNotes{margin-top:12px;font-size:12px;color:#334155;line-height:1.6}
+.estimateNotes ul{margin:6px 0 0;padding-left:18px}
+.estimateInsufficient{margin-top:12px;padding:11px;border-radius:10px;background:#fef3c7;color:#92400e;font-size:12px;font-weight:700}
+.estimateGate{margin:0 0 12px;padding:11px;border-radius:10px;font-size:12px;line-height:1.55;font-weight:600}
+.estimateGate.met{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.estimateGate.notmet{background:#fef3c7;border:1px solid #fde68a;color:#92400e}
+.estimateMechanics{margin-top:12px;padding:11px;border-radius:10px;background:#fff;border:1px dashed #bae6fd;font-size:12px;color:#334155;line-height:1.55}
+.estimateMechanics b{display:block;margin-bottom:2px}
+.estimateMechanics ul{margin:6px 0 0;padding-left:18px}
+.estimateHistory{margin-top:12px;padding:11px;border-radius:10px;background:#fff;border:1px solid #e0f2fe;font-size:12px;color:#334155;line-height:1.6}
+.estimateHistory ul{margin:6px 0 0;padding-left:18px}
+@media(max-width:700px){.bankInfo,.essayRubric,.selfCheck,.estimateDomains{grid-template-columns:1fr}}
 
 
 /* V6 blueprint-integrity layer */
@@ -1083,6 +1102,34 @@ function spConsole(method){
   <div class="essayLab" id="actListPanel"><h3 id="actListTitle">My ACT Mistakes</h3><p style="color:#64748b;font-size:13px" id="actListIntro"></p><div id="actSavedList"></div><div class="ctas"><button class="btn primary" id="actPracticeSavedBtn">Practice These Questions</button><button class="btn" style="background:#e2e8f0;color:#0f172a" id="actCloseList">Return to ACT Dashboard</button></div></div>
  </div>
 </div>
+<div class="essayLab" id="actWritingLab">
+   <div class="qmeta"><span class="tag">ACT Writing Practice</span><span class="tag">Optional Writing</span><span class="sourceTag">Original Practice Prompt</span></div>
+   <h3>ACT Writing Lab</h3>
+   <p style="color:#64748b;font-size:13px;line-height:1.6">Practice developing a clear position on a complex issue, considering multiple perspectives, organizing reasoning, and revising your writing. This is independent practice, not an official ACT Writing score.</p>
+   <div class="essayPromptPicker"><button class="smallbtn primary2" id="newActWritingPrompt">New Prompt</button><button class="smallbtn" id="saveActWriting">Save Draft</button><button class="smallbtn" id="checkActWriting">Check My Essay</button><button class="smallbtn" id="closeActWriting">Return to ACT Dashboard</button></div>
+   <div class="essayPrompt" id="actWritingPromptBox"></div>
+   <div class="essayGrid">
+    <div><label>Your Position</label><textarea id="actPosition" placeholder="State your position clearly."></textarea></div>
+    <div><label>Perspective You Agree With Most</label><textarea id="actPerspectivePlan" placeholder="Explain which perspective you find strongest and why."></textarea></div>
+    <div><label>Counterpoint / Limitation</label><textarea id="actCounterPlan" placeholder="Address a competing viewpoint or limitation."></textarea></div>
+    <div><label>Evidence / Examples</label><textarea id="actEvidencePlan" placeholder="List specific examples, evidence, or reasoning you will use."></textarea></div>
+   </div>
+   <div class="essayMain"><label>Write Your Essay</label><textarea id="actWritingText" placeholder="Draft your ACT-style argument essay here..."></textarea><div class="essayMeta"><span id="actWritingWordCount">0 words</span><span id="actWritingSaveStatus">Draft saves in this browser.</span></div></div>
+   <div class="essayRubric">
+    <div class="rubricItem"><b>Ideas & Analysis</b><span>Develop a clear position and engage meaningfully with the issue and perspectives.</span></div>
+    <div class="rubricItem"><b>Development & Support</b><span>Explain reasoning with relevant examples and sufficient detail.</span></div>
+    <div class="rubricItem"><b>Organization</b><span>Use purposeful sequencing, paragraphing, and transitions.</span></div>
+    <div class="rubricItem"><b>Language Use & Conventions</b><span>Use clear, controlled sentences and standard written English.</span></div>
+   </div>
+   <div class="essayEstimate" id="actEssayEstimateBox" style="display:none">
+    <div class="estimateHead"><b id="actEssayEstimateOverall">Practice Estimate: —</b><span class="estimateCaveat">Computed from real, measurable signals in what you wrote below, mapped onto ACT Writing's actual 4-domain, 2–12 reporting scale (Ideas &amp; Analysis, Development &amp; Support, Organization, Language Use &amp; Conventions). It is <u>not</u> an official, human-scored ACT Writing score, is always reported separately from your ACT Composite (which never includes Writing), and does not evaluate true grammar correctness or the truth of your reasoning.</span></div>
+    <div class="estimateDomains" id="actEssayEstimateDomains"></div>
+    <div class="estimateNotes" id="actEssayEstimateNotes"></div>
+   </div>
+   <div class="estimateHistory" id="actEssayHistoryList"></div>
+   <div class="practiceDepth"><b>Important:</b> ACT Writing is optional in the current enhanced ACT structure and is reported separately — it is not part of the ACT Composite score. This lab is only for students who choose or need to practice the optional writing component.</div>
+  </div>
+
 </section>
 
 <section class="section" id="tsi-center">
@@ -1180,7 +1227,7 @@ function spConsole(method){
    <div class="qmeta"><span class="tag">TSI Essay Practice</span><span class="sourceTag">Original Practice Prompt</span><span class="reviewTag">Practice Writing Lab</span></div>
    <h3>TSI Essay Lab</h3>
    <p style="color:#64748b;font-size:13px;line-height:1.6">Use this lab to practice planning, drafting, revising, and self-checking an academic position essay. Feedback here is for learning and is not an official TSIA2 essay score.</p>
-   <div class="essayPromptPicker"><button class="smallbtn primary2" id="newEssayPrompt">New Prompt</button><button class="smallbtn" id="saveEssay">Save Draft</button><button class="smallbtn" id="closeEssay">Return to Dashboard</button></div>
+   <div class="essayPromptPicker"><button class="smallbtn primary2" id="newEssayPrompt">New Prompt</button><button class="smallbtn" id="saveEssay">Save Draft</button><button class="smallbtn" id="checkEssay">Check My Essay</button><button class="smallbtn" id="closeEssay">Return to Dashboard</button></div>
    <div class="essayPrompt" id="essayPromptBox"></div>
    <div class="essayGrid">
     <div><label>Thesis / Main Position</label><textarea id="planThesis" placeholder="State a clear position that directly answers the prompt."></textarea></div>
@@ -1190,11 +1237,19 @@ function spConsole(method){
    </div>
    <div class="essayMain"><label>Write Your Essay</label><textarea id="essayText" placeholder="Draft your full essay here..."></textarea><div class="essayMeta"><span id="wordCount">0 words</span><span id="essaySaveStatus">Draft saves in this browser.</span></div></div>
    <div class="essayRubric">
-    <div class="rubricItem"><b>Position & Focus</b><span>Is the thesis clear, specific, and maintained throughout the essay?</span></div>
-    <div class="rubricItem"><b>Development</b><span>Are reasons explained with specific examples, details, or logical support?</span></div>
-    <div class="rubricItem"><b>Organization</b><span>Do ideas follow a logical sequence with effective transitions?</span></div>
-    <div class="rubricItem"><b>Sentence & Language Control</b><span>Are sentences clear and varied, with appropriate grammar, usage, and punctuation?</span></div>
+    <div class="rubricItem"><b>Purpose & Focus</b><span>Is the thesis clear, specific, and maintained throughout the essay?</span></div>
+    <div class="rubricItem"><b>Organization & Structure</b><span>Do ideas follow a logical sequence, with paragraphing and effective transitions?</span></div>
+    <div class="rubricItem"><b>Development & Support</b><span>Are reasons explained with specific examples, details, or logical support?</span></div>
+    <div class="rubricItem"><b>Sentence Variety & Style</b><span>Are sentences clear and varied rather than repetitive in length and structure?</span></div>
+    <div class="rubricItem"><b>Mechanical Conventions</b><span>Grammar, usage, punctuation, and other surface-level writing conventions.</span></div>
+    <div class="rubricItem"><b>Critical Thinking</b><span>Does the essay engage with a counterargument or alternate viewpoint?</span></div>
    </div>
+   <div class="essayEstimate" id="essayEstimateBox" style="display:none">
+    <div class="estimateHead"><b id="essayEstimateOverall">Practice Estimate: —</b><span class="estimateCaveat">Computed from real, measurable signals in what you wrote below, mapped onto TSIA2's actual 1–8 Essay scale and its six real writing dimensions (purpose &amp; focus, organization &amp; structure, development &amp; support, sentence variety &amp; style, mechanical conventions, critical thinking). It is <u>not</u> an official, human- or engine-scored TSIA2 essay score, and does not evaluate true grammar correctness or the truth of your reasoning.</span></div>
+    <div class="estimateDomains" id="essayEstimateDomains"></div>
+    <div class="estimateNotes" id="essayEstimateNotes"></div>
+   </div>
+   <div class="estimateHistory" id="essayHistoryList"></div>
    <div class="selfCheck">
     <label><input type="checkbox" class="tsiEssayCheck"> My thesis directly answers the prompt.</label>
     <label><input type="checkbox" class="tsiEssayCheck"> Each body paragraph has a clear reason and support.</label>
@@ -1204,27 +1259,7 @@ function spConsole(method){
    <div class="practiceDepth"><b>Revision goal:</b> after completing the first draft, revise at least one paragraph for stronger evidence and one sentence for clearer structure. Practice improvement comes from revision, not only from writing more drafts.</div>
   </div>
 
-  <div class="essayLab" id="actWritingLab">
-   <div class="qmeta"><span class="tag">ACT Writing Practice</span><span class="tag">Optional Writing</span><span class="sourceTag">Original Practice Prompt</span></div>
-   <h3>ACT Writing Lab</h3>
-   <p style="color:#64748b;font-size:13px;line-height:1.6">Practice developing a clear position on a complex issue, considering multiple perspectives, organizing reasoning, and revising your writing. This is independent practice, not an official ACT Writing score.</p>
-   <div class="essayPromptPicker"><button class="smallbtn primary2" id="newActWritingPrompt">New Prompt</button><button class="smallbtn" id="saveActWriting">Save Draft</button><button class="smallbtn" id="closeActWriting">Return to ACT Dashboard</button></div>
-   <div class="essayPrompt" id="actWritingPromptBox"></div>
-   <div class="essayGrid">
-    <div><label>Your Position</label><textarea id="actPosition" placeholder="State your position clearly."></textarea></div>
-    <div><label>Perspective You Agree With Most</label><textarea id="actPerspectivePlan" placeholder="Explain which perspective you find strongest and why."></textarea></div>
-    <div><label>Counterpoint / Limitation</label><textarea id="actCounterPlan" placeholder="Address a competing viewpoint or limitation."></textarea></div>
-    <div><label>Evidence / Examples</label><textarea id="actEvidencePlan" placeholder="List specific examples, evidence, or reasoning you will use."></textarea></div>
-   </div>
-   <div class="essayMain"><label>Write Your Essay</label><textarea id="actWritingText" placeholder="Draft your ACT-style argument essay here..."></textarea><div class="essayMeta"><span id="actWritingWordCount">0 words</span><span id="actWritingSaveStatus">Draft saves in this browser.</span></div></div>
-   <div class="essayRubric">
-    <div class="rubricItem"><b>Ideas & Analysis</b><span>Develop a clear position and engage meaningfully with the issue and perspectives.</span></div>
-    <div class="rubricItem"><b>Development & Support</b><span>Explain reasoning with relevant examples and sufficient detail.</span></div>
-    <div class="rubricItem"><b>Organization</b><span>Use purposeful sequencing, paragraphing, and transitions.</span></div>
-    <div class="rubricItem"><b>Language Use & Conventions</b><span>Use clear, controlled sentences and standard written English.</span></div>
-   </div>
-   <div class="practiceDepth"><b>Important:</b> ACT Writing is optional in the current enhanced ACT structure. This lab is only for students who choose or need to practice the optional writing component.</div>
-  </div>
+  
 
   <div class="essayLab" id="listPanel">
    <h3 id="listTitle">My Mistakes</h3>
