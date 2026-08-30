@@ -10,9 +10,9 @@
   — Google's own guidance is to fix that by leaving noindex'd URLs out of the
   sitemap entirely, not by also blocking them in robots.txt (a robots.txt
   block would stop Googlebot from ever seeing the noindex tag at all).
-  The skills/*.html pages linked from sat.html, act.html, and tsia2.html are
-  not yet built (see README "Known gaps") and are intentionally left off this
-  sitemap until real, written content exists at those URLs.
+  The 22 skills/*.html pages linked from sat.html, act.html, and tsia2.html
+  are now built with real, skill-specific explanations and worked examples
+  and are listed below.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://scorepathpractice.com/index.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
@@ -27,4 +27,26 @@
   <url><loc>https://scorepathpractice.com/privacy.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://scorepathpractice.com/terms.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://scorepathpractice.com/contact.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-information-and-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-craft-and-structure.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-expression-of-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-standard-english-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-algebra.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-advanced-math.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-problem-solving-data-analysis.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/sat-geometry-trigonometry.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-production-of-writing.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-knowledge-of-language.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-number-quantity.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-algebra-functions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-geometry-statistics.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-key-ideas-details.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/act-craft-integration.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-quantitative-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-algebraic-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-geometric-spatial-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-probabilistic-statistical-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-reading-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://scorepathpractice.com/skills/tsia2-writing-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

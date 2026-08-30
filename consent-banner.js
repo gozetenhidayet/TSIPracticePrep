@@ -23,6 +23,8 @@
 (function () {
   var CONSENT_KEY = "scorepath_consent_v1";
   var ADSENSE_CLIENT_ID = ""; // e.g. "ca-pub-1234567890123456" — same value as index.html's copy
+  // Pages under /skills/ (or any future subdirectory) need a "../" prefix on root-relative links.
+  var ROOT_PREFIX = /\/skills\//.test(location.pathname) ? "../" : "";
 
   function getConsent() {
     try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
@@ -101,7 +103,7 @@
     div.setAttribute("role", "dialog");
     div.setAttribute("aria-label", "Cookie preferences");
     div.innerHTML =
-      '<p><b>Cookies &amp; ads.</b> ScorePath Practice can show ads on some pages to help keep practice free. Ads and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="privacy.html">Privacy</a>.</p>' +
+      '<p><b>Cookies &amp; ads.</b> ScorePath Practice can show ads on some pages to help keep practice free. Ads and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="' + ROOT_PREFIX + 'privacy.html">Privacy</a>.</p>' +
       '<div class="spConsentActions"><button class="spConsentBtn decline" id="spConsentDecline" type="button">Decline</button><button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button></div>';
     document.body.appendChild(div);
     return div;
