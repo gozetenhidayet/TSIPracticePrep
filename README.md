@@ -269,6 +269,30 @@ The user asked for a full check of the entire site for anything missing, broken,
 
 Full regression suite (now 38 pages, up from 16, with the back-button check updated to also accept a skill page's more useful "back to its own exam page" link alongside the original "back to home" pattern) re-run clean — only the known sandbox-only AdSense network restriction remains.
 
+## Twenty-first pass: fact-checked an external technical audit, fixed what was real, corrected what wasn't
+
+The user forwarded a detailed, 35-point external technical review of the exported ZIP (not written by an earlier pass of this project) claiming AdSense, canonical/sitemap, performance, and mobile-nav problems, and asked whether anything was actually missing. Every point was checked directly against the live code — some were real and got fixed, one was a real bug the review itself didn't catch, a few were already correctly handled in the Twentieth pass and the review's claim about them was simply out of date or mistaken, and the rest are the same "requires the site owner's own account/approval" category already documented throughout this README (not something any pass can fabricate).
+
+**Real, fixed this pass:**
+
+- **Homepage canonical URL now points to `https://scorepathpractice.com/`, not `/index.html`.** Updated the `<link rel="canonical">` and `og:url` tags, and `sitemap.xml`'s homepage entry, to match — the review was right that a homepage's canonical is conventionally the bare root, and that canonical/sitemap/internal signals should agree. Added `_redirects` (Netlify), `vercel.json` (Vercel), and `.htaccess` (Apache/cPanel) at the repo root, each doing a harmless-if-unused 301 from `/index.html` to `/` on whichever host actually reads that file, so the two URLs never compete as duplicates once live.
+- **Search Console verification meta tag placeholder added** to `index.html`'s `<head>`, commented out, next to an explanation of where to get the real value (Search Console → Settings → Ownership verification → HTML tag) — this is a real gap the review caught; the tag itself can't be filled in with a real value without your own verified Search Console property, so it ships empty and documented like every other placeholder in this project.
+- **A real mobile bug the review's own list of 35 points didn't catch, found while checking its mobile-nav claim.** The review said the header's SAT/ACT/TSI category buttons rely on `:hover` and recommended switching to click — actually, a click-to-open handler already existed from an earlier pass, but a *later* pass's mobile redesign (a different `@media(max-width:870px)` block, added afterward) added `.mega{display:none!important}`, which unconditionally overrides the click-to-open CSS rule because `!important` always wins regardless of order. Net effect, verified live: on every phone-width screen, tapping any of the three header buttons (🎓 TSI, 📘 SAT, 🎯 ACT) did precisely nothing — no dropdown, no navigation, no visual feedback at all. It wasn't a total dead end for users (the "Choose an exam" tab row further down the same page switches exams correctly and was never affected — confirmed both before and after this fix, which is why regression testing never flagged it as broken), but three prominent, hover-styled header buttons doing nothing on tap is a real trust/polish problem on every phone visit. Fixed by making the tap itself call the same `v10ShowCenter()` function the working exam-switch tabs use, so it now jumps straight to that exam's practice center on every screen size — verified live on a 390px viewport (button tap → correct center becomes visible, page scrolls to it, zero console errors).
+- **`consent-banner.js` and `index.html`'s ad-consent script now document the EEA/UK/Switzerland Google-certified CMP requirement** the review flagged (confirmed current via [Google's own publisher policy](https://support.google.com/adsense/answer/13554116)) right next to the existing `ADSENSE_CLIENT_ID` placeholder, so whoever fills those in later sees the CMP step at the same time instead of discovering it separately. The custom Accept/Decline banner already built stays as the baseline consent gate everywhere; a Google-certified CMP (e.g. Google's own "Privacy & messaging" / Funding Choices, which generates its own script from inside a real, approved AdSense account) is the one piece that genuinely cannot be pre-built without that real account — same category as the publisher ID itself.
+- **Teacher sign-in preview notice made impossible to miss.** It already said, in small gray text under the Sign In button, that this was a static preview with no real auth — true and correctly worded, but easy to skim past. Replaced with an amber banner at the top of the whole form (visible on both the Sign In and Create Account tabs) stating plainly that no account is created and no password is checked.
+
+**Corrected — the review's claim didn't match the live code:**
+
+- **"Sitemap dates are in the future."** The review compared the skills pages' `2026-08-30` `<lastmod>` against an assumed "today" of `2026-08-29` — but the actual system date when this was checked is `2026-08-30` (`date -u` confirmed), the same day those 22 pages were built in the Twentieth pass. Not a bug; left as-is.
+- **"Desmos loads early, blocking the page."** Already fixed in the Twentieth pass — confirmed still in place: `<script defer src="...desmos...">` plus `<link rel="preconnect">`, unchanged since that pass.
+- **"The mobile mega-menu relies on unreliable `:hover`."** As detailed above, the real problem was the opposite and worse — a broken click handler, not a hover dependency — now fixed.
+
+**Still the same "requires your own action, can't be fabricated" list this README has documented since the Firebase/AdSense/Web3Forms placeholders were first added** — the review's points 1–3, 15–18, and 27 all land here: a real AdSense publisher ID and `ads.txt` line (needs Google's approval of a live domain), a real Google-certified CMP integration (needs that same approved AdSense account), a real Search Console verification value (needs your verified property), and a real Firebase backend for cross-device teacher/student accounts (needs your own Firebase project). Every one of these already has a placeholder built to receive the real value plus step-by-step instructions below ("Turning on ads," "Turning on cloud sync," "Setting up Google Search Console") — filling them in is the one thing that has to happen outside this codebase.
+
+**Deliberately not attempted this pass, and why:** the review's single highest-priority item — splitting `index.html`'s ~660KB of inline, tightly order-dependent scripts so each exam's engine and question bank loads only when a student opens that exam — is correctly identified as the biggest remaining performance lever, exactly as the Twentieth pass's own README already said. It was not rushed into this pass. The site's adaptive-test engines (SAT/ACT/TSIA2) took many prior passes of careful, regression-tested fixes to get correct (duplicate-choice bugs, stale-state-capture bugs, whole-test analysis merging, and more — see the Fifteenth through Nineteenth passes above); a same-turn rewrite of the loading order across ~20 interdependent inline `<script>` blocks risks silently reintroducing exactly that class of bug without the kind of dedicated, isolated, heavily-tested effort those earlier fixes got. This remains the top item in "Recommended next steps" below, and is the natural next dedicated pass if wanted.
+
+Full regression suite re-run after every fix above (38 pages) — clean except the one known sandbox-only AdSense network block that has appeared in every run this project.
+
 ## Recommended next steps for performance, brand, and quality
 
 Not done in this pass, but worth doing before or shortly after launch, roughly in priority order:
@@ -305,6 +329,7 @@ Ad inventory now lives on 7 pages, in two places:
 3. **`consent-banner.js`** (shared by `sat.html`, `act.html`, `tsia2.html`, `about.html`, `resources.html`, and `graduation-guide.html`): find `ADSENSE_CLIENT_ID` near the top of the file and fill in the same publisher ID as step 2 — one line, applies to all six pages at once. Each page's single `.spAdSlot` placement needs a `data-ad-slot-id="..."` attribute added to its `<div class="spAdSlot" data-ad-ready="true">` tag with the slot ID for that page (search `spAdSlot` in each file).
 4. Replace `ads.txt` with the real snippet AdSense gives you.
 5. Ads activate automatically for visitors who accept the cookie banner (on any of the 7 pages); nothing changes for visitors who decline, and ads never show on login/account pages, legal pages, or during an active practice test.
+6. **EEA / UK / Switzerland traffic needs one more step:** Google requires a [Google-certified Consent Management Platform](https://support.google.com/adsense/answer/13554116) for those regions, not just any custom cookie banner. Once your AdSense account is approved, its "Privacy & messaging" section (Funding Choices) generates a script tag for you — add it alongside the existing banner in `index.html` and `consent-banner.js` (a placeholder comment marks exactly where, next to `ADSENSE_CLIENT_ID` in both files). This can't be pre-built without a real, approved account behind it.
 
 ## Turning on the contact form (Web3Forms)
 
@@ -320,8 +345,8 @@ Until step 3 is done, visitors who submit the form see an honest "This form is n
 
 ## Setting up Google Search Console
 
-1. Add your property in [Search Console](https://search.google.com/search-console) and verify ownership (HTML file or meta tag method both work on a static host).
-2. Submit `sitemap.xml`.
+1. Add your property in [Search Console](https://search.google.com/search-console) and verify ownership (HTML file or meta tag method both work on a static host). For the meta tag method, `index.html` already has a commented-out `<meta name="google-site-verification">` placeholder right after the canonical link — uncomment it and paste your real value there.
+2. Submit `sitemap.xml`. Its homepage entry is `https://scorepathpractice.com/` (matching `index.html`'s own canonical tag), not `/index.html`.
 3. ~~Build out the `skills/*.html` pages~~ — done in the Twentieth pass and already listed in `sitemap.xml`; submit the sitemap and these 22 URLs will be eligible to be crawled and ranked.
 
 ## Monetization roadmap
@@ -336,10 +361,11 @@ Everything below is a concrete, honest next step — no invented traffic numbers
 
 ## Going live checklist
 
-- Every page uses `https://scorepathpractice.com` as its canonical/OG domain already — point your real DNS at this domain, or do a project-wide replace if you're using a different one.
+- Every page uses `https://scorepathpractice.com` as its canonical/OG domain already (the homepage canonicalizes to the bare root, every other page to its own URL) — point your real DNS at this domain, or do a project-wide replace if you're using a different one.
 - Paste a real Web3Forms access key into `contact.html` (see "Turning on the contact form" above) so messages actually reach you.
-- Fill in Firebase and AdSense config as above.
-- Add a `CNAME` file at the repo root if hosting on GitHub Pages with a custom domain.
+- Fill in Firebase and AdSense config as above, including the Google-certified CMP step for EEA/UK/Switzerland traffic (see "Turning on ads").
+- Uncomment and fill in the real `google-site-verification` meta tag in `index.html` once you've added the property in Search Console (or use the HTML-file verification method instead — either works).
+- Add a `CNAME` file at the repo root if hosting on GitHub Pages with a custom domain. `_redirects`/`vercel.json`/`.htaccess` are already included for Netlify/Vercel/Apache to 301 `/index.html` to `/`; GitHub Pages and Firebase Hosting serve `/` correctly by default with no extra file needed.
 
 ## Running it locally
 

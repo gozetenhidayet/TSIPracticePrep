@@ -9,10 +9,14 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="color-scheme" content="light">
 <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<link rel="canonical" href="https://scorepathpractice.com/index.html">
+<link rel="canonical" href="https://scorepathpractice.com/">
 <link rel="preconnect" href="https://www.desmos.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com">
 <link rel="dns-prefetch" href="https://www.gstatic.com">
+<!-- Search Console ownership verification. Get the real value from Search Console
+     (Settings > Ownership verification > HTML tag method) once you add this property —
+     it's tied to your own verified Google account and can't be filled in for you. -->
+<!-- <meta name="google-site-verification" content="REPLACE_WITH_YOUR_REAL_VERIFICATION_CODE"> -->
 
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -326,7 +330,7 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 <meta property="og:type" content="website">
 <meta property="og:title" content="Free TSIA2, SAT & ACT Practice Tests | ScorePath Practice">
 <meta property="og:description" content="Practice TSIA2, SAT, and ACT with original questions, realistic timed simulations, diagnostics, explanations, and progress tools.">
-<meta property="og:url" content="https://scorepathpractice.com/index.html">
+<meta property="og:url" content="https://scorepathpractice.com/">
 <meta property="og:site_name" content="ScorePath Practice">
 <meta property="og:image" content="https://scorepathpractice.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -1664,7 +1668,16 @@ function showList(type){
 }
 function updateWords(){const txt=$("essayText").value.trim();$("wordCount").textContent=(txt?txt.split(/\s+/).length:0)+" words"}
 $("menuBtn").onclick=()=>$("catnav").classList.toggle("open");
-document.querySelectorAll(".catbtn").forEach(btn=>btn.onclick=()=>{if(innerWidth<=870){const w=btn.closest(".catwrap");document.querySelectorAll(".catwrap").forEach(x=>{if(x!==w)x.classList.remove("open")});w.classList.toggle("open")}});
+document.querySelectorAll(".catbtn").forEach(btn=>btn.onclick=()=>{if(innerWidth<=870){const w=btn.closest(".catwrap");document.querySelectorAll(".catwrap").forEach(x=>{if(x!==w)x.classList.remove("open")});w.classList.toggle("open")}
+/* A later mobile-nav redesign (@media max-width:870px, see .mega{display:none!important}) unconditionally
+   hides the hover/click flyout below 870px, which left these three header buttons doing nothing visible
+   on any phone-width screen even though the .open toggle above still runs. Rather than fight that !important
+   rule (and risk the older hamburger-era CSS it coexists with), make the tap itself useful on every width:
+   jump straight to that exam's practice center, exactly like the "Choose an exam" buttons further down the
+   page already do. */
+const examKey=["tsi","sat","act"].find(c=>btn.classList.contains(c));
+if(examKey&&typeof window.v10ShowCenter==="function")window.v10ShowCenter(examKey);
+});
 document.querySelectorAll("[data-start]").forEach(x=>x.onclick=()=>startTest(x.dataset.start));
 document.querySelectorAll("[data-open]").forEach(x=>x.onclick=()=>setTimeout(()=>startTest(x.dataset.open),50));
 document.querySelectorAll("[data-panel]").forEach(x=>x.onclick=()=>x.dataset.panel==="home"?showDash():showList(x.dataset.panel));
@@ -3429,6 +3442,15 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
  * existing "scorepath-v9-ad-clean" style block), and the test screens
  * themselves never show ads (the .exam-running rule already guarantees
  * that, unchanged).
+ *
+ * EEA / UK / Switzerland visitors need more than this Accept/Decline banner
+ * once ads are live: Google requires publishers serving those regions to use
+ * a Google-certified Consent Management Platform (CMP), e.g. Google's own
+ * "Privacy & messaging" / Funding Choices, which generates its own script tag
+ * from inside your real AdSense account after approval — see
+ * https://support.google.com/adsense/answer/13554116. That tag gets added
+ * here alongside (not instead of) this banner once you have it; it can't be
+ * pre-built without a real, approved AdSense account behind it.
  */
 (function(){
   var ADSENSE_CLIENT_ID = ""; // e.g. "ca-pub-1234567890123456"

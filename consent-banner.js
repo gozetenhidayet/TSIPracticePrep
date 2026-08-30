@@ -19,6 +19,11 @@
  * is approved (see README "Turning on ads"). Until then this file only
  * manages the consent banner; .spAdSlot placements stay exactly as hidden
  * as they were before.
+ *
+ * EEA / UK / Switzerland visitors need a Google-certified CMP in addition to
+ * this banner once ads go live — see the matching note in index.html's
+ * "scorepath-adsense-consent" script and README "Turning on ads" for the
+ * one-time setup that happens inside your real, approved AdSense account.
  */
 (function () {
   var CONSENT_KEY = "scorepath_consent_v1";
