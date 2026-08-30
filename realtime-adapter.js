@@ -60,19 +60,32 @@
   }
 
   window.ScorePathRealtime = {
-    create(room, handler) {
+    async create(room, handler) {
+      // firebase-init.js loads the SDK asynchronously (only when real
+      // config is present) — wait for it so a page that acts on load
+      // doesn't race ahead of window.firebase actually existing yet.
+      if (window.SCOREPATH_FIREBASE_CONFIG && window.ScorePathFirebaseReady) {
+        try {
+          await window.ScorePathFirebaseReady;
+        } catch (e) {
+          // SDK failed to load — fall through to local demo mode below.
+        }
+      }
       if (canUseFirebase()) {
         try {
-          return Promise.resolve(firebaseChannel(room, handler));
+          return firebaseChannel(room, handler);
         } catch (e) {
           // fall through to local demo mode below
         }
       }
       const channel = localChannel(room);
       channel.addEventListener("message", handler);
-      return Promise.resolve(channel);
+      return channel;
     },
-    /** True when this session is actually syncing across devices via Firebase. */
+    /** True when this session is actually syncing across devices via Firebase.
+     * Only meaningful AFTER create() has resolved at least once (the SDK
+     * load is asynchronous) — check it from inside/after a .then(), not
+     * synchronously right after calling create(). */
     get isCloudSynced() {
       return canUseFirebase();
     },

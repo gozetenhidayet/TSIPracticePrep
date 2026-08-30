@@ -1,0 +1,11 @@
+{
+  "name": "scorepath-functions",
+  "description": "ScorePath server-side question serving + grading (Firebase Cloud Functions, 2nd gen). Keeps the real question bank and answer keys in Firestore only - never shipped to the browser as a downloadable bank.",
+  "engines": { "node": "20" },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "private": true
+}

@@ -1,0 +1,13 @@
+{
+  "name": "scorepath-migration-scripts",
+  "private": true,
+  "description": "One-time admin tools for migrating the ScorePath question bank into Firestore. Run these yourself with your own Firebase service-account key - they are never run automatically and never bundled into the deployed site.",
+  "scripts": {
+    "export-bank": "node export-bank-to-json.js",
+    "upload-bank": "node upload-bank-to-firestore.js"
+  },
+  "dependencies": {
+    "jsdom": "^24.0.0",
+    "firebase-admin": "^12.1.0"
+  }
+}

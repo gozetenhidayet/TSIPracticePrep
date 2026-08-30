@@ -1,0 +1,33 @@
+/*
+ * ScorePath — Firestore security rules.
+ *
+ * This project's real question bank + answer keys live in the `questions`
+ * collection (see scripts/upload-bank-to-firestore.js), and per-student
+ * assignment/permutation records live in `assignments` (see
+ * functions/lib/handlers.js). Neither collection is ever meant to be read
+ * or written directly by a browser — both are only ever touched through
+ * the two Cloud Functions in functions/index.js (getAssignmentQuestions,
+ * submitAnswer), which use the Admin SDK and therefore bypass these rules
+ * entirely. That's intentional and is the whole point: the answer key
+ * should never be reachable by a direct client-side Firestore read, only
+ * through the sanitizing Cloud Functions.
+ *
+ * Default-deny everything else too. If you add other Firestore-backed
+ * features later (e.g. real student/teacher accounts, synced practice
+ * history), add specific, scoped rules for those collections here — do not
+ * relax the default below to `allow read, write: if true` for convenience.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /questions/{docId} {
+      allow read, write: if false;
+    }
+    match /assignments/{docId} {
+      allow read, write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
