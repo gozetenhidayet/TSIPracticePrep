@@ -19,6 +19,14 @@
  * "Same Questions" vs. "Different Questions" behavior is unchanged — only
  * WHERE the selection runs has moved (server, not the student's browser).
  *
+ * Two more callables, createRoom/endRoom, back the real access-control
+ * model added alongside them (see lib/handlers.js's own top comment for
+ * the full rationale): a room must be created by an authenticated teacher
+ * before any student can be served questions in it, and getAssignmentQuestions/
+ * submitAnswer both require the caller to be signed in (teacher email/password,
+ * or anonymous student — see student-auth.js) as the exact studentId/teacherUid
+ * they claim to be.
+ *
  * The actual request/response logic lives in lib/handlers.js as plain,
  * transport-agnostic functions (so it can be unit-tested — see
  * test/handlers.test.js — without a live Firestore project). This file is
@@ -41,7 +49,7 @@ const handlers = makeHandlers(db, { serverTimestamp: () => FieldValue.serverTime
 function wrap(handlerFn) {
   return onCall({ cors: true }, async (request) => {
     try {
-      return await handlerFn(request.data);
+      return await handlerFn(request.data, request.auth);
     } catch (err) {
       if (err instanceof HandlerError) throw new HttpsError(err.code, err.message);
       console.error(err);
@@ -52,3 +60,5 @@ function wrap(handlerFn) {
 
 exports.getAssignmentQuestions = wrap(handlers.getAssignmentQuestions);
 exports.submitAnswer = wrap(handlers.submitAnswer);
+exports.createRoom = wrap(handlers.createRoom);
+exports.endRoom = wrap(handlers.endRoom);

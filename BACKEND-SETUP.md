@@ -85,12 +85,12 @@ exactly as it did before this pass — nothing here activates on its own.
    firebase deploy --only functions,firestore:rules,database
    ```
    (Drop `,database` from that command if you skipped step 3b.) This
-   publishes `getAssignmentQuestions` and `submitAnswer` (see
-   `functions/index.js`), locks down direct Firestore access to the
-   `questions`/`assignments` collections (see `firestore.rules`), and — if
-   you enabled Realtime Database — publishes `database.rules.json` so
-   classroom room events aren't left on whatever default rules Firebase
-   started your database with.
+   publishes `getAssignmentQuestions`, `submitAnswer`, `createRoom`, and
+   `endRoom` (see `functions/index.js`), locks down direct Firestore access
+   to the `questions`/`assignments`/`rooms`/`rateLimits` collections (see
+   `firestore.rules`), and — if you enabled Realtime Database — publishes
+   `database.rules.json` so classroom room events aren't left on whatever
+   default rules Firebase started your database with.
 
 6. **Migrate the question bank into Firestore.** This is the step that
    moves the real bank + answer keys out of the browser-downloadable JS
@@ -141,17 +141,45 @@ edit — but you do need one more thing enabled in the Firebase console:
    confirm the header pill on `teachers.html` shows the signed-in
    teacher's name with a working "Sign Out" link.
 
-Two things this does **not** yet do, stated plainly: signing in does not
-currently restrict which classrooms a teacher can see — classroom data is
-still stored per-browser (`localStorage`), the same as before this feature
-existed, so a real account today gives you a real identity and real
-credential check, but not yet per-teacher classroom ownership tied to that
-identity (that's a separate, larger next step — see README "Known gaps").
-And each new teacher's basic profile (name, school, subject) is written to
-Firestore at `teachers/{their-uid}` — readable/writable only by that same
-signed-in user (see `firestore.rules`) — but nothing in the app reads it
-back yet; it's captured for a future profile/roster feature, not displayed
-anywhere today.
+One thing this does **not** yet do, stated plainly: signing in does not
+restrict which classrooms a teacher can see IN THE UI — classroom setup
+data (school, class name, exam, timing) is still stored per-browser
+(`localStorage`), the same as before this feature existed, so a real
+account today gives you a real identity and real credential check for
+signing in, but the "My Classrooms" list itself isn't yet synced to or
+scoped by that identity across devices (that's a separate, larger next
+step — see README "Known gaps"). Server-side, though, room OWNERSHIP is
+now real: `createRoom` stamps every room with the creating teacher's own
+`auth.uid`, and only that same uid can `endRoom` it (see the next section
+and `functions/lib/handlers.js`) — that part doesn't depend on
+`localStorage` at all. Each new teacher's basic profile (name, school,
+subject) is written to Firestore at `teachers/{their-uid}` —
+readable/writable only by that same signed-in user (see `firestore.rules`)
+— but nothing in the app reads it back yet; it's captured for a future
+profile/roster feature, not displayed anywhere today.
+
+## Turning on real anonymous student sessions
+
+`getAssignmentQuestions`/`submitAnswer` require every caller — teacher or
+student — to be signed in, and require a student's claimed `studentId` to
+be their own real auth uid (see `functions/lib/handlers.js`'s own comment
+for the full reasoning). Teachers get this from step 8 above; students get
+it silently, with no form and nothing they see, via `student-auth.js`
+signing them into an **anonymous** Firebase Auth session the moment
+`student-room.html` needs to call the backend. This still needs one more
+thing enabled in the Firebase console, or every student's request will
+fail with an `auth/admin-restricted-operation`-style error:
+
+10. **Enable Anonymous sign-in** (Build → Authentication → Sign-in method
+    → Anonymous → Enable).
+11. **Test the full flow with two real devices/browsers**: create a room
+    on `teachers.html`, join from `student-room.html` on a second
+    device/browser, and confirm questions load and grade normally. Rooms
+    are also now closed server-side — clicking **End** (or creating a new
+    room, which implicitly ends the previous one) calls the new `endRoom`
+    function, and any further `getAssignmentQuestions`/`submitAnswer` call
+    against that room code will correctly fail with
+    `failed-precondition` once it's ended.
 
 ## How to verify it's actually working
 
@@ -162,6 +190,10 @@ anywhere today.
   Cloud Functions URL) — and should **not** show `question-bank-core.js` or
   `practice-engine-core.js` being requested at all.
 - `window.ScorePathBank` should be `undefined` throughout the whole session.
+- In the Firebase console's Firestore data tab, creating a classroom room
+  should produce a document at `rooms/{the class code}` with your
+  teacher account's uid in `teacherUid` and `active: true`; ending that
+  room (or starting a new one) should flip it to `active: false`.
 
 If any of the steps above aren't done yet (no Firestore data, functions not
 deployed, config still `null`), the site automatically falls back to
@@ -186,14 +218,21 @@ the browser. Nothing breaks partway through; each step is additive.
   this DOES stop is the trivial, instant case: a single `console.log` (or a
   `curl` on the static `.js` files) dumping the entire bank and every
   answer key in one shot. That's the real, meaningful gap this closes.
-- **No rate limiting or abuse protection is built into the two Cloud
-  Functions yet.** `student-room.html` still generates a fresh, unauthenticated
-  random student ID per visit with no login — the same trust model the
-  classroom feature already used before this pass. Someone could still
-  create many fake "students" in a room to slowly harvest more questions
-  than one real student would see. Firebase App Check (an anti-abuse
-  layer Google provides) would meaningfully raise this bar and is a
-  reasonable next step, but wasn't added in this pass.
+- **Basic abuse protection is now built in, but Firebase App Check still
+  isn't.** Every call now requires a real signed-in identity (anonymous
+  for students, real email/password for teachers), a student can no
+  longer claim someone else's `studentId`, and `getAssignmentQuestions`
+  rejects a caller making more than ~20 requests in a minute. A room also
+  has to actually exist (created by a real teacher via `createRoom`) and
+  still be active — a made-up or already-ended room code is rejected
+  before any bank content is ever read. This meaningfully raises the bar
+  over one unauthenticated random ID with no checks at all, but it's still
+  a plain per-identity counter, not an atomic transaction, and it does
+  nothing to stop one real identity from being reused across many scripted
+  sign-ins. Firebase App Check (an anti-abuse layer Google provides, tied
+  to a real reCAPTCHA/App Check registration only the site owner can set
+  up) would close that remaining gap and is still a reasonable next step,
+  not added in this pass.
 - **Ongoing cost.** Firestore reads and Cloud Functions invocations cost
   money past Firebase's free tier once real traffic arrives — review
   Firebase's current pricing before launching this to real students.
