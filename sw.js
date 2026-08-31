@@ -8,12 +8,13 @@
  * Bump CACHE_NAME whenever the cached file list changes so visitors
  * pick up the new version instead of a stale one.
  */
-const CACHE_NAME = "scorepath-shell-v1";
+const CACHE_NAME = "scorepath-shell-v2";
 const SHELL_FILES = [
   "./index.html",
   "./sat.html",
   "./act.html",
   "./tsia2.html",
+  "./teacher-login.html",
   "./teachers.html",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
