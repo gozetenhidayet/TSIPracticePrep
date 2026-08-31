@@ -1,1 +1,59 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#07142f"><title>Teacher Sign In | ScorePath Practice</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icons/icon-192.png"><style>*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 15% 10%,rgba(37,99,235,.28),transparent 30%),linear-gradient(135deg,#06132c,#113775);min-height:100vh;display:grid;place-items:center;padding:18px;color:#0f172a}.shell{width:min(930px,100%);display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.3)}.side{padding:35px;background:linear-gradient(145deg,#07142f,#1d4ed8);color:#fff}.side h1{font-size:38px;line-height:1.05}.side p{color:#dbeafe;line-height:1.6}.points{display:grid;gap:10px;margin-top:25px}.point{padding:11px 12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:13px;font-size:12px}.form{padding:35px}.tabs{display:flex;gap:7px;margin-bottom:20px}.tab{border:1px solid #dbe3ee;background:#fff;padding:9px 12px;border-radius:999px;font-weight:900}.tab.active{background:#0f172a;color:#fff}.pane{display:none}.pane.active{display:block}.fields{display:grid;gap:11px}.fields input{width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:12px;font:inherit}.btn{width:100%;border:0;border-radius:12px;padding:13px;background:#2563eb;color:#fff;font-weight:900;font:inherit;cursor:pointer}.small{font-size:11px;color:#64748b;line-height:1.5}.notice{margin-top:14px;padding:11px;border-radius:11px;background:#eff6ff;color:#1e3a8a;font-size:11px}.previewBanner{margin-bottom:16px;padding:11px 13px;border-radius:11px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:12px;font-weight:700;line-height:1.5}.back{display:inline-block;margin-top:17px;color:#2563eb;text-decoration:none;font-weight:900;font-size:12px}@media(max-width:760px){.shell{grid-template-columns:1fr}.side{padding:25px}.side h1{font-size:30px}.form{padding:25px}}</style></head><body><main class="shell"><section class="side"><div style="font-weight:950">ScorePath Teacher</div><h1>Teach from evidence, not guesswork.</h1><p>Secure teacher accounts will own classrooms, assignments, live controls, student rosters, and analytics.</p><div class="points"><div class="point">✓ Live room control</div><div class="point">✓ Question + skill analytics</div><div class="point">✓ Student progress history</div><div class="point">✓ Same-question or randomized assignments</div></div></section><section class="form"><div class="previewBanner">⚠ Static preview only — no real account is created and no password is checked. Both buttons below just open the classroom tool directly. Real authentication connects before public launch (see README).</div><div class="tabs"><button class="tab active" data-pane="signin">Sign In</button><button class="tab" data-pane="create">Create Teacher Account</button></div><div class="pane active" id="signin"><h2>Welcome back</h2><div class="fields"><input type="email" placeholder="School email"><input type="password" placeholder="Password"><button class="btn" onclick="location.href='teachers.html'">Sign In</button></div></div><div class="pane" id="create"><h2>Create teacher account</h2><div class="fields"><input placeholder="First name"><input placeholder="Last name"><input placeholder="School"><input type="email" placeholder="School email"><input placeholder="Grade / subject"><input type="password" placeholder="Create password"><button class="btn" onclick="location.href='teachers.html'">Create Account</button></div><div class="notice">Student accounts remain optional. Students can join a teacher room with Class Code + First Name + Last Initial + Grade.</div></div><a class="back" href="index.html">← Back to ScorePath Practice</a></section></main><script>document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('active',x.id===b.dataset.pane))})</script><script src="consent-banner.js"></script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#07142f"><title>Teacher Sign In | ScorePath Practice</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icons/icon-192.png"><style>*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 15% 10%,rgba(37,99,235,.28),transparent 30%),linear-gradient(135deg,#06132c,#113775);min-height:100vh;display:grid;place-items:center;padding:18px;color:#0f172a}.shell{width:min(930px,100%);display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.3)}.side{padding:35px;background:linear-gradient(145deg,#07142f,#1d4ed8);color:#fff}.side h1{font-size:38px;line-height:1.05}.side p{color:#dbeafe;line-height:1.6}.points{display:grid;gap:10px;margin-top:25px}.point{padding:11px 12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:13px;font-size:12px}.form{padding:35px}.tabs{display:flex;gap:7px;margin-bottom:20px}.tab{border:1px solid #dbe3ee;background:#fff;padding:9px 12px;border-radius:999px;font-weight:900}.tab.active{background:#0f172a;color:#fff}.pane{display:none}.pane.active{display:block}.fields{display:grid;gap:11px}.fields input{width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:12px;font:inherit}.btn{width:100%;border:0;border-radius:12px;padding:13px;background:#2563eb;color:#fff;font-weight:900;font:inherit;cursor:pointer}.btn[disabled]{opacity:.6;cursor:default}.small{font-size:11px;color:#64748b;line-height:1.5}.notice{margin-top:14px;padding:11px;border-radius:11px;background:#eff6ff;color:#1e3a8a;font-size:11px}.previewBanner{margin-bottom:16px;padding:11px 13px;border-radius:11px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:12px;font-weight:700;line-height:1.5}.errBanner{margin-bottom:14px;padding:11px 13px;border-radius:11px;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;font-size:12px;font-weight:700;line-height:1.5;display:none}.errBanner.show{display:block}.back{display:inline-block;margin-top:17px;color:#2563eb;text-decoration:none;font-weight:900;font-size:12px}@media(max-width:760px){.shell{grid-template-columns:1fr}.side{padding:25px}.side h1{font-size:30px}.form{padding:25px}}</style></head><body><main class="shell"><section class="side"><div style="font-weight:950">ScorePath Teacher</div><h1>Teach from evidence, not guesswork.</h1><p>Secure teacher accounts will own classrooms, assignments, live controls, student rosters, and analytics.</p><div class="points"><div class="point">✓ Live room control</div><div class="point">✓ Question + skill analytics</div><div class="point">✓ Student progress history</div><div class="point">✓ Same-question or randomized assignments</div></div></section><section class="form"><div class="previewBanner" id="previewBanner">⚠ Static preview only — no real account is created and no password is checked. Both buttons below just open the classroom tool directly. Real authentication connects once this site's owner configures Firebase (see BACKEND-SETUP.md).</div><div class="errBanner" id="errBanner"></div><div class="tabs"><button class="tab active" data-pane="signin">Sign In</button><button class="tab" data-pane="create">Create Teacher Account</button></div><div class="pane active" id="signin"><h2>Welcome back</h2><div class="fields"><input type="email" id="siEmail" placeholder="School email"><input type="password" id="siPassword" placeholder="Password"><button class="btn" id="siBtn">Sign In</button></div></div><div class="pane" id="create"><h2>Create teacher account</h2><div class="fields"><input id="suFirst" placeholder="First name"><input id="suLast" placeholder="Last name"><input id="suSchool" placeholder="School"><input type="email" id="suEmail" placeholder="School email"><input id="suSubject" placeholder="Grade / subject"><input type="password" id="suPassword" placeholder="Create password"><button class="btn" id="suBtn">Create Account</button></div><div class="notice">Student accounts remain optional. Students can join a teacher room with Class Code + First Name + Last Initial + Grade.</div></div><a class="back" href="index.html">← Back to ScorePath Practice</a></section></main><script src="firebase-config.js"></script><script src="firebase-init.js"></script><script src="teacher-auth.js"></script><script>
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('active',x.id===b.dataset.pane));hideError()});
+
+function hideError(){const el=document.getElementById('errBanner');el.classList.remove('show');el.textContent=''}
+function showError(msg){const el=document.getElementById('errBanner');el.textContent=msg;el.classList.add('show')}
+function setBusy(btn,busy,label){btn.disabled=busy;btn.textContent=busy?'Please wait…':label}
+
+const auth=window.ScorePathTeacherAuth;
+const configured=!!(auth&&auth.isConfigured);
+
+if(configured){
+  // Real Firebase Auth is available — update the banner to say so and wire
+  // both buttons to real sign-in/sign-up instead of the static shortcut.
+  const pb=document.getElementById('previewBanner');
+  pb.textContent='✓ Real teacher accounts are active for this site — sign in or create an account below.';
+  pb.style.background='#ecfdf5';pb.style.borderColor='#a7f3d0';pb.style.color='#065f46';
+
+  document.getElementById('siBtn').onclick=async()=>{
+    hideError();
+    const email=document.getElementById('siEmail').value;
+    const password=document.getElementById('siPassword').value;
+    if(!email||!password){showError('Enter your email and password.');return}
+    const btn=document.getElementById('siBtn');setBusy(btn,true,'Sign In');
+    try{
+      await auth.signIn(email,password);
+      location.href='teachers.html';
+    }catch(err){
+      showError(err.message);setBusy(btn,false,'Sign In');
+    }
+  };
+
+  document.getElementById('suBtn').onclick=async()=>{
+    hideError();
+    const profile={
+      firstName:document.getElementById('suFirst').value,
+      lastName:document.getElementById('suLast').value,
+      school:document.getElementById('suSchool').value,
+      email:document.getElementById('suEmail').value,
+      subject:document.getElementById('suSubject').value,
+      password:document.getElementById('suPassword').value,
+    };
+    if(!profile.email||!profile.password){showError('Enter an email and password.');return}
+    if(profile.password.length<6){showError('Choose a password with at least 6 characters.');return}
+    const btn=document.getElementById('suBtn');setBusy(btn,true,'Create Account');
+    try{
+      await auth.signUp(profile);
+      location.href='teachers.html';
+    }catch(err){
+      showError(err.message);setBusy(btn,false,'Create Account');
+    }
+  };
+}else{
+  // No Firebase configured yet — keep today's exact static-preview
+  // behavior (both buttons just open the classroom tool directly), so
+  // nothing changes on a site that hasn't set up Firebase.
+  document.getElementById('siBtn').onclick=()=>location.href='teachers.html';
+  document.getElementById('suBtn').onclick=()=>location.href='teachers.html';
+}
+</script><script src="consent-banner.js"></script></body></html>

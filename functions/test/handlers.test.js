@@ -12,6 +12,7 @@ const path = require('path');
 const assert = require('assert');
 const { FakeFirestore } = require('./fake-db');
 const { makeHandlers } = require('../lib/handlers');
+const { selectQuestions, difficultyTally, examBlueprintTargets } = require('../lib/pick');
 
 const exportPath = path.join(__dirname, '..', '..', 'scripts', 'bank-export.json');
 if (!fs.existsSync(exportPath)) {
@@ -95,6 +96,45 @@ async function main() {
   }
   assert.ok(refused, 'submitAnswer must refuse to grade a question outside the student\'s own assignment');
   console.log('[OK] submitAnswer refuses to grade a question not in this student\'s assignment (permission-denied)');
+
+  // --- 5b. "different" mode respects real blueprint-domain proportions, not
+  // just a flat round-robin across raw (fragmented) skill labels. ---
+  const roomCodeBP = 'TESTBP';
+  const bpCount = '24';
+  const bpRoomSeed = 'room-' + roomCodeBP;
+  const actBank = bank.filter((b) => b.examKey === 'ACT');
+  const bpTargetCounts = difficultyTally(selectQuestions(actBank, parseInt(bpCount, 10), bpRoomSeed));
+  const expected = {};
+  Object.keys(bpTargetCounts).forEach((diff) => {
+    const t = examBlueprintTargets('ACT', bpTargetCounts[diff]);
+    if (t) Object.keys(t).forEach((k) => (expected[k] = (expected[k] || 0) + t[k]));
+  });
+  const eve = await getAssignmentQuestions({
+    roomCode: roomCodeBP, studentId: 'eve', examKey: 'ACT', count: bpCount, mode: 'different',
+  });
+  assert.strictEqual(eve.questions.length, 24, 'eve should get 24 ACT questions');
+  const actual = {};
+  eve.questions.forEach((q) => {
+    const original = actBank.find((b) => b.id === q.id);
+    const key = (original.section || '') + '||' + (original.blueprintDomain || 'Unclassified');
+    actual[key] = (actual[key] || 0) + 1;
+  });
+  // Every domain the algorithm actually targeted should be represented at a
+  // count reasonably close to its real official weight — not exact (bank
+  // supply and rounding both leave slack), but nowhere near the old
+  // fragmented-skill-label round-robin's accidental skew, and every domain
+  // with a non-trivial target must show up at all (no domain silently
+  // dropped to zero).
+  let maxDrift = 0;
+  Object.keys(expected).forEach((key) => {
+    const want = expected[key], got = actual[key] || 0;
+    maxDrift = Math.max(maxDrift, Math.abs(want - got));
+    if (want >= 2) assert.ok(got >= 1, `domain ${key} targeted ${want} but got 0 — blueprint fairness broken`);
+  });
+  assert.ok(maxDrift <= 4, `blueprint-domain drift too large (${maxDrift}) — expected ${JSON.stringify(expected)} got ${JSON.stringify(actual)}`);
+  const distinctDomains = new Set(Object.keys(actual).map((k) => k.split('||')[1]));
+  assert.ok(distinctDomains.size >= 3, 'a 24-question ACT different-mode draw should span at least 3 distinct blueprint domains');
+  console.log('[OK] different-mode ACT draw matches real blueprint-domain proportions (expected≈actual, max drift', maxDrift + ')', actual);
 
   // --- 6. "same" mode: two students in the same room get byte-identical sets ---
   const s1 = await getAssignmentQuestions({ roomCode: 'TEST02', studentId: 'carol', examKey: 'SAT', count: '8', mode: 'same' });

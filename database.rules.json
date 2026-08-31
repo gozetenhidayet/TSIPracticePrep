@@ -1,0 +1,17 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      "$roomCode": {
+        "events": {
+          ".read": true,
+          ".write": true,
+          "$eventId": {
+            ".validate": "newData.hasChild('ts') && newData.child('ts').isNumber()"
+          }
+        }
+      }
+    }
+  }
+}

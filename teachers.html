@@ -9,7 +9,33 @@
 .guideBtn{border:1px solid #bfd1e5;background:linear-gradient(135deg,#fff,#eff6ff);color:#1f4f8c;border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(31,79,140,.08)}.guideBtn:hover{transform:translateY(-1px)}
 .v18Guide{position:fixed;inset:0;background:rgba(12,28,48,.38);backdrop-filter:blur(5px);z-index:9999;display:none;align-items:center;justify-content:center;padding:18px}.v18Guide.show{display:flex}.v18GuideCard{width:min(900px,96vw);max-height:90vh;overflow:auto;background:#fff;border:1px solid #dce6f0;border-radius:24px;box-shadow:0 28px 70px rgba(12,32,60,.24)}.v18GuideHead{padding:22px 24px 16px;display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #e7edf4}.v18GuideHead h2{margin:0;color:#10243f}.v18GuideHead p{margin:5px 0 0;color:#64748b}.v18GuideClose{width:38px;height:38px;border:0;border-radius:11px;background:#eef3f8;font-size:22px;cursor:pointer}.v18Steps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:20px 24px}.v18Step{border:1px solid #dfe7f0;border-radius:16px;padding:15px;background:#fbfdff}.v18Step b{display:block;color:#16365e;margin-bottom:5px}.v18Step span{font-size:13px;line-height:1.55;color:#617188}.v18Step i{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#eaf2ff;color:#245ca8;font-style:normal;font-weight:900;margin-bottom:8px}.v18GuideFoot{padding:0 24px 22px;color:#68778a;font-size:12px}.v18HelpStrip{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #d8e6f4;background:linear-gradient(135deg,#f8fbff,#f0f7ff);padding:12px 14px;border-radius:15px;margin-bottom:14px}.v18HelpStrip b{color:#16365e}.v18HelpStrip span{display:block;color:#68788c;font-size:12px;margin-top:2px}@media(max-width:700px){.v18Steps{grid-template-columns:1fr}.v18GuideHead{padding:18px}.v18Steps{padding:16px}.v18HelpStrip{align-items:flex-start;flex-direction:column}}
 </style>
-<script src="firebase-config.js"></script><script src="realtime-adapter.js"></script>
+<script src="firebase-config.js"></script><script src="firebase-init.js"></script><script src="teacher-auth.js"></script><script src="realtime-adapter.js"></script><script>
+/* Real teacher-account state for the header pill — only does anything once
+ * Firebase is actually configured; otherwise the pill stays exactly as it
+ * was (a plain link to teacher-login.html), so an unconfigured site is
+ * completely unaffected. This shows who's signed in and lets them sign
+ * out; it does not yet restrict which classrooms a signed-in teacher can
+ * see (classroom data is still per-browser localStorage, same as before —
+ * tying classroom ownership to a real account is a separate next step,
+ * see README "Known gaps"). */
+(async function(){
+  const auth=window.ScorePathTeacherAuth;
+  if(!auth||!auth.isConfigured)return;
+  if(document.readyState==='loading'){
+    await new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true}));
+  }
+  const pill=document.getElementById('teacherAccount');
+  if(!pill)return;
+  const user=await auth.currentUser();
+  if(user){
+    pill.textContent=(user.displayName||user.email||'Signed in')+' · Sign Out';
+    pill.removeAttribute('href');
+    pill.style.cursor='pointer';
+    pill.onclick=async(e)=>{e.preventDefault();await auth.signOut();location.reload()};
+  }
+  // If not signed in, the pill keeps linking to teacher-login.html unchanged.
+})();
+</script>
 <style id="v20-teacher-polish">
 body{background:linear-gradient(180deg,#f4f7fb 0,#eef3f9 100%)}.top{padding:12px 20px}.nav{max-width:1380px}.wrap{max-width:1380px;padding-top:20px}.v20BackHome{margin-left:auto!important}.nav .push{margin-left:0!important}
 .v18HelpStrip{border-radius:16px!important;background:linear-gradient(135deg,#f8fbff,#edf5ff)!important;border:1px solid #d8e7f7!important;margin-bottom:14px!important}.hero{grid-template-columns:1.15fr .85fr;gap:14px}.heroCard,.panel{border-radius:20px;box-shadow:0 12px 32px rgba(15,23,42,.055)}.heroPrimary{background:radial-gradient(circle at 85% 10%,rgba(56,189,248,.22),transparent 28%),linear-gradient(135deg,#0a1a37,#174b94 70%,#1d4ed8)}.heroCard h1{font-size:clamp(30px,3.3vw,44px);max-width:720px}.roomHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.roomLabel{font-size:10px;font-weight:950;letter-spacing:1.2px;color:#64748b}.roomHint{font-size:10px;font-weight:850;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;padding:6px 8px;border-radius:999px}.roomCode{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:42px;letter-spacing:7px;color:#1d4ed8;margin:4px 0 9px}.roomActions .btn{min-height:42px}.joinBox{background:#f8fbff;border-style:solid;border-color:#d8e7f7}.joinHelp{font-size:11px;color:#475569;margin:5px 0 8px;line-height:1.5}.joinUrl{background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:9px}.grid{grid-template-columns:340px 1fr;gap:14px;align-items:start}.panel{padding:20px}.fields{grid-template-columns:1fr}.fields label:nth-child(1),.fields label:nth-child(2){grid-column:auto}.modeGrid{grid-template-columns:1fr 1fr}.mode{min-height:96px;transition:.2s ease}.mode:hover{transform:translateY(-1px);border-color:#93c5fd}.sessionBar{gap:8px}.metric{background:#fbfdff;padding:12px}.students{min-height:180px;border:1px dashed #d6e0eb;border-radius:15px;padding:10px;background:#fbfdff}.analytics{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px;box-shadow:0 12px 32px rgba(15,23,42,.05)}.tabs{padding-bottom:10px}.tab.active{background:#173d7e;border-color:#173d7e}.btn:disabled{opacity:.45;cursor:not-allowed}.actions .btn{transition:.18s ease}.actions .btn:hover:not(:disabled){transform:translateY(-1px)}

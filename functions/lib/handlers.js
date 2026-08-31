@@ -71,7 +71,7 @@ function makeHandlers(db, { serverTimestamp } = {}) {
       picked = selectQuestions(bank, n, roomSeed);
     } else {
       const targetCounts = difficultyTally(selectQuestions(bank, n, roomSeed));
-      picked = selectQuestionsBalanced(bank, n, 'student-' + data.studentId, targetCounts);
+      picked = selectQuestionsBalanced(bank, n, 'student-' + data.studentId, targetCounts, data.examKey);
     }
 
     const assignmentKey = data.roomCode + '_' + data.studentId;

@@ -60,20 +60,37 @@ exactly as it did before this pass — nothing here activates on its own.
    `firestore.rules` in this repo already default-denies all direct client
    access, which is what you want.
 
+3b. **Enable Realtime Database too** (Build → Realtime Database → Create
+   database), if you want cross-device live classroom sessions (a teacher
+   on one device and students on others seeing the same room update live).
+   This is a *separate* product from Firestore and needs its own rules —
+   `database.rules.json` in this repo scopes access to `rooms/{roomCode}/events`
+   only (default-deny everywhere else) and validates that every event
+   carries a numeric timestamp. Its access model is "know the room code" —
+   the same trust level the class-code join flow already uses, not a
+   stronger per-user auth check — since students join anonymously by code
+   today. If you skip this step, classroom sessions keep working exactly
+   as they do now (same-browser/same-device only, via `BroadcastChannel`);
+   nothing breaks, you just don't get the cross-device upgrade.
+
 4. **Log in and connect the CLI to your project**, from this repo's root:
    ```
    firebase login
    firebase use --add        # pick your project, give it an alias like "default"
    ```
 
-5. **Deploy the Cloud Functions and Firestore rules:**
+5. **Deploy the Cloud Functions and both rule sets:**
    ```
    cd functions && npm install && cd ..
-   firebase deploy --only functions,firestore:rules
+   firebase deploy --only functions,firestore:rules,database
    ```
-   This publishes `getAssignmentQuestions` and `submitAnswer` (see
-   `functions/index.js`) and locks down direct Firestore access to the
-   `questions`/`assignments` collections (see `firestore.rules`).
+   (Drop `,database` from that command if you skipped step 3b.) This
+   publishes `getAssignmentQuestions` and `submitAnswer` (see
+   `functions/index.js`), locks down direct Firestore access to the
+   `questions`/`assignments` collections (see `firestore.rules`), and — if
+   you enabled Realtime Database — publishes `database.rules.json` so
+   classroom room events aren't left on whatever default rules Firebase
+   started your database with.
 
 6. **Migrate the question bank into Firestore.** This is the step that
    moves the real bank + answer keys out of the browser-downloadable JS
@@ -105,6 +122,36 @@ exactly as it did before this pass — nothing here activates on its own.
    `window.ScorePathBank` is `undefined` and no `question-bank-core.js` /
    `practice-engine-core.js` network request ever fires — that's the whole
    point of this pass.
+
+## Turning on real teacher accounts (email/password)
+
+Before Firebase is configured, `teacher-login.html`'s Sign In / Create
+Account buttons are an honest static preview — no account is created, no
+password is checked, both just open `teachers.html` directly (the page
+says so). Once you've done step 2 above (pasted real config into
+`firebase-config.js`), this becomes real automatically — no extra file to
+edit — but you do need one more thing enabled in the Firebase console:
+
+8. **Enable Email/Password sign-in** (Build → Authentication → Sign-in
+   method → Email/Password → Enable). Without this step, real-looking
+   Sign In / Create Account forms will appear (the preview banner switches
+   to "Real teacher accounts are active") but every attempt will fail with
+   an `auth/operation-not-allowed`-style error, so don't skip it.
+9. **Test account creation and sign-in** on `teacher-login.html`, then
+   confirm the header pill on `teachers.html` shows the signed-in
+   teacher's name with a working "Sign Out" link.
+
+Two things this does **not** yet do, stated plainly: signing in does not
+currently restrict which classrooms a teacher can see — classroom data is
+still stored per-browser (`localStorage`), the same as before this feature
+existed, so a real account today gives you a real identity and real
+credential check, but not yet per-teacher classroom ownership tied to that
+identity (that's a separate, larger next step — see README "Known gaps").
+And each new teacher's basic profile (name, school, subject) is written to
+Firestore at `teachers/{their-uid}` — readable/writable only by that same
+signed-in user (see `firestore.rules`) — but nothing in the app reads it
+back yet; it's captured for a future profile/roster feature, not displayed
+anywhere today.
 
 ## How to verify it's actually working
 

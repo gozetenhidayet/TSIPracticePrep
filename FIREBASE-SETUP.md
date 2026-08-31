@@ -1,12 +1,19 @@
-# ScorePath V19 Firebase Setup
+# ScorePath Firebase Setup
 
-V19 includes a safe local fallback. To enable real cross-device accounts and classroom sync:
+**This file is an early, high-level sketch — `BACKEND-SETUP.md` is the
+current, complete, step-by-step guide** (server-side question serving,
+real teacher accounts, and cross-device classroom sync, in the exact order
+to set them up, including the actual `firestore.rules` and
+`database.rules.json` this repo ships with). Use that file, not this one.
 
-1. Create a Firebase project and Web App.
-2. Enable Authentication: Email/Password for student/teacher accounts and Anonymous for class-code students.
-3. Enable Firestore for student sync and Realtime Database for classroom events.
-4. Paste the Web App values into `firebase-config.js`.
-5. Replace the development database rules with production rules that limit teachers to rooms they own and students to rooms they joined.
-6. Test two separate browsers/devices before launch.
+The short version this file used to leave unfinished — now actually done
+in the code, not just described here — is real: this repo now ships real
+production `firestore.rules` (default-deny, with a scoped self-profile
+exception for signed-in teachers) and a real `database.rules.json`
+(scopes classroom room events to `rooms/{roomCode}/events`, default-deny
+everywhere else), instead of the "replace the development rules yourself"
+instruction this file used to leave as an exercise for the reader.
 
-Do not publish with open Realtime Database rules. The included adapter intentionally falls back to BroadcastChannel/local demo when Firebase is not configured.
+Everything stays fully local/static (`BroadcastChannel` for same-device
+classroom demo, static-preview teacher login) until you actually configure
+Firebase per `BACKEND-SETUP.md` — nothing here activates on its own.

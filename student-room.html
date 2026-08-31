@@ -41,38 +41,93 @@ function pickQuestionSet(examKey,n,seedStr){
   });
 }
 function difficultyTally(set){const t={};(set||[]).forEach(qq=>{const d=qq.difficulty||'Medium';t[d]=(t[d]||0)+1});return t}
+/* Real per-exam section-length weights and per-section domain weights — the
+ * same tables functions/lib/pick.js carries server-side (see that file's own
+ * comment for sourcing), duplicated here because this local/no-Firebase path
+ * runs entirely in the student's browser with no server module to import
+ * from. Keep all three copies (here, functions/lib/pick.js, and the client
+ * adaptive engine's SCOREPATH_BLUEPRINT_WEIGHTS) in sync if any one changes. */
+const SP_SECTION_WEIGHTS={SAT:{'Reading & Writing':54,Math:44},ACT:{English:75,Math:60,Reading:40,'Science (Optional)':40},TSIA2:{Mathematics:1,ELAR:1}};
+const SP_DOMAIN_WEIGHTS={
+  SAT:{'Reading & Writing':{'Information & Ideas':.26,'Craft & Structure':.28,'Expression of Ideas':.2,'Standard English Conventions':.26},Math:{Algebra:.35,'Advanced Math':.35,'Problem-Solving & Data Analysis':.15,'Geometry & Trigonometry':.15}},
+  ACT:{English:{'Production of Writing':.4,'Knowledge of Language':.2,'Conventions of Standard English':.4},Math:{'Number & Quantity':.11,Algebra:.19,Functions:.19,Geometry:.19,'Statistics & Probability':.13,'Integrating Essential Skills':.19},Reading:{'Key Ideas & Details':.48,'Craft & Structure':.3,'Integration of Knowledge & Ideas':.22},'Science (Optional)':{'Interpretation of Data':.42,'Scientific Investigation':.24,'Evaluating Scientific Arguments and Models with Evidence':.34}},
+  TSIA2:{Mathematics:{'Quantitative Reasoning':.3,'Algebraic Reasoning':.35,'Geometric and Spatial Reasoning':.15,'Probabilistic and Statistical Reasoning':.2},ELAR:{'Literary Text Analysis':.133,'Informational Text Analysis and Synthesis':.367,'Essay Revision and Editing':.133,'Sentence Revision, Editing, and Completion':.367}},
+};
+function largestRemainderCounts(weightMap,total){
+  const keys=Object.keys(weightMap);if(!keys.length||!total)return{};
+  const totalWeight=keys.reduce((s,k)=>s+weightMap[k],0)||1;
+  const rows=keys.map(k=>({k,exact:total*weightMap[k]/totalWeight}));
+  const counts={};let assigned=0;
+  rows.forEach(r=>{counts[r.k]=Math.floor(r.exact);assigned+=counts[r.k]});
+  let remainder=total-assigned;
+  rows.sort((a,b)=>(b.exact-Math.floor(b.exact))-(a.exact-Math.floor(a.exact)));
+  for(let i=0;i<remainder&&rows.length;i++)counts[rows[i%rows.length].k]++;
+  return counts;
+}
+function examBlueprintTargets(examKey,count){
+  const sectionWeights=SP_SECTION_WEIGHTS[examKey],domainWeights=SP_DOMAIN_WEIGHTS[examKey];
+  if(!sectionWeights||!domainWeights||!count)return null;
+  const sectionCounts=largestRemainderCounts(sectionWeights,count),targets={};
+  Object.keys(sectionCounts).forEach(section=>{
+    const weights=domainWeights[section],want=sectionCounts[section];
+    if(!weights||!want)return;
+    const domainCounts=largestRemainderCounts(weights,want);
+    Object.keys(domainCounts).forEach(domain=>{if(domainCounts[domain])targets[section+'||'+domain]=domainCounts[domain]});
+  });
+  return targets;
+}
 /* Different-Questions mode gives each student their own shuffled items so
  * they can't share answers, but a fair teacher comparison still needs every
- * student facing the same DIFFICULTY MIX (not necessarily the same items).
- * This builds a set matching a shared target Easy/Medium/Hard count — derived
- * once from the room's own seed, so it's identical for every student in the
- * room regardless of their individual item seed — instead of letting each
- * student's independent shuffle land on a skewed mix by chance. */
+ * student facing the same DIFFICULTY MIX (not necessarily the same items) —
+ * AND, within each difficulty tier, the same real official blueprint-domain
+ * proportions solo adaptive practice already uses (grouping by q.blueprintDomain,
+ * not by q.skill, so students aren't accidentally skewed toward whichever
+ * domain happens to have the most differently-worded skill labels). The
+ * shared Easy/Medium/Hard mix itself is derived once from the room's own
+ * seed, so it's identical for every student in the room regardless of their
+ * individual item seed. */
 function pickQuestionSetBalanced(examKey,n,seedStr,targetCounts){
   const bank=(window.ScorePathBank&&window.ScorePathBank[examKey])||[];
   if(!bank.length)return[];
   const rand=seededRand(seedStr);
   function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-  const bySkillDiff={};
-  bank.forEach(qq=>{const sk=(qq.section||'')+'|'+(qq.skill||''),d=qq.difficulty||'Medium',key=sk+'||'+d;(bySkillDiff[key]=bySkillDiff[key]||[]).push(qq)});
-  Object.keys(bySkillDiff).forEach(k=>bySkillDiff[k]=shuffle(bySkillDiff[k]));
-  const skillKeys=[...new Set(bank.map(qq=>(qq.section||'')+'|'+(qq.skill||'')))].sort();
+  const byKey={};
+  bank.forEach(qq=>{const section=qq.section||'',domain=qq.blueprintDomain||'Unclassified',d=qq.difficulty||'Medium',key=section+'||'+domain+'||'+d;(byKey[key]=byKey[key]||[]).push(qq)});
+  Object.keys(byKey).forEach(k=>byKey[k]=shuffle(byKey[k]));
+  const domainKeys=[...new Set(bank.map(qq=>(qq.section||'')+'||'+(qq.blueprintDomain||'Unclassified')))].sort();
   const picked=[];
   Object.keys(targetCounts).forEach(diff=>{
-    let need=targetCounts[diff],idx=0,guard=0;
-    while(need>0&&guard<(need+skillKeys.length)*10){
-      const key=skillKeys[idx%skillKeys.length]+'||'+diff;
-      if(bySkillDiff[key]&&bySkillDiff[key].length){picked.push(bySkillDiff[key].shift());need--}
-      idx++;guard++;
+    const tierCount=targetCounts[diff];if(!tierCount)return;
+    const tierPicked=[];
+    const blueprintTargets=examBlueprintTargets(examKey,tierCount);
+    const sectionDomainKeys=blueprintTargets?Object.keys(blueprintTargets):domainKeys;
+    sectionDomainKeys.forEach(sd=>{
+      let need=blueprintTargets?blueprintTargets[sd]:0;
+      const key=sd+'||'+diff;
+      while(need>0&&byKey[key]&&byKey[key].length){tierPicked.push(byKey[key].shift());need--}
+    });
+    if(!blueprintTargets){
+      let need=tierCount,idx=0,guard=0;
+      while(need>0&&guard<(need+domainKeys.length)*10&&domainKeys.length){
+        const key=domainKeys[idx%domainKeys.length]+'||'+diff;
+        if(byKey[key]&&byKey[key].length){tierPicked.push(byKey[key].shift());need--}
+        idx++;guard++;
+      }
     }
+    if(tierPicked.length<tierCount){
+      const usedIds=new Set(tierPicked.map(qq=>qq.id));
+      const sameDiffLeftover=shuffle(bank.filter(qq=>(qq.difficulty||'Medium')===diff&&!usedIds.has(qq.id)));
+      tierPicked.push(...sameDiffLeftover.slice(0,tierCount-tierPicked.length));
+    }
+    picked.push(...tierPicked.slice(0,tierCount));
   });
-  // If the bank doesn't have enough of some difficulty, fill any remaining slots from whatever's left so the set still reaches n.
+  // If the bank doesn't have enough of some difficulty overall, fill any remaining slots from whatever's left so the set still reaches n.
   if(picked.length<n){
     const usedIds=new Set(picked.map(qq=>qq.id));
     const leftovers=shuffle(bank.filter(qq=>!usedIds.has(qq.id)));
     for(const qq of leftovers){if(picked.length>=n)break;picked.push(qq)}
   }
-  return shuffle(picked).map(qq=>{
+  return shuffle(picked.slice(0,n)).map(qq=>{
     const pairs=qq.choices.map((choice,i)=>({choice,why:(qq.why&&qq.why[i])||'',correct:i===qq.a}));
     const mixed=shuffle(pairs);
     return{...qq,choices:mixed.map(x=>x.choice),why:mixed.map(x=>x.why),a:mixed.findIndex(x=>x.correct)};

@@ -189,13 +189,66 @@ function hideAll(){
 }
 function showDash(){clearInterval(state.timerId);hideAll();$("dashHome").classList.remove("hidden");document.querySelectorAll(".sideItem").forEach(x=>x.classList.remove("active"));document.querySelector('[data-panel="home"]').classList.add("active");updateDash()}
 function shuffled(arr){return secureShuffle(arr)}
+/* ---------- Real-bank, blueprint-proportional draw for section/diagnostic/timed practice ----------
+ * Before this, selectSet/satSet/actSet below drew ONLY from the small ~10-80
+ * item legacy arrays declared at the top of this file (QUESTIONS/SAT_QUESTIONS/
+ * ACT_QUESTIONS) — the full, enriched ~4,900-question window.ScorePathBank
+ * (built in practice-engine-core.js, with its own blueprint-domain-proportional
+ * adaptivePick sampler) was reachable only from the "Practice Test 1-5" full
+ * adaptive simulations. Every other entry point (Math Practice, ELAR Practice,
+ * Diagnostic, Timed Simulation, and the SAT/ACT equivalents) silently pulled
+ * from the tiny original bank instead — the real enrichment work never
+ * reached these buttons. bigPool/blueprintDraw fix that by drawing from
+ * window.ScorePathBank via window.ScorePathAdaptivePick (exposed at the end
+ * of practice-engine-core.js) whenever both are available, falling back to
+ * the original small-array behavior only if the big bank hasn't loaded for
+ * some reason (defensive — should not happen in normal use, since both
+ * scripts load before any of these functions can be invoked by a click). */
+function bigPool(examKey){return (window.ScorePathBank&&window.ScorePathBank[examKey])||null}
+function blueprintDraw(examKey,sections,count){
+ if(!window.ScorePathAdaptivePick)return null;
+ const pool=bigPool(examKey);if(!pool)return null;
+ if(typeof sections==="string"){
+  const secPool=pool.filter(q=>q.section===sections);
+  if(secPool.length<count)return null;
+  return window.ScorePathAdaptivePick(secPool,count,"mixed",new Set(),examKey,sections);
+ }
+ const totalWeight=sections.reduce((a,s)=>a+s.weight,0);
+ let remaining=count,picked=[];
+ for(let idx=0;idx<sections.length;idx++){
+  const s=sections[idx],isLast=idx===sections.length-1;
+  const want=isLast?remaining:Math.min(remaining,Math.round(count*s.weight/totalWeight));
+  remaining-=want;
+  const secPool=pool.filter(q=>q.section===s.section);
+  if(want>0)picked.push(...window.ScorePathAdaptivePick(secPool,Math.min(want,secPool.length),"mixed",new Set(),examKey,s.section));
+ }
+ return picked.length?secureShuffle(picked):null;
+}
+function findQ(examKey,id,legacyArr){
+ const pool=bigPool(examKey);
+ return (pool&&pool.find(q=>q.id===id))||legacyArr.find(q=>q.id===id);
+}
+/* "Performance by Skill"/"Performance by Domain" used to group results by the
+ * raw q.skill string. Content-authoring skill labels are intentionally more
+ * granular than the exam's official reporting domains (e.g. TSIA2 ELAR alone
+ * has ~19 different skill strings actually in use — "Informational Text
+ * Analysis", "Informational Text Synthesis", "Informational Text Analysis and
+ * Synthesis — Main Idea", plain "Main Idea", etc. — all really the same
+ * official domain), so grouping by the raw string fragmented a student's
+ * results across near-duplicate rows instead of rolling them up into the
+ * exam's real, official reporting categories. Every PRO_BANK item already
+ * carries a q.blueprintDomain field (set by validatePracticeItem, using the
+ * same blueprintDomain() classifier the adaptive/blueprint-proportional
+ * samplers use), so group by that when present — falling back to q.skill
+ * only for the small legacy-array items that predate that field. */
+function skillGroupKey(q){return q.blueprintDomain||q.skill}
 function selectSet(mode){
- if(mode==="math")return randomizedSet(shuffled(QUESTIONS.filter(q=>q.section==="Mathematics")).slice(0,10));
- if(mode==="elar")return randomizedSet(shuffled(QUESTIONS.filter(q=>q.section==="ELAR")).slice(0,10));
- if(mode==="diagnostic")return randomizedSet(shuffled(QUESTIONS).slice(0,12));
- if(mode==="timed")return randomizedSet(shuffled(QUESTIONS).slice(0,15));
- if(mode==="mistakes")return randomizedSet(store.mistakes.map(id=>QUESTIONS.find(q=>q.id===id)).filter(Boolean));
- if(mode==="bookmarks")return randomizedSet(store.bookmarks.map(id=>QUESTIONS.find(q=>q.id===id)).filter(Boolean));
+ if(mode==="math")return blueprintDraw("TSIA2","Mathematics",12)||randomizedSet(shuffled(QUESTIONS.filter(q=>q.section==="Mathematics")).slice(0,12));
+ if(mode==="elar")return blueprintDraw("TSIA2","ELAR",12)||randomizedSet(shuffled(QUESTIONS.filter(q=>q.section==="ELAR")).slice(0,12));
+ if(mode==="diagnostic")return blueprintDraw("TSIA2",[{section:"Mathematics",weight:1},{section:"ELAR",weight:1}],16)||randomizedSet(shuffled(QUESTIONS).slice(0,16));
+ if(mode==="timed")return blueprintDraw("TSIA2",[{section:"Mathematics",weight:1},{section:"ELAR",weight:1}],20)||randomizedSet(shuffled(QUESTIONS).slice(0,20));
+ if(mode==="mistakes")return randomizedSet(store.mistakes.map(id=>findQ("TSIA2",id,QUESTIONS)).filter(Boolean));
+ if(mode==="bookmarks")return randomizedSet(store.bookmarks.map(id=>findQ("TSIA2",id,QUESTIONS)).filter(Boolean));
  return [];
 }
 function startTest(mode){
@@ -283,7 +336,7 @@ function finishTest(auto=false){
  $("practiceShell").classList.remove("show");$("results").classList.add("show");
  $("resScore").textContent=`${correct}/${state.set.length}`;$("resAccuracy").textContent=state.set.length?Math.round(correct/state.set.length*100)+"%":"0%";$("resTime").textContent=formatTime(elapsed);$("resFlagged").textContent=state.flags.length;
  $("resultSubtitle").textContent=auto?"Time expired. Your simulation was submitted automatically.":"Review your performance and explanations below.";
- const skills={};state.set.forEach(q=>{if(!skills[q.skill])skills[q.skill]={c:0,t:0};skills[q.skill].t++;if(state.answers[q.id]===q.a)skills[q.skill].c++});
+ const skills={};state.set.forEach(q=>{const k=skillGroupKey(q);if(!skills[k])skills[k]={c:0,t:0};skills[k].t++;if(state.answers[q.id]===q.a)skills[k].c++});
  $("skillResults").innerHTML=Object.entries(skills).map(([k,v])=>{const p=Math.round(v.c/v.t*100);return `<div class="skillRow"><div class="skillTop"><span>${k}</span><span>${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`}).join("");
  $("reviewList").innerHTML=state.set.map(q=>{const ans=state.answers[q.id],ok=ans===q.a;return `<div class="reviewCard ${ok?"good":"bad"}"><b>${q.id} — ${ok?"Correct":"Needs Review"}</b><p><b>Your answer:</b> ${ans===undefined?"Unanswered":String.fromCharCode(65+ans)+". "+q.choices[ans]}<br><b>Explanation:</b> ${q.ex}<div class="answerKeyBox"><b>Answer Key</b>${String.fromCharCode(65+q.a)}. ${q.choices[q.a]}</div></p></div>`}).join("");
  location.hash="tsi-center";
@@ -346,23 +399,24 @@ function actHideAll(){$("actPracticeShell").classList.remove("show");$("actResul
 function satDash(){clearInterval(satState.timerId);satHideAll();$("satHome").classList.remove("hidden");updateSATDash()}
 function actDash(){clearInterval(actState.timerId);actHideAll();$("actHome").classList.remove("hidden");updateACTDash()}
 function satSet(mode){
- if(mode==="sat-rw")return randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Reading & Writing")).slice(0,8));
- if(mode==="sat-math")return randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,8));
- if(mode==="sat-diagnostic")return randomizedSet(shuffled(SAT_QUESTIONS).slice(0,10));
- if(mode==="sat-timed-rw")return randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Reading & Writing")).slice(0,8));
- if(mode==="sat-timed-math")return randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,8));
- if(mode==="mistakes")return randomizedSet(satStore.mistakes.map(id=>SAT_QUESTIONS.find(q=>q.id===id)).filter(Boolean));
- if(mode==="bookmarks")return randomizedSet(satStore.bookmarks.map(id=>SAT_QUESTIONS.find(q=>q.id===id)).filter(Boolean));
+ if(mode==="sat-rw")return blueprintDraw("SAT","Reading & Writing",12)||randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Reading & Writing")).slice(0,12));
+ if(mode==="sat-math")return blueprintDraw("SAT","Math",12)||randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,12));
+ if(mode==="sat-diagnostic")return blueprintDraw("SAT",[{section:"Reading & Writing",weight:1},{section:"Math",weight:1}],12)||randomizedSet(shuffled(SAT_QUESTIONS).slice(0,12));
+ if(mode==="sat-timed-rw")return blueprintDraw("SAT","Reading & Writing",16)||randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Reading & Writing")).slice(0,16));
+ if(mode==="sat-timed-math")return blueprintDraw("SAT","Math",16)||randomizedSet(shuffled(SAT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,16));
+ if(mode==="mistakes")return randomizedSet(satStore.mistakes.map(id=>findQ("SAT",id,SAT_QUESTIONS)).filter(Boolean));
+ if(mode==="bookmarks")return randomizedSet(satStore.bookmarks.map(id=>findQ("SAT",id,SAT_QUESTIONS)).filter(Boolean));
  return [];
 }
 function actSet(mode){
- if(mode==="act-english")return randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="English")).slice(0,8));
- if(mode==="act-math")return randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,8));
- if(mode==="act-reading")return randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Reading")).slice(0,8));
- if(mode==="act-science")return randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Science (Optional)")).slice(0,8));
- if(mode==="act-diagnostic"||mode==="act-timed")return randomizedSet(shuffled(ACT_QUESTIONS).slice(0,10));
- if(mode==="mistakes")return randomizedSet(actStore.mistakes.map(id=>ACT_QUESTIONS.find(q=>q.id===id)).filter(Boolean));
- if(mode==="bookmarks")return randomizedSet(actStore.bookmarks.map(id=>ACT_QUESTIONS.find(q=>q.id===id)).filter(Boolean));
+ if(mode==="act-english")return blueprintDraw("ACT","English",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="English")).slice(0,12));
+ if(mode==="act-math")return blueprintDraw("ACT","Math",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,12));
+ if(mode==="act-reading")return blueprintDraw("ACT","Reading",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Reading")).slice(0,12));
+ if(mode==="act-science")return blueprintDraw("ACT","Science (Optional)",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Science (Optional)")).slice(0,12));
+ if(mode==="act-diagnostic")return blueprintDraw("ACT",[{section:"English",weight:75},{section:"Math",weight:60},{section:"Reading",weight:40},{section:"Science (Optional)",weight:40}],12)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,12));
+ if(mode==="act-timed")return blueprintDraw("ACT",[{section:"English",weight:75},{section:"Math",weight:60},{section:"Reading",weight:40},{section:"Science (Optional)",weight:40}],16)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,16));
+ if(mode==="mistakes")return randomizedSet(actStore.mistakes.map(id=>findQ("ACT",id,ACT_QUESTIONS)).filter(Boolean));
+ if(mode==="bookmarks")return randomizedSet(actStore.bookmarks.map(id=>findQ("ACT",id,ACT_QUESTIONS)).filter(Boolean));
  return [];
 }
 function startSAT(mode){
@@ -418,7 +472,7 @@ function finishGeneric(state,store,saveFn,prefix,auto){
  store.history.push({date:new Date().toISOString(),mode:state.mode,score:correct,total:state.set.length,time:elapsed});saveFn();
  $(prefix+"PracticeShell").classList.remove("show");$(prefix+"Results").classList.add("show");$(prefix+"ResScore").textContent=`${correct}/${state.set.length}`;$(prefix+"ResAccuracy").textContent=Math.round(correct/state.set.length*100)+"%";$(prefix+"ResTime").textContent=formatTime(elapsed);$(prefix+"ResFlagged").textContent=state.flags.length;
  $(prefix+"ResultSubtitle").textContent=auto?"Time expired. Your practice was submitted automatically.":"Review your performance and explanations below.";
- const skills={};state.set.forEach(q=>{if(!skills[q.skill])skills[q.skill]={c:0,t:0};skills[q.skill].t++;if(state.answers[q.id]===q.a)skills[q.skill].c++});
+ const skills={};state.set.forEach(q=>{const k=skillGroupKey(q);if(!skills[k])skills[k]={c:0,t:0};skills[k].t++;if(state.answers[q.id]===q.a)skills[k].c++});
  $(prefix+"SkillResults").innerHTML=Object.entries(skills).map(([k,v])=>{let p=Math.round(v.c/v.t*100);return `<div class="skillRow"><div class="skillTop"><span>${k}</span><span>${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`}).join("");
  $(prefix+"ReviewList").innerHTML=state.set.map(q=>{let a=state.answers[q.id],ok=a===q.a;return `<div class="reviewCard ${ok?"good":"bad"}"><b>${q.id} — ${ok?"Correct":"Needs Review"}</b><p><b>Your answer:</b> ${a===undefined?"Unanswered":String.fromCharCode(65+a)+". "+q.choices[a]}<br><b>Explanation:</b> ${q.ex}<div class="answerKeyBox"><b>Answer Key</b>${String.fromCharCode(65+q.a)}. ${q.choices[q.a]}</div></p></div>`}).join("");
  window.ScorePathV13?.renderGoal?.();
@@ -527,7 +581,7 @@ function focusedRationale(q,answer){
  return `<div class="focusRationale"><b>Why your selected answer missed the target:</b> ${why}</div>`;
 }
 function analysisText(set,answers,elapsed){
- const skills={};set.forEach(q=>{if(!skills[q.skill])skills[q.skill]={c:0,t:0};skills[q.skill].t++;if(answers[q.id]===q.a)skills[q.skill].c++});
+ const skills={};set.forEach(q=>{const k=skillGroupKey(q);if(!skills[k])skills[k]={c:0,t:0};skills[k].t++;if(answers[q.id]===q.a)skills[k].c++});
  const ranked=Object.entries(skills).map(([k,v])=>({k,p:Math.round(v.c/v.t*100)})).sort((a,b)=>b.p-a.p);
  const strong=ranked[0],weak=ranked[ranked.length-1],answered=set.filter(q=>answers[q.id]!==undefined).length,avg=answered?Math.round(elapsed/answered):0;
  let pace=avg<=75?"Your average pace was efficient for this practice set.":avg<=120?"Your pace was moderate; review long questions to find where time was spent.":"Time management needs attention; aim to recognize the question type before starting calculations or close reading.";
@@ -761,7 +815,7 @@ const fullFinishACT=finishACT;finishACT=function(auto=false){fullFinishACT(auto)
 
 // Keep per-skill session data in history so progress recommendations are based on actual completed work.
 function skillSnapshot(set,answers){
- const out={};set.forEach(q=>{if(!out[q.skill])out[q.skill]={correct:0,total:0};out[q.skill].total++;if(answers[q.id]===q.a)out[q.skill].correct++});return out;
+ const out={};set.forEach(q=>{const k=skillGroupKey(q);if(!out[k])out[k]={correct:0,total:0};out[k].total++;if(answers[q.id]===q.a)out[k].correct++});return out;
 }
 function attachLatestSkills(storeObj,set,answers){
  if(storeObj.history?.length){storeObj.history[storeObj.history.length-1].skills=skillSnapshot(set,answers)}
@@ -893,25 +947,32 @@ function rememberSeen(exam,set){
 }
 
 // Expand set builders while preserving reviewed static questions.
+// NOTE: this used to also concatenate genTSIMath()/genSATMath()/genACTMath() —
+// a small set (~36) of freshly template-generated, Algebra/Quantitative-only
+// "solve for x"-style filler questions — on every single call for the
+// math/diagnostic/timed modes, back when selectSet/satSet/actSet's own base
+// only drew from a ~10-80 item legacy array and needed the padding. Now that
+// the base draw above pulls from the full ~4,900-question blueprint-tagged
+// bank via blueprintDraw/adaptivePick, that filler is no longer just
+// unnecessary — with 36 generated items and only 12-16 real ones per call, it
+// was actually the MAJORITY of what most students saw in these modes, which
+// defeated the blueprint-domain-proportional sampling those real items were
+// selected with. It has been removed here; the generator functions themselves
+// are left defined (harmless, and genTSIMath() alone is still used once to
+// help seed PRO_BANK.TSIA2 in practice-engine-core.js).
 const expandedOldSelectSet=selectSet;
 selectSet=function(mode){
- let base=expandedOldSelectSet(mode);
- if(["math","diagnostic","timed"].includes(mode)) base=[...base,...genTSIMath()];
- base=filterRecent("tsi",base);
+ let base=filterRecent("tsi",expandedOldSelectSet(mode));
  return secureShuffle(base).slice(0,mode==="timed"?20:mode==="diagnostic"?16:12);
 };
 const expandedOldSatSet=satSet;
 satSet=function(mode){
- let base=expandedOldSatSet(mode);
- if(["sat-math","sat-diagnostic","sat-timed-math"].includes(mode)) base=[...base,...genSATMath()];
- base=filterRecent("sat",base);
+ let base=filterRecent("sat",expandedOldSatSet(mode));
  return secureShuffle(base).slice(0,mode.includes("timed")?16:12);
 };
 const expandedOldActSet=actSet;
 actSet=function(mode){
- let base=expandedOldActSet(mode);
- if(["act-math","act-diagnostic","act-timed"].includes(mode)) base=[...base,...genACTMath()];
- base=filterRecent("act",base);
+ let base=filterRecent("act",expandedOldActSet(mode));
  return secureShuffle(base).slice(0,mode==="act-timed"?16:12);
 };
 
@@ -1032,22 +1093,45 @@ function computeMechanics(essay,sentences){
  *   TSIA2 Technical Manual and "Interpreting Your Scores."
  * This site has no human readers and no certified NLP scoring engine, so
  * neither function below claims to reproduce an official score. Both are
- * explicitly labeled "Practice Estimate" and computed only from the same
- * measurable signals used elsewhere on this site (length, paragraph/sentence
- * structure, transition usage, sentence variety, thesis echo, and the
- * pattern-based Mechanics scan) — just mapped onto the real reporting scale
- * of the exam it's practicing for, instead of an invented 1-4 scale, so a
- * student sees a number that means the same thing as the real test's number. */
+ * explicitly labeled "Practice Estimate" and computed only from measurable
+ * signals (length, paragraph/sentence structure, transition usage, sentence
+ * variety, thesis echo, the pattern-based Mechanics scan, a concrete-evidence
+ * marker count, and — when the actual prompt text is available — word
+ * overlap between the prompt and the essay as a rough on-topic check) — just
+ * mapped onto the real reporting scale of the exam it's practicing for,
+ * instead of an invented 1-4 scale, so a student sees a number that means
+ * the same thing as the real test's number. The two added signals (evidence
+ * markers, prompt relevance) are additive only — they can raise a dimension
+ * level when detected but never lower one when absent — and remain pattern
+ * matching, not real semantic or argument-quality judgment. */
 function scoreLevel1to4(conds){return Math.min(4,1+conds.filter(Boolean).length)}
 function scoreLevel1to6(conds){return Math.min(6,1+conds.filter(Boolean).length)}
+/* Concrete-evidence marker scan: counts specific-support cues (named
+ * examples, direct quotes, numbers, "for example"-style phrasing) across
+ * the essay body and the reason/evidence planning fields. Still
+ * pattern-based, not a claim of real evidence-QUALITY judgment — it only
+ * rewards a response that includes something concrete over one that is
+ * merely long, since real rubrics for both exams explicitly distinguish
+ * "specific and relevant support" from generic length. */
+const PT_EVIDENCE_PHRASES=["for example","for instance","such as","specifically","in fact","according to","one example","a study","research shows","in particular","e.g."];
+function ptEvidenceMarkers(text){
+ const t=(text||"").toLowerCase();
+ let n=PT_EVIDENCE_PHRASES.reduce((a,w)=>a+(t.split(w).length-1),0);
+ n+=Math.min(3,(text.match(/\b\d+(\.\d+)?\b/g)||[]).length);
+ n+=Math.min(2,(text.match(/"[^"]{3,}"/g)||[]).length);
+ return n;
+}
 function essaySignals(fields){
  const essay=fields.essay||"",words=ptWordCount(essay);
  const paragraphs=ptParagraphs(essay),sentences=ptSentences(essay),transitions=ptTransitionCount(essay),variety=ptSentenceVariety(sentences);
  const thesisWords=ptWordCount(fields.thesis),thesisEcho=ptWordOverlap(fields.thesis,essay.slice(0,400));
  const r1=ptWordCount(fields.reason1),r2=ptWordCount(fields.reason2);
  const counterWords=ptWordCount(fields.counter),hasCounter=counterWords>=6;
+ const evidenceMarkers=ptEvidenceMarkers(essay+" "+(fields.reason1||"")+" "+(fields.reason2||""));
+ const promptText=(fields.promptText||"").trim();
+ const promptRelevance=promptText?ptWordOverlap(promptText,essay):null;
  const mechanics=computeMechanics(essay,sentences);
- return{essay,words,paragraphs:paragraphs.length,sentences,transitions,variety,thesisWords,thesisEcho,r1,r2,counterWords,hasCounter,mechanics};
+ return{essay,words,paragraphs:paragraphs.length,sentences,transitions,variety,thesisWords,thesisEcho,r1,r2,counterWords,hasCounter,evidenceMarkers,promptRelevance,mechanics};
 }
 function act6Label(raw){if(raw<=2)return"Emerging";if(raw<=4)return"Developing";if(raw===5)return"Proficient";return"Strong"}
 
@@ -1055,9 +1139,9 @@ function act6Label(raw){if(raw<=2)return"Emerging";if(raw<=4)return"Developing";
 const TSI_DIMENSIONS=["Purpose & Focus","Organization & Structure","Development & Support","Sentence Variety & Style","Mechanical Conventions","Critical Thinking"];
 function tsiDimensionLevel(name,s){
  switch(name){
-  case "Purpose & Focus":return scoreLevel1to4([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3]);
+  case "Purpose & Focus":return scoreLevel1to4([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3,s.promptRelevance!=null&&s.promptRelevance>=0.2]);
   case "Organization & Structure":return scoreLevel1to4([s.paragraphs>=3,s.paragraphs>=4,s.transitions>=3]);
-  case "Development & Support":return scoreLevel1to4([s.r1>=8,s.r2>=8,s.words>=250]);
+  case "Development & Support":return scoreLevel1to4([s.r1>=8,s.r2>=8,s.words>=250,s.evidenceMarkers>=2]);
   case "Sentence Variety & Style":return scoreLevel1to4([s.sentences.length>=6,s.variety>=3,s.sentences.length>0&&s.sentences.every(x=>ptWordCount(x)<=55)]);
   case "Mechanical Conventions":{let b=4;if(s.mechanics.repeats.length)b--;if(s.mechanics.runOns.length)b--;if(s.mechanics.fragments.length)b--;if(s.mechanics.diversityFlag)b--;return Math.max(1,b)}
   case "Critical Thinking":return scoreLevel1to4([s.hasCounter,s.counterWords>=15,s.counterWords>=25]);
@@ -1074,8 +1158,8 @@ function computeTSIEssayEstimate(fields){
  const gateMet=holistic>=5;
  const byName=n=>dims.find(d=>d.name===n).level;
  const candidates=[
-  {level:byName("Purpose & Focus"),text:s.thesisWords<6?"Your thesis/position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned thesis ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':null)},
-  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned reasons are very short ("+(s.r1<8?'reason 1: "'+ptQuote(fields.reason1,50)+'"':'reason 2: "'+ptQuote(fields.reason2,50)+'"')+") — each should include a specific example or explanation, not just a one-line claim.":(s.words<250?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null)},
+  {level:byName("Purpose & Focus"),text:s.thesisWords<6?"Your thesis/position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned thesis ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':(s.promptRelevance!=null&&s.promptRelevance<0.15?"Your essay doesn't share much wording with the actual prompt — make sure you're directly answering the specific question asked, not writing generally about the topic.":null))},
+  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned reasons are very short ("+(s.r1<8?'reason 1: "'+ptQuote(fields.reason1,50)+'"':'reason 2: "'+ptQuote(fields.reason2,50)+'"')+") — each should include a specific example or explanation, not just a one-line claim.":(s.evidenceMarkers<2?'Your reasons read as fairly general — try adding something concrete (a specific example, a number, a short quote, or a phrase like "for example") to make your support more convincing.':(s.words<250?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null))},
   {level:byName("Organization & Structure"),text:s.paragraphs<3?"Your essay reads as "+s.paragraphs+" paragraph"+(s.paragraphs===1?"":"s")+" (separated by a blank line) — a typical response has an introduction, at least two body paragraphs, and a conclusion.":(s.transitions<3?'Few transition words were detected ("however," "for example," "as a result," etc.) — these help connect your ideas explicitly.':null)},
   {level:byName("Sentence Variety & Style"),text:(s.variety<3&&s.sentences.length>=3)?"Your sentences are fairly uniform in length — varying short and long sentences usually reads more clearly.":null},
   {level:byName("Mechanical Conventions"),text:s.mechanics.runOns.length?'One sentence runs long without a comma or break: "'+s.mechanics.runOns[0]+'" — consider splitting it.':(s.mechanics.repeats.length?'A word repeats back-to-back: "'+s.mechanics.repeats[0]+'" — check for a typo or duplicated word.':null)},
@@ -1089,6 +1173,8 @@ function computeTSIEssayEstimate(fields){
  if(byName("Sentence Variety & Style")>=3)strengths.push("Your sentences vary in length and structure rather than reading as repetitive.");
  if(byName("Mechanical Conventions")>=3)strengths.push("No major mechanical issues were flagged — no repeated words, run-on sentences, or short fragments detected.");
  if(byName("Critical Thinking")>=3)strengths.push("You engage with a counterargument or alternate viewpoint before returning to your own position.");
+ if(s.evidenceMarkers>=3)strengths.push("You support your reasons with specific examples, numbers, or quoted details rather than general statements.");
+ if(s.promptRelevance!=null&&s.promptRelevance>=0.3)strengths.push("Your essay stays closely tied to the specific prompt you were given.");
  return{insufficient:false,exam:"tsi",words:s.words,dims,holistic,band,bandLabel:PT_LEVELS[band-1],gateMet,strengths:strengths.slice(0,3),improvements,mechanics:s.mechanics};
 }
 
@@ -1096,8 +1182,8 @@ function computeTSIEssayEstimate(fields){
 const ACT_DOMAINS=["Ideas & Analysis","Development & Support","Organization","Language Use & Conventions"];
 function actDomainLevel(name,s){
  switch(name){
-  case "Ideas & Analysis":return scoreLevel1to6([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3,s.hasCounter,s.counterWords>=15]);
-  case "Development & Support":return scoreLevel1to6([s.r1>=8,s.r2>=8,s.words>=200,s.words>=300,s.words>=400]);
+  case "Ideas & Analysis":return scoreLevel1to6([s.thesisWords>=6,s.thesisEcho>=0.15,s.thesisEcho>=0.3,s.hasCounter,s.counterWords>=15,s.promptRelevance!=null&&s.promptRelevance>=0.2]);
+  case "Development & Support":return scoreLevel1to6([s.r1>=8,s.r2>=8,s.words>=200,s.words>=300,s.words>=400,s.evidenceMarkers>=2,s.evidenceMarkers>=4]);
   case "Organization":return scoreLevel1to6([s.paragraphs>=3,s.paragraphs>=4,s.paragraphs>=5,s.transitions>=2,s.transitions>=4]);
   case "Language Use & Conventions":return scoreLevel1to6([s.sentences.length>=6,s.variety>=3,s.variety>=6,s.sentences.length>0&&s.sentences.every(x=>ptWordCount(x)<=55),s.mechanics.clean]);
  }
@@ -1110,8 +1196,8 @@ function computeACTWritingEstimate(fields){
  const overall=Math.round(domains.reduce((a,d)=>a+d.reported,0)/domains.length);
  const byName=n=>domains.find(d=>d.label===n).raw;
  const candidates=[
-  {level:byName("Ideas & Analysis"),text:s.thesisWords<6?"Your position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned position ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':(!s.hasCounter?"Consider engaging more directly with another perspective on the issue, then explain the relationship between it and your own view.":null))},
-  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned perspectives/evidence notes are very short — each should include a specific example or explanation, not just a one-line claim.":(s.words<300?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null)},
+  {level:byName("Ideas & Analysis"),text:s.thesisWords<6?"Your position field is empty or very short — state a clear position there, then make sure your opening paragraph states that same position.":(s.thesisEcho<0.15?'Your planned position ("'+ptQuote(fields.thesis,70)+'") and your essay\'s opening don\'t share much wording — check your essay actually opens with the position you planned.':(!s.hasCounter?"Consider engaging more directly with another perspective on the issue, then explain the relationship between it and your own view.":(s.promptRelevance!=null&&s.promptRelevance<0.15?"Your essay doesn't share much wording with the actual prompt — make sure you're responding to the specific issue given, not writing generally about the topic.":null)))},
+  {level:byName("Development & Support"),text:(s.r1<8||s.r2<8)?"One or both of your planned perspectives/evidence notes are very short — each should include a specific example or explanation, not just a one-line claim.":(s.evidenceMarkers<2?'Your support reads as fairly general — try adding something concrete (a specific example, a number, a short quote, or a phrase like "for example") to make your reasoning more convincing.':(s.words<300?"At "+s.words+" words, this is on the shorter side — a fuller response usually gives your reasoning more room to develop.":null))},
   {level:byName("Organization"),text:s.paragraphs<3?"Your essay reads as "+s.paragraphs+" paragraph"+(s.paragraphs===1?"":"s")+" — a typical response has an introduction, body paragraphs for each idea, and a conclusion.":(s.transitions<2?'Few transition words were detected — these help connect your ideas explicitly.':null)},
   {level:byName("Language Use & Conventions"),text:(s.variety<3&&s.sentences.length>=3)?"Your sentences are fairly uniform in length — varying short and long sentences usually reads more clearly.":(s.mechanics.runOns.length?'One sentence runs long without a comma or break: "'+s.mechanics.runOns[0]+'" — consider splitting it.':(s.mechanics.repeats.length?'A word repeats back-to-back: "'+s.mechanics.repeats[0]+'" — check for a typo or duplicated word.':null))}
  ].filter(c=>c.text).sort((a,b)=>a.level-b.level);
@@ -1121,6 +1207,8 @@ function computeACTWritingEstimate(fields){
  if(byName("Development & Support")>=4)strengths.push("Your reasoning is developed with real length and detail, not just brief claims.");
  if(byName("Organization")>=4)strengths.push("Your essay is organized into "+s.paragraphs+" clear paragraphs"+(s.transitions>=2?" with visible transitions connecting ideas.":"."));
  if(byName("Language Use & Conventions")>=4)strengths.push("Your sentences vary in length and structure, and no mechanical issues were flagged.");
+ if(s.evidenceMarkers>=3)strengths.push("You support your reasoning with specific examples, numbers, or quoted details rather than general statements.");
+ if(s.promptRelevance!=null&&s.promptRelevance>=0.3)strengths.push("Your essay stays closely tied to the specific issue you were given.");
  return{insufficient:false,exam:"act",words:s.words,domains,overall,strengths:strengths.slice(0,3),improvements,mechanics:s.mechanics};
 }
 
@@ -1193,12 +1281,14 @@ function renderACTEstimate(boxId,overallId,domainsId,notesId,result,historyListI
  if(historyListId&&historyKey){saveEssayHistoryEntry(historyKey,result,promptText);renderEssayHistory(historyListId,historyKey)}
 }
 if($("checkEssay"))$("checkEssay").onclick=()=>{
- const result=computeTSIEssayEstimate({essay:$("essayText").value,thesis:$("planThesis").value,reason1:$("planOne").value,reason2:$("planTwo").value,counter:$("planConclusion").value});
- renderTSIEstimate("essayEstimateBox","essayEstimateOverall","essayEstimateDomains","essayEstimateNotes",result,"essayHistoryList","scorepathTSIEssayHistory",$("essayPromptBox")?$("essayPromptBox").textContent:"");
+ const promptText=$("essayPromptBox")?$("essayPromptBox").textContent:"";
+ const result=computeTSIEssayEstimate({essay:$("essayText").value,thesis:$("planThesis").value,reason1:$("planOne").value,reason2:$("planTwo").value,counter:$("planConclusion").value,promptText:promptText});
+ renderTSIEstimate("essayEstimateBox","essayEstimateOverall","essayEstimateDomains","essayEstimateNotes",result,"essayHistoryList","scorepathTSIEssayHistory",promptText);
 };
 if($("checkActWriting"))$("checkActWriting").onclick=()=>{
- const result=computeACTWritingEstimate({essay:$("actWritingText").value,thesis:$("actPosition").value,reason1:$("actPerspectivePlan").value,reason2:$("actEvidencePlan").value,counter:$("actCounterPlan").value});
- renderACTEstimate("actEssayEstimateBox","actEssayEstimateOverall","actEssayEstimateDomains","actEssayEstimateNotes",result,"actEssayHistoryList","scorepathACTWritingHistory",$("actWritingPromptBox")?$("actWritingPromptBox").textContent:"");
+ const promptText=$("actWritingPromptBox")?$("actWritingPromptBox").textContent:"";
+ const result=computeACTWritingEstimate({essay:$("actWritingText").value,thesis:$("actPosition").value,reason1:$("actPerspectivePlan").value,reason2:$("actEvidencePlan").value,counter:$("actCounterPlan").value,promptText:promptText});
+ renderACTEstimate("actEssayEstimateBox","actEssayEstimateOverall","actEssayEstimateDomains","actEssayEstimateNotes",result,"actEssayHistoryList","scorepathACTWritingHistory",promptText);
 };
 if($("essayHistoryList"))renderEssayHistory("essayHistoryList","scorepathTSIEssayHistory");
 if($("actEssayHistoryList"))renderEssayHistory("actEssayHistoryList","scorepathACTWritingHistory");
