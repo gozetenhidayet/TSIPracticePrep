@@ -346,7 +346,7 @@ function showList(type){
  hideAll();$("listPanel").classList.add("show");const ids=type==="mistakes"?store.mistakes:store.bookmarks;
  $("listTitle").textContent=type==="mistakes"?"My Mistakes":"Saved Questions";
  $("listIntro").textContent=type==="mistakes"?"Incorrect questions stay here until you answer them correctly in practice.":"Questions you bookmarked for later review.";
- $("savedList").innerHTML=ids.length?ids.map(id=>{const q=QUESTIONS.find(x=>x.id===id);return q?`<div class="reviewCard"><b>${q.id} — ${q.skill}</b><p>${q.q}</p></div>`:""}).join(""):`<div class="reviewCard"><b>No questions here yet.</b><p>Complete practice sets or bookmark questions to build this list.</p></div>`;
+ $("savedList").innerHTML=ids.length?ids.map(id=>{const q=findQ("TSIA2",id,QUESTIONS);return q?`<div class="reviewCard"><b>${q.id} — ${q.skill}</b><p>${q.q}</p></div>`:""}).join(""):`<div class="reviewCard"><b>No questions here yet.</b><p>Complete practice sets or bookmark questions to build this list.</p></div>`;
  $("practiceSavedBtn").dataset.type=type;
 }
 function updateWords(){const txt=$("essayText").value.trim();$("wordCount").textContent=(txt?txt.split(/\s+/).length:0)+" words"}
@@ -703,6 +703,7 @@ function launchTSI(){
  state={set,i:0,answers:{},confidence:{},flags:[],timed,start:Date.now(),seconds:timed?30*60:0,timerId:null,mode,submitted:{},duration:timed?30*60:0};
  $("practiceShell").classList.add("show");$("results").classList.remove("show");
  $("testTitle").textContent=mode==="math"?"TSI Mathematics Practice":mode==="elar"?"TSI ELAR Practice":mode==="diagnostic"?"TSI Diagnostic Practice":mode==="timed"?"TSI Timed Simulation":"TSI Review Practice";
+ $("modeLabel").textContent=timed?"Exam Simulation — answers hidden":"Practice Mode — explanations after submit";
  $("confidenceBox")?.classList.add("hidden");$("submitAnswerBtn").classList.toggle("hidden",timed);
  if(timed)beginPacing("tsi",state,"timer",finishTest,30*60);else beginPacing("tsi",state,"timer",finishTest,PACING.tsi);
  renderQ();
@@ -715,6 +716,7 @@ function launchSAT(){
  satState={set,i:0,answers:{},confidence:{},flags:[],timed,start:Date.now(),seconds:duration,timerId:null,mode,submitted:{},duration};
  $("satPracticeShell").classList.add("show");$("satResults").classList.remove("show");
  $("satTestTitle").textContent=mode.includes("math")?"Digital SAT Math":mode.includes("rw")?"Digital SAT Reading & Writing":mode==="sat-diagnostic"?"Digital SAT Diagnostic":"SAT Review";
+ $("satModeLabel").textContent=timed?"Timed Module — answers hidden":"Practice Mode — explanations after submit";
  $("satConfidenceBox")?.classList.add("hidden");$("satSubmitBtn").classList.toggle("hidden",timed);
  beginPacing("sat",satState,"satTimer",finishSAT,duration);renderSAT();
 }
@@ -726,7 +728,7 @@ function launchACT(){
  actState={set,i:0,answers:{},confidence:{},flags:[],timed,start:Date.now(),seconds:duration,timerId:null,mode,submitted:{},duration};
  $("actPracticeShell").classList.add("show");$("actResults").classList.remove("show");
  const titles={"act-english":"ACT English Practice","act-math":"ACT Math Practice","act-reading":"ACT Reading Practice","act-science":"ACT Science Practice (Optional)","act-diagnostic":"ACT Diagnostic Practice","act-timed":"ACT Timed Mixed Practice"};
- $("actTestTitle").textContent=titles[mode]||"ACT Review";$("actConfidenceBox")?.classList.add("hidden");$("actSubmitBtn").classList.toggle("hidden",timed);
+ $("actTestTitle").textContent=titles[mode]||"ACT Review";$("actModeLabel").textContent=timed?"Timed Practice — answers hidden":"Practice Mode — explanations after submit";$("actConfidenceBox")?.classList.add("hidden");$("actSubmitBtn").classList.toggle("hidden",timed);
  beginPacing("act",actState,"actTimer",finishACT,duration);renderACT();
 }
 

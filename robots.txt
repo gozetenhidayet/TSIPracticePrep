@@ -5,6 +5,7 @@
 User-agent: *
 Allow: /
 Disallow: /teacher-login.html
+Disallow: /teachers.html
 Disallow: /student-account.html
 Disallow: /student-room.html
 
