@@ -1,0 +1,8 @@
+{
+  "name": "scorepath-practice",
+  "private": true,
+  "description": "ScorePath Practice — static SAT/ACT/TSIA2 test-prep site, plus its optional Cloud Functions classroom backend. `npm test` from this root runs the full backend test suite in one reproducible command (see test-backend.js).",
+  "scripts": {
+    "test": "node test-backend.js"
+  }
+}

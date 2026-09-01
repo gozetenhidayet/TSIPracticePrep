@@ -72,15 +72,17 @@ function difficultyTally(set) {
  * Sourced the same way as SCOREPATH_BLUEPRINT_WEIGHTS in
  * practice-engine-core.js: SAT's two Reading & Writing modules (27 each) vs.
  * two Math modules (22 each) from the official Digital SAT design; the
- * current Enhanced ACT's official section lengths (English 75, Math 60,
- * Reading 40, Science 40 optional); TSIA2 has no single fixed official total
- * (it's computer-adaptive), so Mathematics/ELAR are weighted equally here,
- * matching how this project already treats TSIA2 diagnostic/timed sampling
- * client-side (question-bank-core.js's selectSet).
+ * current ACT's official core section lengths (English 50, Math 45,
+ * Reading 36 — the same 131-question total actStageConfig's Full ACT Core
+ * Simulation already uses client-side — plus Science 40 optional); TSIA2 has
+ * no single fixed official total (it's computer-adaptive), so
+ * Mathematics/ELAR are weighted equally here, matching how this project
+ * already treats TSIA2 diagnostic/timed sampling client-side
+ * (question-bank-core.js's selectSet).
  */
 const SECTION_WEIGHTS = {
   SAT: { 'Reading & Writing': 54, Math: 44 },
-  ACT: { English: 75, Math: 60, Reading: 40, 'Science (Optional)': 40 },
+  ACT: { English: 50, Math: 45, Reading: 36, 'Science (Optional)': 40 },
   TSIA2: { Mathematics: 1, ELAR: 1 },
 };
 

@@ -413,8 +413,8 @@ function actSet(mode){
  if(mode==="act-math")return blueprintDraw("ACT","Math",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Math")).slice(0,12));
  if(mode==="act-reading")return blueprintDraw("ACT","Reading",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Reading")).slice(0,12));
  if(mode==="act-science")return blueprintDraw("ACT","Science (Optional)",12)||randomizedSet(shuffled(ACT_QUESTIONS.filter(q=>q.section==="Science (Optional)")).slice(0,12));
- if(mode==="act-diagnostic")return blueprintDraw("ACT",[{section:"English",weight:75},{section:"Math",weight:60},{section:"Reading",weight:40},{section:"Science (Optional)",weight:40}],12)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,12));
- if(mode==="act-timed")return blueprintDraw("ACT",[{section:"English",weight:75},{section:"Math",weight:60},{section:"Reading",weight:40},{section:"Science (Optional)",weight:40}],16)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,16));
+ if(mode==="act-diagnostic")return blueprintDraw("ACT",[{section:"English",weight:50},{section:"Math",weight:45},{section:"Reading",weight:36},{section:"Science (Optional)",weight:40}],12)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,12));
+ if(mode==="act-timed")return blueprintDraw("ACT",[{section:"English",weight:50},{section:"Math",weight:45},{section:"Reading",weight:36},{section:"Science (Optional)",weight:40}],16)||randomizedSet(shuffled(ACT_QUESTIONS).slice(0,16));
  if(mode==="mistakes")return randomizedSet(actStore.mistakes.map(id=>findQ("ACT",id,ACT_QUESTIONS)).filter(Boolean));
  if(mode==="bookmarks")return randomizedSet(actStore.bookmarks.map(id=>findQ("ACT",id,ACT_QUESTIONS)).filter(Boolean));
  return [];
