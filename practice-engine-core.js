@@ -3190,4 +3190,117 @@ const v22PrevFinishTestDash=finishTest;finishTest=function(auto=false){const set
 const v22PrevFinishSATDash=finishSAT;finishSAT=function(auto=false){const set=[...(satState.set||[])],answers={...(satState.answers||{})};v22PrevFinishSATDash(auto);if($v3('satResults').classList.contains('show'))v22InjectDashboard('satResults','.resultStats','SAT',set,answers)};
 const v22PrevFinishACTDash=finishACT;finishACT=function(auto=false){const set=[...(actState.set||[])],answers={...(actState.answers||{})};v22PrevFinishACTDash(auto);if($v3('actResults').classList.contains('show'))v22InjectDashboard('actResults','.resultStats','ACT',set,answers)};
 
+/* ============================================================
+   V23: Monetization — pre-test ad interstitial + a results-screen
+   ad zone, both consent-gated and inert until the site owner adds
+   a real AdSense publisher ID (index.html's "scorepath-adsense-consent"
+   script sets window.spAdsActive=true only once a visitor has both
+   accepted the cookie banner AND a real client ID is configured).
+   Added as pure additive wrapping, same convention as V17-V22 above:
+   nothing here changes what already works when ads aren't active.
+   ============================================================ */
+
+// -- Results-screen ad zone: one more quiet, natural pause point
+// (after a test, before the student reviews mistakes) alongside the
+// existing homepage/teacher-tools ad zones. Never shown mid-test —
+// only ever injected into a results screen that is already .show. --
+function v23InjectResultsAdZone(resultsId){
+  const results=document.getElementById(resultsId);if(!results)return;
+  if(results.querySelector('.v23ResultsAdZone'))return;
+  const diffBox=results.querySelector('.v22DifficultyBox');
+  const zone=document.createElement('div');
+  zone.className='adZone v23ResultsAdZone';
+  zone.setAttribute('data-ad-location','results');
+  zone.setAttribute('data-slot-key','results');
+  zone.innerHTML='<div class="adZoneInner"></div>';
+  if(diffBox)diffBox.insertAdjacentElement('afterend',zone);else results.appendChild(zone);
+  if(document.body.classList.contains('ads-enabled')){
+    const inner=zone.querySelector('.adZoneInner');
+    if(inner && !inner.querySelector('ins.adsbygoogle')){
+      try{
+        const ins=document.createElement('ins');
+        ins.className='adsbygoogle';ins.style.display='block';
+        ins.setAttribute('data-ad-format','auto');ins.setAttribute('data-full-width-responsive','true');
+        inner.appendChild(ins);
+        (window.adsbygoogle=window.adsbygoogle||[]).push({});
+      }catch(e){}
+    }
+  }
+}
+const v23PrevFinishTestAd=finishTest;finishTest=function(auto=false){v23PrevFinishTestAd(auto);if($v3('results').classList.contains('show'))v23InjectResultsAdZone('results')};
+const v23PrevFinishSATAd=finishSAT;finishSAT=function(auto=false){v23PrevFinishSATAd(auto);if($v3('satResults').classList.contains('show'))v23InjectResultsAdZone('satResults')};
+const v23PrevFinishACTAd=finishACT;finishACT=function(auto=false){v23PrevFinishACTAd(auto);if($v3('actResults').classList.contains('show'))v23InjectResultsAdZone('actResults')};
+
+// -- Pre-test ad interstitial: the site's ad-supported substitute for a
+// paid subscription. Wraps whatever the Begin buttons' onclick already
+// does (the full V9/legacy launch chain above) so clicking "Start Test"
+// shows a short, clearly-labeled ad break first, then continues into the
+// test exactly as before. Only ever triggers when spAdsActive is true;
+// otherwise every click behaves with zero added delay, same as always.
+// Rate-limited (one interstitial per COOLDOWN_MS) so a student running
+// several short practice sets back to back isn't stopped every time, and
+// never touches the exam itself once it's running. --
+(function(){
+  const COOLDOWN_MS=12*60*1000; // at most one interstitial every 12 minutes
+  const LAST_KEY='scorepath_last_interstitial';
+  const AD_SECONDS=5;
+
+  function cooldownActive(){
+    try{
+      const last=parseInt(localStorage.getItem(LAST_KEY)||'0',10);
+      return (Date.now()-last)<COOLDOWN_MS;
+    }catch(e){return false}
+  }
+  function markShown(){try{localStorage.setItem(LAST_KEY,String(Date.now()))}catch(e){}}
+
+  function showInterstitial(proceed){
+    const modal=document.getElementById('adInterstitial');
+    const btn=document.getElementById('adInterstitialContinue');
+    const countdown=document.getElementById('adInterstitialCountdown');
+    if(!modal||!btn||!countdown){proceed();return}
+    modal.classList.add('show');
+    btn.disabled=true;
+    let seconds=AD_SECONDS;
+    countdown.textContent=`Starting in ${seconds}s…`;
+    let done=false;
+    let timer=null;
+    function finish(){
+      if(done)return;done=true;
+      clearInterval(timer);
+      modal.classList.remove('show');
+      btn.onclick=null;
+      proceed();
+    }
+    timer=setInterval(function(){
+      seconds--;
+      if(seconds<=0){
+        clearInterval(timer);
+        btn.disabled=false;
+        countdown.textContent='Ready — thanks for supporting free practice!';
+      }else{
+        countdown.textContent=`Starting in ${seconds}s…`;
+      }
+    },1000);
+    btn.onclick=finish;
+    markShown();
+  }
+
+  function wrapBegin(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const prevOnclick=el.onclick;
+    el.onclick=function(ev){
+      if(window.spAdsActive!==true||cooldownActive()){
+        if(prevOnclick)prevOnclick.call(el,ev);
+        return;
+      }
+      showInterstitial(function(){if(prevOnclick)prevOnclick.call(el,ev)});
+    };
+  }
+
+  wrapBegin('satBeginBtn');
+  wrapBegin('actBeginBtn');
+  wrapBegin('tsiBeginBtn');
+})();
+
 })();

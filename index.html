@@ -22,8 +22,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ScorePath">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="app-icon.svg" type="image/svg+xml">
 <title>Free TSIA2, SAT & ACT Practice Tests | ScorePath Practice</title>
 <style>
 :root{
@@ -587,6 +585,7 @@ html{scroll-behavior:smooth}.v18-particles{position:fixed;inset:0;z-index:-2;poi
 .v18-comfort{position:fixed;right:16px;bottom:18px;z-index:45;border:1px solid #dce5ef;background:rgba(255,255,255,.94);box-shadow:0 10px 28px rgba(20,45,74,.12);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:850;color:#35506f;cursor:pointer;backdrop-filter:blur(10px)}body.v18-calm .v18-particle{display:none}body.v18-calm *{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.08s!important}
 .toolnovaCard{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:40;width:172px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 12px 30px rgba(15,23,42,.12);padding:14px 14px 13px;text-align:left}.toolnovaCard b{display:flex;align-items:center;gap:6px;font-size:13px;color:#0f172a;font-weight:900}.toolnovaCard b i{font-style:normal;font-size:15px}.toolnovaCard p{margin:7px 0 10px;font-size:10.5px;line-height:1.5;color:#64748b}.toolnovaCard a.toolnovaGo{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:850;color:#1d4ed8;text-decoration:none}.toolnovaCard a.toolnovaGo:hover{text-decoration:underline}.toolnovaClose{position:absolute;top:6px;right:8px;border:0;background:none;color:#94a3b8;font-size:13px;font-weight:900;cursor:pointer;line-height:1;padding:4px}.toolnovaClose:hover{color:#475569}.toolnovaCard span.toolnovaSponsor{position:absolute;bottom:6px;right:10px;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:#cbd5e1}@media(max-width:1300px){.toolnovaCard{display:none}}
 .toolnovaFooterLink{font-size:11px;color:#7c8aa5;margin:-4px 0 12px}.toolnovaFooterLink a{color:#9db3d1;font-weight:800;text-decoration:none}.toolnovaFooterLink a:hover{text-decoration:underline}
+.adInterstitial{display:none;position:fixed;inset:0;z-index:10060;background:rgba(2,6,23,.72);align-items:center;justify-content:center;padding:20px}.adInterstitial.show{display:flex}.adInterstitialCard{width:min(560px,94vw);max-height:88vh;overflow:auto;background:#fff;border-radius:20px;padding:20px;box-shadow:0 30px 80px rgba(2,8,23,.35)}.adInterstitialCard .adZone{display:block!important;margin:0 0 14px!important;max-width:none!important;padding:0!important}.adInterstitialCard .adZoneInner{min-height:250px}.adInterstitialHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.adInterstitialHead b{font-size:14px;color:#0f172a}.adInterstitialHead span{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#94a3b8;border:1px solid #e2e8f0;border-radius:999px;padding:3px 8px}.adInterstitialFoot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}#adInterstitialCountdown{font-size:12px;color:#64748b;font-weight:800}#adInterstitialContinue:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:760px){.catnav{overflow-x:auto!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}.catnav::-webkit-scrollbar{display:none}.catbtn{scroll-snap-align:center;min-width:max-content}.examcard:hover{transform:none}.v18-comfort{right:10px;bottom:10px;padding:8px 10px}.v18-particle:nth-child(n+13){display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.v18-particle,.timer.v18-critical,.v18-slide-in,.v18-chart i,.masteryTrack i,.v13GoalBar i,.skillTrack i{animation:none!important}.examcard,.catbtn{transition:none!important}}
 </style>
@@ -637,6 +636,16 @@ function spConsole(method){
   <p>PDF • Calculators • Converters • More</p>
   <a class="toolnovaGo" href="https://toolnova.tools" target="_blank" rel="noopener noreferrer">Explore Free Tools →</a>
   <span class="toolnovaSponsor">Sponsor</span>
+</div>
+<div class="adInterstitial" id="adInterstitial" role="dialog" aria-modal="true" aria-label="Advertisement before your practice test">
+  <div class="adInterstitialCard">
+    <div class="adInterstitialHead"><b>Your practice test is almost ready</b><span>Ad</span></div>
+    <div class="adZone" data-ad-location="pre-test" data-slot-key="preTest"><div class="adZoneInner"></div></div>
+    <div class="adInterstitialFoot">
+      <span id="adInterstitialCountdown">Starting in 5s…</span>
+      <button class="btn primary" id="adInterstitialContinue" type="button" disabled>Continue to test →</button>
+    </div>
+  </div>
 </div>
 <script>
 (function(){
@@ -1983,7 +1992,11 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
  */
 (function(){
   var ADSENSE_CLIENT_ID = ""; // e.g. "ca-pub-1234567890123456"
-  var ADSENSE_AD_SLOTS = { hub: "", trust: "", teacherTools: "" }; // one slot id per placement below
+  // one slot id per placement below — preTest is the pre-test ad interstitial
+  // (see the "V23" script near the bottom of practice-engine-core.js), results
+  // is the post-test results-screen ad zone; both fall back to hub/teacherTools
+  // if left blank, same as the original two placements always have.
+  var ADSENSE_AD_SLOTS = { hub: "", trust: "", teacherTools: "", preTest: "", results: "" };
   var CONSENT_KEY = "scorepath_consent_v1";
 
   function getConsent(){ try{ return localStorage.getItem(CONSENT_KEY); }catch(e){ return null; } }
@@ -2015,10 +2028,20 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
     if(!ADSENSE_CLIENT_ID || getConsent()!=="accepted") return;
     loadAdSenseScript();
     document.body.classList.add("ads-enabled");
+    // Signals to practice-engine-core.js's "V23" pre-test ad interstitial that
+    // a real, consented ad placement is actually active — the interstitial
+    // only ever shows when this is true, so with no publisher ID configured
+    // (or before consent) every Begin click behaves exactly as it always has,
+    // with zero added delay.
+    window.spAdsActive = true;
     var slots=document.querySelectorAll('.adSlot[data-ad-ready="true"]');
     if(slots[0]) fillSlot(slots[0].querySelector("span"), ADSENSE_AD_SLOTS.hub || ADSENSE_AD_SLOTS.trust);
     if(slots[1]) fillSlot(slots[1].querySelector("span"), ADSENSE_AD_SLOTS.trust || ADSENSE_AD_SLOTS.hub);
-    document.querySelectorAll(".adZoneInner").forEach(function(el){ fillSlot(el, ADSENSE_AD_SLOTS.teacherTools || ADSENSE_AD_SLOTS.hub); });
+    document.querySelectorAll(".adZoneInner").forEach(function(el){
+      var zone=el.closest(".adZone");
+      var key=zone && zone.dataset.slotKey;
+      fillSlot(el, (key && ADSENSE_AD_SLOTS[key]) || ADSENSE_AD_SLOTS.teacherTools || ADSENSE_AD_SLOTS.hub);
+    });
     setTimeout(function(){
       document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(function(){
         try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
