@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — Firebase SDK loader/initializer.
+ * TSI Practice Prep — Firebase SDK loader/initializer.
  *
  * Every other Firebase-touching file in this project (realtime-adapter.js,
  * backend-client.js) checks `window.firebase` at the moment it needs it —

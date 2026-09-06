@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — real teacher authentication (Firebase Auth), gated
+ * TSI Practice Prep — real teacher authentication (Firebase Auth), gated
  * behind window.SCOREPATH_FIREBASE_CONFIG exactly like every other
  * Firebase-dependent feature in this project.
  *

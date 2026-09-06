@@ -1,5 +1,5 @@
 /*
- * ScorePath — server-side question serving + grading.
+ * TSI Practice Prep — server-side question serving + grading.
  *
  * The point of this file: the real question bank (question text, choices,
  * AND the correct-answer index/explanation/strategy) lives only in

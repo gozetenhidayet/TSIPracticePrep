@@ -1,5 +1,5 @@
 /*
- * ScorePath — upload bank-export.json into Firestore.
+ * TSI Practice Prep — upload bank-export.json into Firestore.
  *
  * This is the second half of the migration: takes the JSON produced by
  * export-bank-to-json.js and writes each question into a `questions`

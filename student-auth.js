@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — anonymous student session (Firebase Auth), gated
+ * TSI Practice Prep — anonymous student session (Firebase Auth), gated
  * behind window.SCOREPATH_FIREBASE_CONFIG exactly like every other
  * Firebase-dependent feature in this project.
  *

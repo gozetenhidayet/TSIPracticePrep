@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — Firebase configuration
+ * TSI Practice Prep — Firebase configuration
  *
  * This file is intentionally empty by default. Cross-device account sync
  * (student/teacher accounts, classroom sync) stays disabled and the site

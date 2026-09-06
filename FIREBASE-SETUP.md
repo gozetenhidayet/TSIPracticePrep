@@ -1,4 +1,4 @@
-# ScorePath Firebase Setup
+# TSI Practice Prep Firebase Setup
 
 **This file is an early, high-level sketch — `BACKEND-SETUP.md` is the
 current, complete, step-by-step guide** (server-side question serving,

@@ -1,6 +1,6 @@
 {
-  "name": "ScorePath Practice",
-  "short_name": "ScorePath",
+  "name": "TSI Practice Prep",
+  "short_name": "TSI Prep",
   "description": "Free SAT, ACT, and TSIA2 practice with original skill-aligned questions, mistake analysis, and progress tracking.",
   "start_url": "./index.html",
   "scope": "./",

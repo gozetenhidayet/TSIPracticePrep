@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — thin client for the server-side Cloud Functions in
+ * TSI Practice Prep — thin client for the server-side Cloud Functions in
  * functions/index.js (getAssignmentQuestions, submitAnswer, createRoom,
  * endRoom).
  *

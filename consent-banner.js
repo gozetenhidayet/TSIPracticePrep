@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — shared cookie-consent banner + AdSense activation
+ * TSI Practice Prep — shared cookie-consent banner + AdSense activation
  *
  * Self-installs on any page that loads this script: injects its own CSS,
  * the banner markup, and a "Cookie Preferences" reopen link into whatever
@@ -108,7 +108,7 @@
     div.setAttribute("role", "dialog");
     div.setAttribute("aria-label", "Cookie preferences");
     div.innerHTML =
-      '<p><b>Cookies &amp; ads.</b> ScorePath Practice can show ads on some pages to help keep practice free. Ads and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="' + ROOT_PREFIX + 'privacy.html">Privacy</a>.</p>' +
+      '<p><b>Cookies &amp; ads.</b> TSI Practice Prep can show ads on some pages to help keep practice free. Ads and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="' + ROOT_PREFIX + 'privacy.html">Privacy</a>.</p>' +
       '<div class="spConsentActions"><button class="spConsentBtn decline" id="spConsentDecline" type="button">Decline</button><button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button></div>';
     document.body.appendChild(div);
     return div;

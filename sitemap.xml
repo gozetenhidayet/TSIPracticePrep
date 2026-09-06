@@ -14,7 +14,7 @@
   are now built with real, skill-specific explanations and worked examples
   and are listed below.
 
-  The homepage is listed as https://scorepathpractice.com/ (not /index.html)
+  The homepage is listed as https://tsipracticeprep.com/ (not /index.html)
   to match index.html's own <link rel="canonical">. Static hosts serve
   index.html's content at the bare root by default, so this needs no server
   change to work; _redirects/vercel.json/.htaccess-redirect are included at
@@ -22,39 +22,39 @@
   for hosts that support them, so the two URLs never compete as duplicates.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://scorepathpractice.com/</loc><lastmod>2026-08-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://scorepathpractice.com/tsia2.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://scorepathpractice.com/sat.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://scorepathpractice.com/act.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://scorepathpractice.com/about.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://scorepathpractice.com/resources.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/graduation-guide.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/editorial-standards.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://scorepathpractice.com/disclaimer.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://scorepathpractice.com/privacy.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://scorepathpractice.com/terms.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://scorepathpractice.com/contact.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://scorepathpractice.com/teacher-resources.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-information-and-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-craft-and-structure.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-expression-of-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-standard-english-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-algebra.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-advanced-math.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-problem-solving-data-analysis.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/sat-geometry-trigonometry.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-production-of-writing.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-knowledge-of-language.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-number-quantity.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-algebra-functions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-geometry-statistics.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-key-ideas-details.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/act-craft-integration.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-quantitative-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-algebraic-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-geometric-spatial-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-probabilistic-statistical-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-reading-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://scorepathpractice.com/skills/tsia2-writing-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/</loc><lastmod>2026-08-30</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://tsipracticeprep.com/tsia2.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://tsipracticeprep.com/sat.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://tsipracticeprep.com/act.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://tsipracticeprep.com/about.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://tsipracticeprep.com/resources.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/graduation-guide.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/editorial-standards.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://tsipracticeprep.com/disclaimer.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://tsipracticeprep.com/privacy.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://tsipracticeprep.com/terms.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://tsipracticeprep.com/contact.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://tsipracticeprep.com/teacher-resources.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-information-and-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-craft-and-structure.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-expression-of-ideas.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-standard-english-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-algebra.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-advanced-math.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-problem-solving-data-analysis.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/sat-geometry-trigonometry.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-production-of-writing.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-knowledge-of-language.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-conventions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-number-quantity.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-algebra-functions.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-geometry-statistics.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-key-ideas-details.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/act-craft-integration.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-quantitative-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-algebraic-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-geometric-spatial-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-probabilistic-statistical-reasoning.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-reading-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://tsipracticeprep.com/skills/tsia2-writing-elar.html</loc><lastmod>2026-08-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

@@ -1,5 +1,5 @@
 /*
- * ScorePath — export the question bank to JSON for Firestore migration.
+ * TSI Practice Prep — export the question bank to JSON for Firestore migration.
  *
  * question-bank-core.js and practice-engine-core.js are written as browser
  * scripts (they reference `window`, `document`, `localStorage`) — there is

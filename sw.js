@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — service worker
+ * TSI Practice Prep — service worker
  *
  * Deliberately conservative: this only makes the core pages available
  * offline after a first visit. It never caches third-party origins

@@ -1,4 +1,4 @@
-# Netlify redirect rules for ScorePath Practice.
+# Netlify redirect rules for TSI Practice Prep.
 # Consolidates /index.html into / so the two never compete as duplicate URLs —
 # matches the canonical tag in index.html (<link rel="canonical" href=".../">).
 # Harmless if you're not hosting on Netlify: this file is simply ignored by

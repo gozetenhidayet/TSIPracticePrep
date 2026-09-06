@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * ScorePath — one-command reproducible backend test runner.
+ * TSI Practice Prep — one-command reproducible backend test runner.
  *
  * Before this file existed, `cd functions && npm test` failed on a fresh
  * checkout with a bare "Run scripts/export-bank-to-json.js first" message

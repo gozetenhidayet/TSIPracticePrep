@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — student account sync engine
+ * TSI Practice Prep — student account sync engine
  *
  * Exposes window.ScorePathSync = { configured, boot(), signIn(), createAccount(), deviceProfile() }
  *

@@ -1,5 +1,5 @@
 /*
- * ScorePath Practice — realtime classroom adapter
+ * TSI Practice Prep — realtime classroom adapter
  *
  * Exposes window.ScorePathRealtime.create(room, handler) -> Promise<channel>
  * where channel.postMessage(data) sends an event and channel.close() ends it.
