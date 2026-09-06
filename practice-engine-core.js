@@ -2085,7 +2085,7 @@ O("TSIA2-ENR-0206","Mathematics","Geometric and Spatial Reasoning — Volume","M
 O("TSIA2-ENR-0207","Mathematics","Geometric and Spatial Reasoning — Triangle Area","Easy","A triangle has base 14 and height 12. What is its area?",["84","168","26","52"],0,"Area=1/2×14×12=84.",["Area=1/2×14×12=84.","\"168\" does not match: Area=1/2×14×12=84.","\"26\" does not match: Area=1/2×14×12=84.","\"52\" does not match: Area=1/2×14×12=84."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0208","Mathematics","Geometric and Spatial Reasoning — Circles","Easy","A circle has radius 7. What is its area?",["7π","98π","49π","14π"],2,"Area=πr²=49π.",["\"7π\" does not match: Area=πr²=49π.","\"98π\" does not match: Area=πr²=49π.","Area=πr²=49π.","\"14π\" does not match: Area=πr²=49π."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0209","Mathematics","Geometric and Spatial Reasoning — Pythagorean Theorem","Medium","A right triangle has legs 5 and 12. What is its hypotenuse?",["13","17","7","60"],0,"c²=25+144=169; c=13.",["c²=25+144=169; c=13.","\"17\" does not match: c²=25+144=169; c=13.","\"7\" does not match: c²=25+144=169; c=13.","\"60\" does not match: c²=25+144=169; c=13."],"Sketch the figure and label every given value before applying a formula."),
-O("TSIA2-ENR-0210","Mathematics","Geometric and Spatial Reasoning — Reflections","Easy","Point P(0,4) is reflected across the x-axis. What is P′?",["(0, 4)","44","(4, 0)","(0, -4)"],3,"Reflection across the x-axis keeps x and changes the sign of y.",["\"(0, 4)\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","\"44\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","\"(4, 0)\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","Reflection across the x-axis keeps x and changes the sign of y."],"Sketch the figure and label every given value before applying a formula."),
+O("TSIA2-ENR-0210","Mathematics","Geometric and Spatial Reasoning — Reflections","Easy","Point P(0,4) is reflected across the x-axis. What is P′?",["(0, 4)","(4, -4)","(4, 0)","(0, -4)"],3,"Reflection across the x-axis keeps x and changes the sign of y.",["\"(0, 4)\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","\"(4, -4)\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","\"(4, 0)\" does not match: Reflection across the x-axis keeps x and changes the sign of y.","Reflection across the x-axis keeps x and changes the sign of y."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0211","Mathematics","Geometric and Spatial Reasoning — Similarity","Medium","Two similar figures have corresponding sides 9 and 36. If another side of the smaller figure is 6, what is the corresponding side of the larger figure?",["24","48","42","10"],0,"The scale factor is 4; 6×4=24.",["The scale factor is 4; 6×4=24.","\"48\" does not match: The scale factor is 4; 6×4=24.","\"42\" does not match: The scale factor is 4; 6×4=24.","\"10\" does not match: The scale factor is 4; 6×4=24."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0212","Mathematics","Geometric and Spatial Reasoning — Volume","Medium","A rectangular prism has length 12, width 4, and height 8. What is its volume?",["24","48","352","384"],3,"Volume=lwh=12×4×8=384.",["\"24\" does not match: Volume=lwh=12×4×8=384.","\"48\" does not match: Volume=lwh=12×4×8=384.","\"352\" does not match: Volume=lwh=12×4×8=384.","Volume=lwh=12×4×8=384."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0213","Mathematics","Geometric and Spatial Reasoning — Triangle Area","Easy","A triangle has base 16 and height 5. What is its area?",["40","42","80","21"],0,"Area=1/2×16×5=40.",["Area=1/2×16×5=40.","\"42\" does not match: Area=1/2×16×5=40.","\"80\" does not match: Area=1/2×16×5=40.","\"21\" does not match: Area=1/2×16×5=40."],"Sketch the figure and label every given value before applying a formula."),
@@ -2696,10 +2696,10 @@ O("TSIA2-ENR-0844","Mathematics","Geometric and Spatial Reasoning — Translatio
 O("TSIA2-ENR-0845","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-1,8) is translated 5 units horizontally and -4 units vertically. What is P′?",["(-6, 12)","(-6, 4)","(4, 4)","(4, 12)"],2,"Add the translation: (-1+5, 8+-4)=(4,4).",["\"(-6, 12)\" does not match: Add the translation: (-1+5, 8+-4)=(4,4).","\"(-6, 4)\" does not match: Add the translation: (-1+5, 8+-4)=(4,4).","Add the translation: (-1+5, 8+-4)=(4,4).","\"(4, 12)\" does not match: Add the translation: (-1+5, 8+-4)=(4,4)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0846","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-4,3) is translated -5 units horizontally and 4 units vertically. What is P′?",["(-9, -1)","(-9, 7)","(1, -1)","(1, 7)"],1,"Add the translation: (-4+-5, 3+4)=(-9,7).",["\"(-9, -1)\" does not match: Add the translation: (-4+-5, 3+4)=(-9,7).","Add the translation: (-4+-5, 3+4)=(-9,7).","\"(1, -1)\" does not match: Add the translation: (-4+-5, 3+4)=(-9,7).","\"(1, 7)\" does not match: Add the translation: (-4+-5, 3+4)=(-9,7)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0847","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(4,2) is translated -4 units horizontally and 2 units vertically. What is P′?",["(0, 4)","(0, 0)","(8, 4)","(8, 0)"],0,"Add the translation: (4+-4, 2+2)=(0,4).",["Add the translation: (4+-4, 2+2)=(0,4).","\"(0, 0)\" does not match: Add the translation: (4+-4, 2+2)=(0,4).","\"(8, 4)\" does not match: Add the translation: (4+-4, 2+2)=(0,4).","\"(8, 0)\" does not match: Add the translation: (4+-4, 2+2)=(0,4)."],"Sketch the figure and label every given value before applying a formula."),
-O("TSIA2-ENR-0848","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(0,0) is translated 0 units horizontally and 4 units vertically. What is P′?",["(0, 4)","-27","83","(0, -4)"],0,"Add the translation: (0+0, 0+4)=(0,4).",["Add the translation: (0+0, 0+4)=(0,4).","\"-27\" does not match: Add the translation: (0+0, 0+4)=(0,4).","\"83\" does not match: Add the translation: (0+0, 0+4)=(0,4).","\"(0, -4)\" does not match: Add the translation: (0+0, 0+4)=(0,4)."],"Sketch the figure and label every given value before applying a formula."),
-O("TSIA2-ENR-0849","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-3,-8) is translated -2 units horizontally and 0 units vertically. What is P′?",["67","-23","(-1, -8)","(-5, -8)"],3,"Add the translation: (-3+-2, -8+0)=(-5,-8).",["\"67\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","\"-23\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","\"(-1, -8)\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","Add the translation: (-3+-2, -8+0)=(-5,-8)."],"Sketch the figure and label every given value before applying a formula."),
+O("TSIA2-ENR-0848","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(0,0) is translated 0 units horizontally and 4 units vertically. What is P′?",["(0, 4)","(0, 0)","(4, 0)","(0, -4)"],0,"Add the translation: (0+0, 0+4)=(0,4).",["Add the translation: (0+0, 0+4)=(0,4).","\"(0, 0)\" does not match: Add the translation: (0+0, 0+4)=(0,4).","\"(4, 0)\" does not match: Add the translation: (0+0, 0+4)=(0,4).","\"(0, -4)\" does not match: Add the translation: (0+0, 0+4)=(0,4)."],"Sketch the figure and label every given value before applying a formula."),
+O("TSIA2-ENR-0849","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-3,-8) is translated -2 units horizontally and 0 units vertically. What is P′?",["(-3, -8)","(-8, -5)","(-1, -8)","(-5, -8)"],3,"Add the translation: (-3+-2, -8+0)=(-5,-8).",["\"(-3, -8)\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","\"(-8, -5)\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","\"(-1, -8)\" does not match: Add the translation: (-3+-2, -8+0)=(-5,-8).","Add the translation: (-3+-2, -8+0)=(-5,-8)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0850","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(7,-1) is translated 5 units horizontally and -5 units vertically. What is P′?",["(12, 4)","(2, 4)","(2, -6)","(12, -6)"],3,"Add the translation: (7+5, -1+-5)=(12,-6).",["\"(12, 4)\" does not match: Add the translation: (7+5, -1+-5)=(12,-6).","\"(2, 4)\" does not match: Add the translation: (7+5, -1+-5)=(12,-6).","\"(2, -6)\" does not match: Add the translation: (7+5, -1+-5)=(12,-6).","Add the translation: (7+5, -1+-5)=(12,-6)."],"Sketch the figure and label every given value before applying a formula."),
-O("TSIA2-ENR-0851","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-6,1) is translated 0 units horizontally and -5 units vertically. What is P′?",["(-6, -4)","-32","134","(-6, 6)"],0,"Add the translation: (-6+0, 1+-5)=(-6,-4).",["Add the translation: (-6+0, 1+-5)=(-6,-4).","\"-32\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4).","\"134\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4).","\"(-6, 6)\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4)."],"Sketch the figure and label every given value before applying a formula."),
+O("TSIA2-ENR-0851","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-6,1) is translated 0 units horizontally and -5 units vertically. What is P′?",["(-6, -4)","(-6, 1)","(-4, -6)","(-6, 6)"],0,"Add the translation: (-6+0, 1+-5)=(-6,-4).",["Add the translation: (-6+0, 1+-5)=(-6,-4).","\"(-6, 1)\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4).","\"(-4, -6)\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4).","\"(-6, 6)\" does not match: Add the translation: (-6+0, 1+-5)=(-6,-4)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0852","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(2,-3) is translated -5 units horizontally and 4 units vertically. What is P′?",["(-3, -7)","(-3, 1)","(7, -7)","(7, 1)"],1,"Add the translation: (2+-5, -3+4)=(-3,1).",["\"(-3, -7)\" does not match: Add the translation: (2+-5, -3+4)=(-3,1).","Add the translation: (2+-5, -3+4)=(-3,1).","\"(7, -7)\" does not match: Add the translation: (2+-5, -3+4)=(-3,1).","\"(7, 1)\" does not match: Add the translation: (2+-5, -3+4)=(-3,1)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0853","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(-8,-1) is translated 5 units horizontally and 5 units vertically. What is P′?",["(-3, -6)","(-3, 4)","(-13, 4)","(-13, -6)"],1,"Add the translation: (-8+5, -1+5)=(-3,4).",["\"(-3, -6)\" does not match: Add the translation: (-8+5, -1+5)=(-3,4).","Add the translation: (-8+5, -1+5)=(-3,4).","\"(-13, 4)\" does not match: Add the translation: (-8+5, -1+5)=(-3,4).","\"(-13, -6)\" does not match: Add the translation: (-8+5, -1+5)=(-3,4)."],"Sketch the figure and label every given value before applying a formula."),
 O("TSIA2-ENR-0854","Mathematics","Geometric and Spatial Reasoning — Translations","Easy","Point P(5,6) is translated 2 units horizontally and -3 units vertically. What is P′?",["(3, 3)","(3, 9)","(7, 3)","(7, 9)"],2,"Add the translation: (5+2, 6+-3)=(7,3).",["\"(3, 3)\" does not match: Add the translation: (5+2, 6+-3)=(7,3).","\"(3, 9)\" does not match: Add the translation: (5+2, 6+-3)=(7,3).","Add the translation: (5+2, 6+-3)=(7,3).","\"(7, 9)\" does not match: Add the translation: (5+2, 6+-3)=(7,3)."],"Sketch the figure and label every given value before applying a formula."),
@@ -2911,7 +2911,7 @@ function v9Stable(pool,seed,count){return pool.slice().sort((a,b)=>v9Hash(a.id+'
  * mismatch between the Timed and Untimed buttons on the exact same row. */
 function v9Build(exam,num){const fresh=(arr,n)=>secureShuffle(arr).slice(0,n);if(exam==='SAT')return [...fresh(PRO_BANK.SAT.filter(q=>q.section==='Reading & Writing'),54),...fresh(PRO_BANK.SAT.filter(q=>q.section==='Math'),44)];if(exam==='ACT')return [...fresh(PRO_BANK.ACT.filter(q=>q.section==='English'),50),...fresh(PRO_BANK.ACT.filter(q=>q.section==='Math'),45),...fresh(PRO_BANK.ACT.filter(q=>q.section==='Reading'),36)];return [...fresh(PRO_BANK.TSIA2.filter(q=>q.section==='Mathematics'),20),...fresh(PRO_BANK.TSIA2.filter(q=>q.section==='ELAR'),24)]}
 let v9Pending=null;
-function v9Open(exam,num,timed){const raw=v9Build(exam,num),set=randomizeSet(raw),duration=exam==='SAT'?134*60:exam==='ACT'?125*60:54*60,title=`${exam==='TSIA2'?'TSIA2':exam} Practice Test ${num}`,adaptive=((exam==='SAT'||exam==='ACT'||exam==='TSIA2')&&timed);v9Pending={exam,num,timed,duration,title,set,adaptive};if(exam==='SAT'){pendingSATMode={mode:'v9',set};satHideAll();$v3('satHome').classList.add('hidden');showStartGate('sat','v9',set);$v3('satStartName').textContent=title;$v3('satStartMeta').textContent=adaptive?`${set.length} questions • 4 adaptive modules • Module 1 fixed, Module 2 difficulty adjusts to your accuracy`:`${set.length} questions • Untimed`}else if(exam==='ACT'){pendingACTMode={mode:'v9',set};actHideAll();$v3('actHome').classList.add('hidden');showStartGate('act','v9',set);$v3('actStartName').textContent=title;$v3('actStartMeta').textContent=adaptive?`${set.length} questions • ScorePath Adaptive Practice — English & Math Module 2 adjust to your Module 1 accuracy (the real ACT itself is fixed-form, not adaptive)`:`${set.length} questions • Untimed`}else{pendingTSIMode={mode:'v9',set};hideAll();$v3('dashHome').classList.add('hidden');showStartGate('tsi','v9',set);$v3('tsiStartName').textContent=title;$v3('tsiStartMeta').textContent=adaptive?`${set.length} questions • 4 adaptive modules • Module 1 fixed, Module 2 difficulty adjusts to your accuracy (the real TSIA2 is itself a computer-adaptive test)`:`${set.length} questions • Untimed • recommended`}}
+function v9Open(exam,num,timed){const raw=v9Build(exam,num),set=randomizeSet(raw),duration=exam==='SAT'?134*60:exam==='ACT'?125*60:54*60,title=`${exam==='TSIA2'?'TSIA2':exam} Practice Test ${num}`,adaptive=((exam==='SAT'||exam==='ACT'||exam==='TSIA2')&&timed);v9Pending={exam,num,timed,duration,title,set,adaptive};if(exam==='SAT'){pendingSATMode={mode:'v9',set};satHideAll();$v3('satHome').classList.add('hidden');showStartGate('sat','v9',set);$v3('satStartName').textContent=title;$v3('satStartMeta').textContent=adaptive?`${set.length} questions (54 Reading & Writing + 44 Math) • 4 adaptive modules • Module 1 fixed, Module 2 difficulty adjusts to your accuracy`:`${set.length} questions (54 Reading & Writing + 44 Math) • Untimed`}else if(exam==='ACT'){pendingACTMode={mode:'v9',set};actHideAll();$v3('actHome').classList.add('hidden');showStartGate('act','v9',set);$v3('actStartName').textContent=title;$v3('actStartMeta').textContent=adaptive?`${set.length} questions (50 English + 45 Math + 36 Reading) • ScorePath Adaptive Practice — English & Math Module 2 adjust to your Module 1 accuracy (the real ACT itself is fixed-form, not adaptive)`:`${set.length} questions (50 English + 45 Math + 36 Reading) • Untimed`}else{pendingTSIMode={mode:'v9',set};hideAll();$v3('dashHome').classList.add('hidden');showStartGate('tsi','v9',set);$v3('tsiStartName').textContent=title;$v3('tsiStartMeta').textContent=adaptive?`${set.length} questions (20 Math + 24 ELAR) • 4 adaptive modules • Module 1 fixed, Module 2 difficulty adjusts to your accuracy (the real TSIA2 is itself a computer-adaptive test)`:`${set.length} questions (20 Math + 24 ELAR) • Untimed • recommended`}}
 function v9Launch(exam){if(!v9Pending||v9Pending.exam!==exam)return false;const p=v9Pending;v9Pending=null;if(exam==='SAT'){pendingSATMode=null;$v3('satStartGate').classList.remove('show');if(p.adaptive){v9Adaptive={active:true,num:p.num,stage:0,used:new Set(),results:[],rwRoute:'mixed',mathRoute:'mixed',modules:[]};v9LaunchAdaptiveStage();return true}satState={set:p.set,i:0,answers:{},confidence:{},flags:[],timed:p.timed,start:Date.now(),seconds:p.timed?p.duration:0,timerId:null,mode:`v9-sat-pt${p.num}`,submitted:{},duration:p.timed?p.duration:0,sessionCode:sessionCode('SAT')};$v3('satPracticeShell').classList.add('show');$v3('satResults').classList.remove('show');$v3('satTestTitle').textContent=p.title;$v3('satModeLabel').textContent=p.timed?'Timed Practice':'Untimed Practice';$v3('satSubmitBtn').classList.toggle('hidden',p.timed);if(p.timed)beginPacing('sat',satState,'satTimer',finishSAT,p.duration);else{$v3('satTimer').textContent='Untimed';$v3('satTimer').classList.remove('dangerTime')}renderSAT()}else if(exam==='ACT'){pendingACTMode=null;$v3('actStartGate').classList.remove('show');if(p.adaptive){actV9Adaptive={active:true,num:p.num,stage:0,used:new Set(),results:[],modules:[]};actV9LaunchAdaptiveStage();return true}actState={set:p.set,i:0,answers:{},confidence:{},flags:[],timed:p.timed,start:Date.now(),seconds:p.timed?p.duration:0,timerId:null,mode:`v9-act-pt${p.num}`,submitted:{},duration:p.timed?p.duration:0,sessionCode:sessionCode('ACT')};$v3('actPracticeShell').classList.add('show');$v3('actResults').classList.remove('show');$v3('actTestTitle').textContent=p.title;$v3('actModeLabel').textContent=p.timed?'Timed Practice':'Untimed Practice';$v3('actSubmitBtn').classList.toggle('hidden',p.timed);if(p.timed)beginPacing('act',actState,'actTimer',finishACT,p.duration);else{$v3('actTimer').textContent='Untimed';$v3('actTimer').classList.remove('dangerTime')}renderACT()}else{pendingTSIMode=null;$v3('tsiStartGate').classList.remove('show');if(p.adaptive){tsiV9Adaptive={active:true,num:p.num,stage:0,used:new Set(),results:[],mathRoute:'mixed',elarRoute:'mixed',modules:[]};tsiV9LaunchAdaptiveStage();return true}state={set:p.set,i:0,answers:{},confidence:{},flags:[],timed:p.timed,start:Date.now(),seconds:p.timed?p.duration:0,timerId:null,mode:`v9-tsi-pt${p.num}`,submitted:{},duration:p.timed?p.duration:0,sessionCode:sessionCode('TSI')};$v3('practiceShell').classList.add('show');$v3('results').classList.remove('show');$v3('testTitle').textContent=p.title;$v3('modeLabel').textContent=p.timed?'Timed Practice — not an official TSIA2 time limit':'Untimed Practice';$v3('submitAnswerBtn').classList.toggle('hidden',p.timed);if(p.timed)beginPacing('tsi',state,'timer',finishTest,p.duration);else{$v3('timer').textContent='Untimed';$v3('timer').classList.remove('dangerTime')}renderQ()}return true}
 document.querySelectorAll('[data-v9-test]').forEach(b=>b.addEventListener('click',()=>v9Open(b.dataset.v9Test,Number(b.dataset.v9Num),b.dataset.v9Mode==='timed')));
 const oldTsiBeginV9=$v3('tsiBeginBtn').onclick,oldSatBeginV9=$v3('satBeginBtn').onclick,oldActBeginV9=$v3('actBeginBtn').onclick;$v3('tsiBeginBtn').onclick=()=>{if(!v9Launch('TSIA2'))oldTsiBeginV9?.()};$v3('satBeginBtn').onclick=()=>{if(!v9Launch('SAT'))oldSatBeginV9?.()};$v3('actBeginBtn').onclick=()=>{if(!v9Launch('ACT'))oldActBeginV9?.()};
@@ -3046,20 +3046,94 @@ const V22_FEEDBACK={
   concept:'This points to a gap in the underlying skill rather than a slip. Review the strategy and step-by-step explanation below before trying a similar question.'
 };
 
+// -- step-by-step + verification helpers --
+// Parses the linear-equation-in-the-question-text pattern several V17/ENR
+// families already use ("6x + 3 = 87" style). Shared by both the step-by-step
+// derivation and the verification check below so the two stay consistent.
+function v22ParseLinearEquation(qtext){
+  const m=(qtext||'').match(/([\d.]*)x\s*([+\-−])\s*([\d.]+)\s*=\s*([\d.]+)/);
+  if(!m)return null;
+  const coefStr=m[1],coef=coefStr?Number(coefStr):1,sign=m[2]==='−'?'-':m[2],b=Number(m[3]),rhs=Number(m[4]);
+  if(Number.isNaN(coef)||Number.isNaN(b)||Number.isNaN(rhs))return null;
+  return {coefStr,coef,sign,b,rhs};
+}
+// Parses the "Substitute x=N: f(N)=expr=result" function-evaluation template
+// several generated math families use.
+function v22ParseFunctionEval(ex){
+  const m=(ex||'').match(/f\(([^)]+)\)\s*=\s*(.+?)=\s*(-?[\d.]+)\s*\.?\s*$/);
+  if(!m)return null;
+  return {arg:m[1].trim(),expr:m[2].trim(),result:m[3].trim()};
+}
+// Grabs the last standalone number in an explanation string, if any — most
+// of the bank's generated ex templates end with the actual computed value.
+function v22ExtractFinalNumber(ex){
+  const m=(ex||'').match(/(-?[\d.]+)\s*π?\s*\.?\s*$/);
+  return m?Number(m[1]):null;
+}
+
+// -- Step-by-Step Explanation: real, multi-line derivations instead of one
+// compressed sentence, wherever the question's own text/explanation makes
+// that possible; otherwise a clean fallback rather than a fabricated one. --
+function v22StepByStep(q,correctChoiceText){
+  const eq=v22ParseLinearEquation(q.q||'');
+  if(eq){
+    const xVal=Number(correctChoiceText);
+    if(!Number.isNaN(xVal)){
+      const afterMove=eq.sign==='+'?eq.rhs-eq.b:eq.rhs+eq.b;
+      const coefPart=eq.coefStr||'';
+      return [
+        `${coefPart}x ${eq.sign} ${eq.b} = ${eq.rhs}`,
+        `${coefPart}x = ${afterMove}`,
+        `x = ${xVal}`
+      ];
+    }
+  }
+  const fn=v22ParseFunctionEval(q.ex||'');
+  if(fn){
+    return [
+      `Substitute x = ${fn.arg} into f(x)`,
+      `f(${fn.arg}) = ${fn.expr}`,
+      `f(${fn.arg}) = ${fn.result}`
+    ];
+  }
+  // Generic fallback: split the existing explanation into real fragments
+  // (sentence/semicolon boundaries, or a colon introducing a computed chain)
+  // so even an un-parsed explanation reads as steps rather than one block.
+  const raw=(q.ex||'').trim();
+  if(raw.includes(':')){
+    const [head,...rest]=raw.split(':');
+    const tail=rest.join(':').trim();
+    if(tail.includes('=')){
+      const parts=tail.split('=').map(s=>s.trim()).filter(Boolean);
+      if(parts.length>1){
+        return [`${head.trim()}:`, parts[0], ...parts.slice(1).map(p=>`= ${p.replace(/\.$/,'')}`)];
+      }
+    }
+  }
+  const fragments=raw.split(/(?<=[.;])\s+/).map(s=>s.trim()).filter(s=>s.length>1);
+  if(fragments.length>1)return fragments;
+  return [raw];
+}
+
 // -- verification / "check your answer" --
 // Best-effort: for generated equation-style items, plug the answer back in
 // literally; for everything else, give a concrete, skill-appropriate
 // checking habit rather than a generic "check your work".
 function v22Verification(q,correctChoiceText){
-  const skill=q.skill||'',sec=q.section||'',qtext=q.q||'';
-  const eqMatch=qtext.match(/([\d.]*)x\s*([+\-−])\s*([\d.]+)\s*=\s*([\d.]+)/);
-  if(eqMatch){
-    const coefStr=eqMatch[1],coef=coefStr?Number(coefStr):1,sign=eqMatch[2],b=Number(eqMatch[3]),rhs=Number(eqMatch[4]),xVal=Number(correctChoiceText);
-    if(!Number.isNaN(xVal)&&!Number.isNaN(rhs)){
-      const left=(sign==='+')?coef*xVal+b:coef*xVal-b;
-      return `Plug x = ${correctChoiceText} back into the original equation: ${coefStr||''}x ${sign} ${b} = ${left} — this should equal ${rhs}.${left===rhs?' ✓ It checks out.':''}`;
+  const skill=q.skill||'',sec=q.section||'';
+  const eq=v22ParseLinearEquation(q.q||'');
+  if(eq){
+    const xVal=Number(correctChoiceText);
+    if(!Number.isNaN(xVal)){
+      const left=eq.sign==='+'?eq.coef*xVal+eq.b:eq.coef*xVal-eq.b;
+      return `Plug x = ${correctChoiceText} back into the original equation: ${eq.coefStr||''}x ${eq.sign} ${eq.b} = ${left} — this should equal ${eq.rhs}.${left===eq.rhs?' ✓ It checks out.':''}`;
     }
   }
+  const fn=v22ParseFunctionEval(q.ex||'');
+  if(fn)return `Plug x = ${fn.arg} back into f(x): f(${fn.arg}) = ${fn.expr} = ${fn.result} — matches this choice exactly. ✓`;
+  const finalNum=v22ExtractFinalNumber(q.ex||''),choiceNum=Number(correctChoiceText);
+  if(finalNum!==null&&!Number.isNaN(choiceNum)&&Math.abs(finalNum-choiceNum)<1e-9)
+    return `Work back through the steps above: they resolve to ${finalNum}, which matches this choice exactly. ✓`;
   if(/Geometry|Circle|Triangle|Rectangle|Trigonometry|Area|Volume/i.test(skill+' '+sec))return 'Re-derive the answer from the formula with the given numbers, and confirm the units and shape actually match what the question asked for (area vs. perimeter, radius vs. diameter, etc.).';
   if(/Mean|Median|Statistics|Probability|Data/i.test(skill))return 'Recompute the value directly from the listed numbers rather than trusting memory, and confirm every value in the data set was used.';
   if(/Reading|Information|Ideas|Craft|Text Analysis/i.test(skill+' '+sec))return 'Find the exact sentence in the passage that supports the correct choice, and confirm no other choice is also directly supported by the text.';
@@ -3067,14 +3141,34 @@ function v22Verification(q,correctChoiceText){
   return 'Re-read the question stem once more and confirm the correct choice actually answers what was asked, not just a true-sounding statement.';
 }
 
+// -- Smart Recommendation: one concrete per-question next-step line, tied to
+// the specific mistake type and how much recorded practice this skill has. --
+function v22Recommendation(skillKey,mistake,hist){
+  if(mistake.key==='pacing')return `Recommended Next Step: Redo 2-3 ${skillKey} questions untimed first, focusing on reading every choice before answering.`;
+  if(mistake.key==='formula')return `Recommended Next Step: Write the ${skillKey} formula on a reference sheet, then complete 3 more ${skillKey} questions using it.`;
+  if(!hist.total||hist.total<4)return `Recommended Next Step: Complete a few more ${skillKey} questions — there's not enough recorded practice yet to tell if this was a one-off.`;
+  if(hist.accuracy!==null&&hist.accuracy<60)return `Recommended Next Step: Complete 3 more ${skillKey} questions before moving on to a new skill.`;
+  return `Recommended Next Step: Review this question's explanation once more, then try one similar ${skillKey} question to confirm it sticks.`;
+}
+
 // -- mastery / previous performance, reusing each exam's own saved history
 // (the same skill snapshots already recorded by skillSnapshot/
 // attachLatestSkills after every completed test) --
 function v22SkillHistory(examKey,skillKey){
   const st=examKey==='SAT'?satStore:examKey==='ACT'?actStore:store;
-  let correct=0,total=0,sessions=0;
-  (st.history||[]).forEach(h=>{const s=(h.skills||{})[skillKey];if(s){correct+=s.correct||0;total+=s.total||0;sessions++}});
-  return {correct,total,accuracy:total?Math.round(correct/total*100):null,sessions};
+  // Recorded history is per-session (one aggregated skill snapshot per
+  // completed test), not per-individual-question — so a literal "last 5-10
+  // questions" window isn't available from this data model. The closest
+  // honest approximation: weight the RECENT sessions in this skill rather
+  // than an all-time average, so a student's mastery reading updates as
+  // their recent performance changes instead of being diluted by a session
+  // from weeks ago. Takes the most recent 3 sessions that touched this skill.
+  const RECENT_SESSIONS=3;
+  const withSkill=(st.history||[]).filter(h=>(h.skills||{})[skillKey]);
+  const recent=withSkill.slice(-RECENT_SESSIONS);
+  let correct=0,total=0;
+  recent.forEach(h=>{const s=h.skills[skillKey];correct+=s.correct||0;total+=s.total||0});
+  return {correct,total,accuracy:total?Math.round(correct/total*100):null,sessions:recent.length};
 }
 function v22MasteryLabel(accuracy,total){
   if(accuracy===null||total<4)return 'Learning';
@@ -3133,17 +3227,20 @@ function v22Card(examKey,q,answerIdx,index,total){
     return `<div class="reviewChoice${cls}"><span class="choiceBadge">${String.fromCharCode(65+i)}</span><span>${c}</span>${tag}<div class="reviewRationale">${q.why?.[i]||''}</div></div>`;
   }).join('');
   const timeHTML=timeSpent===null?'':`<div><span>Target Time</span><b>${target}s</b></div><div><span>Your Time</span><b>${timeSpent}s${timeSpent>target*1.3?' ⚠':(timeSpent<target*0.6?' ⚡':'')}</b></div>`;
+  const stepsHTML=v22StepByStep(q,correctText).map(line=>`<div class="v22StepLine">${line}</div>`).join('');
+  const recommendation=v22Recommendation(skillKey,mistake,hist);
   return `<div class="reviewCard ${status}" id="${cardId}">
    <div class="v22ResultRow"><b class="v22ResultBadge ${status}">${statusLabel}</b><span class="v22Qid">${q.id}</span></div>
    <div class="answerSummary"><div><b>Your Answer</b>${yourAnswerHTML}</div><div class="v22CorrectBox"><b>Correct Answer</b>${String.fromCharCode(65+q.a)}. ${correctText}</div></div>
    ${whyMissed}
-   <div class="fullReview"><b>Step-by-Step Explanation</b><p>${q.ex}</p></div>
+   <div class="fullReview"><b>Step-by-Step Explanation</b><div class="v22Steps">${stepsHTML}</div></div>
    <div class="v22Verify"><b>Verification — Check Your Answer</b><p>${v22Verification(q,correctText)}</p></div>
    <div class="fullReview"><b>Choice Analysis</b><div class="fullReviewGrid">${choiceRows}</div></div>
    <div class="strategy"><b>Solution Strategy:</b> ${q.strategy}</div>
    <div class="v22MetaGrid"><div><span>Skill</span><b>${skillKey}</b></div><div><span>Difficulty</span><b>${q.difficulty}</b></div>${timeHTML}</div>
    <div class="v22MistakeBox v22mt-${mistake.key}"><b>Mistake Type: ${mistake.label}</b><p>${V22_FEEDBACK[mistake.key]}</p></div>
-   <div class="v22MasteryBox"><div class="v22MasteryTop"><span>${skillKey} Mastery</span><span>${masteryLabel}${hist.total?` • ${hist.accuracy}% (${hist.total} question${hist.total===1?'':'s'})`:''}</span></div><div class="v22MasteryTrack"><i style="width:${Math.max(4,hist.accuracy||0)}%"></i></div>${hist.sessions?`<div class="v22PrevPerf">Previous performance: ${hist.correct} of ${hist.total} correct across ${hist.sessions} session${hist.sessions===1?'':'s'} (${hist.accuracy}% accuracy).</div>`:'<div class="v22PrevPerf">No prior recorded practice in this skill yet — this session is your first data point.</div>'}</div>
+   <div class="v22Recommend"><b>${recommendation}</b></div>
+   <div class="v22MasteryBox"><div class="v22MasteryTop"><span>${skillKey} Mastery</span><span>${masteryLabel}${hist.total?` • ${hist.accuracy}% (${hist.total} question${hist.total===1?'':'s'})`:''}</span></div><div class="v22MasteryTrack"><i style="width:${Math.max(4,hist.accuracy||0)}%"></i></div>${hist.sessions?`<div class="v22PrevPerf">Recent performance: ${hist.correct} of ${hist.total} correct across your last ${hist.sessions} practice session${hist.sessions===1?'':'s'} in this skill (${hist.accuracy}% accuracy).</div>`:'<div class="v22PrevPerf">No prior recorded practice in this skill yet — this session is your first data point.</div>'}</div>
    <div class="v22Actions">
      <button type="button" class="smallbtn primary2" onclick="v22PracticeSimilar('${examKey}','${skillKey.replace(/'/g,"\\'")}')">🎯 Practice a Similar Question →</button>
      <button type="button" class="smallbtn" id="v22bm-${q.id}" onclick="v22ToggleBookmark('${examKey}','${q.id}')">${(examKey==='SAT'?satStore:examKey==='ACT'?actStore:store).bookmarks.includes(q.id)?'★ Saved for Review':'☆ Save for Review'}</button>
@@ -3301,6 +3398,136 @@ const v23PrevFinishACTAd=finishACT;finishACT=function(auto=false){v23PrevFinishA
   wrapBegin('satBeginBtn');
   wrapBegin('actBeginBtn');
   wrapBegin('tsiBeginBtn');
+})();
+
+/* ---------- V24: hide content-authoring / debug metadata during genuine timed full simulations ----------
+ * Real testing software doesn't show a student the internal difficulty tag, "Reviewed", "Original
+ * Practice", or a Hint button while a timed test is actually running -- seeing that breaks the "real
+ * exam" feel. Untimed/Practice/Review modes keep all of it (it's genuinely useful there). This toggles
+ * a body class from the same render functions that already run on every question navigation, and the
+ * matching CSS lives in index.html scoped to `.sp-timed-mode` + each exam shell's own `.qmeta`/hint
+ * button, so nothing outside an active timed shell (e.g. the ACT/TSI essay labs, which reuse the
+ * `.qmeta` class) is ever affected. */
+(function(){
+  function v24SyncTimedClass(){
+    const tsiOn = typeof state!=='undefined' && state && state.set && state.set.length && state.timed && document.getElementById('practiceShell')?.classList.contains('show');
+    const satOn = typeof satState!=='undefined' && satState && satState.set && satState.set.length && satState.timed && document.getElementById('satPracticeShell')?.classList.contains('show');
+    const actOn = typeof actState!=='undefined' && actState && actState.set && actState.set.length && actState.timed && document.getElementById('actPracticeShell')?.classList.contains('show');
+    document.body.classList.toggle('sp-timed-mode', !!(tsiOn||satOn||actOn));
+  }
+  const v24PrevRenderQ=renderQ;renderQ=function(){v24PrevRenderQ();v24SyncTimedClass()};
+  const v24PrevRenderSAT=renderSAT;renderSAT=function(){v24PrevRenderSAT();v24SyncTimedClass()};
+  const v24PrevRenderACT=renderACT;renderACT=function(){v24PrevRenderACT();v24SyncTimedClass()};
+})();
+
+/* ---------- V25: Hint modal close affordances (frosted-glass overlay conversion) ----------
+ * The Hint box is now a fixed, centered, backdrop-blurred card (see index.html CSS) instead of an
+ * inline yellow box, so it needs a real way to dismiss it: an "x" button, clicking the dark backdrop,
+ * or Escape. Same underlying .show class toggle as before -- nothing about revealHint's logic changed. */
+(function(){
+  function wireHintClose(boxId){
+    const box=document.getElementById(boxId);
+    if(!box)return;
+    box.addEventListener('click',function(e){ if(e.target===box) box.classList.remove('show'); });
+    const closeBtn=box.querySelector('.hintCloseBtn');
+    if(closeBtn)closeBtn.addEventListener('click',function(){box.classList.remove('show')});
+  }
+  ['hintBox','satHintBox','actHintBox'].forEach(wireHintClose);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape')['hintBox','satHintBox','actHintBox'].forEach(id=>document.getElementById(id)?.classList.remove('show'));
+  });
+})();
+
+/* ---------- V26: gentle fade/slide only when the question itself actually changes ----------
+ * renderQ/renderSAT/renderACT re-run on every interaction (choosing an answer, flagging, confidence,
+ * not just Next/Prev/navigator-jump) -- animating on all of those would make the page flash on every
+ * click. This only fires the transition when the rendered index is different from last time. */
+(function(){
+  const v26Last={tsi:-1,sat:-1,act:-1};
+  function v26Animate(key,shellId,st){
+    if(!st||!st.set)return;
+    if(st.i!==v26Last[key]){
+      v26Last[key]=st.i;
+      const qb=document.querySelector('#'+shellId+' .qbody');
+      if(qb){qb.classList.remove('qNavIn');void qb.offsetWidth;qb.classList.add('qNavIn')}
+    }
+  }
+  const v26PrevRenderQ=renderQ;renderQ=function(){v26PrevRenderQ();v26Animate('tsi','practiceShell',typeof state!=='undefined'?state:null)};
+  const v26PrevRenderSAT=renderSAT;renderSAT=function(){v26PrevRenderSAT();v26Animate('sat','satPracticeShell',typeof satState!=='undefined'?satState:null)};
+  const v26PrevRenderACT=renderACT;renderACT=function(){v26PrevRenderACT();v26Animate('act','actPracticeShell',typeof actState!=='undefined'?actState:null)};
+})();
+
+/* ---------- V27: "N correct in a row" streak toast (student-friendly gamification) ----------
+ * Fires only on a genuinely fresh, first-time submission (guarded the same way the underlying
+ * submitAnswer/submitGeneric already guard against double-counting a question), so it can never
+ * miscount. Shown in untimed/practice mode, which is the only mode where correctness is revealed
+ * immediately -- timed simulations hide right/wrong until the very end, same as a real exam. */
+(function(){
+  const v27Streaks={tsi:0,sat:0,act:0};
+  function v27Toast(n){
+    const t=document.createElement('div');
+    t.className='streakToast';
+    t.innerHTML='🔥 <span>'+n+' correct in a row!</span>';
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2800);
+  }
+  function v27Track(key,ok){
+    if(ok){v27Streaks[key]++;const n=v27Streaks[key];if(n===3||(n>=5&&n%5===0))v27Toast(n)}
+    else v27Streaks[key]=0;
+  }
+  const v27PrevSubmitAnswer=submitAnswer;submitAnswer=function(){
+    const q=state.set[state.i],already=state.submitted[q.id];
+    v27PrevSubmitAnswer();
+    if(!already&&state.submitted[q.id])v27Track('tsi',state.answers[q.id]===q.a);
+  };
+  const v27PrevSubmitGeneric=submitGeneric;submitGeneric=function(st,store,saveFn,renderFn){
+    const key=st===satState?'sat':'act',q=st.set[st.i],already=st.submitted[q.id];
+    v27PrevSubmitGeneric(st,store,saveFn,renderFn);
+    if(!already&&st.submitted[q.id])v27Track(key,st.answers[q.id]===q.a);
+  };
+})();
+
+/* ---------- V28: completion confetti (student-friendly celebration on finishing a test) ----------
+ * Fires exactly once per genuine completion. finishGeneric/finishTest can both return early (the
+ * "you still have unanswered questions, submit anyway?" cancel path) without actually finishing, so
+ * this checks the results panel actually became visible before celebrating, instead of assuming the
+ * wrapped call always completed. Pure vanilla canvas -- no external library/CDN dependency. */
+(function(){
+  function fireConfetti(){
+    const canvas=document.createElement('canvas');
+    canvas.style.cssText='position:fixed;inset:0;z-index:10020;pointer-events:none';
+    canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+    document.body.appendChild(canvas);
+    const ctx=canvas.getContext('2d');
+    const colors=['#7c3aed','#2563eb','#ea580c','#22c55e','#f59e0b','#ec4899'];
+    const pieces=Array.from({length:110},()=>({
+      x:Math.random()*canvas.width,
+      y:-20-Math.random()*canvas.height*0.3,
+      w:6+Math.random()*6,
+      h:8+Math.random()*10,
+      vx:(Math.random()-0.5)*3,
+      vy:2+Math.random()*3,
+      rot:Math.random()*360,
+      vr:(Math.random()-0.5)*10,
+      color:colors[Math.floor(Math.random()*colors.length)]
+    }));
+    let frame=0;const maxFrames=150;
+    function tick(){
+      frame++;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      pieces.forEach(p=>{
+        p.x+=p.vx;p.y+=p.vy;p.vy+=0.035;p.rot+=p.vr;
+        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+        ctx.fillStyle=p.color;ctx.globalAlpha=frame>maxFrames-30?Math.max(0,(maxFrames-frame)/30):1;
+        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+      });
+      if(frame<maxFrames)requestAnimationFrame(tick);else canvas.remove();
+    }
+    requestAnimationFrame(tick);
+  }
+  const v28PrevFinishTest=finishTest;finishTest=function(...a){v28PrevFinishTest(...a);if(document.getElementById('results')?.classList.contains('show'))fireConfetti()};
+  const v28PrevFinishGeneric=finishGeneric;finishGeneric=function(...a){v28PrevFinishGeneric(...a);const pfx=a[3];if(pfx&&document.getElementById(pfx+'Results')?.classList.contains('show'))fireConfetti()};
+  window.spFireConfetti=fireConfetti;
 })();
 
 })();

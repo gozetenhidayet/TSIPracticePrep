@@ -270,7 +270,7 @@ function startTest(mode){
 function formatTime(sec){sec=Math.max(0,sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
 function renderQ(){
  const q=state.set[state.i]; if(!q)return;
- $("testSub").innerHTML=`Question ${state.i+1} of ${state.set.length} • ${q.id}<span class="sessionBadge">Randomized session ${state.sessionCode||""}</span>`;
+ $("testSub").innerHTML=`Question ${state.i+1} of ${state.set.length}`;
  $("qmeta").innerHTML=`<span class="tag">${q.section}</span><span class="tag">${q.skill}</span><span class="tag difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span><span class="sourceTag">Original Practice</span><span class="reviewTag">Reviewed</span>`;
  if(q.passage){$("passage").textContent=q.passage;$("passage").classList.remove("hidden")}else $("passage").classList.add("hidden");
  $("questionText").textContent=q.q;
@@ -443,7 +443,7 @@ function startACT(mode){
 }
 function renderGeneric(state,prefix,store,saveFn,renderFn){
  const q=state.set[state.i];if(!q)return;
- $(prefix+"TestSub").innerHTML=`Question ${state.i+1} of ${state.set.length} • ${q.id}<span class="sessionBadge">Randomized session ${state.sessionCode||""}</span>`;
+ $(prefix+"TestSub").innerHTML=`Question ${state.i+1} of ${state.set.length}`;
  $(prefix+"Qmeta").innerHTML=`<span class="tag">${q.section}</span><span class="tag">${q.skill}</span><span class="tag difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span><span class="sourceTag">Original Practice</span><span class="reviewTag">Reviewed</span>`;
  if(q.passage){$(prefix+"Passage").textContent=q.passage;$(prefix+"Passage").classList.remove("hidden")}else $(prefix+"Passage").classList.add("hidden");
  $(prefix+"QuestionText").textContent=q.q;
@@ -568,8 +568,8 @@ function hintFor(q,level=1){
 }
 const hintLevels={tsi:{},sat:{},act:{}};
 function revealHint(exam,q){
- const box=$(exam==="tsi"?"hintBox":exam+"HintBox"),levels=hintLevels[exam],n=(levels[q.id]||0)+1;levels[q.id]=Math.min(n,2);
- box.innerHTML=`<b>Hint ${levels[q.id]}:</b> ${hintFor(q,levels[q.id])}${levels[q.id]<2?' <span style="color:#92400e">Click Hint again for one more step.</span>':''}`;box.classList.add("show");
+ const box=$(exam==="tsi"?"hintBox":exam+"HintBox"),inner=$(exam==="tsi"?"hintBoxInner":exam+"HintBoxInner"),levels=hintLevels[exam],n=(levels[q.id]||0)+1;levels[q.id]=Math.min(n,2);
+ (inner||box).innerHTML=`<b>Hint ${levels[q.id]}:</b> ${hintFor(q,levels[q.id])}${levels[q.id]<2?' <span style="color:#92400e">Click Hint again for one more step.</span>':''}`;box.classList.add("show");
  // Questions that needed a hint are automatically placed into study-later via bookmarks.
  const st=exam==="tsi"?store:exam==="sat"?satStore:actStore;
  if(!st.bookmarks.includes(q.id))st.bookmarks.push(q.id);
