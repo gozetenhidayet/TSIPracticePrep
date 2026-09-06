@@ -312,7 +312,11 @@ function showExplanation(q){
 }
 function renderNav(){
  $("navigator").innerHTML=state.set.map((q,idx)=>`<button class="navq ${state.answers[q.id]!==undefined?"answered":""} ${idx===state.i?"current":""} ${state.flags.includes(q.id)?"flagged":""}" data-jump="${idx}">${idx+1}</button>`).join("");
- document.querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>{state.i=+b.dataset.jump;renderQ()})
+ document.querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>{state.i=+b.dataset.jump;renderQ()});
+ // The navigator is a horizontally-scrolling single-row strip during an
+ // active test (see .practiceShell.show .navigator) so with more than ~15
+ // questions the current one can scroll out of view — keep it visible.
+ $("navigator").querySelector(".current")?.scrollIntoView({inline:"center",block:"nearest"});
 }
 function finishTest(auto=false){
  clearInterval(state.timerId);
@@ -458,6 +462,10 @@ function renderGeneric(state,prefix,store,saveFn,renderFn){
  }else{$(prefix+"Explanation").classList.remove("show");$(prefix+"Explanation").innerHTML=""}
  $(prefix+"Navigator").innerHTML=state.set.map((x,i)=>`<button class="navq ${state.answers[x.id]!==undefined?"answered":""} ${i===state.i?"current":""} ${state.flags.includes(x.id)?"flagged":""}" data-${prefix.toLowerCase()}-jump="${i}">${i+1}</button>`).join("");
  document.querySelectorAll(`[data-${prefix.toLowerCase()}-jump]`).forEach(b=>b.onclick=()=>{state.i=+b.dataset[prefix.toLowerCase()+"Jump"];renderFn()});
+ // Same horizontally-scrolling navigator strip as TSIA2's renderNav() (see
+ // .practiceShell.show .navigator) -- SAT (98) and ACT (131) have even more
+ // questions than TSIA2, so keeping the current one in view matters here too.
+ $(prefix+"Navigator").querySelector(".current")?.scrollIntoView({inline:"center",block:"nearest"});
 }
 function renderSAT(){renderGeneric(satState,"sat",satStore,saveSAT,renderSAT)}
 function renderACT(){renderGeneric(actState,"act",actStore,saveACT,renderACT)}
