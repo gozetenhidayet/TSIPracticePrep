@@ -4,8 +4,30 @@
 .secureBanner{display:none;margin-top:12px;padding:12px 13px;border-radius:14px;background:#eef2ff;border:1px solid #c7d2fe}.secureBanner.show{display:block}.secureBanner b{display:block;color:#3730a3}.secureBanner span{display:block;font-size:11px;color:#64748b;margin-top:3px}.secureEnter{margin-top:10px;border:0;border-radius:10px;background:#111827;color:#fff;padding:10px 12px;font-weight:900;cursor:pointer}.lockOverlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(6,19,44,.96);color:#fff;align-items:center;justify-content:center;padding:22px;text-align:center}.lockOverlay.show{display:flex}.lockCard{width:min(560px,100%);border:1px solid rgba(255,255,255,.14);background:rgba(15,23,42,.88);border-radius:24px;padding:30px;box-shadow:0 25px 80px rgba(0,0,0,.35)}.lockIcon{font-size:46px}.lockCard h2{font-size:30px;margin:10px 0 8px}.lockCard p{color:#cbd5e1;line-height:1.55}.warningCount{display:inline-flex;margin-top:10px;padding:7px 10px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:11px;font-weight:900}.secureStatus{font-weight:900;color:#1d4ed8}.securityToast{position:fixed;top:18px;left:50%;transform:translate(-50%,-12px);opacity:0;z-index:9999;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:850;box-shadow:0 15px 35px rgba(15,23,42,.16);transition:.2s}.securityToast.show{opacity:1;transform:translate(-50%,0)}
 .roomBack{display:inline-flex;align-items:center;gap:6px;color:#60a5fa;font-size:12px;font-weight:800;text-decoration:none;margin-bottom:10px}.roomBack:hover{text-decoration:underline}
 .qCard{margin-top:14px;border:1px solid #e2e8f0;border-radius:14px;padding:14px;background:#fff}.qCard .qTag{font-size:10px;font-weight:900;color:#2563eb;letter-spacing:.4px;text-transform:uppercase}.qCard .qPassage{font-size:12px;color:#475569;line-height:1.55;margin:8px 0;padding:10px;background:#f8fafc;border-radius:10px}.qCard .qText{font-weight:800;margin:8px 0 10px;line-height:1.4}.qChoices{display:grid;gap:8px}.qChoice{text-align:left;border:1px solid #dbe3ee;background:#fff;border-radius:12px;padding:11px 13px;font:inherit;cursor:pointer;font-weight:700;color:#0f172a}.qChoice:hover{border-color:#93c5fd;background:#f8fafc}.qChoice.correct{border-color:#86efac;background:#f0fdf4;color:#166534}.qChoice.incorrect{border-color:#fecaca;background:#fef2f2;color:#991b1b}.qChoice:disabled{cursor:default}.qFeedback{display:none;margin-top:11px;padding:11px;border-radius:12px;font-size:12px;line-height:1.5}.qFeedback.show{display:block}.qFeedback.good{background:#f0fdf4;color:#14532d;border:1px solid #bbf7d0}.qFeedback.bad{background:#fef2f2;color:#7f1d1d;border:1px solid #fecaca}.qNextBtn{margin-top:10px;border:0;border-radius:10px;background:#111827;color:#fff;padding:10px 14px;font-weight:900;cursor:pointer}.qDone{margin-top:12px;padding:12px;border-radius:12px;background:#eff6ff;color:#1e3a8a;font-size:12px;font-weight:700}.qCount{font-size:11px;color:#64748b;font-weight:800;float:right}
-</style><script>function spConsole(method){try{var args=Array.prototype.slice.call(arguments,1);if(window.console&&typeof console[method]==="function")console[method].apply(console,args);else if(window.console&&typeof console.log==="function")console.log.apply(console,args);}catch(e){}}</script><script src="firebase-config.js"></script><script src="firebase-init.js"></script><script src="student-auth.js"></script><script src="backend-client.js"></script><script src="realtime-adapter.js"></script></head><body><main class="card"><a class="roomBack" href="index.html">← Back to ScorePath Practice</a><div class="brand">SCOREPATH LIVE CLASSROOM</div><h1>Join your practice room</h1><p class="muted">No student account is required. Enter the class code and only the information your teacher needs to identify your work.</p><div class="grid"><input class="full" id="room" placeholder="Class code" autocomplete="off"><input id="first" placeholder="First name" autocomplete="given-name"><input id="lastInitial" maxlength="1" placeholder="Last initial"><select class="full" id="grade"><option value="">Grade level</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select><button class="btn full" id="join">Join Class</button></div><div class="optional"><span class="small">Already have a ScorePath student account?</span><a href="index.html#signin">Optional sign in</a></div><div class="status" id="status">Waiting to join.</div><section class="practice" id="practice"><b id="assignment">Assignment ready</b><p class="small" id="details"></p><p class="small" id="schoolClass"></p><div class="secureBanner" id="secureBanner"><b>🔒 Secure Timed Mode</b><span id="secureText">Stay on this test screen. Tab changes, focus loss, and fullscreen exits may be reported to your teacher.</span><button class="secureEnter" id="secureEnter">Enter Secure Test</button><div class="warningCount" id="warningCount">0 focus warnings</div></div><div class="bar"><i id="bar"></i></div><span class="qCount" id="qCount"></span><div class="qCard" id="qCard" style="display:none"><div class="qTag" id="qTag"></div><div class="qPassage" id="qPassage" style="display:none"></div><div class="qText" id="qText"></div><div class="qChoices" id="qChoices"></div><div class="qFeedback" id="qFeedback"></div><button class="qNextBtn" id="qNextBtn" style="display:none">Next Question →</button></div><div class="qDone" id="qDone" style="display:none">You've answered every question in this assignment. Nice work — wait here while your teacher reviews the room, or watch for a new assignment.</div><p class="small">If your teacher pauses the room, your place is saved. You can continue when the teacher resumes.</p></section></main><div class="securityToast" id="securityToast">Focus warning sent to teacher.</div><div class="lockOverlay" id="lockOverlay"><div class="lockCard"><div class="lockIcon">🔒</div><h2>Your test is paused</h2><p>Your progress is saved. Your teacher can unlock the test when you are ready to continue.</p><div class="warningCount" id="lockedWarnings">Secure session</div></div></div><script>
+</style><script>function spConsole(method){try{var args=Array.prototype.slice.call(arguments,1);if(window.console&&typeof console[method]==="function")console[method].apply(console,args);else if(window.console&&typeof console.log==="function")console.log.apply(console,args);}catch(e){}}</script><script src="firebase-config.js"></script><script src="firebase-init.js"></script><script src="student-auth.js"></script><script src="backend-client.js"></script><script src="realtime-adapter.js"></script></head><body><main class="card"><a class="roomBack" href="index.html">← Back to ScorePath Practice</a><div class="brand">SCOREPATH LIVE CLASSROOM</div><h1>Join your practice room</h1><p class="muted">No student account is required. Enter the class code and only the information your teacher needs to identify your work.</p><div class="grid"><input class="full" id="room" placeholder="Class code" autocomplete="off"><input id="first" placeholder="First name" autocomplete="given-name"><input id="lastInitial" maxlength="1" placeholder="Last initial"><select class="full" id="grade"><option value="">Grade level</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select><button class="btn full" id="join">Join Class</button></div><div class="optional"><span class="small">Already have a ScorePath student account?</span><a href="index.html#signin">Optional sign in</a></div><div class="status" id="status">Waiting to join.</div><section class="practice" id="practice"><b id="assignment">Assignment ready</b><p class="small" id="details"></p><p class="small" id="schoolClass"></p><div class="secureBanner" id="secureBanner"><b>🔒 Secure Timed Mode</b><span id="secureText">Stay on this test screen. Tab changes, focus loss, and fullscreen exits may be reported to your teacher.</span><button class="secureEnter" id="secureEnter">Enter Secure Test</button><div class="warningCount" id="warningCount">0 focus warnings</div></div><div class="qDone" id="teacherNote" style="display:none;background:#eff6ff;color:#1e3a8a;border:1px solid #bfdbfe"></div><div class="bar"><i id="bar"></i></div><span class="qCount" id="qCount"></span><div class="qCard" id="qCard" style="display:none"><div class="qTag" id="qTag"></div><div class="qPassage" id="qPassage" style="display:none"></div><div class="qText" id="qText"></div><div class="qChoices" id="qChoices"></div><div class="qFeedback" id="qFeedback"></div><button class="qNextBtn" id="qNextBtn" style="display:none">Next Question →</button></div><div class="qDone" id="qDone" style="display:none">You've answered every question in this assignment. Nice work — wait here while your teacher reviews the room, or watch for a new assignment.</div><p class="small">If your teacher pauses the room, your place is saved. You can continue when the teacher resumes.</p></section></main><div class="securityToast" id="securityToast">Focus warning sent to teacher.</div><div class="lockOverlay" id="lockOverlay"><div class="lockCard"><div class="lockIcon">🔒</div><h2>Your test is paused</h2><p>Your progress is saved. Your teacher can unlock the test when you are ready to continue.</p><div class="warningCount" id="lockedWarnings">Secure session</div></div></div><script>
 const $$=id=>document.getElementById(id);let channel=null,id='s'+Math.random().toString(36).slice(2,10),progress=0,currentState=null,joined=false,localWarnings=0,lastSecurityAt=0;const q=new URLSearchParams(location.search);$$('room').value=q.get('room')||'';
+/* Reconnect support: before this, a page refresh (or a dropped Wi-Fi
+ * connection reloading the page) generated a brand-new random `id` and
+ * started the assignment over from question 1 — even though the UI already
+ * told students "your progress is saved" when paused/locked. That claim
+ * was only true as long as the tab stayed open. This persists this
+ * student's identity + in-progress answers to this browser's localStorage
+ * (same-device only, matching this room's own BroadcastChannel/local-grading
+ * scope) so rejoining with the same room + name + last initial reuses the
+ * same id — so the teacher's roster recognizes the SAME student instead of
+ * a duplicate row — and resumes the same question set/index/answers instead
+ * of silently restarting at zero. */
+const STUDENT_SESSION_KEY='scorepath_student_session_v1';
+function loadStudentSession(){try{return JSON.parse(localStorage.getItem(STUDENT_SESSION_KEY)||'null')}catch(e){return null}}
+function saveStudentSession(){try{localStorage.setItem(STUDENT_SESSION_KEY,JSON.stringify({id,room:currentRoomCode,name:joinedName,lastInitial:joinedLastInitial,grade:joinedGrade,mySet,myIdx,myResponses,myAssignmentKey,usingServerGrading}))}catch(e){}}
+(function(){
+  const saved=loadStudentSession(),urlRoom=(q.get('room')||'').trim().toUpperCase();
+  if(saved&&urlRoom&&saved.room===urlRoom){
+    $$('first').value=saved.name||'';$$('lastInitial').value=saved.lastInitial||'';
+    if(saved.grade)$$('grade').value=saved.grade;
+    $$('status').textContent='Welcome back — click Join Class to reconnect to your saved progress.';
+  }
+})();
 /* Real question set for this classroom session — replaces the previous
  * simulated per-question responses. Pulled from the site's own
  * question-bank-core.js/practice-engine-core.js (window.ScorePathBank),
@@ -23,7 +45,20 @@ function loadScriptOnce(src){return new Promise((resolve,reject)=>{const s=docum
 function loadQuestionBank(){if(!bankLoadPromise)bankLoadPromise=loadScriptOnce('question-bank-core.js').then(()=>loadScriptOnce('practice-engine-core.js'));return bankLoadPromise}
 let mySet=null,myIdx=0,myResponses=[],qStart=0,myAssignmentKey=null;
 function seededRand(seedStr){let h=0;for(const c of String(seedStr))h=(h*31+c.charCodeAt(0))>>>0;return function(){h=(h*1664525+1013904223)>>>0;return h/4294967296}}
-function parseCount(countLabel){const m=/(\d+)/.exec(countLabel||'');return m?Math.max(4,Math.min(40,parseInt(m[1],10))):24}
+/* "Full section" (teachers.html's Practice length select) has no digit for
+ * the regex below to find, so it used to silently fall through to the
+ * generic default of 24 questions — quietly giving students a normal-sized
+ * set instead of the real full section a teacher who picked "Full section"
+ * was asking for. These are the same real per-exam totals the student
+ * practice pages advertise (see v9Open in practice-engine-core.js: SAT 98 =
+ * 54 Reading & Writing + 44 Math; ACT 131 = 50 English + 45 Math + 36
+ * Reading; TSIA2's 44 = 20 Math + 24 ELAR, the site's own disclosed
+ * approximation of a computer-adaptive test that has no single official count). */
+const FULL_SECTION_COUNTS={SAT:98,ACT:131,TSIA2:44};
+function parseCount(countLabel,examKey){
+  if(/full section/i.test(countLabel||''))return FULL_SECTION_COUNTS[examKey]||44;
+  const m=/(\d+)/.exec(countLabel||'');return m?Math.max(4,Math.min(40,parseInt(m[1],10))):24;
+}
 function pickQuestionSet(examKey,n,seedStr){
   const bank=(window.ScorePathBank&&window.ScorePathBank[examKey])||[];
   if(!bank.length)return[];
@@ -165,24 +200,31 @@ async function serverStudentId(){
   return id;
 }
 async function ensureQuestionSet(m){
-  const examKey=m.exam,n=parseCount(m.count),key=examKey+'|'+n+'|'+m.mode;
-  if(myAssignmentKey===key&&mySet)return;
-  myAssignmentKey=key;myIdx=0;myResponses=[];
-  if(window.ScorePathRealtime&&window.ScorePathRealtime.isCloudSynced&&window.ScorePathBackend){
-    const sid=await serverStudentId();
-    const result=await window.ScorePathBackend.getAssignmentQuestions({roomCode:currentRoomCode,studentId:sid,examKey,count:m.count,mode:m.mode});
-    mySet=result.questions;
-    usingServerGrading=true;
-  }else{
-    await loadQuestionBank();
-    const roomSeed='room-'+(currentRoomCode||'');
-    if(m.mode==='same'){
-      mySet=pickQuestionSet(examKey,n,roomSeed);
+  const examKey=m.exam,n=parseCount(m.count,examKey),key=examKey+'|'+n+'|'+m.mode;
+  // A restored session (see saveStudentSession/loadStudentSession above) can
+  // already have myAssignmentKey/mySet set to the SAME key before this ever
+  // runs — in that case skip regenerating (which would wipe the restored
+  // answers) but still fall through to render + broadcast below, so a
+  // reconnect actually shows the resumed question and tells the teacher
+  // this student is back, instead of silently doing nothing.
+  if(myAssignmentKey!==key||!mySet){
+    myAssignmentKey=key;myIdx=0;myResponses=[];
+    if(window.ScorePathRealtime&&window.ScorePathRealtime.isCloudSynced&&window.ScorePathBackend){
+      const sid=await serverStudentId();
+      const result=await window.ScorePathBackend.getAssignmentQuestions({roomCode:currentRoomCode,studentId:sid,examKey,count:m.count,mode:m.mode});
+      mySet=result.questions;
+      usingServerGrading=true;
     }else{
-      const targetCounts=difficultyTally(pickQuestionSet(examKey,n,roomSeed));
-      mySet=pickQuestionSetBalanced(examKey,n,'student-'+id,targetCounts);
+      await loadQuestionBank();
+      const roomSeed='room-'+(currentRoomCode||'');
+      if(m.mode==='same'){
+        mySet=pickQuestionSet(examKey,n,roomSeed);
+      }else{
+        const targetCounts=difficultyTally(pickQuestionSet(examKey,n,roomSeed));
+        mySet=pickQuestionSetBalanced(examKey,n,'student-'+id,targetCounts);
+      }
+      usingServerGrading=false;
     }
-    usingServerGrading=false;
   }
   $$('qDone').style.display='none';
   renderQuestion();
@@ -241,6 +283,7 @@ async function answerQuestion(i){
   broadcastProgress(currentState);
 }
 function broadcastProgress(m){
+  saveStudentSession();
   if(!channel)return;
   const total=(mySet&&mySet.length)||0,answered=myResponses.length,done=total>0&&answered>=total;
   progress=total?Math.round(answered/total*100):0;
@@ -252,6 +295,17 @@ function broadcastProgress(m){
 function meFrom(m){return(m.students||[]).find(s=>s.id===id)}function isSecureRunning(){return joined&&currentState?.secure&&currentState?.status==='running'}function showSecurityToast(msg){$$('securityToast').textContent=msg;$$('securityToast').classList.add('show');setTimeout(()=>$$('securityToast').classList.remove('show'),1800)}function sendSecurity(event){if(!isSecureRunning()||!channel)return;const now=Date.now();if(now-lastSecurityAt<1200)return;lastSecurityAt=now;localWarnings++;$$('warningCount').textContent=localWarnings+' focus warning'+(localWarnings===1?'':'s');channel.postMessage({type:'security',id,event});showSecurityToast('Focus warning sent to teacher: '+event)}function applyLock(m){const me=meFrom(m),locked=!!me?.locked;$$('lockOverlay').classList.toggle('show',locked);if(locked)$$('lockedWarnings').textContent=localWarnings+' secure warning'+(localWarnings===1?'':'s')+' • progress saved'}
 $$('secureEnter').onclick=async()=>{try{if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();$$('secureEnter').textContent='Secure test active';}catch(e){$$('secureEnter').textContent='Fullscreen unavailable — stay on this page';}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)sendSecurity('Tab changed / page hidden')});window.addEventListener('blur',()=>sendSecurity('Window lost focus'));document.addEventListener('fullscreenchange',()=>{if(isSecureRunning()&&currentState?.fullscreenRule==='required'&&!document.fullscreenElement)sendSecurity('Exited fullscreen')});window.addEventListener('beforeunload',e=>{if(isSecureRunning()){e.preventDefault();e.returnValue='';}});
-let currentRoomCode=null;
-$$('join').onclick=()=>{const room=$$('room').value.trim().toUpperCase(),name=$$('first').value.trim(),lastInitial=$$('lastInitial').value.trim().slice(0,1).toUpperCase(),grade=$$('grade').value;if(!room||!name||!lastInitial||!grade){$$('status').textContent='Enter class code, first name, last initial, and grade.';return}currentRoomCode=room;$$('status').textContent='Joining room '+room+'…';ScorePathRealtime.create(room,async e=>{const m=e.data||{};if(m.type!=='state')return;currentState=m;const me=meFrom(m);if(me&&!me.admitted){$$('status').textContent='Your teacher removed you from this room. Your saved progress is not deleted.';$$('status').className='status danger';$$('practice').classList.remove('show');$$('lockOverlay').classList.remove('show');return}$$('status').className='status';$$('practice').classList.add('show');$$('assignment').textContent=m.exam+' • '+m.count;$$('details').textContent=(m.mode==='same'?'Same questions for everyone':'Equivalent randomized questions')+' • '+m.timing;$$('schoolClass').textContent=[m.school,m.className].filter(Boolean).join(' • ');$$('secureBanner').classList.toggle('show',!!m.secure);$$('secureText').textContent=m.secure?'Stay on this test screen. Focus changes are reported to your teacher. Auto-lock: '+(m.lockAfter?m.lockAfter+' warning'+(m.lockAfter===1?'':'s'):'teacher controlled')+'.':'Secure mode is off.';applyLock(m);if(me?.locked){$$('status').textContent='Locked by teacher. Your progress is saved.';return}if(m.status==='running'){$$('status').innerHTML=(m.secure?'<span class="secureStatus">Secure timed practice is running.</span>':'Practice is running.')+'<br><small>Loading your questions…</small>';try{await ensureQuestionSet(m)}catch(err){$$('status').textContent='Could not load your assignment. Check your connection and rejoin.';return}$$('status').innerHTML=m.secure?'<span class="secureStatus">Secure timed practice is running.</span>':'Practice is running.'}else if(m.status==='paused'){$$('status').textContent='Paused by teacher. Your place is saved.';broadcastProgress(m)}else if(m.status==='ended'){$$('status').textContent='Session ended. Good work — review turns misses into progress.';broadcastProgress(m)}else $$('status').textContent='Joined. Waiting for your teacher to start.'}).then(c=>{channel=c;joined=true;channel.postMessage({type:'join',id,name,lastInitial,grade})})};
+let currentRoomCode=null,joinedName='',joinedLastInitial='',joinedGrade='';
+$$('join').onclick=()=>{const room=$$('room').value.trim().toUpperCase(),name=$$('first').value.trim(),lastInitial=$$('lastInitial').value.trim().slice(0,1).toUpperCase(),grade=$$('grade').value;if(!room||!name||!lastInitial||!grade){$$('status').textContent='Enter class code, first name, last initial, and grade.';return}
+  const saved=loadStudentSession();
+  if(saved&&saved.room===room&&(saved.name||'').toLowerCase()===name.toLowerCase()&&saved.lastInitial===lastInitial){
+    id=saved.id;mySet=Array.isArray(saved.mySet)?saved.mySet:null;myIdx=saved.myIdx||0;myResponses=Array.isArray(saved.myResponses)?saved.myResponses:[];myAssignmentKey=saved.myAssignmentKey||null;usingServerGrading=!!saved.usingServerGrading;
+  }
+  currentRoomCode=room;joinedName=name;joinedLastInitial=lastInitial;joinedGrade=grade;$$('status').textContent='Joining room '+room+'…';ScorePathRealtime.create(room,async e=>{const m=e.data||{};if(m.type!=='state')return;currentState=m;const me=meFrom(m);if(me&&!me.admitted){$$('status').textContent='Your teacher removed you from this room. Your saved progress is not deleted.';$$('status').className='status danger';$$('practice').classList.remove('show');$$('lockOverlay').classList.remove('show');return}$$('status').className='status';$$('practice').classList.add('show');$$('assignment').textContent=m.exam+' • '+m.count;$$('details').textContent=(m.mode==='same'?'Same questions for everyone':'Equivalent randomized questions')+' • '+m.timing;$$('schoolClass').textContent=[m.school,m.className].filter(Boolean).join(' • ');$$('secureBanner').classList.toggle('show',!!m.secure);$$('secureText').textContent=m.secure?'Stay on this test screen. Focus changes are reported to your teacher. Auto-lock: '+(m.lockAfter?m.lockAfter+' warning'+(m.lockAfter===1?'':'s'):'teacher controlled')+'.':'Secure mode is off.';applyLock(m);
+/* Real delivery for the teacher dashboard's "Flag for Class Reteach" /
+ * per-student targeted-practice actions — these ride the same `state`
+ * broadcast every other live field already uses, so this banner is a real
+ * notification, not a toast the teacher saw with nothing behind it. */
+(function(){const nb=$$('teacherNote');if(!nb)return;let note='';if(me&&me.targetedSkill)note='Your teacher flagged extra practice for you: '+me.targetedSkill+'.';else if(m.classNote&&m.classNote.skill)note='Your teacher wants the whole class to review: '+m.classNote.skill+'.';if(note){nb.textContent=note;nb.style.display='block'}else{nb.style.display='none'}})();
+if(me?.locked){$$('status').textContent='Locked by teacher. Your progress is saved.';return}if(m.status==='running'){$$('status').innerHTML=(m.secure?'<span class="secureStatus">Secure timed practice is running.</span>':'Practice is running.')+'<br><small>Loading your questions…</small>';try{await ensureQuestionSet(m)}catch(err){$$('status').textContent='Could not load your assignment. Check your connection and rejoin.';return}$$('status').innerHTML=m.secure?'<span class="secureStatus">Secure timed practice is running.</span>':'Practice is running.'}else if(m.status==='paused'){$$('status').textContent='Paused by teacher. Your place is saved.';broadcastProgress(m)}else if(m.status==='ended'){$$('status').textContent='Session ended. Good work — review turns misses into progress.';broadcastProgress(m)}else $$('status').textContent='Joined. Waiting for your teacher to start.'}).then(c=>{channel=c;joined=true;channel.postMessage({type:'join',id,name,lastInitial,grade});saveStudentSession()})};
 </script><script src="consent-banner.js"></script></body></html>
