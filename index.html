@@ -13,6 +13,9 @@
 <link rel="preconnect" href="https://www.desmos.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com">
 <link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap">
 <!-- Search Console ownership verification. Get the real value from Search Console
      (Settings > Ownership verification > HTML tag method) once you add this property —
      it's tied to your own verified Google account and can't be filled in for you. -->
@@ -651,6 +654,164 @@ html{scroll-behavior:smooth}.v18-particles{position:fixed;inset:0;z-index:-2;poi
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.v18-particle,.timer.v18-critical,.v18-slide-in,.v18-chart i,.masteryTrack i,.v13GoalBar i,.skillTrack i{animation:none!important}.examcard,.catbtn{transition:none!important}}
 </style>
 
+<style id="v29-mixed-practice">
+/* Fifty-third pass: "Mixed Practice" — an untimed, no-fixed-length practice
+ * mode that leads each hub instead of the 5 fixed-length practice tests, plus
+ * a colorful/animated per-exam redesign of the hub itself. See README. */
+#tsi-center{--v29c:#0b7a75;--v29cd:#085f5b;--v29tint:#e6f4f2;--v29border:#bfe3df;--v29grad:linear-gradient(120deg,#0b7a75 0%,#103a5c 52%,#07142f 100%);--v29glow1:rgba(45,212,191,.30);--v29glow2:rgba(96,165,250,.20)}
+#sat-center{--v29c:#2547a8;--v29cd:#1b3480;--v29tint:#e9edfb;--v29border:#c7d3f2;--v29grad:linear-gradient(120deg,#183b73 0%,#2b2f8c 52%,#07142f 100%);--v29glow1:rgba(129,140,248,.32);--v29glow2:rgba(96,165,250,.22)}
+#act-center{--v29c:#b9363f;--v29cd:#8f2530;--v29tint:#fbe9ea;--v29border:#f0c6c9;--v29grad:linear-gradient(120deg,#b9363f 0%,#7a2430 52%,#07142f 100%);--v29glow1:rgba(251,146,60,.28);--v29glow2:rgba(248,113,113,.22)}
+.v29MixedCard{position:relative;overflow:hidden;background:var(--v29grad);background-size:180% 180%;animation:v29GradShift 12s ease-in-out infinite;border-radius:22px;padding:26px 28px 24px;color:#fff;margin:14px 0 16px;box-shadow:0 18px 40px rgba(7,20,47,.22)}
+@keyframes v29GradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.v29Glow{position:absolute;border-radius:50%;pointer-events:none}
+.v29GlowA{width:320px;height:320px;background:radial-gradient(circle,var(--v29glow1),transparent 70%);top:-140px;right:-100px;animation:v29Float 9s ease-in-out infinite}
+.v29GlowB{width:220px;height:220px;background:radial-gradient(circle,var(--v29glow2),transparent 70%);bottom:-110px;left:-70px;animation:v29Float 11s ease-in-out infinite reverse}
+@keyframes v29Float{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-12px)}}
+.v29Top{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.v29Badge{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:850;letter-spacing:.7px;color:#e7f6f2;background:rgba(255,255,255,.14);padding:5px 11px;border-radius:999px;margin-bottom:10px}
+.v29Badge svg{width:12px;height:12px;animation:v29Spin 5s linear infinite}
+@keyframes v29Spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.v29MixedCard h3{font-size:22px;font-weight:850;margin:0 0 8px;letter-spacing:-.3px}
+.v29MixedCard>div>p{margin:0 0 14px;font-size:13.5px;line-height:1.6;color:#dcebf1;max-width:400px}
+.v29Tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.v29Tags span{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:#eef7f4;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:9px;padding:7px 10px}
+.v29Tags svg{width:13px;height:13px;flex:none}
+.v29Cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--v29cd);font-weight:850;font-size:13.5px;padding:11px 19px;border-radius:11px;border:0;cursor:pointer;font-family:inherit;box-shadow:0 10px 22px rgba(0,0,0,.16);animation:v29CtaPulse 2.6s ease-in-out infinite}
+@keyframes v29CtaPulse{0%,100%{box-shadow:0 10px 22px rgba(0,0,0,.16)}50%{box-shadow:0 14px 30px var(--v29glow1),0 10px 22px rgba(0,0,0,.16)}}
+.v29Cta svg{width:14px;height:14px}
+.v29Cta:hover{transform:translateY(-1px)}
+.v29RingCard{flex:none;width:140px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:13px;text-align:center}
+.v29Ring{width:64px;height:64px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(#5eead4 var(--v29p,6%),rgba(255,255,255,.16) 0);transition:background .6s ease}
+.v29Ring:after{content:"";position:absolute;inset:5px;background:var(--v29cd);border-radius:50%}
+.v29Ring strong{position:relative;z-index:1;font-size:15px;font-weight:800}
+.v29Lbl{font-size:10.5px;font-weight:700;color:#c9dde4;letter-spacing:.2px}
+.v29Streak{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:8px;font-size:11px;font-weight:800;color:#ffd77a}
+.v29Streak svg{width:12px;height:12px}
+@keyframes v29RowIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.practiceTestList .ptRow{animation:v29RowIn .45s ease-out both}
+.practiceTestList .ptRow:nth-child(1){animation-delay:.02s}.practiceTestList .ptRow:nth-child(2){animation-delay:.06s}.practiceTestList .ptRow:nth-child(3){animation-delay:.10s}.practiceTestList .ptRow:nth-child(4){animation-delay:.14s}.practiceTestList .ptRow:nth-child(5){animation-delay:.18s}
+.ptRow:hover{border-color:var(--v29border,#c7d2fe)}
+.ptNum{background:var(--v29tint,#eef2ff);color:var(--v29cd,#3730a3)}
+.ptBtn.timed{background:linear-gradient(135deg,var(--v29c,#2563eb),var(--v29cd,#1d4ed8));border-color:var(--v29c,#2563eb);position:relative;overflow:hidden}
+.ptBtn.timed:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);background-size:220% 100%;animation:v29Shimmer 3.2s linear infinite;pointer-events:none}
+@keyframes v29Shimmer{0%{background-position:160% 0}100%{background-position:-60% 0}}
+.ptBtn.untimed:hover{border-color:var(--v29c,#2563eb);color:var(--v29cd,#1d4ed8)}
+.statgrid.compactStats .stat{transition:transform .2s,box-shadow .2s}.statgrid.compactStats .stat:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(15,35,60,.09)}.statgrid.compactStats .stat b{color:var(--v29cd,#0f172a)}
+.miniLabel.tsiLabel,.miniLabel.satLabel,.miniLabel.actLabel{color:var(--v29cd)}
+#practiceShell.mixedMode .navigator,#satPracticeShell.mixedMode .navigator,#actPracticeShell.mixedMode .navigator{display:none!important}
+.examToolBtn.v29EndBtn{background:transparent;border:0;color:#94a3b3;font-size:12px;font-weight:750;box-shadow:none;padding:8px 10px}
+.examToolBtn.v29EndBtn:hover{color:#64748b}
+@media(max-width:760px){.v29Top{flex-direction:column}.v29RingCard{width:100%}}
+@media(prefers-reduced-motion:reduce){.v29MixedCard,.v29Glow,.v29Badge svg,.v29Cta,.ptBtn.timed:after,.practiceTestList .ptRow{animation:none!important}}
+</style>
+
+<style id="v30-destress-counts">
+.ptIdentity small{display:none!important}
+</style>
+
+<style id="v31-cozy-touches">
+.ptBtn .ptIcon{flex:none;width:15px;height:15px}
+.ptBtn.untimed .ptIcon.ptInfinity{width:auto;height:auto;font-size:15px;font-weight:900;line-height:1;color:var(--v29c,#2563eb)}
+.ptIdentity b{display:inline-flex;align-items:center;gap:6px}
+.ptTypeIcon{width:13px;height:13px;flex:none;color:var(--v29c,#94a3b8);opacity:.45}
+
+.difficultyControl.compactControl{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--v29border,#dfe7f0);border-radius:999px;padding:8px 16px 8px 14px;box-shadow:0 4px 14px rgba(15,35,60,.05);width:fit-content}
+.difficultyControl.compactControl .diffIcon{width:15px;height:15px;flex:none;color:var(--v29c,#2563eb)}
+.difficultyControl.compactControl label{margin:0;font-weight:800;color:#334155;font-size:12.5px}
+.difficultyControl.compactControl select{border:none;background:transparent;font-weight:850;color:var(--v29cd,#1d4ed8);padding:0 4px;min-width:auto;width:auto;box-shadow:none}
+
+.resumeCard{background:var(--v29tint,linear-gradient(135deg,#ecfeff,#eef2ff))!important;border-color:var(--v29border,#bae6fd)!important;border-radius:18px!important;padding:14px 18px!important}
+.resumeCard .resumeIcon{width:42px;height:42px;border-radius:50%;background:var(--v29c,#2563eb);color:#fff;display:grid;place-items:center;flex:none}
+.resumeCard .resumeIcon svg{width:19px;height:19px}
+.resumeCard .resumeBody{flex:1;min-width:0}
+.resumeActions .smallbtn.primary2{background:linear-gradient(135deg,var(--v29c,#2563eb),var(--v29cd,#1d4ed8))!important;border:none!important;color:#fff!important;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 18px rgba(37,99,235,.18)}
+.resumeActions .smallbtn.primary2 svg{width:14px;height:14px}
+.resumeActions .smallbtn:not(.primary2){display:inline-flex;align-items:center;gap:7px}
+.resumeActions .smallbtn:not(.primary2) svg{width:13px;height:13px}
+
+.statgrid.compactStats .stat{display:flex;align-items:center;gap:11px}
+.statgrid.compactStats .stat .statIcon{width:34px;height:34px;border-radius:10px;background:var(--v29tint,#eef2ff);color:var(--v29cd,#3730a3);display:grid;place-items:center;flex:none}
+.statgrid.compactStats .stat .statIcon svg{width:16px;height:16px}
+.statgrid.compactStats .stat .statBody{display:flex;flex-direction:column;min-width:0}
+@media(max-width:520px){.statgrid.compactStats .stat .statIcon{width:28px;height:28px}.statgrid.compactStats .stat .statIcon svg{width:13px;height:13px}}
+</style>
+
+<style id="v32-hero-mockup">
+.v32Hero{position:relative;max-width:1100px;margin:0 auto;padding:14px 60px 0;overflow:visible;z-index:1}
+.v32HeroBg{position:absolute;inset:-30px -10px 10px;z-index:-1;overflow:hidden;pointer-events:none;border-radius:36px}
+.v32HeroBg .v32Blob{position:absolute;border-radius:50%;filter:blur(46px)}
+.v32HeroBg .b1{width:300px;height:300px;background:var(--v29c,#2563eb);opacity:.16;top:-140px;left:-40px}
+.v32HeroBg .b2{width:260px;height:260px;background:var(--v29cd,#1d4ed8);opacity:.13;top:-90px;right:-30px}
+.v32Kicker{text-align:center;font-size:11px;font-weight:900;letter-spacing:3px;color:var(--v29c,#2563eb);text-transform:uppercase;margin-bottom:2px}
+.v32Kicker span{color:#a8b6cc;margin:0 7px;font-weight:700;letter-spacing:0}
+.v32Hero .sectionHead{margin:2px auto 0}
+.v32Hero .sectionHead h2{font-weight:900}
+.v32Grad{background:linear-gradient(120deg,var(--v29c,#2563eb),var(--v29cd,#1d4ed8));-webkit-background-clip:text;background-clip:text;color:transparent}
+.v32Divider{width:56px;height:4px;border-radius:99px;background:var(--v29c,#2563eb);margin:10px auto 22px;opacity:.85}
+.v32Doodle{position:absolute;top:2px;font-family:'Caveat',cursive;font-size:20px;font-weight:700;color:#64748b;line-height:1.2;max-width:180px;z-index:2}
+.v32Doodle svg{width:56px;height:38px;color:#a8b6cc;display:block}
+.v32DoodleLeft{left:-8px;text-align:left}
+.v32DoodleLeft svg{margin-top:2px}
+.v32DoodleRight{right:-8px;text-align:right}
+.v32DoodleRight svg{margin-left:auto;margin-top:2px;transform:scaleX(-1)}
+.v32Peak{position:absolute;right:2px;top:76px;width:92px;height:auto;color:var(--v29c,#2563eb);opacity:.8;pointer-events:none;z-index:0}
+.v32DoodleRight{max-width:135px}
+@media(max-width:900px){.v32Doodle,.v32Peak{display:none}}
+@media(max-width:620px){.v32Hero{padding:10px 12px 0}}
+
+#sat-center .practiceHomeTop,#act-center .practiceHomeTop,#tsi-center .practiceHomeTop{display:none!important}
+
+.v20CenterTools{padding:6px 2px}
+.v20CenterTools .v20BackBtn{display:inline-flex;align-items:center;gap:6px}
+.v20CenterTools>span{display:inline-flex;align-items:center;gap:6px;font-size:13px!important;font-weight:850!important;color:#1e293b!important;position:relative;padding-bottom:8px}
+.v20CenterTools>span:before{content:"";width:16px;height:16px;flex:none;background:var(--v29c,#2563eb);-webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>') no-repeat center/contain;mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>') no-repeat center/contain}
+.v20CenterTools>span:after{content:"";position:absolute;left:22px;right:0;bottom:0;height:3px;border-radius:99px;background:var(--v29c,#2563eb);opacity:.7}
+</style>
+
+<style id="v34-exact-theme-colors">
+/* Exact colors/gradients from the reference HTML the owner supplied (ScorePathTSIA2/SAT/ACTPracticeSection files),
+ * matched pixel-for-pixel per exam. Only --v29c/--v29cd (solid-tone usages) and the new --v29accent
+ * (3-stop gradient usages) are re-pointed here; --v29grad/--v29tint/--v29border/--v29glow* from the
+ * Fifty-third pass are untouched so the Mixed Practice hero card keeps its own look. */
+#tsi-center{--v29c:#11b9c8;--v29cd:#0f9cbb;--v29accent:linear-gradient(135deg,#0d2d74 0%,#0f9cbb 46%,#10c6d2 100%)}
+#sat-center{--v29c:#3f6cff;--v29cd:#1577ff;--v29accent:linear-gradient(135deg,#0d2d74 0%,#1577ff 48%,#6a36ff 100%)}
+#act-center{--v29c:#ff5b21;--v29cd:#ff6b1b;--v29accent:linear-gradient(135deg,#ff3b12 0%,#ff6b1b 48%,#ff8f42 100%)}
+.v32Grad{background:var(--v29accent,linear-gradient(120deg,#2563eb,#1d4ed8));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ptBtn.timed{background:var(--v29accent,linear-gradient(135deg,#2563eb,#1d4ed8))!important}
+.resumeActions .smallbtn.primary2{background:var(--v29accent,linear-gradient(135deg,#2563eb,#1d4ed8))!important}
+
+/* Card-grid test layout, matching the reference's sp-tests/sp-test-card exactly */
+.practiceTestList{display:grid;grid-template-columns:repeat(5,1fr)!important;gap:12px}
+.ptRow.spTestCard{display:block!important;padding:15px!important;border-radius:20px!important}
+.ptRow.spTestCard:first-child{box-shadow:0 0 0 2px color-mix(in srgb,var(--v29c) 48%,transparent),0 16px 34px color-mix(in srgb,var(--v29c) 14%,transparent)}
+.spTestTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.spTestNumber{width:44px;height:40px;border-radius:12px}
+.spTestIcon{font-size:24px;filter:saturate(.88)}
+.spTestTitle{margin:0 0 12px;font-size:16px;letter-spacing:-.01em;display:flex;align-items:center;gap:6px}
+.spModeStack{display:grid;grid-template-columns:1fr;gap:8px}
+.spModeStack .ptBtn{font-size:12.5px;padding:10px 12px}
+@media(max-width:1000px){.practiceTestList{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:640px){.practiceTestList{grid-template-columns:1fr!important}.ptRow.spTestCard{display:flex!important;align-items:center;gap:12px;flex-wrap:wrap}.spTestTop{margin:0;flex:none}.spTestTitle{margin:0;flex:1 1 auto}.spModeStack{flex:1 1 100%;grid-template-columns:1fr 1fr}}
+
+/* Mini-top bar: add the real site brand + a per-section sound toggle, matching the reference's sp-mini-top */
+.v20CenterTools{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.v20CenterTools .v34Brand{font-weight:900;letter-spacing:-.02em;color:#0f172a;opacity:.85;font-size:13px}
+.v34SoundBtn{border:0;background:transparent;font-size:17px;cursor:pointer;line-height:1;padding:4px}
+
+/* Bottom hand-written note (third doodle), matching the reference's sp-hand-bottom */
+.v32DoodleBottom{position:static!important;max-width:none;text-align:center;transform:none;margin:2px 0 14px;font-size:17px}
+@media(max-width:900px){.v32DoodleBottom{display:none}}
+
+/* Ripple + reveal-on-scroll micro-interactions from the reference */
+.ptBtn,.smallbtn,.v29Cta{position:relative;overflow:hidden}
+.v34Ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.45);animation:v34RippleAnim .55s ease-out;pointer-events:none}
+@keyframes v34RippleAnim{to{transform:scale(2.6);opacity:0}}
+.v34Reveal{opacity:0;transform:translateY(12px)}
+.v34Reveal.v34Visible{animation:v34RevealAnim .48s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes v34RevealAnim{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.v34Ripple,.v34Reveal{animation:none!important;opacity:1!important;transform:none!important}}
+</style>
+
 <style id="v20-polish-css">
 .topline{height:24px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#102348,#2356d7);font-size:10px;letter-spacing:.25px}.header{background:#0b1b36!important;border-bottom:1px solid rgba(148,163,184,.16)}.nav{min-height:76px;gap:16px!important}.brand{min-width:245px}.navProLinks.v20NavLinks{gap:8px}.v20NavLinks>a:not(.navCta){padding:10px 13px;border-radius:12px;border:1px solid rgba(148,163,184,.18);background:rgba(255,255,255,.035)}.v20NavLinks>a:hover{background:rgba(255,255,255,.08)}.v20SignIn{color:#dbeafe!important}.navCta{box-shadow:0 8px 24px rgba(37,99,235,.18)}.catrow{gap:10px}.catbtn{min-height:48px;border-radius:13px!important;box-shadow:none!important}.catbtn:hover{transform:translateY(-1px) scale(1.02)!important}
 .v20PracticeHub{padding:46px 18px 24px!important;background:linear-gradient(180deg,#f8fbff,#f4f7fb)!important}.v20PracticeHub .v10HubTop{max-width:980px!important}.v20PracticeHub h2{font-size:38px!important;margin-bottom:7px!important}.v20PracticeHub p{max-width:760px;margin:0 auto 18px!important;color:#526277!important}.v20ExamSwitch{max-width:720px!important;padding:7px!important;gap:7px!important;border-radius:18px!important;background:#e7edf5!important}.v20ExamSwitch button{min-height:62px!important;border-radius:13px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:17px!important}.v20ExamSwitch button small{font-size:9px;font-weight:800;opacity:.68}.v20ExamSwitch button.active{box-shadow:0 10px 24px rgba(15,23,42,.12)!important}.v20PracticeActions{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:14px}.v20PracticeActions button,.v20PracticeActions a,.v20BackBtn{border:1px solid #d6e0eb;background:#fff;color:#334155;text-decoration:none;padding:9px 12px;border-radius:11px;font-size:12px;font-weight:850;cursor:pointer}.v20PracticeActions button:hover,.v20PracticeActions a:hover,.v20BackBtn:hover{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8}#sat-center,#act-center,#tsi-center{scroll-margin-top:105px!important;padding-top:18px!important}.v20CenterTools{max-width:1100px;margin:0 auto 9px;display:flex;justify-content:space-between;align-items:center}.v20CenterTools span{font-size:11px;color:#64748b;font-weight:750}#my-results{scroll-margin-top:105px;display:none}
@@ -1052,7 +1213,7 @@ function spConsole(method){
 <section class="v12HistoryWrap" id="my-results"><div class="v12HistoryHead"><div><span class="miniLabel">MY RESULTS</span><h2>Your progress, without the clutter.</h2><p>Resume unfinished work or review your most recent completed tests.</p></div><button class="v12Refresh" id="v12RefreshHistory" type="button">Refresh</button></div><div class="v12HistoryGrid"><article class="v12ResumePanel"><h3>Continue where you left off</h3><div id="v12ResumeList" class="v12ResumeList"></div></article><article class="v12TrendPanel"><h3>Recent performance</h3><div class="v12TrendStats"><div><b id="v12TestsCount">0</b><span>Tests</span></div><div><b id="v12RecentAvg">—</b><span>Recent avg.</span></div><div><b id="v12Best">—</b><span>Best</span></div></div><div id="v12Trend" class="v12MiniTrend"></div></article><article class="v12AnalysisPanel"><h3>What your history says</h3><div id="v12HistoryAnalysis" class="v12HistoryAnalysis">Complete a practice test to unlock a focused recommendation.</div></article></div><div class="v12RecentBox"><div class="v12RecentTitle"><h3>Recent tests</h3><span>Saved only in this browser</span></div><div id="v12RecentTests"></div></div></section>
 <section class="v13Power" id="daily-practice"><div class="v13PowerGrid"><article class="v13Daily v7Reveal"><small>Daily focus</small><h3>15 minutes. One useful session.</h3><p>Recent mistakes and weaker skills come first, then fresh blueprint-aligned questions fill the set.</p><div class="v13DailyBtns"><button class="v13DailyTsi" data-v13-daily="TSIA2"><span>🎓</span> Start TSIA2 Daily</button><button class="v13DailySat" data-v13-daily="SAT"><span>📘</span> Start SAT Daily</button><button class="v13DailyAct" data-v13-daily="ACT"><span>🎯</span> Start ACT Daily</button></div></article><article class="v13Goal v7Reveal"><small>Score goal</small><h3>Keep the target visible.</h3><div class="v13GoalRow"><label>TSIA2 Math target<input id="v13TsiMathGoal" type="number" min="910" max="990" placeholder="950"></label><label>TSIA2 English target<input id="v13TsiElarGoal" type="number" min="910" max="990" placeholder="945"></label><label>SAT target<input id="v13SatGoal" type="number" min="400" max="1600" step="10" placeholder="1450"></label><label>ACT target<input id="v13ActGoal" type="number" min="1" max="36" placeholder="32"></label></div><div class="v13GoalNote">TSIA2 targets default to the statewide college-ready benchmarks (Math 950, ELAR 945 + essay ≥5 on the 910–990 scale) — TSIA2 is pass/fail readiness per domain, not a single composite score like SAT or ACT.</div><div class="v13GoalSummary" id="v13GoalSummary">Complete a test to connect your recent practice trend to your target.</div><div class="v13GoalBar"><i id="v13GoalBar"></i></div><div class="v13QuickTools"><button id="v13FlashOpen">Flashcards</button><button id="v13NotesOpen">My Notes</button></div></article></div></section>
 <section class="section" id="sat-center">
-<div class="sectionHead compactHead"><h2>Digital SAT Practice</h2><p>Timed, untimed, diagnostic, or section practice.</p></div>
+<div class="v32Hero"><div class="v32HeroBg"><i class="v32Blob b1"></i><i class="v32Blob b2"></i></div><div class="v32Doodle v32DoodleLeft">You&rsquo;ve got this.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Doodle v32DoodleRight">Small steps bigger scores.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><svg class="v32Peak" viewBox="0 0 140 100" fill="none"><path d="M10 90 L45 30 L62 55 L85 15 L130 90 Z" fill="currentColor" opacity="0.14"/><path d="M85 15 L85 0" stroke="currentColor" stroke-width="2.5"/><path d="M85 0 L103 6 L85 12 Z" fill="currentColor"/></svg><div class="v32Kicker">PRACTICE <span>&bull;</span> IMPROVE <span>&bull;</span> SCORE HIGHER</div><div class="sectionHead compactHead"><h2>Digital SAT <span class="v32Grad">Practice</span></h2><p>Timed, untimed, diagnostic, or section practice.</p></div><div class="v32Divider"></div><div class="v32Doodle v32DoodleBottom">Practice smarter.</div></div>
 <div class="qualityNotice"><b>Content Quality Standard</b><span>Questions on TSI Practice Prep are independently written practice questions. They are reviewed for answer accuracy, explanation accuracy, skill alignment, and clear wording. They are not represented as previously administered official questions.</span></div>
 
 <div class="bankInfo">
@@ -1078,14 +1239,15 @@ function spConsole(method){
  <div class="mainpanel">
   <div id="satHome">
    <div class="practiceHomeTop"><div><span class="miniLabel satLabel">DIGITAL SAT</span><h3>Practice Tests</h3><p>Fresh original questions. Pick timed or untimed.</p></div><div class="progressRing" id="satProgressRing"><strong id="satRingText">0%</strong></div></div>
-   <div class="difficultyControl compactControl"><label for="satDifficulty">Difficulty</label><select id="satDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
-   <div class="resumeCard" id="satResume"><div><b>Continue saved SAT practice</b><span id="satResumeText">A saved SAT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="satResumeBtn">Resume</button><button class="smallbtn" id="satDiscardBtn">Start Fresh</button></div></div>
-   <div class="statgrid compactStats"><div class="stat"><b id="satAnswered">0</b><span>Answered</span></div><div class="stat"><b id="satAccuracy">—</b><span>Accuracy</span></div><div class="stat"><b id="satMistakes">0</b><span>Review</span></div><div class="stat"><b id="satSaved">0</b><span>Saved</span></div></div>
-   <div class="practiceTestList"><article class="ptRow"><div class="ptIdentity"><span class="ptNum">01</span><div><b>Practice Test 1</b><small>98 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 14m<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">02</span><div><b>Practice Test 2</b><small>98 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 14m<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">03</span><div><b>Practice Test 3</b><small>98 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 14m<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">04</span><div><b>Practice Test 4</b><small>98 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 14m<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">05</span><div><b>Practice Test 5</b><small>98 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 14m<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="untimed">Untimed<span>→</span></button></div></article></div>
+   <div class="v29MixedCard"><div class="v29Glow v29GlowA"></div><div class="v29Glow v29GlowB"></div><div class="v29Top"><div><div class="v29Badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>NEW &middot; RECOMMENDED</div><h3>Mixed Practice</h3><p>No timer. No fixed length. Questions keep coming, mixed across every SAT skill — stop whenever you want.</p><div class="v29Tags"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Untimed, always</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Every skill, shuffled</span></div><button class="v29Cta" data-v29-mixed="SAT">Start Mixed Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button></div><div class="v29RingCard"><div class="v29Ring" data-v29-ring="SAT"><strong data-v29-count="SAT">0</strong></div><div class="v29Lbl">questions today</div><div class="v29Streak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-3 4-3 8a3 3 0 006 0c0-1-1-2-1-3 2 1 4 4 4 7a6 6 0 11-12 0c0-5 3-7 6-12z"/></svg><span data-v29-streak="SAT">Start your streak today</span></div></div></div></div>
+   <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="satDifficulty">Difficulty</label><select id="satDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
+   <div class="resumeCard" id="satResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved SAT practice</b><span id="satResumeText">A saved SAT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="satResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="satDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
+   <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="satAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="satAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="satMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="satSaved">0</b><span>Saved</span></div></div></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-sat-start="sat-rw"><b>Reading & Writing</b><span>Untimed practice →</span></button><button data-sat-start="sat-timed-rw"><b>Reading & Writing</b><span>Timed module →</span></button><button data-sat-start="sat-math"><b>Math</b><span>Untimed practice →</span></button><button data-sat-start="sat-timed-math"><b>Math</b><span>Timed module →</span></button><button data-sat-start="sat-diagnostic"><b>Diagnostic</b><span>Find weak skills →</span></button><button id="satAdaptiveAction"><b>Full Adaptive SAT</b><span>98-question simulation →</span></button><button data-sat-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-sat-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button></div></details>
   </div>
 
@@ -1109,7 +1271,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="satTestTitle">SAT Practice</b><br><small id="satTestSub">Question 1</small></div>
     <div class="testmode"><small id="satModeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="satTimer">15:00</div><button class="examToolBtn" id="satRefBtn" hidden>▤ Reference</button><button class="examToolBtn desmosBtn" id="satCalcBtn" hidden>📈 Desmos</button><button class="examToolBtn" id="satScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="satReadBtn" hidden>🔊 Read</button><button class="iconCtl" id="satFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="satCloseBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="satTimer">15:00</div><button class="examToolBtn" id="satRefBtn" hidden>▤ Reference</button><button class="examToolBtn desmosBtn" id="satCalcBtn" hidden>📈 Desmos</button><button class="examToolBtn" id="satScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="satReadBtn" hidden>🔊 Read</button><button class="examToolBtn v29EndBtn hidden" id="satEndMixedBtn" title="End this Mixed Practice session">End session</button><button class="iconCtl" id="satFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="satCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -1147,7 +1309,7 @@ function spConsole(method){
 </section>
 
 <section class="section" id="act-center">
-<div class="sectionHead"><h2>ACT Practice Center</h2><p>Practice the current ACT core sections—English, Math, and Reading—with optional Science practice clearly identified. All questions here are original practice content.</p></div>
+<div class="v32Hero"><div class="v32HeroBg"><i class="v32Blob b1"></i><i class="v32Blob b2"></i></div><div class="v32Doodle v32DoodleLeft">Same commitment. A brighter you.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Doodle v32DoodleRight">Practice today. Higher tomorrow.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><svg class="v32Peak" viewBox="0 0 140 100" fill="none"><path d="M10 90 L45 30 L62 55 L85 15 L130 90 Z" fill="currentColor" opacity="0.14"/><path d="M85 15 L85 0" stroke="currentColor" stroke-width="2.5"/><path d="M85 0 L103 6 L85 12 Z" fill="currentColor"/></svg><div class="v32Kicker">PRACTICE <span>&bull;</span> IMPROVE <span>&bull;</span> SCORE HIGHER</div><div class="sectionHead compactHead"><h2><span class="v32Grad">ACT</span> Practice Center</h2><p>Practice the current ACT core sections—English, Math, and Reading—with optional Science practice clearly identified. All questions here are original practice content.</p></div><div class="v32Divider"></div><div class="v32Doodle v32DoodleBottom">Focus where it matters.</div></div>
 <div class="qualityNotice"><b>Content Quality Standard</b><span>Questions on TSI Practice Prep are independently written practice questions. They are reviewed for answer accuracy, explanation accuracy, skill alignment, and clear wording. They are not represented as previously administered official questions.</span></div>
 
 <div class="bankInfo">
@@ -1174,14 +1336,15 @@ function spConsole(method){
  <div class="mainpanel">
   <div id="actHome">
    <div class="practiceHomeTop"><div><span class="miniLabel actLabel">ACT</span><h3>Practice Tests</h3><p>English, Math, Reading, and optional Science skills.</p></div><div class="progressRing" id="actProgressRing"><strong id="actRingText">0%</strong></div></div>
-   <div class="difficultyControl compactControl"><label for="actDifficulty">Difficulty</label><select id="actDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
-   <div class="resumeCard" id="actResume"><div><b>Continue saved ACT practice</b><span id="actResumeText">A saved ACT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="actResumeBtn">Resume</button><button class="smallbtn" id="actDiscardBtn">Start Fresh</button></div></div>
-   <div class="statgrid compactStats"><div class="stat"><b id="actAnswered">0</b><span>Answered</span></div><div class="stat"><b id="actAccuracy">—</b><span>Accuracy</span></div><div class="stat"><b id="actMistakes">0</b><span>Review</span></div><div class="stat"><b id="actSaved">0</b><span>Saved</span></div></div>
-   <div class="practiceTestList"><article class="ptRow"><div class="ptIdentity"><span class="ptNum">01</span><div><b>Practice Test 1</b><small>131 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 5m<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">02</span><div><b>Practice Test 2</b><small>131 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 5m<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">03</span><div><b>Practice Test 3</b><small>131 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 5m<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">04</span><div><b>Practice Test 4</b><small>131 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 5m<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="untimed">Untimed<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">05</span><div><b>Practice Test 5</b><small>131 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="timed"><span class="modeDot">●</span>Timed • 2h 5m<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="untimed">Untimed<span>→</span></button></div></article></div>
+   <div class="v29MixedCard"><div class="v29Glow v29GlowA"></div><div class="v29Glow v29GlowB"></div><div class="v29Top"><div><div class="v29Badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>NEW &middot; RECOMMENDED</div><h3>Mixed Practice</h3><p>No timer. No fixed length. Questions keep coming, mixed across every ACT skill — stop whenever you want.</p><div class="v29Tags"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Untimed, always</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Every skill, shuffled</span></div><button class="v29Cta" data-v29-mixed="ACT">Start Mixed Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button></div><div class="v29RingCard"><div class="v29Ring" data-v29-ring="ACT"><strong data-v29-count="ACT">0</strong></div><div class="v29Lbl">questions today</div><div class="v29Streak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-3 4-3 8a3 3 0 006 0c0-1-1-2-1-3 2 1 4 4 4 7a6 6 0 11-12 0c0-5 3-7 6-12z"/></svg><span data-v29-streak="ACT">Start your streak today</span></div></div></div></div>
+   <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="actDifficulty">Difficulty</label><select id="actDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
+   <div class="resumeCard" id="actResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved ACT practice</b><span id="actResumeText">A saved ACT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="actResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="actDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
+   <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="actAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="actAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="actMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="actSaved">0</b><span>Saved</span></div></div></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-act-start="act-english"><b>English</b><span>Untimed practice →</span></button><button data-act-start="act-math"><b>Math</b><span>Untimed practice →</span></button><button data-act-start="act-reading"><b>Reading</b><span>Untimed practice →</span></button><button data-act-start="act-science"><b>Science</b><span>Optional practice →</span></button><button data-act-start="act-diagnostic"><b>Diagnostic</b><span>Find weak skills →</span></button><button data-act-start="act-timed"><b>Timed Mixed Practice</b><span>Mixed sections →</span></button><button id="actFullAction"><b>Full ACT Core</b><span>131-question simulation →</span></button><button data-act-start="act-writing"><b>ACT Writing</b><span>Writing practice →</span></button><button data-act-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-act-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button></div></details>
   </div>
 
@@ -1205,7 +1368,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="actTestTitle">ACT Practice</b><br><small id="actTestSub">Question 1</small></div>
     <div class="testmode"><small id="actModeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="actTimer">15:00</div><button class="examToolBtn" id="actRefBtn" hidden>▤ Reference</button><button class="examToolBtn" id="actCalcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="actScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="actReadBtn" hidden>🔊 Read</button><button class="iconCtl" id="actFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="actCloseBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="actTimer">15:00</div><button class="examToolBtn" id="actRefBtn" hidden>▤ Reference</button><button class="examToolBtn" id="actCalcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="actScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="actReadBtn" hidden>🔊 Read</button><button class="examToolBtn v29EndBtn hidden" id="actEndMixedBtn" title="End this Mixed Practice session">End session</button><button class="iconCtl" id="actFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="actCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -1271,7 +1434,7 @@ function spConsole(method){
 </section>
 
 <section class="section" id="tsi-center">
-<div class="sectionHead compactHead"><h2>TSIA2 Practice</h2><p>Untimed is recommended; timed mode is optional pacing practice.</p></div>
+<div class="v32Hero"><div class="v32HeroBg"><i class="v32Blob b1"></i><i class="v32Blob b2"></i></div><div class="v32Doodle v32DoodleLeft">Your goals are closer than you think.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Doodle v32DoodleRight">Practice today. Brighter tomorrow.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Kicker">PRACTICE <span>&bull;</span> IMPROVE <span>&bull;</span> BE READY</div><div class="sectionHead compactHead"><h2>TSIA2 <span class="v32Grad">Practice</span></h2><p>Untimed is recommended; timed mode is optional pacing practice.</p></div><div class="v32Divider"></div><div class="v32Doodle v32DoodleBottom">Focus where it matters.</div></div>
 <div class="qualityNotice"><b>Content Quality Standard</b><span>Questions on TSI Practice Prep are independently written practice questions. They are reviewed for answer accuracy, explanation accuracy, skill alignment, and clear wording. They are not represented as previously administered official questions.</span></div>
 
 <div class="bankInfo">
@@ -1298,14 +1461,15 @@ function spConsole(method){
  <div class="mainpanel">
   <div id="dashHome">
    <div class="practiceHomeTop"><div><span class="miniLabel tsiLabel">TSIA2</span><h3>Practice Tests</h3><p>Untimed is recommended. Timed Practice is optional pacing training.</p></div><div class="progressRing" id="progressRing"><strong id="ringText">0%</strong></div></div>
-   <div class="difficultyControl compactControl"><label for="tsiDifficulty">Difficulty</label><select id="tsiDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
-   <div class="resumeCard" id="tsiResume"><div><b>Continue saved TSIA2 practice</b><span id="tsiResumeText">A saved TSI practice session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="tsiResumeBtn">Resume</button><button class="smallbtn" id="tsiDiscardBtn">Start Fresh</button></div></div>
-   <div class="statgrid compactStats"><div class="stat"><b id="statAnswered">0</b><span>Answered</span></div><div class="stat"><b id="statAccuracy">—</b><span>Accuracy</span></div><div class="stat"><b id="statMistakes">0</b><span>Review</span></div><div class="stat"><b id="statSaved">0</b><span>Saved</span></div></div>
-   <div class="practiceTestList"><article class="ptRow"><div class="ptIdentity"><span class="ptNum">01</span><div><b>Practice Test 1</b><small>~44 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="timed"><span class="modeDot">●</span>Timed Practice • 54 min<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="untimed">Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">02</span><div><b>Practice Test 2</b><small>~44 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="timed"><span class="modeDot">●</span>Timed Practice • 54 min<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="untimed">Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">03</span><div><b>Practice Test 3</b><small>~44 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="timed"><span class="modeDot">●</span>Timed Practice • 54 min<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="untimed">Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">04</span><div><b>Practice Test 4</b><small>~44 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="timed"><span class="modeDot">●</span>Timed Practice • 54 min<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="untimed">Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow"><div class="ptIdentity"><span class="ptNum">05</span><div><b>Practice Test 5</b><small>~44 questions</small></div></div><div class="ptModes"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="timed"><span class="modeDot">●</span>Timed Practice • 54 min<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="untimed">Untimed • Recommended<span>→</span></button></div></article></div>
+   <div class="v29MixedCard"><div class="v29Glow v29GlowA"></div><div class="v29Glow v29GlowB"></div><div class="v29Top"><div><div class="v29Badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>NEW &middot; RECOMMENDED</div><h3>Mixed Practice</h3><p>No timer. No fixed length. Questions keep coming, mixed across every TSIA2 skill — stop whenever you want.</p><div class="v29Tags"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Untimed, always</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Every skill, shuffled</span></div><button class="v29Cta" data-v29-mixed="TSIA2">Start Mixed Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button></div><div class="v29RingCard"><div class="v29Ring" data-v29-ring="TSIA2"><strong data-v29-count="TSIA2">0</strong></div><div class="v29Lbl">questions today</div><div class="v29Streak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-3 4-3 8a3 3 0 006 0c0-1-1-2-1-3 2 1 4 4 4 7a6 6 0 11-12 0c0-5 3-7 6-12z"/></svg><span data-v29-streak="TSIA2">Start your streak today</span></div></div></div></div>
+   <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="tsiDifficulty">Difficulty</label><select id="tsiDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
+   <div class="resumeCard" id="tsiResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved TSIA2 practice</b><span id="tsiResumeText">A saved TSI practice session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="tsiResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="tsiDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
+   <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="statAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="statAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="statMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="statSaved">0</b><span>Saved</span></div></div></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-start="math"><b>Mathematics</b><span>Untimed practice →</span></button><button data-start="elar"><b>ELAR</b><span>Untimed practice →</span></button><button data-start="diagnostic"><b>Diagnostic</b><span>Mixed readiness check →</span></button><button data-start="timed"><b>Timed Simulation</b><span>Mixed Math + ELAR →</span></button><button data-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button><button data-start="essay"><b>Essay Lab</b><span>Writing practice →</span></button></div></details>
   </div>
 
@@ -1329,7 +1493,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="testTitle">TSI Practice</b><br><small id="testSub">Question 1</small></div>
     <div class="testmode"><small id="modeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="timer">15:00</div><button class="examToolBtn" id="refBtn" hidden>▤ Reference</button><button class="examToolBtn" id="calcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="scratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="readBtn" hidden>🔊 Read</button><button class="iconCtl" id="fullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="closePracticeBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="timer">15:00</div><button class="examToolBtn" id="refBtn" hidden>▤ Reference</button><button class="examToolBtn" id="calcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="scratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="readBtn" hidden>🔊 Read</button><button class="examToolBtn v29EndBtn hidden" id="endMixedBtn" title="End this Mixed Practice session">End session</button><button class="iconCtl" id="fullscreenBtn" title="Full screen">⛶</button><button class="iconCtl" id="closePracticeBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -1869,7 +2033,7 @@ function prettyMode(m){
  const fullMatch=s.match(/^act-full-([a-z]+)$/i);
  if(fullMatch)return'Full ACT — '+fullMatch[1].charAt(0).toUpperCase()+fullMatch[1].slice(1);
  s=s.replace(/^v9-/,'').replace(/^(sat|act|tsi)-/i,'');
- const known={diagnostic:'Diagnostic',custom:'Custom Set',timed:'Timed Practice',english:'English Practice',math:'Math Practice',reading:'Reading Practice',science:'Science Practice',writing:'Writing Lab'};
+ const known={diagnostic:'Diagnostic',custom:'Custom Set',mixed:'Mixed Practice',timed:'Timed Practice',english:'English Practice',math:'Math Practice',reading:'Reading Practice',science:'Science Practice',writing:'Writing Lab'};
  if(known[s.toLowerCase()])return known[s.toLowerCase()];
  return s.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())||'Practice';
 }
@@ -2137,6 +2301,220 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
   }
 
   document.readyState==="loading" ? document.addEventListener("DOMContentLoaded", initConsentBanner) : initConsentBanner();
+})();
+</script>
+<script id="v29-mixed-practice-js">
+(function(){
+// Fifty-third pass: "Mixed Practice" -- an untimed, no-fixed-length practice
+// mode (large shuffled pull across every skill in the exam, no visible
+// timer, no visible total question count, no forced end) that now leads
+// each of the TSIA2/SAT/ACT practice hubs. See README for the reasoning.
+// Reuses the exact same start-gate/launch machinery as the existing
+// "Focused Practice" skill-drill flow (v22PracticeSimilar) instead of
+// inventing a new session pipeline, so it inherits all existing
+// scoring/history/resume/bookmark behavior for free.
+function v29Pool(examKey){const bank=window.ScorePathBank;return (bank&&bank[examKey])||[]}
+function v29Open(examKey){
+ const pool=v29Pool(examKey);
+ if(!pool.length){alert("No questions are available for Mixed Practice yet.");return}
+ const n=Math.min(300,pool.length),set=randomizeSet(secureShuffle(pool).slice(0,n));
+ const meta="Untimed • every skill, shuffled • no fixed length";
+ if(examKey==="SAT"){
+  pendingSATMode={mode:"sat-mixed",set};satHideAll();
+  document.getElementById("satHome")?.classList.add("hidden");showStartGate("sat","sat-mixed",set);
+  const n1=document.getElementById("satStartName"),n2=document.getElementById("satStartMeta");
+  if(n1)n1.textContent="SAT Mixed Practice";if(n2)n2.textContent=meta;
+ }else if(examKey==="ACT"){
+  pendingACTMode={mode:"act-mixed",set};actHideAll();
+  document.getElementById("actHome")?.classList.add("hidden");showStartGate("act","act-mixed",set);
+  const n1=document.getElementById("actStartName"),n2=document.getElementById("actStartMeta");
+  if(n1)n1.textContent="ACT Mixed Practice";if(n2)n2.textContent=meta;
+ }else{
+  pendingTSIMode={mode:"mixed",set};hideAll();
+  document.getElementById("dashHome")?.classList.add("hidden");showStartGate("tsi","mixed",set);
+  const n1=document.getElementById("tsiStartName"),n2=document.getElementById("tsiStartMeta");
+  if(n1)n1.textContent="TSIA2 Mixed Practice";if(n2)n2.textContent=meta;
+ }
+}
+document.querySelectorAll("[data-v29-mixed]").forEach(function(b){b.addEventListener("click",function(){v29Open(b.dataset.v29Mixed)})});
+
+// Inside an active mixed session: hide the "of N" total, hide the
+// question-number navigator (already handled purely by CSS via the
+// .mixedMode class), and surface a persistent low-key "End session"
+// control instead of relying on the Finish button that normally only
+// appears on the very last question of a fixed-length set.
+function v29ApplyMixedUI(shellId,subId,finishBtnId,endBtnId,isMixed){
+ const shell=document.getElementById(shellId);if(shell)shell.classList.toggle("mixedMode",!!isMixed);
+ const end=document.getElementById(endBtnId);if(end)end.classList.toggle("hidden",!isMixed);
+ if(isMixed){const sub=document.getElementById(subId),fb=document.getElementById(finishBtnId);if(fb)fb.classList.add("hidden");}
+}
+if(typeof renderQ==="function"){
+ const v29PrevRenderQ=renderQ;
+ renderQ=function(){
+  v29PrevRenderQ();
+  const mixed=typeof state!=="undefined"&&state&&state.mode==="mixed";
+  v29ApplyMixedUI("practiceShell","testSub","finishBtn","endMixedBtn",mixed);
+  if(mixed){const sub=document.getElementById("testSub");if(sub)sub.innerHTML="Question "+(state.i+1)+" • Mixed Practice";}
+ };
+}
+if(typeof renderGeneric==="function"){
+ const v29PrevRenderGeneric=renderGeneric;
+ renderGeneric=function(st,prefix,storeObj,saveFn,renderFn){
+  v29PrevRenderGeneric(st,prefix,storeObj,saveFn,renderFn);
+  const mixed=st&&(st.mode==="sat-mixed"||st.mode==="act-mixed");
+  const shellId=prefix+"PracticeShell",subId=prefix+"TestSub",finishBtnId=prefix+"FinishBtn",endBtnId=prefix+"EndMixedBtn";
+  v29ApplyMixedUI(shellId,subId,finishBtnId,endBtnId,mixed);
+  if(mixed){const sub=document.getElementById(subId);if(sub)sub.innerHTML="Question "+(st.i+1)+" • Mixed Practice";}
+ };
+}
+document.getElementById("endMixedBtn")?.addEventListener("click",function(){if(typeof finishTest==="function")finishTest(false)});
+document.getElementById("satEndMixedBtn")?.addEventListener("click",function(){if(typeof finishSAT==="function")finishSAT(false)});
+document.getElementById("actEndMixedBtn")?.addEventListener("click",function(){if(typeof finishACT==="function")finishACT(false)});
+
+// Daily momentum (the hero card's ring + "questions today" + streak).
+// Independent of the existing per-exam stores -- it only reflects
+// UNTIMED practice where an answer is actually submitted/explained
+// (submitAnswer / submitGeneric), which is exactly the practice this
+// card is meant to encourage.
+const V29_KEY="scorepathV29Momentum";
+function v29Today(){return new Date().toISOString().slice(0,10)}
+function v29Yesterday(){return new Date(Date.now()-86400000).toISOString().slice(0,10)}
+function v29AllMomentum(){try{return JSON.parse(localStorage.getItem(V29_KEY)||"null")||{}}catch(e){return {}}}
+function v29Bump(examKey){
+ if(!examKey)return;
+ const all=v29AllMomentum(),today=v29Today(),m=all[examKey]||{date:"",count:0,streak:0,lastActive:""};
+ if(m.date===today){m.count=(m.count||0)+1}
+ else{m.streak=(m.lastActive===v29Yesterday())?(m.streak||0)+1:1;m.date=today;m.count=1;m.lastActive=today}
+ all[examKey]=m;
+ try{localStorage.setItem(V29_KEY,JSON.stringify(all))}catch(e){}
+ v29RenderMomentum();
+}
+function v29RenderMomentum(){
+ const all=v29AllMomentum(),today=v29Today();
+ document.querySelectorAll("[data-v29-count]").forEach(function(el){
+  const exam=el.dataset.v29Count,m=all[exam];
+  el.textContent=(m&&m.date===today)?m.count:0;
+ });
+ document.querySelectorAll("[data-v29-streak]").forEach(function(el){
+  const exam=el.dataset.v29Streak,m=all[exam],streak=m&&(m.date===today||m.lastActive===v29Yesterday())?(m.streak||0):0;
+  el.textContent=streak>0?streak+"-day streak":"Start your streak today";
+ });
+ document.querySelectorAll("[data-v29-ring]").forEach(function(el){
+  const exam=el.dataset.v29Ring,m=all[exam],count=(m&&m.date===today)?m.count:0;
+  el.style.setProperty("--v29p",Math.max(6,Math.min(100,count*6))+"%");
+  const num=el.querySelector("strong");if(num)num.textContent=count;
+ });
+}
+// Note: TSI's #submitAnswerBtn is bound via a direct ".onclick=submitAnswer"
+// property assignment in question-bank-core.js (not an indirect wrapper), so
+// reassigning the global submitAnswer function -- as done below for SAT/ACT's
+// submitGeneric, which IS called indirectly -- would never actually run here.
+// A second, additive click listener sees the same click and runs after the
+// original handler has already updated state.submitted for this question.
+document.getElementById("submitAnswerBtn")?.addEventListener("click",function(){
+ const q=typeof state!=="undefined"&&state.set?state.set[state.i]:null;
+ if(q&&state.submitted[q.id])v29Bump("TSIA2");
+});
+if(typeof submitGeneric==="function"){
+ const v29PrevSubmitGeneric=submitGeneric;
+ submitGeneric=function(st,storeObj,saveFn,renderFn){
+  const before=st&&st.set&&st.set[st.i]?st.submitted[st.set[st.i].id]:null;
+  v29PrevSubmitGeneric(st,storeObj,saveFn,renderFn);
+  if(!before)v29Bump(st===((typeof satState!=="undefined")?satState:null)?"SAT":"ACT");
+ };
+}
+document.readyState==="loading"?document.addEventListener("DOMContentLoaded",v29RenderMomentum):v29RenderMomentum();
+})();
+</script>
+
+<script id="v34-scorepath-exact-polish">
+(function(){
+try{
+ // Tiny optional UI click sound (Web Audio, no external file), matching the owner-supplied reference exactly.
+ const v34SoundOn={sat:true,act:true,tsi:true};
+ let v34Ctx;
+ function v34Tone(freq,duration,volume){
+  duration=duration||0.055;volume=volume||0.025;
+  try{
+   v34Ctx=v34Ctx||new (window.AudioContext||window.webkitAudioContext)();
+   const o=v34Ctx.createOscillator(),g=v34Ctx.createGain();
+   o.frequency.value=freq;o.type="sine";
+   g.gain.setValueAtTime(volume,v34Ctx.currentTime);
+   g.gain.exponentialRampToValueAtTime(0.0001,v34Ctx.currentTime+duration);
+   o.connect(g);g.connect(v34Ctx.destination);
+   o.start();o.stop(v34Ctx.currentTime+duration);
+  }catch(e){}
+ }
+ function v34ExamOf(el){
+  const c=el.closest('[id$="-center"]');
+  if(!c)return null;
+  return c.id==="tsi-center"?"tsi":c.id==="sat-center"?"sat":c.id==="act-center"?"act":null;
+ }
+
+ // Brand label + sound toggle in the mini "← Choose another test" bar (added additively; v20's own script builds the bar itself).
+ function v34EnhanceBar(){
+  ["sat","act","tsi"].forEach(function(exam){
+   const bar=document.querySelector("#"+exam+"-center .v20CenterTools");
+   if(!bar||bar.querySelector(".v34SoundBtn"))return;
+   const brand=document.createElement("span");
+   brand.className="v34Brand";
+   brand.textContent="TSI Practice Prep";
+   const soundBtn=document.createElement("button");
+   soundBtn.type="button";
+   soundBtn.className="v34SoundBtn";
+   soundBtn.setAttribute("aria-pressed","true");
+   soundBtn.title="Toggle interface sounds";
+   soundBtn.textContent="🔊";
+   soundBtn.addEventListener("click",function(){
+    v34SoundOn[exam]=!v34SoundOn[exam];
+    soundBtn.setAttribute("aria-pressed",String(v34SoundOn[exam]));
+    soundBtn.textContent=v34SoundOn[exam]?"🔊":"🔇";
+    if(v34SoundOn[exam])v34Tone(660,.07,.02);
+   });
+   const label=bar.querySelector("span:not(.v34Brand)");
+   bar.insertBefore(brand,label||null);
+   bar.appendChild(soundBtn);
+  });
+ }
+
+ // Ripple + click tone on the real practice buttons (Timed/Untimed test cards, Resume/Start Fresh, Mixed Practice CTA).
+ document.addEventListener("pointerdown",function(e){
+  const btn=e.target.closest(".ptBtn,.smallbtn,.v29Cta");
+  if(!btn)return;
+  const exam=v34ExamOf(btn);
+  if(exam&&v34SoundOn[exam]){
+   v34Tone(btn.dataset.v9Mode==="timed"?620:520);
+  }
+  const r=document.createElement("span");
+  r.className="v34Ripple";
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height);
+  r.style.width=r.style.height=size+"px";
+  r.style.left=(e.clientX-rect.left-size/2)+"px";
+  r.style.top=(e.clientY-rect.top-size/2)+"px";
+  btn.appendChild(r);
+  setTimeout(function(){r.remove()},550);
+ });
+
+ // Reveal-on-switch entrance animation for the hero/resume/stats/test cards, matching the reference's sp-reveal.
+ if(typeof showCenter==="function"){
+  const v34PrevShowCenter=showCenter;
+  showCenter=function(exam,scroll){
+   v34PrevShowCenter(exam,scroll);
+   const center=document.getElementById(exam+"-center");
+   if(!center)return;
+   const targets=center.querySelectorAll(".v32Hero,.resumeCard,.statgrid.compactStats .stat,.ptRow.spTestCard,.v29MixedCard");
+   targets.forEach(function(el,i){
+    el.classList.remove("v34Visible");
+    el.classList.add("v34Reveal");
+    void el.offsetWidth;
+    setTimeout(function(){el.classList.add("v34Visible")},30+i*35);
+   });
+  };
+ }
+
+ document.readyState==="loading"?document.addEventListener("DOMContentLoaded",v34EnhanceBar):v34EnhanceBar();
+}catch(e){}
 })();
 </script>
 </body>
