@@ -48,6 +48,7 @@ const {
   difficultyTally,
   parseCount,
   shuffleChoicesForAssignment,
+  FULL_SECTION_COUNTS,
 } = require('./pick');
 
 const EXAMS = ['SAT', 'ACT', 'TSIA2'];
@@ -86,6 +87,29 @@ function assertOwnStudentId(data, auth) {
   assertNonEmptyString(data.studentId, 'studentId');
   if (data.studentId !== uid) {
     throw new HandlerError('permission-denied', 'studentId must match your own signed-in session.');
+  }
+  return uid;
+}
+
+/* Fifty-ninth pass: createRoom used to only call assertAuthed — ANY signed-in
+ * identity, including the automatic anonymous session every student gets
+ * from student-auth.js, could create a room. This app only ever produces
+ * two kinds of signed-in identity: a real teacher (teacher-auth.js, real
+ * email/password sign-in) or an anonymous student (student-auth.js,
+ * signInAnonymously()). Firebase Auth's own ID token always records which
+ * provider produced it (token.firebase.sign_in_provider === 'anonymous' for
+ * the student case) — checking that a caller is NOT anonymous is therefore
+ * a real, immediately-usable teacher-role check with no new schema, custom
+ * claim, or Firestore profile lookup needed. Fails closed: an unrecognized
+ * or missing provider is rejected, not allowed through. */
+function assertTeacher(auth) {
+  const uid = assertAuthed(auth);
+  const provider = auth.token && auth.token.firebase && auth.token.firebase.sign_in_provider;
+  if (!provider || provider === 'anonymous') {
+    throw new HandlerError(
+      'permission-denied',
+      'A signed-in teacher account (not an anonymous student session) is required to create a room.'
+    );
   }
   return uid;
 }
@@ -134,7 +158,7 @@ function makeHandlers(db, { serverTimestamp, now } = {}) {
 
   async function createRoom(data, auth) {
     data = data || {};
-    const uid = assertAuthed(auth);
+    const uid = assertTeacher(auth);
     assertNonEmptyString(data.roomCode, 'roomCode');
     if (!EXAMS.includes(data.examKey)) {
       throw new HandlerError('invalid-argument', 'examKey must be one of ' + EXAMS.join(', '));
@@ -174,10 +198,34 @@ function makeHandlers(db, { serverTimestamp, now } = {}) {
     if (!EXAMS.includes(data.examKey)) {
       throw new HandlerError('invalid-argument', 'examKey must be one of ' + EXAMS.join(', '));
     }
-    await requireActiveRoom(data.roomCode);
+    const room = await requireActiveRoom(data.roomCode);
+    // Fifty-ninth pass: the room's own stored examKey (set once, at
+    // createRoom, and never client-controlled again) used to be fetched
+    // here and then simply discarded — nothing compared it to the
+    // examKey the CALLER sent on this request. A student sitting in a
+    // room the teacher created as SAT could pass examKey:"ACT" (or
+    // "TSIA2") and be served that other bank instead, mid-room. The
+    // room's exam is the source of truth; a request for any other exam
+    // in that room is rejected before it ever reaches Firestore.
+    if (room.examKey !== data.examKey) {
+      throw new HandlerError(
+        'failed-precondition',
+        `This room was created for ${room.examKey}, not ${data.examKey}.`
+      );
+    }
     await checkAssignmentRateLimit(uid);
 
-    const n = Math.max(MIN_COUNT, Math.min(MAX_COUNT, parseCount(String(data.count || ''))));
+    // Fifty-ninth pass: MAX_COUNT=40 used to cap every request unconditionally,
+    // which silently truncated a legitimate "Full section" request (98 SAT /
+    // 131 ACT / 44 TSIA2 — see parseCount's new examKey-aware handling in
+    // ./pick) down to whatever fit under 40. The teacher-facing count
+    // selector is a fixed 4-option dropdown (10/20/30 questions or "Full
+    // section" — never free text), so raising the effective cap specifically
+    // to that exam's own real full-section size for a genuine Full section
+    // request is safe: it can never be abused to ask for more than the exam
+    // actually has.
+    const effectiveMax = Math.max(MAX_COUNT, FULL_SECTION_COUNTS[data.examKey] || 0);
+    const n = Math.max(MIN_COUNT, Math.min(effectiveMax, parseCount(String(data.count || ''), data.examKey)));
     const mode = data.mode === 'same' ? 'same' : 'different';
 
     const snap = await db.collection('questions').where('examKey', '==', data.examKey).get();

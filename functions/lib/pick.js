@@ -26,7 +26,20 @@ function shuffleWithRand(arr, rand) {
   return a;
 }
 
-function parseCount(countLabel) {
+/* Fifty-ninth pass: this used to have no "Full section" case at all, unlike
+ * its client-side twin in student-room.html (which already special-cased it
+ * correctly). A teacher picking "Full section" for a cloud-synced room sent
+ * that literal string as `countLabel`; since it contains no digits, the old
+ * /(\d+)/ regex found nothing and silently fell back to 24 questions
+ * server-side — regardless of exam, and regardless of the real section size
+ * (98 for SAT, 131 for ACT, 44 for TSIA2). Mirrors FULL_SECTION_COUNTS from
+ * student-room.html exactly so both code paths agree. */
+const FULL_SECTION_COUNTS = { SAT: 98, ACT: 131, TSIA2: 44 };
+
+function parseCount(countLabel, examKey) {
+  if (/full section/i.test(countLabel || '')) {
+    return FULL_SECTION_COUNTS[examKey] || 44;
+  }
   const m = /(\d+)/.exec(countLabel || '');
   return m ? Math.max(4, Math.min(40, parseInt(m[1], 10))) : 24;
 }
@@ -260,4 +273,5 @@ module.exports = {
   selectQuestionsBalanced,
   shuffleChoicesForAssignment,
   examBlueprintTargets, // exported for testing (see functions/test/handlers.test.js)
+  FULL_SECTION_COUNTS, // exported for testing (see functions/test/handlers.test.js)
 };

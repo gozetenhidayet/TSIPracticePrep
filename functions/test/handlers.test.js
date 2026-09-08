@@ -39,7 +39,11 @@ async function main() {
   });
 
   const { getAssignmentQuestions, submitAnswer, createRoom, endRoom } = makeHandlers(db);
-  const teacher = { uid: 'teacher1' };
+  // Fifty-ninth pass: createRoom now requires a real (non-anonymous) sign-in
+  // provider, matching how a real Firebase ID token always carries
+  // token.firebase.sign_in_provider — 'password' here stands in for the
+  // real teacher-auth.js email/password flow.
+  const teacher = { uid: 'teacher1', token: { firebase: { sign_in_provider: 'password' } } };
 
   // Every room used below must be created by a signed-in "teacher" first —
   // this is the real access-control model added alongside the ACT
@@ -228,6 +232,40 @@ async function main() {
   }
   assert.ok(limitHit, `expected the ${ASSIGNMENT_RATE_LIMIT + 1}th call within a minute to be rate-limited`);
   console.log('[OK] getAssignmentQuestions rate-limits repeated calls from the same caller within one minute');
+
+  // --- 12. Fifty-ninth pass: createRoom requires a real (non-anonymous) teacher identity ---
+  const anonymousStudent = { uid: 'sneaky-student', token: { firebase: { sign_in_provider: 'anonymous' } } };
+  await expectCode(
+    createRoom({ roomCode: 'SNEAKY1', examKey: 'SAT' }, anonymousStudent),
+    'permission-denied',
+    'an anonymous (student) identity must not be able to create a room'
+  );
+  await expectCode(
+    createRoom({ roomCode: 'SNEAKY2', examKey: 'SAT' }, { uid: 'no-token-at-all' }),
+    'permission-denied',
+    'a caller with no sign-in-provider info at all must be rejected, not allowed through'
+  );
+  console.log('[OK] createRoom rejects an anonymous student identity and a caller with no provider info');
+
+  // --- 13. Fifty-ninth pass: getAssignmentQuestions refuses a different exam than the room's own ---
+  await createRoom({ roomCode: 'EXAMLOCK1', examKey: 'SAT' }, teacher);
+  await expectCode(
+    getAssignmentQuestions({ roomCode: 'EXAMLOCK1', studentId: 'switcheroo', examKey: 'ACT', count: '4', mode: 'same' }, { uid: 'switcheroo' }),
+    'failed-precondition',
+    'a student must not be able to request a different exam\'s bank than the room was created for'
+  );
+  const correctExam = await getAssignmentQuestions({ roomCode: 'EXAMLOCK1', studentId: 'switcheroo', examKey: 'SAT', count: '4', mode: 'same' }, { uid: 'switcheroo' });
+  assert.strictEqual(correctExam.questions.length, 4, 'requesting the room\'s own real exam should still work normally');
+  console.log('[OK] getAssignmentQuestions rejects a request for a different exam than the room\'s own, still serves the matching exam');
+
+  // --- 14. Fifty-ninth pass: "Full section" count is no longer silently truncated to 24 ---
+  await createRoom({ roomCode: 'FULLSAT1', examKey: 'SAT' }, teacher);
+  const fullSat = await getAssignmentQuestions({ roomCode: 'FULLSAT1', studentId: 'fullstudent', examKey: 'SAT', count: 'Full section', mode: 'same' }, { uid: 'fullstudent' });
+  assert.strictEqual(fullSat.questions.length, 98, 'a SAT "Full section" request should return all 98 questions, not the old 24-question fallback');
+  await createRoom({ roomCode: 'FULLACT1', examKey: 'ACT' }, teacher);
+  const fullAct = await getAssignmentQuestions({ roomCode: 'FULLACT1', studentId: 'fullstudent2', examKey: 'ACT', count: 'Full section', mode: 'same' }, { uid: 'fullstudent2' });
+  assert.strictEqual(fullAct.questions.length, 131, 'an ACT "Full section" request should return all 131 questions, not the old 24-question fallback');
+  console.log('[OK] "Full section" now returns the real 98 (SAT) / 131 (ACT) questions instead of silently falling back to 24');
 
   console.log('\nAll handler tests passed.');
 }

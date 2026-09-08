@@ -5,8 +5,8 @@
     "rooms": {
       "$roomCode": {
         "events": {
-          ".read": true,
-          ".write": true,
+          ".read": "auth != null",
+          ".write": "auth != null",
           "$eventId": {
             ".validate": "newData.hasChild('ts') && newData.child('ts').isNumber()"
           }
