@@ -851,7 +851,7 @@ function spConsole(method){
 }
 </script>
 <div class="spConsent hidden" id="spConsent" role="dialog" aria-label="Cookie preferences">
-  <p><b>Cookies &amp; ads.</b> TSI Practice Prep can show ads to help keep practice free. Ads and any related cookies only turn on if you accept — declining keeps your visit ad-free and this choice never affects your saved practice history, which stays in this browser either way. Change your mind anytime with the "Cookie Preferences" link in the footer. See <a href="privacy.html">Privacy</a>.</p>
+  <p><b>Cookies, analytics &amp; ads.</b> TSI Practice Prep can show ads and use anonymized analytics to help keep practice free and improve the site. Ads, analytics, and any related cookies only turn on if you accept — declining keeps your visit ad-free and untracked, and this choice never affects your saved practice history, which stays in this browser either way. Change your mind anytime with the "Cookie Preferences" link in the footer. See <a href="privacy.html">Privacy</a>.</p>
   <div class="spConsentActions">
     <button class="spConsentBtn decline" id="spConsentDecline" type="button">Decline</button>
     <button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button>
@@ -1995,7 +1995,16 @@ function spConsole(method){
  document.querySelectorAll('[data-v10-diag]').forEach(b=>b.addEventListener('click',()=>{const e=b.dataset.v10Diag;showCenter(e);setTimeout(()=>{if(e==='sat')document.querySelector('[data-sat-start="sat-diagnostic"]')?.click();if(e==='act')document.querySelector('[data-act-start="act-diagnostic"]')?.click();if(e==='tsi')document.querySelector('[data-start="diagnostic"]')?.click()},250)}));
  byId('v10DiagnosticHero')?.addEventListener('click',()=>{showCenter('sat');setTimeout(()=>document.querySelector('[data-sat-start="sat-diagnostic"]')?.click(),250)});
  document.querySelectorAll('a[href="#sat-center"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showCenter('sat')}));document.querySelectorAll('a[href="#act-center"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showCenter('act')}));document.querySelectorAll('a[href="#tsi-center"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showCenter('tsi')}));
- const hash=location.hash;showCenter(hash==='#act-center'?'act':hash==='#tsi-center'?'tsi':'sat',false);
+ /* Fixed a bug where visiting the bare homepage (no hash at all) fell through
+  * this ternary's default branch and force-opened the SAT center, rewriting
+  * the URL to #sat-center even though nothing asked for SAT — a plain visit
+  * to tsipracticeprep.com should stay on the homepage with no center forced
+  * open. Now this only runs for a hash that actually names one of the three
+  * centers. */
+ const hash=location.hash;
+ if(hash==='#sat-center')showCenter('sat',false);
+ else if(hash==='#act-center')showCenter('act',false);
+ else if(hash==='#tsi-center')showCenter('tsi',false);
  let desmosInstance=null;function openDesmos(){const modal=byId('desmosModal');if(!modal)return;modal.classList.add('show');modal.setAttribute('aria-hidden','false');if(!desmosInstance&&window.Desmos){const elt=byId('desmosCalculator');elt.innerHTML='';desmosInstance=Desmos.GraphingCalculator(elt,{keypad:true,expressions:true,settingsMenu:false,zoomButtons:true,expressionsTopbar:true})}else if(!window.Desmos){byId('desmosCalculator').innerHTML='<div class="desmosLoading">Desmos could not load. Check your internet connection.</div>'}}
  function closeDesmos(){const m=byId('desmosModal');if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true')}}byId('desmosClose')?.addEventListener('click',closeDesmos);byId('desmosModal')?.addEventListener('click',e=>{if(e.target.id==='desmosModal')closeDesmos()});if(byId('satCalcBtn'))byId('satCalcBtn').onclick=openDesmos;
  function interp(points,x){for(let i=1;i<points.length;i++){if(x<=points[i][0]){const [x0,y0]=points[i-1],[x1,y1]=points[i];return Math.round(y0+(x-x0)*(y1-y0)/(x1-x0))}}return points[points.length-1][1]}
@@ -2249,10 +2258,31 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
   // is the post-test results-screen ad zone; both fall back to hub/teacherTools
   // if left blank, same as the original two placements always have.
   var ADSENSE_AD_SLOTS = { hub: "", trust: "", teacherTools: "", preTest: "", results: "" };
+  // Fifty-ninth pass: Google Analytics 4, off by default like AdSense above.
+  // Fill in your real GA4 Measurement ID (Admin > Data Streams > your web
+  // stream, looks like "G-XXXXXXXXXX") once you've created a GA4 property at
+  // https://analytics.google.com. Gated behind the SAME accept/decline
+  // consent choice as ads below (not tied to ADSENSE_CLIENT_ID — analytics
+  // should work even before an AdSense account exists or is approved).
+  var GA_MEASUREMENT_ID = ""; // e.g. "G-XXXXXXXXXX"
   var CONSENT_KEY = "scorepath_consent_v1";
 
   function getConsent(){ try{ return localStorage.getItem(CONSENT_KEY); }catch(e){ return null; } }
   function setConsent(v){ try{ localStorage.setItem(CONSENT_KEY, v); }catch(e){} }
+
+  function activateAnalytics(){
+    if(!GA_MEASUREMENT_ID || getConsent()!=="accepted") return;
+    if(document.getElementById("ga4-gtag-js")) return;
+    var s=document.createElement("script");
+    s.id="ga4-gtag-js";s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(GA_MEASUREMENT_ID);
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag=gtag;
+    gtag("js", new Date());
+    gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
 
   function loadAdSenseScript(){
     if(!ADSENSE_CLIENT_ID) return;
@@ -2306,9 +2336,9 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
     if(!banner) return;
     var consent=getConsent();
     if(!consent){ banner.classList.remove("hidden"); }
-    else if(consent==="accepted"){ activateAds(); }
+    else if(consent==="accepted"){ activateAds(); activateAnalytics(); }
     document.getElementById("spConsentAccept")?.addEventListener("click", function(){
-      setConsent("accepted"); banner.classList.add("hidden"); activateAds();
+      setConsent("accepted"); banner.classList.add("hidden"); activateAds(); activateAnalytics();
     });
     document.getElementById("spConsentDecline")?.addEventListener("click", function(){
       setConsent("declined"); banner.classList.add("hidden");
