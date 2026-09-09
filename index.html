@@ -2218,7 +2218,20 @@ const mo=new MutationObserver(()=>setTimeout(addTools,0));['options','satOptions
 </script>
 
 <script>
-if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load',()=>{
+    if('caches' in window){
+      caches.keys().then(keys=>Promise.all(
+        keys.filter(k=>k.startsWith('scorepath-shell-')&&k!=='scorepath-shell-v4')
+            .map(k=>caches.delete(k))
+      )).catch(()=>{});
+    }
+    navigator.serviceWorker
+      .register('/sw.js?v=4',{scope:'/',updateViaCache:'none'})
+      .then(reg=>reg.update())
+      .catch(()=>{});
+  });
+}
 </script>
 
 <script id="v18-premium-js">
