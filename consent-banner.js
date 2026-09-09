@@ -27,7 +27,11 @@
  */
 (function () {
   var CONSENT_KEY = "scorepath_consent_v1";
-  var ADSENSE_CLIENT_ID = ""; // e.g. "ca-pub-1234567890123456" — same value as index.html's copy
+  var ADSENSE_CLIENT_ID = "ca-pub-3359266836868361"; // same value as index.html's copy
+  // Fifty-ninth pass: Google Analytics 4, same value as index.html's own copy.
+  // Fill in the real GA4 Measurement ID (Admin > Data Streams > your web
+  // stream) once you've created a GA4 property at https://analytics.google.com.
+  var GA_MEASUREMENT_ID = "G-BS1S3TD5Z0"; // same value as index.html's copy
   // Pages under /skills/ (or any future subdirectory) need a "../" prefix on root-relative links.
   var ROOT_PREFIX = /\/skills\//.test(location.pathname) ? "../" : "";
 
@@ -36,6 +40,20 @@
   }
   function setConsent(v) {
     try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {}
+  }
+
+  function activateAnalytics() {
+    if (!GA_MEASUREMENT_ID || getConsent() !== "accepted") return;
+    if (document.getElementById("ga4-gtag-js")) return;
+    var s = document.createElement("script");
+    s.id = "ga4-gtag-js"; s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag("js", new Date());
+    gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
   }
 
   function loadAdSenseScript() {
@@ -108,7 +126,7 @@
     div.setAttribute("role", "dialog");
     div.setAttribute("aria-label", "Cookie preferences");
     div.innerHTML =
-      '<p><b>Cookies &amp; ads.</b> TSI Practice Prep can show ads on some pages to help keep practice free. Ads and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="' + ROOT_PREFIX + 'privacy.html">Privacy</a>.</p>' +
+      '<p><b>Cookies, analytics &amp; ads.</b> TSI Practice Prep can show ads on some pages and use anonymized analytics to help keep practice free and improve the site. Ads, analytics, and any related cookies only turn on if you accept &mdash; declining keeps your visit ad-free and untracked. Change your mind anytime with the &quot;Cookie Preferences&quot; link in the footer. See <a href="' + ROOT_PREFIX + 'privacy.html">Privacy</a>.</p>' +
       '<div class="spConsentActions"><button class="spConsentBtn decline" id="spConsentDecline" type="button">Decline</button><button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button></div>';
     document.body.appendChild(div);
     return div;
@@ -139,12 +157,13 @@
     injectFooterLink();
 
     if (!getConsent()) banner.classList.remove("hidden");
-    else if (getConsent() === "accepted") activateAds();
+    else if (getConsent() === "accepted") { activateAds(); activateAnalytics(); }
 
     document.getElementById("spConsentAccept").addEventListener("click", function () {
       setConsent("accepted");
       banner.classList.add("hidden");
       if (typeof window.__spActivateAds === "function") window.__spActivateAds();
+      activateAnalytics();
     });
     document.getElementById("spConsentDecline").addEventListener("click", function () {
       setConsent("declined");
