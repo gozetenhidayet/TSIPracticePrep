@@ -1,0 +1,238 @@
+# Turning on server-side question serving (so the real bank never reaches a browser)
+
+## What this is
+
+Right now, on `index.html`'s self-practice pages, the entire question bank —
+every question, choice, **and the correct answer** — ships as plain
+client-side JavaScript (`question-bank-core.js` + `practice-engine-core.js`)
+to any browser that loads them. That means anyone who opens their browser's
+DevTools console and types `window.ScorePathBank` can see all ~2,775
+questions and their answer keys instantly. Grading also happens entirely in
+the browser (`i === q.a`), so the answer key has to be sitting right there
+in the page for that comparison to even work.
+
+This pass adds a real server-side alternative **for the classroom flow**
+(`teachers.html` creating a room, students joining through
+`student-room.html`): the question bank and answer keys live only in your
+own Firestore database, a student's browser only ever receives the exact
+questions assigned to *them* (no answer key, no explanation, no strategy
+tip), and grading happens on the server. Nothing about the individual
+self-practice pages on `index.html` (SAT/ACT/TSIA2 solo practice, adaptive
+practice tests, the Essay Labs) changes in this pass — those still grade
+client-side against the local bank. Migrating those too is a separate,
+larger follow-on project (see "What this does NOT cover" below).
+
+**This is 100% opt-in and inert until you do the steps below.** With
+`firebase-config.js` left as `null` (the default), every page behaves
+exactly as it did before this pass — nothing here activates on its own.
+
+## What you'll need
+
+- A Google account and a **real Firebase project on the Blaze
+  (pay-as-you-go) plan** — Cloud Functions require Blaze even if your usage
+  stays within the free monthly quota. There is no way around this; only
+  you can create this project and accept its billing terms.
+- The [Firebase CLI](https://firebase.google.com/docs/cli) installed on
+  your own machine (`npm install -g firebase-tools`), since deploying
+  Cloud Functions and Firestore rules to your live project has to run from
+  a machine you're logged into Firebase from — this can't be done from
+  inside this delivered code.
+- Node.js 20 on your own machine, to run the one-time migration scripts.
+
+## Setup steps
+
+1. **Create the Firebase project.**
+   Go to [console.firebase.google.com](https://console.firebase.google.com),
+   create a project, then upgrade it to the Blaze plan (Project settings →
+   Usage and billing). Add a Web App to the project and copy its config
+   object.
+
+2. **Paste your config into `firebase-config.js`.**
+   Replace `window.SCOREPATH_FIREBASE_CONFIG = null;` with your real values
+   (the file already has a commented example of the shape). This alone
+   activates `firebase-init.js`, which will start loading the Firebase SDK
+   for every visitor — but nothing server-side exists yet until the next
+   steps, so `ScorePathRealtime.isCloudSynced` will still report `false`
+   until Firestore/Functions are actually deployed and populated.
+
+3. **Enable Firestore** in the Firebase console (Build → Firestore Database
+   → Create database). Any region; start in production mode (locked) —
+   `firestore.rules` in this repo already default-denies all direct client
+   access, which is what you want.
+
+3b. **Enable Realtime Database too** (Build → Realtime Database → Create
+   database), if you want cross-device live classroom sessions (a teacher
+   on one device and students on others seeing the same room update live).
+   This is a *separate* product from Firestore and needs its own rules —
+   `database.rules.json` in this repo scopes access to `rooms/{roomCode}/events`
+   only (default-deny everywhere else) and validates that every event
+   carries a numeric timestamp. Its access model is "know the room code" —
+   the same trust level the class-code join flow already uses, not a
+   stronger per-user auth check — since students join anonymously by code
+   today. If you skip this step, classroom sessions keep working exactly
+   as they do now (same-browser/same-device only, via `BroadcastChannel`);
+   nothing breaks, you just don't get the cross-device upgrade.
+
+4. **Log in and connect the CLI to your project**, from this repo's root:
+   ```
+   firebase login
+   firebase use --add        # pick your project, give it an alias like "default"
+   ```
+
+5. **Deploy the Cloud Functions and both rule sets:**
+   ```
+   cd functions && npm install && cd ..
+   firebase deploy --only functions,firestore:rules,database
+   ```
+   (Drop `,database` from that command if you skipped step 3b.) This
+   publishes `getAssignmentQuestions`, `submitAnswer`, `createRoom`, and
+   `endRoom` (see `functions/index.js`), locks down direct Firestore access
+   to the `questions`/`assignments`/`rooms`/`rateLimits` collections (see
+   `firestore.rules`), and — if you enabled Realtime Database — publishes
+   `database.rules.json` so classroom room events aren't left on whatever
+   default rules Firebase started your database with.
+
+6. **Migrate the question bank into Firestore.** This is the step that
+   moves the real bank + answer keys out of the browser-downloadable JS
+   files and into your own database:
+   ```
+   cd scripts && npm install
+   npm run export-bank
+   ```
+   This loads `question-bank-core.js` + `practice-engine-core.js` in a
+   headless DOM (via `jsdom`) exactly like a browser would, and writes the
+   resulting `window.ScorePathBank` to `scripts/bank-export.json` — treat
+   this file as sensitive (it contains every answer key) and don't commit
+   it to a public repo. Then:
+   ```
+   Generate a service-account key: Firebase console → Project settings →
+   Service accounts → Generate new private key. Save it OUTSIDE this repo.
+
+   GOOGLE_APPLICATION_CREDENTIALS=/path/to/your-key.json npm run upload-bank
+   ```
+   This uploads all ~2,775 questions into your Firestore `questions`
+   collection. Re-run both commands any time the bank content changes —
+   both are safe to re-run (they overwrite by deterministic document ID,
+   no duplicates).
+
+7. **Test with two real devices/browsers** before trusting this in a real
+   classroom: create a room in `teachers.html`, join from `student-room.html`
+   on a second device, start the room, and confirm questions render and
+   grade correctly. Open DevTools on the student device and confirm
+   `window.ScorePathBank` is `undefined` and no `question-bank-core.js` /
+   `practice-engine-core.js` network request ever fires — that's the whole
+   point of this pass.
+
+## Turning on real teacher accounts (email/password)
+
+Before Firebase is configured, `teacher-login.html`'s Sign In / Create
+Account buttons are an honest static preview — no account is created, no
+password is checked, both just open `teachers.html` directly (the page
+says so). Once you've done step 2 above (pasted real config into
+`firebase-config.js`), this becomes real automatically — no extra file to
+edit — but you do need one more thing enabled in the Firebase console:
+
+8. **Enable Email/Password sign-in** (Build → Authentication → Sign-in
+   method → Email/Password → Enable). Without this step, real-looking
+   Sign In / Create Account forms will appear (the preview banner switches
+   to "Real teacher accounts are active") but every attempt will fail with
+   an `auth/operation-not-allowed`-style error, so don't skip it.
+9. **Test account creation and sign-in** on `teacher-login.html`, then
+   confirm the header pill on `teachers.html` shows the signed-in
+   teacher's name with a working "Sign Out" link.
+
+One thing this does **not** yet do, stated plainly: signing in does not
+restrict which classrooms a teacher can see IN THE UI — classroom setup
+data (school, class name, exam, timing) is still stored per-browser
+(`localStorage`), the same as before this feature existed, so a real
+account today gives you a real identity and real credential check for
+signing in, but the "My Classrooms" list itself isn't yet synced to or
+scoped by that identity across devices (that's a separate, larger next
+step — see README "Known gaps"). Server-side, though, room OWNERSHIP is
+now real: `createRoom` stamps every room with the creating teacher's own
+`auth.uid`, and only that same uid can `endRoom` it (see the next section
+and `functions/lib/handlers.js`) — that part doesn't depend on
+`localStorage` at all. Each new teacher's basic profile (name, school,
+subject) is written to Firestore at `teachers/{their-uid}` —
+readable/writable only by that same signed-in user (see `firestore.rules`)
+— but nothing in the app reads it back yet; it's captured for a future
+profile/roster feature, not displayed anywhere today.
+
+## Turning on real anonymous student sessions
+
+`getAssignmentQuestions`/`submitAnswer` require every caller — teacher or
+student — to be signed in, and require a student's claimed `studentId` to
+be their own real auth uid (see `functions/lib/handlers.js`'s own comment
+for the full reasoning). Teachers get this from step 8 above; students get
+it silently, with no form and nothing they see, via `student-auth.js`
+signing them into an **anonymous** Firebase Auth session the moment
+`student-room.html` needs to call the backend. This still needs one more
+thing enabled in the Firebase console, or every student's request will
+fail with an `auth/admin-restricted-operation`-style error:
+
+10. **Enable Anonymous sign-in** (Build → Authentication → Sign-in method
+    → Anonymous → Enable).
+11. **Test the full flow with two real devices/browsers**: create a room
+    on `teachers.html`, join from `student-room.html` on a second
+    device/browser, and confirm questions load and grade normally. Rooms
+    are also now closed server-side — clicking **End** (or creating a new
+    room, which implicitly ends the previous one) calls the new `endRoom`
+    function, and any further `getAssignmentQuestions`/`submitAnswer` call
+    against that room code will correctly fail with
+    `failed-precondition` once it's ended.
+
+## How to verify it's actually working
+
+- `ScorePathRealtime.isCloudSynced` (check from the browser console) should
+  be `true` once everything above is deployed and configured.
+- On `student-room.html`, once a teacher starts a room, the Network tab
+  should show calls to `getAssignmentQuestions`/`submitAnswer` (your
+  Cloud Functions URL) — and should **not** show `question-bank-core.js` or
+  `practice-engine-core.js` being requested at all.
+- `window.ScorePathBank` should be `undefined` throughout the whole session.
+- In the Firebase console's Firestore data tab, creating a classroom room
+  should produce a document at `rooms/{the class code}` with your
+  teacher account's uid in `teacherUid` and `active: true`; ending that
+  room (or starting a new one) should flip it to `active: false`.
+
+If any of the steps above aren't done yet (no Firestore data, functions not
+deployed, config still `null`), the site automatically falls back to
+exactly today's behavior — the local bank, lazy-loaded on Join, graded in
+the browser. Nothing breaks partway through; each step is additive.
+
+## What this does NOT cover (be clear-eyed about this before relying on it)
+
+- **`index.html`'s individual self-practice, adaptive practice tests, and
+  Essay Labs still grade client-side against the local bank.** Only the
+  classroom flow (`teachers.html` + `student-room.html`) uses the new
+  server-side path. Migrating the rest means reworking roughly 40+
+  separate answer-checking call sites across `index.html`,
+  `question-bank-core.js`, and `practice-engine-core.js` — a much larger
+  project than this pass, not attempted here.
+- **This cannot make the site 100% leak-proof against a determined,
+  patient person.** Whatever question a student is actively looking at
+  necessarily reaches their browser and renders on their screen — that's
+  true for any client-rendered quiz, static or backed by a real server, and
+  a screenshot or a slow, patient rebuild of the bank by repeatedly taking
+  assignments is not something any client-side app can fully prevent. What
+  this DOES stop is the trivial, instant case: a single `console.log` (or a
+  `curl` on the static `.js` files) dumping the entire bank and every
+  answer key in one shot. That's the real, meaningful gap this closes.
+- **Basic abuse protection is now built in, but Firebase App Check still
+  isn't.** Every call now requires a real signed-in identity (anonymous
+  for students, real email/password for teachers), a student can no
+  longer claim someone else's `studentId`, and `getAssignmentQuestions`
+  rejects a caller making more than ~20 requests in a minute. A room also
+  has to actually exist (created by a real teacher via `createRoom`) and
+  still be active — a made-up or already-ended room code is rejected
+  before any bank content is ever read. This meaningfully raises the bar
+  over one unauthenticated random ID with no checks at all, but it's still
+  a plain per-identity counter, not an atomic transaction, and it does
+  nothing to stop one real identity from being reused across many scripted
+  sign-ins. Firebase App Check (an anti-abuse layer Google provides, tied
+  to a real reCAPTCHA/App Check registration only the site owner can set
+  up) would close that remaining gap and is still a reasonable next step,
+  not added in this pass.
+- **Ongoing cost.** Firestore reads and Cloud Functions invocations cost
+  money past Firebase's free tier once real traffic arrives — review
+  Firebase's current pricing before launching this to real students.

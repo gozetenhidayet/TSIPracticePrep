@@ -1,0 +1,12 @@
+# TSI Practice Prep — robots.txt
+# Public practice and info pages are indexable. Account/session pages are
+# marked noindex in their own meta tags and disallowed here as well.
+
+User-agent: *
+Allow: /
+Disallow: /teacher-login.html
+Disallow: /teachers.html
+Disallow: /student-account.html
+Disallow: /student-room.html
+
+Sitemap: https://tsipracticeprep.com/sitemap.xml

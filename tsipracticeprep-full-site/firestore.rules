@@ -1,0 +1,55 @@
+/*
+ * ScorePath — Firestore security rules.
+ *
+ * This project's real question bank + answer keys live in the `questions`
+ * collection (see scripts/upload-bank-to-firestore.js), and per-student
+ * assignment/permutation records live in `assignments` (see
+ * functions/lib/handlers.js). `rooms` holds one document per classroom
+ * room (teacherUid, examKey, active) — created by createRoom, closed by
+ * endRoom — and `rateLimits` holds the plain per-caller counters
+ * checkAssignmentRateLimit reads/writes. None of these four collections is
+ * ever meant to be read or written directly by a browser — all four are
+ * only ever touched through the Cloud Functions in functions/index.js
+ * (getAssignmentQuestions, submitAnswer, createRoom, endRoom), which use
+ * the Admin SDK and therefore bypass these rules entirely. That's
+ * intentional and is the whole point: the answer key should never be
+ * reachable by a direct client-side Firestore read, and room
+ * creation/closure and rate-limit bookkeeping should never be forgeable by
+ * a direct client-side Firestore write — both only ever happen through the
+ * validating Cloud Functions.
+ *
+ * The `teachers` collection (added alongside teacher-auth.js) holds each
+ * signed-in teacher's own profile (name, school, subject) — not exam
+ * content, so a signed-in user is allowed to read/write ONLY their own
+ * document (auth.uid === the document ID), the standard Firebase pattern
+ * for "your own profile data." This is unrelated to and does not weaken
+ * the default-deny protecting the other collections above.
+ *
+ * Default-deny everything else too. If you add other Firestore-backed
+ * features later (e.g. real student accounts, synced practice history),
+ * add specific, scoped rules for those collections here — do not relax the
+ * default below to `allow read, write: if true` for convenience.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /questions/{docId} {
+      allow read, write: if false;
+    }
+    match /assignments/{docId} {
+      allow read, write: if false;
+    }
+    match /rooms/{roomCode} {
+      allow read, write: if false;
+    }
+    match /rateLimits/{docId} {
+      allow read, write: if false;
+    }
+    match /teachers/{teacherId} {
+      allow read, write: if request.auth != null && request.auth.uid == teacherId;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
