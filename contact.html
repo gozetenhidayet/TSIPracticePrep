@@ -16,10 +16,10 @@
 <h2>Send us a message</h2>
 <p>Use this for anything: a possible error in a practice question (include the question ID shown above the prompt, for example <code>SAT-V17-M-ALG-104</code>), a Teacher Classroom question, a partnership note, or general feedback. Messages are routed privately to the TSI Practice Prep team.</p>
 <form id="contactForm" class="contactForm">
-  <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
-  <input type="hidden" name="subject" value="New message — TSI Practice Prep contact form">
-  <input type="hidden" name="from_name" value="TSI Practice Prep contact form">
-  <div class="honeypot"><label>Leave this field empty<input type="text" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+  <input type="hidden" name="_subject" value="New message — TSI Practice Prep contact form">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false">
+  <div class="honeypot"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
   <div class="formRow"><label for="cName">Name</label><input id="cName" type="text" name="name" required></div>
   <div class="formRow"><label for="cEmail">Your email (so we can reply)</label><input id="cEmail" type="email" name="email" required></div>
   <div class="formRow"><label for="cTopic">What is this about?</label>
@@ -35,7 +35,7 @@
   <button type="submit" class="sendBtn" id="contactSubmit">Send Message</button>
   <div class="formStatus" id="contactStatus" role="status" aria-live="polite"></div>
 </form>
-<div class="warn" id="contactOwnerNote"><b>Site owner note:</b> this form is not yet connected. Get a free Web3Forms access key (takes about a minute, no password needed — just verify your email at <a href="https://web3forms.com" target="_blank" rel="noopener">web3forms.com</a>) and paste it into the hidden <code>access_key</code> field above, in place of <code>YOUR_WEB3FORMS_ACCESS_KEY</code>. Once that's set, every submission is emailed straight to the inbox you verified — your address is never shown anywhere in this page's code. See README "Turning on the contact form" for the full walkthrough.</div>
+<div class="warn" id="contactOwnerNote"><b>Site owner note:</b> this form delivers to the site owner's inbox via FormSubmit.co (no account or API key needed). The very first message sent from this form triggers a one-time confirmation email from FormSubmit to that inbox — it must be opened and confirmed once before messages start arriving; every message after that is delivered automatically.</div>
 </div>
 <div class="card">
 <h2>Official exam questions</h2>
@@ -46,30 +46,32 @@
   var form = document.getElementById('contactForm');
   var status = document.getElementById('contactStatus');
   var btn = document.getElementById('contactSubmit');
+  // Delivers to the site owner's inbox via FormSubmit.co's AJAX endpoint — a
+  // free relay service that needs no signup or API key. The address is only
+  // used server-side by FormSubmit to route the email; it is not displayed
+  // anywhere on this page. FormSubmit sends one confirmation email to that
+  // inbox the first time this endpoint is ever used, which must be opened
+  // once to activate delivery — every message after that goes straight
+  // through automatically.
+  var ENDPOINT = 'https://formsubmit.co/ajax/hynngozeten@gmail.com';
   form.addEventListener('submit', function(ev){
     ev.preventDefault();
-    var key = form.access_key.value;
-    if(!key || key === 'YOUR_WEB3FORMS_ACCESS_KEY'){
-      status.textContent = 'This form is not connected yet on this deployment — see the note below the form.';
-      status.className = 'formStatus error';
-      return;
-    }
-    if(form.botcheck.checked){ return; }
+    if(form._honey.value){ return; } // honeypot filled -> silently drop, likely a bot
     btn.disabled = true; btn.textContent = 'Sending…';
     status.textContent = ''; status.className = 'formStatus';
     var payload = {};
     new FormData(form).forEach(function(v,k){ payload[k] = v; });
-    fetch('https://api.web3forms.com/submit', {
+    fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(function(r){ return r.json(); }).then(function(data){
-      if(data && data.success){
+    }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(data){ return { ok: r.ok, data: data }; }); }).then(function(res){
+      if(res.ok && (!res.data || res.data.success !== false)){
         status.textContent = "Sent — thanks, we'll get back to you soon.";
         status.className = 'formStatus success';
         form.reset();
       } else {
-        status.textContent = (data && data.message) || 'Something went wrong. Please try again in a moment.';
+        status.textContent = (res.data && res.data.message) || 'Something went wrong. Please try again in a moment.';
         status.className = 'formStatus error';
       }
     }).catch(function(){
