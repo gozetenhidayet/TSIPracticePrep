@@ -2310,7 +2310,15 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
   }
 
   function fillSlot(container, slotId){
-    if(!container || container.querySelector("ins.adsbygoogle")) return;
+    // slotId is empty until real per-placement ad-unit IDs are created in the
+    // AdSense account (Ads > By ad unit) and pasted into ADSENSE_AD_SLOTS
+    // above. Without this guard, an empty data-ad-slot="" still gets handed
+    // to adsbygoogle.js, which reserves a large "auto/full-width-responsive"
+    // block for a unit that can never actually fill it — a real, confirmed
+    // bug: it showed as big blank gaps under the "Advertisement" placeholder
+    // on mobile. Bailing out here leaves the harmless static .adSlot
+    // placeholder note visible instead until real slot IDs exist.
+    if(!container || !slotId || container.querySelector("ins.adsbygoogle")) return;
     var ins=document.createElement("ins");
     ins.className="adsbygoogle";
     ins.style.display="block";
