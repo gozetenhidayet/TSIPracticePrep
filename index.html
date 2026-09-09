@@ -2242,7 +2242,6 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.
 <script src="firebase-config.js"></script>
 <script src="sync-engine.js"></script>
 <script>window.ScorePathSync?.boot?.();</script>
-<script>if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
 <script id="v20-navigation-fix">
 (function(){function init(){const results=document.getElementById('my-results'),tsi=document.getElementById('tsi-center');if(results&&tsi)tsi.insertAdjacentElement('afterend',results);['sat','act','tsi'].forEach(exam=>{const center=document.getElementById(exam+'-center');if(!center||center.querySelector('.v20CenterTools'))return;const tools=document.createElement('div');tools.className='v20CenterTools';tools.innerHTML='<button class="v20BackBtn" type="button">← Choose another test</button><span>'+(exam==='tsi'?'TSIA2':exam.toUpperCase())+' Practice</span>';center.prepend(tools);tools.querySelector('button').onclick=()=>document.getElementById('practice-hub')?.scrollIntoView({behavior:'smooth',block:'start'})});document.getElementById('v20ShowResults')?.addEventListener('click',()=>{if(results){results.style.display='block';results.scrollIntoView({behavior:'smooth',block:'start'})}})}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init()})();
 </script>

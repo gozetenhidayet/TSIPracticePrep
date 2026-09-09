@@ -13,8 +13,17 @@ function uniqueById(arr){const m=new Map();arr.forEach(q=>q&&m.set(q.id,q));retu
  * the choices before hashing, and keying on the correct choice's TEXT
  * instead of its index, makes the key order-independent while still telling
  * genuinely different questions (different wording or different correct
- * answer) apart. */
-function uniqueByContent(arr){const m=new Map();arr.forEach(q=>{if(!q)return;const choices=q.choices||[];const correctText=choices[q.a]!==undefined?choices[q.a]:q.a;const key=(q.section||'')+'|'+(q.passage||'')+'|'+(q.q||'')+'|'+JSON.stringify([...choices].sort())+'|'+correctText;if(!m.has(key))m.set(key,q);});return [...m.values()]}
+ * answer) apart.
+ *
+ * A follow-up audit found 6 SAT "line slope" pairs (e.g. SAT-B1M-ALG-01 /
+ * SAT-ENR-0628) that were still slipping through: one generator wrote the
+ * minus sign as U+2212 ("−") and the other as a plain hyphen ("-"), so two
+ * choice sets that were textually identical to a reader hashed to different
+ * keys. dashNorm() folds every dash/minus lookalike (and whitespace/case) to
+ * one form before the key is built, so this class of near-duplicate can't
+ * slip through again. */
+function dashNorm(s){return String(s==null?'':s).replace(/[‐-―−]/g,'-').replace(/\s+/g,' ').trim().toLowerCase()}
+function uniqueByContent(arr){const m=new Map();arr.forEach(q=>{if(!q)return;const choices=q.choices||[];const correctText=choices[q.a]!==undefined?choices[q.a]:q.a;const key=dashNorm(q.section)+'|'+dashNorm(q.passage)+'|'+dashNorm(q.q)+'|'+JSON.stringify([...choices].map(dashNorm).sort())+'|'+dashNorm(correctText);if(!m.has(key))m.set(key,q);});return [...m.values()]}
 function pct(c,t){return t?Math.round(c/t*100):0}
 
 /* ---------- Expanded professional original question pools ---------- */
