@@ -1,10 +1,1 @@
-# ads.txt — placeholder
-#
-# Once your Google AdSense account is approved, replace the line below with
-# the real line AdSense gives you (Account > Sites > "View site" > ads.txt
-# snippet). It looks like:
-#
-# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
-#
-# This file MUST live at the root of your live domain
-# (https://yourdomain.com/ads.txt) for AdSense to serve ads reliably.
+google.com, pub-3359266836868361, DIRECT, f08c47fec0942fa0
