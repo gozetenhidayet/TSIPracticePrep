@@ -660,9 +660,38 @@ function secureShuffle(arr){
  }
  return a;
 }
+/* v61: real SAT/ACT/TSI questions ALWAYS list purely-numeric answer choices
+ * (plain numbers, $amounts, %percentages, simple fractions) in increasing
+ * order -- no real exam ever scrambles them, since scrambling a set of
+ * numbers has no meaning the way scrambling wording does. This function
+ * used to secureShuffle() every question's choices unconditionally, so a
+ * numeric-choice question (roughly 2,150 of the ~3,950 in the bank -- most
+ * of Math) could just as easily render as e.g. A 12, B 4, C 10, D 8 as in
+ * proper order, and in fact ~95% of the raw authored data was already in
+ * arbitrary, non-ascending order before this ever ran. Reported directly by
+ * students ("this question has C 12, D 10 -- should be C 10, D 12") and
+ * confirmed in the data. Fix: detect when every choice in a question is a
+ * plain number/amount/percent/fraction and sort those ascending instead of
+ * shuffling; everything else (grammar, reading, any non-numeric choice set)
+ * keeps the original random shuffle, which is correct there since text
+ * options have no natural order and shuffling avoids position memorization. */
+function isPlainNumericChoice(s){
+ if(typeof s!=="string")return false;
+ const t=s.trim().replace(/^\$/,"").replace(/%$/,"").replace(/,/g,"");
+ return /^-?\d+(\.\d+)?$/.test(t)||/^-?\d+\/\d+$/.test(t);
+}
+function numericChoiceValue(s){
+ const t=s.trim().replace(/^\$/,"").replace(/%$/,"").replace(/,/g,"");
+ const m=/^(-?\d+)\/(\d+)$/.exec(t);
+ if(m)return Number(m[2])!==0?Number(m[1])/Number(m[2]):NaN;
+ return parseFloat(t);
+}
 function randomizeChoices(q){
  const items=q.choices.map((choice,i)=>({choice,why:q.why?.[i]||"",correct:i===q.a}));
- const mixed=secureShuffle(items);
+ const allNumeric=items.length>1&&items.every(x=>isPlainNumericChoice(x.choice));
+ const mixed=allNumeric
+  ?items.slice().sort((a,b)=>numericChoiceValue(a.choice)-numericChoiceValue(b.choice))
+  :secureShuffle(items);
  q.choices=mixed.map(x=>x.choice);q.why=mixed.map(x=>x.why);q.a=mixed.findIndex(x=>x.correct);
  return q;
 }
