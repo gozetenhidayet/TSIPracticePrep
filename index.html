@@ -665,6 +665,17 @@ html{scroll-behavior:smooth}.v18-particles{position:fixed;inset:0;z-index:-2;poi
 .v18-skeleton{position:fixed;inset:0;background:#f7f9fc;z-index:99999;display:grid;place-items:center;transition:opacity .32s ease,visibility .32s ease}.v18-skeleton.hide{opacity:0;visibility:hidden}.v18-skcard{width:min(760px,90vw);display:grid;gap:14px}.v18-sk{height:18px;border-radius:10px;background:linear-gradient(90deg,#e6ebf2 25%,#f6f8fb 38%,#e6ebf2 63%);background-size:400% 100%;animation:v18Shimmer 1.1s infinite}.v18-sk.big{height:86px}.v18-sk.medium{width:72%}.v18-sk.small{width:46%}@keyframes v18Shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
 .v18-comfort{position:fixed;right:16px;bottom:18px;z-index:45;border:1px solid #dce5ef;background:rgba(255,255,255,.94);box-shadow:0 10px 28px rgba(20,45,74,.12);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:850;color:#35506f;cursor:pointer;backdrop-filter:blur(10px)}body.v18-calm .v18-particle{display:none}body.v18-calm *{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.08s!important}
 .toolnovaCard{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:40;width:172px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 9px 24px rgba(15,23,42,.07);padding:14px 14px 13px;text-align:left}.toolnovaCard b{display:flex;align-items:center;gap:6px;font-size:13px;color:#0f172a;font-weight:900}.toolnovaCard b i{font-style:normal;font-size:15px}.toolnovaCard p{margin:7px 0 10px;font-size:12px;line-height:1.55;color:#334155;font-weight:600}.toolnovaCard a.toolnovaGo{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:850;color:#1d4ed8;text-decoration:none}.toolnovaCard a.toolnovaGo:hover{text-decoration:underline}.toolnovaClose{position:absolute;top:6px;right:8px;border:0;background:none;color:#94a3b8;font-size:13px;font-weight:900;cursor:pointer;line-height:1;padding:4px}.toolnovaClose:hover{color:#475569}.toolnovaCard span.toolnovaSponsor{position:absolute;bottom:6px;right:10px;font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:#cbd5e1}@media(max-width:1750px){.toolnovaCard{display:none}}
+/* v62: student-reported "Toolnova disappeared" -- it was never removed, it was
+ * only ever shown as a floating right-edge card above 1750px viewport width
+ * (below that, the page's centered ~1380px content already reaches to within
+ * a few px of the edge, so a floating card there would overlap real content --
+ * that overlap was a real, previously-fixed bug and must not come back).
+ * Below 1750px the SAME card is moved (by JS, see the placement script near
+ * the card's markup) into the normal page flow right under the exam cards,
+ * and switches from a floating box to this small in-flow banner instead --
+ * so it now shows on every screen width, including normal laptop windows,
+ * with zero chance of overlapping anything. */
+.toolnovaCard.tnInline{display:block;position:relative;top:auto;right:auto;left:auto;transform:none;width:100%;max-width:280px;margin:22px auto 0}
 .exam-running .toolnovaCard{display:none!important}
 .sp-timed-mode #practiceShell.show .qmeta .tag.difficulty,.sp-timed-mode #practiceShell.show .qmeta .reviewTag,.sp-timed-mode #practiceShell.show .qmeta .sourceTag,.sp-timed-mode #satPracticeShell.show .qmeta .tag.difficulty,.sp-timed-mode #satPracticeShell.show .qmeta .reviewTag,.sp-timed-mode #satPracticeShell.show .qmeta .sourceTag,.sp-timed-mode #actPracticeShell.show .qmeta .tag.difficulty,.sp-timed-mode #actPracticeShell.show .qmeta .reviewTag,.sp-timed-mode #actPracticeShell.show .qmeta .sourceTag{display:none!important}
 .sp-timed-mode #hintBtn,.sp-timed-mode #satHintBtn,.sp-timed-mode #actHintBtn{display:none!important}
@@ -905,6 +916,46 @@ function spConsole(method){
       try{localStorage.setItem('spToolnovaDismissed','1');}catch(e){}
     });
   });
+})();
+/* v62: move the Toolnova card between its two homes depending on viewport
+ * width -- see the .tnInline CSS comment above for why. On a WIDE screen it
+ * must sit back in its ORIGINAL spot in the document (right where it is in
+ * this HTML, before <header>) so the existing position:fixed behavior is
+ * byte-for-byte what was already tested; on a NARROW screen it is relocated
+ * to sit just under the TSI/SAT/ACT exam cards, as a normal in-flow element.
+ * The card is only ever in one of these two places at a time; nothing else
+ * on the page is touched. */
+(function(){
+  var card=null, anchorParent=null, anchorNext=null, examRow=null, placed=false;
+  function init(){
+    card=document.getElementById('toolnovaCard');
+    if(!card)return;
+    anchorParent=card.parentNode;
+    anchorNext=card.nextSibling;
+    examRow=document.querySelector('.examcards.v10ExamCards');
+    place();
+    var t=null;
+    window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(place,150);});
+  }
+  function place(){
+    if(!card||!card.parentNode&&!placed)return;
+    var narrow=window.innerWidth<1751;
+    if(narrow){
+      card.classList.add('tnInline');
+      if(examRow&&card.parentNode!==examRow.parentNode){
+        examRow.insertAdjacentElement('afterend',card);
+        placed=true;
+      }
+    }else{
+      card.classList.remove('tnInline');
+      if(placed&&anchorParent){
+        anchorParent.insertBefore(card,anchorNext);
+        placed=false;
+      }
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
 <div class="topline">Free TSIA2, SAT &amp; ACT Practice</div>
