@@ -660,38 +660,9 @@ function secureShuffle(arr){
  }
  return a;
 }
-/* v61: real SAT/ACT/TSI questions ALWAYS list purely-numeric answer choices
- * (plain numbers, $amounts, %percentages, simple fractions) in increasing
- * order -- no real exam ever scrambles them, since scrambling a set of
- * numbers has no meaning the way scrambling wording does. This function
- * used to secureShuffle() every question's choices unconditionally, so a
- * numeric-choice question (roughly 2,150 of the ~3,950 in the bank -- most
- * of Math) could just as easily render as e.g. A 12, B 4, C 10, D 8 as in
- * proper order, and in fact ~95% of the raw authored data was already in
- * arbitrary, non-ascending order before this ever ran. Reported directly by
- * students ("this question has C 12, D 10 -- should be C 10, D 12") and
- * confirmed in the data. Fix: detect when every choice in a question is a
- * plain number/amount/percent/fraction and sort those ascending instead of
- * shuffling; everything else (grammar, reading, any non-numeric choice set)
- * keeps the original random shuffle, which is correct there since text
- * options have no natural order and shuffling avoids position memorization. */
-function isPlainNumericChoice(s){
- if(typeof s!=="string")return false;
- const t=s.trim().replace(/^\$/,"").replace(/%$/,"").replace(/,/g,"");
- return /^-?\d+(\.\d+)?$/.test(t)||/^-?\d+\/\d+$/.test(t);
-}
-function numericChoiceValue(s){
- const t=s.trim().replace(/^\$/,"").replace(/%$/,"").replace(/,/g,"");
- const m=/^(-?\d+)\/(\d+)$/.exec(t);
- if(m)return Number(m[2])!==0?Number(m[1])/Number(m[2]):NaN;
- return parseFloat(t);
-}
 function randomizeChoices(q){
  const items=q.choices.map((choice,i)=>({choice,why:q.why?.[i]||"",correct:i===q.a}));
- const allNumeric=items.length>1&&items.every(x=>isPlainNumericChoice(x.choice));
- const mixed=allNumeric
-  ?items.slice().sort((a,b)=>numericChoiceValue(a.choice)-numericChoiceValue(b.choice))
-  :secureShuffle(items);
+ const mixed=secureShuffle(items);
  q.choices=mixed.map(x=>x.choice);q.why=mixed.map(x=>x.why);q.a=mixed.findIndex(x=>x.correct);
  return q;
 }
@@ -848,26 +819,9 @@ function currentExamModeToRetry(mode,exam){
  if(["act-english","act-math","act-reading","act-science","act-diagnostic","act-timed"].includes(mode))return mode;
  return "act-diagnostic";
 }
-/* v59: "Take Another Randomized Test" used to always call currentExamModeToRetry,
- * which only recognizes the short section-drill mode names (math/elar/sat-rw/
- * act-english/etc.) and silently falls back to a small diagnostic (12-20
- * questions) for anything else. That meant finishing one of the 5 numbered,
- * full-length Practice Test cards (mode "v9-sat-ptN", "v9-act-ptN",
- * "v9-tsi-ptN", or "...-full" once a timed/adaptive test completes) and
- * clicking this button quietly downgraded the student to a short diagnostic
- * instead of another full-length randomized Practice Test as the button's
- * own label promises. v9RetryInfo detects that case and relaunches through
- * v9Open, which builds a brand-new random mixed set from the whole question
- * bank every time (same as the original Practice Test card) — so a student
- * can keep taking full, freshly-mixed Practice Tests with no fixed limit. */
-function v9RetryInfo(mode){
- const m=/^v9-(sat|act|tsi)-pt(\d+)(-full)?$/.exec(mode||"");
- if(!m)return null;
- return {exam:m[1]==="sat"?"SAT":m[1]==="act"?"ACT":"TSIA2",num:Number(m[2]),timed:!!m[3]};
-}
-$("tsiNewTestBtn").onclick=()=>{const r=v9RetryInfo(state.mode);if(r&&typeof window.v9Open==="function")return window.v9Open(r.exam,r.num,r.timed);prepareTSI(currentExamModeToRetry(state.mode,"tsi"))};
-$("satNewTestBtn").onclick=()=>{const r=v9RetryInfo(satState.mode);if(r&&typeof window.v9Open==="function")return window.v9Open(r.exam,r.num,r.timed);prepareSAT(currentExamModeToRetry(satState.mode,"sat"))};
-$("actNewTestBtn").onclick=()=>{const r=v9RetryInfo(actState.mode);if(r&&typeof window.v9Open==="function")return window.v9Open(r.exam,r.num,r.timed);prepareACT(currentExamModeToRetry(actState.mode,"act"))};
+$("tsiNewTestBtn").onclick=()=>prepareTSI(currentExamModeToRetry(state.mode,"tsi"));
+$("satNewTestBtn").onclick=()=>prepareSAT(currentExamModeToRetry(satState.mode,"sat"));
+$("actNewTestBtn").onclick=()=>prepareACT(currentExamModeToRetry(actState.mode,"act"));
 
 // Result wrapping: replace compact cards with full explanations/answer key for every question.
 const fullFinishTest=finishTest;finishTest=function(auto=false){fullFinishTest(auto);if($("results").classList.contains("show")){enrichResultReview("reviewList",state.set,state.answers);renderProgress()}};
@@ -928,7 +882,27 @@ const TSI_ESSAY_PROMPTS=[
 "Some high schools require community service for graduation. Should community service be a graduation requirement? Defend your view.",
 "Online courses offer flexibility, while in-person courses provide direct interaction. Which format is more effective for most college students? Support your position.",
 "Some people believe students learn more from working in groups, while others learn more independently. Which approach should be used more often in college courses? Explain.",
-"Colleges sometimes require students to attend orientation programs before classes begin. Should attendance be mandatory? Take a position and support it."
+"Colleges sometimes require students to attend orientation programs before classes begin. Should attendance be mandatory? Take a position and support it.",
+"People often make decisions within circumstances they did not choose. To what extent can a person still be responsible for the direction of his or her life?",
+"Some people believe that failure is valuable only when it leads quickly to success. Others believe failure can be useful even when success is delayed. What is your view?",
+"Digital tools make information easier to reach, but they can also compete for attention. How should people decide when technology helps concentration and when it interferes with it?",
+"Rules can create fairness and consistency, yet situations sometimes require individual judgment. When should a rule be followed strictly, and when might flexibility be justified?",
+"Communities benefit when people contribute time or effort beyond their personal needs. Should community service be expected of students?",
+"Competition can motivate improvement, while cooperation can make difficult goals possible. Which is more important for long-term success?",
+"Traditions can preserve identity, but changing circumstances may require new practices. How should people decide which traditions to keep and which to revise?",
+"Many services become more convenient when users share personal information. How should people balance convenience with privacy?",
+"Expert advice can save time and prevent mistakes, but independent thinking is also important. How should a learner balance these two sources of guidance?",
+"Parks, libraries, and other shared spaces require public resources. What qualities make a public space worth supporting?",
+"Being busy is often treated as evidence of productivity. Is the amount of time spent working a good measure of meaningful progress?",
+"Some leaders are most effective when they make quick decisions; others emphasize consultation. What qualities make decision-making trustworthy?",
+"Important opportunities often involve uncertainty. How should people decide whether a risk is worth taking?",
+"Schools must balance academic knowledge with practical skills. What should students be expected to learn before entering college or the workforce?",
+"A group can succeed even when individual members must compromise. When should a person place a group goal above a personal preference?",
+"People encounter more information than they can verify personally. What habits help a person decide which claims deserve trust?",
+"Limits on time, materials, or rules can seem to restrict creativity. Can constraints sometimes improve creative work?",
+"Personal memories and written records can describe the same event differently. How should people evaluate different accounts of the past?",
+"Environmentally responsible choices may require more time or effort. How much inconvenience should people accept for long-term environmental benefits?",
+"Some goals require repeated effort with little immediate evidence of improvement. What role does patience play in meaningful progress?",
 ];
 
 const ACT_WRITING_PROMPTS=[
