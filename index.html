@@ -11,7 +11,6 @@
 <meta name="color-scheme" content="light">
 <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <link rel="canonical" href="https://tsipracticeprep.com/">
-<link rel="preconnect" href="https://www.desmos.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com">
 <link rel="dns-prefetch" href="https://www.gstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -575,7 +574,7 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 <style id="scorepath-v9-ad-clean">.adSlot,.adSafeNote{display:none!important}.ads-enabled .adSlot{display:grid!important}.ads-enabled .adSafeNote{display:block!important}.exam-running .adSlot,.exam-running .adSafeNote{display:none!important}</style>
 <!-- Desmos preview integration. Replace demo API key with your production key before public launch. -->
 <!-- Loaded on-demand only when a student opens the in-test calculator (see openDesmos()), so it is deferred to avoid blocking initial page render. -->
-<script defer src="https://www.desmos.com/api/v1.12/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
 <style id="v10-clean-ui">
 #pro-simulations,#national-start,#format-guide,.pathWrap,#trust-center-preview,#quality-engine,#study-library,#monetization-framework,#faq,#graduation-guide,#resources,#blueprint-integrity,#accuracy-standards{display:none!important}
 main>.v2Section:not(#format-guide),main>.section:not(#sat-center):not(#act-center):not(#tsi-center):not(#my-progress):not(#graduation-guide):not(#resources){display:none!important}
@@ -861,10 +860,8 @@ html{scroll-behavior:smooth;overflow-x:hidden}.v18-particles{position:fixed;inse
 @media(max-width:640px){.spConsent{padding:14px}.spConsentActions{margin-left:0;width:100%}.spConsentBtn{flex:1}}
 .adSlot ins.adsbygoogle,.adZoneInner ins.adsbygoogle{display:block;width:100%}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tsipp.css">
-<style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress{display:none!important}</style>
+<style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress,#test-date-center,#study-plan,#mastery-path,.v10Why{display:none!important}</style>
 </head>
 <body data-scorepath-version="USA-PRO-V17-2026-08-27">
 <script>
@@ -1022,6 +1019,7 @@ function spConsole(method){
 
 
 <section id="tsipp-section" aria-label="My dashboard"><div id="tsipp-dashboard"></div></section>
+<div class="tsipp-trust"><span>✓ Every question quality-checked</span><span>✓ Original questions, not official ones</span><span>✓ Every answer explained</span><a href="editorial-standards.html">How we check questions →</a></div>
 
 <section class="studentCommand" id="student-dashboard">
  <div class="commandShell">
@@ -1224,7 +1222,7 @@ function spConsole(method){
 
 <section class="v10PracticeHub v20PracticeHub" id="practice-hub"><div class="v10HubTop"><span class="miniLabel">PRACTICE CENTER</span><h2>Choose an exam. Start practicing.</h2><p>Select TSIA2, SAT, or ACT. The matching practice tests open directly below — no confusing progress screen in between.</p><div class="v10ExamSwitch v20ExamSwitch" role="tablist" aria-label="Choose exam"><button class="sat" data-v10-tab="sat">SAT <small>Digital</small></button><button class="act" data-v10-tab="act">ACT <small>Core + Science</small></button><button class="active tsi" data-v10-tab="tsi">TSIA2 <small>Math + ELAR</small></button></div><div class="v20PracticeActions"><button type="button" id="v20ShowResults">My Results</button><a href="#home">Back to Top</a></div></div></section>
 <section class="v12HistoryWrap" id="my-results"><div class="v12HistoryHead"><div><span class="miniLabel">MY RESULTS</span><h2>Your progress, without the clutter.</h2><p>Resume unfinished work or review your most recent completed tests.</p></div><button class="v12Refresh" id="v12RefreshHistory" type="button">Refresh</button></div><div class="v12HistoryGrid"><article class="v12ResumePanel"><h3>Continue where you left off</h3><div id="v12ResumeList" class="v12ResumeList"></div></article><article class="v12TrendPanel"><h3>Recent performance</h3><div class="v12TrendStats"><div><b id="v12TestsCount">0</b><span>Tests</span></div><div><b id="v12RecentAvg">—</b><span>Recent avg.</span></div><div><b id="v12Best">—</b><span>Best</span></div></div><div id="v12Trend" class="v12MiniTrend"></div></article><article class="v12AnalysisPanel"><h3>What your history says</h3><div id="v12HistoryAnalysis" class="v12HistoryAnalysis">Complete a practice test to unlock a focused recommendation.</div></article></div><div class="v12RecentBox"><div class="v12RecentTitle"><h3>Recent tests</h3><span>Saved only in this browser</span></div><div id="v12RecentTests"></div></div></section>
-<section class="v13Power" id="daily-practice"><div class="v13PowerGrid"><article class="v13Daily v7Reveal"><small>Daily focus</small><h3>15 minutes. One useful session.</h3><p>Recent mistakes and weaker skills come first, then fresh blueprint-aligned questions fill the set.</p><div class="v13DailyBtns"><button class="v13DailyTsi" data-v13-daily="TSIA2"><span>🎓</span> Start TSIA2 Daily</button><button class="v13DailySat" data-v13-daily="SAT"><span>📘</span> Start SAT Daily</button><button class="v13DailyAct" data-v13-daily="ACT"><span>🎯</span> Start ACT Daily</button></div></article><article class="v13Goal v7Reveal"><small>Score goal</small><h3>Keep the target visible.</h3><div class="v13GoalRow"><label>TSIA2 Math target<input id="v13TsiMathGoal" type="number" min="910" max="990" placeholder="950"></label><label>TSIA2 English target<input id="v13TsiElarGoal" type="number" min="910" max="990" placeholder="945"></label><label>SAT target<input id="v13SatGoal" type="number" min="400" max="1600" step="10" placeholder="1450"></label><label>ACT target<input id="v13ActGoal" type="number" min="1" max="36" placeholder="32"></label></div><div class="v13GoalNote">TSIA2 targets default to the statewide college-ready benchmarks (Math 950, ELAR 945 + essay ≥5 on the 910–990 scale) — TSIA2 is pass/fail readiness per domain, not a single composite score like SAT or ACT.</div><div class="v13GoalSummary" id="v13GoalSummary">Complete a test to connect your recent practice trend to your target.</div><div class="v13GoalBar"><i id="v13GoalBar"></i></div><div class="v13QuickTools"><button id="v13FlashOpen">Flashcards</button><button id="v13NotesOpen">My Notes</button></div></article></div></section>
+<section class="v13Power tsipp-collapsed" id="daily-practice"><div class="v13PowerGrid"><article class="v13Daily v7Reveal"><small>Daily focus</small><h3>15 minutes. One useful session.</h3><p>Recent mistakes and weaker skills come first, then fresh blueprint-aligned questions fill the set.</p><div class="v13DailyBtns"><button class="v13DailyTsi" data-v13-daily="TSIA2"><span>🎓</span> Start TSIA2 Daily</button><button class="v13DailySat" data-v13-daily="SAT"><span>📘</span> Start SAT Daily</button><button class="v13DailyAct" data-v13-daily="ACT"><span>🎯</span> Start ACT Daily</button></div></article><article class="v13Goal v7Reveal"><small>Score goal</small><h3>Keep the target visible.</h3><div class="v13GoalRow"><label>TSIA2 Math target<input id="v13TsiMathGoal" type="number" min="910" max="990" placeholder="950"></label><label>TSIA2 English target<input id="v13TsiElarGoal" type="number" min="910" max="990" placeholder="945"></label><label>SAT target<input id="v13SatGoal" type="number" min="400" max="1600" step="10" placeholder="1450"></label><label>ACT target<input id="v13ActGoal" type="number" min="1" max="36" placeholder="32"></label></div><div class="v13GoalNote">TSIA2 targets default to the statewide college-ready benchmarks (Math 950, ELAR 945 + essay ≥5 on the 910–990 scale) — TSIA2 is pass/fail readiness per domain, not a single composite score like SAT or ACT.</div><div class="v13GoalSummary" id="v13GoalSummary">Complete a test to connect your recent practice trend to your target.</div><div class="v13GoalBar"><i id="v13GoalBar"></i></div><div class="v13QuickTools"><button id="v13FlashOpen">Flashcards</button><button id="v13NotesOpen">My Notes</button></div></article></div></section>
 <section class="section" id="sat-center">
 <div class="v32Hero"><div class="v32HeroBg"><i class="v32Blob b1"></i><i class="v32Blob b2"></i></div><div class="v32Doodle v32DoodleLeft">You&rsquo;ve got this.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Doodle v32DoodleRight">Small steps bigger scores.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><svg class="v32Peak" viewBox="0 0 140 100" fill="none"><path d="M10 90 L45 30 L62 55 L85 15 L130 90 Z" fill="currentColor" opacity="0.14"/><path d="M85 15 L85 0" stroke="currentColor" stroke-width="2.5"/><path d="M85 0 L103 6 L85 12 Z" fill="currentColor"/></svg><div class="v32Kicker">PRACTICE <span>&bull;</span> IMPROVE <span>&bull;</span> SCORE HIGHER</div><div class="sectionHead compactHead"><h2>Digital SAT <span class="v32Grad">Practice</span></h2><p>Timed, untimed, diagnostic, or section practice.</p></div><div class="v32Divider"></div><div class="v32Doodle v32DoodleBottom">Practice smarter.</div></div>
 <div class="qualityNotice"><b>Content Quality Standard</b><span>Questions on TSI Practice Prep are independently written practice questions. They are reviewed for answer accuracy, explanation accuracy, skill alignment, and clear wording. They are not represented as previously administered official questions.</span></div>
@@ -1662,7 +1660,8 @@ function spConsole(method){
  </div></div>
 </section>
 
-<section class="v5Section revealV5" id="teacher-center">
+<div class="tsipp-more" role="group" aria-label="More tools"><span>More tools:</span><button type="button" data-tsipp-more="daily-practice" aria-expanded="false">Score goals, flashcards &amp; daily focus</button><button type="button" data-tsipp-more="teacher-center" aria-expanded="false">Teacher toolkit</button></div>
+<section class="v5Section revealV5 tsipp-collapsed" id="teacher-center">
  <div class="v5Wrap">
   <span class="v5Eyebrow">For teachers & tutors</span>
   <h2 class="v5Title">Build a targeted practice assignment in seconds.</h2>
@@ -2670,6 +2669,7 @@ try{
 })();
 </script>
 <script src="tsipp-data.js" defer></script>
+<script src="tsipp-insights.js" defer></script>
 <script src="tsipp-dashboard.js" defer></script>
 <script id="tsipp-phase1-glue">
 (function(){
@@ -2677,6 +2677,16 @@ try{
   document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-tsipp-quick]");if(b&&window.TSIPP&&TSIPP.actions)TSIPP.actions.quick(b.getAttribute("data-tsipp-quick"));});
   /* Skip the 5-second pre-test ad so nothing interrupts a student before a test.
      Set window.TSIPP_SKIP_PRETEST_AD=false to bring it back. */
+  /* "More tools": daily focus, goals, flashcards and teacher toolkit stay one tap away. */
+  function setOpen(id,open){var sec=document.getElementById(id),b=document.querySelector("[data-tsipp-more=\""+id+"\"]");if(!sec)return;sec.classList.toggle("tsipp-collapsed",!open);if(b)b.setAttribute("aria-expanded",open?"true":"false");}
+  function initMore(){var bar=document.querySelector(".tsipp-more"),dp=document.getElementById("daily-practice");if(bar&&dp&&bar.nextSibling)bar.parentNode.insertBefore(dp,bar.nextSibling);var hsh=(location.hash||"").slice(1);if(hsh==="daily-practice"||hsh==="teacher-center")setOpen(hsh,true);}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initMore);else initMore();
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-tsipp-more]");if(!b)return;var id=b.getAttribute("data-tsipp-more"),open=b.getAttribute("aria-expanded")!=="true";setOpen(id,open);if(open){var sec=document.getElementById(id);if(sec)sec.scrollIntoView({behavior:"smooth",block:"start"});}});
+  /* Desmos loads on first use of the SAT calculator (saves about 1 MB on phones). */
+  var DESMOS="https://www.desmos.com/api/v1.12/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6",waiting=null,failed=false;
+  function loadDesmos(cb){if(window.Desmos||failed){if(cb)cb();return;}if(!waiting){waiting=[];var sc=document.createElement("script");sc.src=DESMOS;sc.async=true;sc.onload=function(){var w=waiting;waiting=null;w.forEach(function(f){f();});};sc.onerror=function(){failed=true;var w=waiting;waiting=null;w.forEach(function(f){f();});};document.head.appendChild(sc);}if(cb)waiting.push(cb);}
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#satCalcBtn");if(!b||window.Desmos||failed)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();loadDesmos(function(){b.click();});},true);
+  document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#sat-center,[data-v10-open=\"sat\"],[data-v10-diag=\"sat\"]"))setTimeout(function(){loadDesmos();},2000);},true);
   var ov=document.getElementById("adInterstitial");
   if(!ov||window.TSIPP_SKIP_PRETEST_AD===false)return;
   new MutationObserver(function(){

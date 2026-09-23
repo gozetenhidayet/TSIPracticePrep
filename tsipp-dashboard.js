@@ -236,6 +236,61 @@
     return card('', kids);
   }
 
+  function insightsCard(S) {
+    if (!T.insights) return null;
+    var I = T.insights(S.exam), H = I.hidden;
+    var kids = [h('div', {}, [h('h3', { class: 'tsipp-h2', text: 'Hidden weaknesses' }),
+      h('p', { class: 'tsipp-muted tsipp-sm', text: 'From your confidence taps and answers in the last 30 days' })])];
+    if (H.sureTotal) {
+      kids.push(h('div', { class: 'tsipp-hidden' + (H.count ? ' is-alert' : '') }, [
+        h('span', { class: 'tsipp-num-md', text: String(H.count) }),
+        h('span', { class: 'tsipp-tasktext' }, [
+          h('strong', { text: H.count ? 'Confident but wrong' : 'No confident misses' }),
+          h('span', { class: 'tsipp-sm', text: H.count
+            ? 'You tapped “Confident” and missed ' + H.count + ' of ' + H.sureTotal + ' questions' + (H.skills.length ? ', most in ' + H.skills.map(function (x) { return x.skill; }).join(', ') + '.' : '.')
+            : 'Every question you marked “Confident” was right. Nice calibration.' })
+        ])
+      ]));
+    } else kids.push(h('p', { class: 'tsipp-sm tsipp-muted', text: 'Tap Guessing, Not Sure or Confident before you submit. This card then shows where you feel sure but miss.' }));
+    kids.push(h('h4', { class: 'tsipp-h4', text: 'Patterns we noticed' }));
+    if (I.patterns.length) kids.push(h('ul', { class: 'tsipp-patterns' }, I.patterns.map(function (p) {
+      return h('li', {}, [h('span', { text: p.text }), p.skill ? h('button', { type: 'button', class: 'tsipp-link', onclick: function () { ACT.practiceSkill(S.exam, p.skill); } }, ['Practice ' + p.skill + ' →']) : null]);
+    })));
+    else kids.push(h('p', { class: 'tsipp-sm tsipp-muted', text: I.ready ? 'No clear pattern right now. Keep practicing in untimed mode.' : 'Patterns appear after about 15 answers in practice mode. So far: ' + I.answers + '.' }));
+    return card('tsipp-span7', kids);
+  }
+
+  function fixCard(S) {
+    if (!T.planFix) return null;
+    var P = T.planFix(S.exam);
+    var kids = [h('span', { class: 'tsipp-kicker tsipp-kicker--warm', text: 'Fix my mistakes' })];
+    if (!P) {
+      kids.push(h('div', { class: 'tsipp-h-display', text: 'Nothing to fix yet' }));
+      kids.push(h('p', { class: 'tsipp-dark-muted', text: 'Missed questions from practice will be turned into a short recovery session here.' }));
+      return card('tsipp-span5 tsipp-dark', kids);
+    }
+    kids.push(h('div', { class: 'tsipp-h-display', text: 'A ' + Math.max(8, Math.round(P.total * 1.3)) + '-minute recovery session' }));
+    kids.push(h('ul', { class: 'tsipp-fixlist' }, [
+      [P.old.length, P.old.length === 1 ? 'old mistake to redo' : 'old mistakes to redo'],
+      [P.similar.length, 'similar fresh questions'],
+      [P.rules.length, P.rules.length === 1 ? 'rule review' : 'rule reviews'],
+      [P.checks.length, 'mastery checks']
+    ].filter(function (r) { return r[0]; }).map(function (r) { return h('li', {}, [h('strong', { text: String(r[0]) }), ' ' + r[1]]); })));
+    if (P.skills.length) kids.push(h('p', { class: 'tsipp-dark-muted tsipp-sm', text: 'Skills: ' + P.skills.join(', ') }));
+    var rules = null;
+    if (P.rules.length) {
+      rules = h('div', { class: 'tsipp-rules', hidden: true }, [h('strong', { text: 'Rule review' })].concat(P.rules.map(function (r) { var d = h('p'); d.textContent = String(r).replace(/<[^>]+>/g, ''); return d; })));
+      kids.push(rules);
+    }
+    kids.push(h('div', { class: 'tsipp-actions' }, [
+      btn(function () {
+        if (rules && rules.hidden) { rules.hidden = false; this.textContent = 'Start recovery session'; return; }
+        T.launchFix(P);
+      }, P.rules.length ? 'Review the rules first' : 'Start recovery session', 'light')
+    ]));
+    return card('tsipp-span5 tsipp-dark', kids);
+  }
+
   function trendCard(S) {
     var tr = S.trend, label = tr.length >= 2 ? tr[0].pct + '% → ' + tr[tr.length - 1].pct + '%' : '';
     return card('tsipp-span7', [
@@ -329,17 +384,26 @@
   // ---------- mount ----------
   function mount(el, exam) {
     if (!el) return;
+    var showAll = false;
     function render(x) {
       var S = T.summary(x || exam); exam = S.exam;
       var root = h('div', { class: 'tsipp' }, [header(S, render), h('div', { class: 'tsipp-grid3' }, [testDayCard(S), estimateCard(S), streakCard(S)])]);
       if (S.answered < 5) root.appendChild(emptyState(S));
       else {
         root.appendChild(h('div', { class: 'tsipp-grid12' }, [missionCard(S), priorityCard(S)]));
-        root.appendChild(h('div', { class: 'tsipp-grid2' }, [dnaCard(S), skillCard(S)]));
-        root.appendChild(h('div', { class: 'tsipp-grid12' }, [trendCard(S), reviewCard(S)]));
+        root.appendChild(h('div', { class: 'tsipp-grid12' }, [insightsCard(S), fixCard(S)]));
+        // On phones the detailed analysis starts folded so the page stays short.
+        var more = h('div', { class: 'tsipp-analysis' + (showAll ? '' : ' is-collapsed'), id: 'tsipp-analysis' }, [
+          h('div', { class: 'tsipp-grid2' }, [dnaCard(S), skillCard(S)]),
+          h('div', { class: 'tsipp-grid12' }, [trendCard(S), reviewCard(S)])
+        ]);
+        root.appendChild(h('button', { type: 'button', class: 'tsipp-toggle', 'aria-expanded': showAll ? 'true' : 'false', 'aria-controls': 'tsipp-analysis',
+          onclick: function () { showAll = !showAll; render(exam); } }, [showAll ? 'Hide full analysis' : 'Show Mistake DNA, skill map & trends']));
+        root.appendChild(more);
       }
       root.appendChild(footer(S));
-      el.replaceChildren(root);
+      while (el.firstChild) el.removeChild(el.firstChild);
+      el.appendChild(root);
     }
     var t = null;
     function soon() { clearTimeout(t); t = setTimeout(function () { render(exam); }, 150); }

@@ -106,11 +106,45 @@
 .tsipp-empty{padding:32px}
 .tsipp-foot{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:16px 20px;background:#EDEAE1;border-radius:14px;color:#3D4452;font-size:14px}
 
+/* insights + fix */
+.tsipp-h4{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:4px 0 0}
+.tsipp-hidden{display:flex;align-items:center;gap:16px;padding:14px 16px;border-radius:12px;background:#F1F7F6;border:1px solid #CFE3E0}
+.tsipp-hidden.is-alert{background:#FCEDEB;border-color:#F2C4BE}.tsipp-hidden.is-alert .tsipp-num-md{color:var(--bad)}
+.tsipp-patterns li{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line2)}
+.tsipp .tsipp-link{color:var(--teal);font-weight:600;font-size:14px;cursor:pointer;padding:4px 0;align-self:flex-start;min-height:32px}
+.tsipp-fixlist{display:flex;flex-direction:column;gap:6px;font-size:16px}
+.tsipp-fixlist strong{display:inline-block;min-width:22px;color:#F3B28E}
+.tsipp-rules{background:#262E3D;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:#E6E8EC}
+.tsipp-rules[hidden]{display:none}
+/* tutor upgrade (inside the site's Study Tutor modal) */
+.tsipp-tutor-note{display:block;color:#64748b;font-size:12px;margin-top:6px}
+.tsipp-tutor-steps{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tsipp-sim{display:flex;flex-direction:column;gap:8px}
+.tsipp-sim-stem{font-size:15px;line-height:1.5}
+.tsipp-sim-choice{display:flex;gap:10px;align-items:flex-start;text-align:left;min-height:44px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font:inherit;cursor:pointer}
+.tsipp-sim-choice span{font-weight:700}
+.tsipp-sim-choice.is-right{border-color:#2F7D4F;background:#EAF4EE}.tsipp-sim-choice.is-wrong{border-color:#B42318;background:#FCEDEB}
+.tsipp-ask{display:flex;gap:8px;margin-top:10px}.tsipp-ask input{flex:1;min-height:44px;padding:0 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}.tsipp-ask button{min-height:44px;padding:0 16px;border-radius:10px;border:0;background:#0F6E68;color:#fff;font-weight:600}
+/* homepage: compact extras */
+.tsipp-trust{max-width:1184px;margin:0 auto;padding:0 16px 8px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;font-size:14px;color:#3D4452}
+.tsipp-trust a{color:#0F6E68;font-weight:600}
+.tsipp-more{max-width:1184px;margin:24px auto;padding:16px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;font-size:15px}
+.tsipp-more button{min-height:44px;padding:0 16px;border-radius:10px;border:1px solid #CFCABD;background:#fff;color:#1B2230;font:inherit;font-weight:600;cursor:pointer}
+.tsipp-more button[aria-expanded="true"]{background:#1B2230;color:#fff;border-color:#1B2230}
+.tsipp-collapsed{display:none!important}
+
 /* hero quick-try row */
 .tsipp-quick{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:14px}
 .tsipp-quick button{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(15,110,104,.45);background:#fff;color:#0F6E68;font-weight:600;cursor:pointer}
 .tsipp-quick button:hover{background:#0F6E68;color:#fff}
 
+.tsipp-analysis{display:flex;flex-direction:column;gap:20px}
+.tsipp .tsipp-toggle{display:none;min-height:48px;border:1px solid #CFCABD;border-radius:12px;background:#fff;font-weight:600;cursor:pointer;width:100%}
+@media (max-width:759px){
+  .tsipp .tsipp-toggle{display:block}
+  .tsipp-analysis.is-collapsed{display:none}
+  .tsipp-analysis{gap:14px}
+}
 @media (max-width:960px){
   .tsipp-grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tsipp-grid2{grid-template-columns:minmax(0,1fr)}
