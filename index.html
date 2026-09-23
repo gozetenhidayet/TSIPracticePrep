@@ -861,6 +861,10 @@ html{scroll-behavior:smooth;overflow-x:hidden}.v18-particles{position:fixed;inse
 @media(max-width:640px){.spConsent{padding:14px}.spConsentActions{margin-left:0;width:100%}.spConsentBtn{flex:1}}
 .adSlot ins.adsbygoogle,.adZoneInner ins.adsbygoogle{display:block;width:100%}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tsipp.css">
+<style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress{display:none!important}</style>
 </head>
 <body data-scorepath-version="USA-PRO-V17-2026-08-27">
 <script>
@@ -882,13 +886,6 @@ function spConsole(method){
     <button class="spConsentBtn decline" id="spConsentDecline" type="button">Decline</button>
     <button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button>
   </div>
-</div>
-<div class="toolnovaCard" id="toolnovaCard">
-  <button class="toolnovaClose" id="toolnovaClose" type="button" aria-label="Hide this card">✕</button>
-  <b><i>🧰</i>Toolnova.tools</b>
-  <p>PDF • Calculators • Converters • More</p>
-  <a class="toolnovaGo" href="https://toolnova.tools" target="_blank" rel="noopener noreferrer">Explore Free Tools →</a>
-  <span class="toolnovaSponsor">Sponsor</span>
 </div>
 <div class="adInterstitial" id="adInterstitial" role="dialog" aria-modal="true" aria-label="Advertisement before your practice test">
   <div class="adInterstitialCard">
@@ -1008,9 +1005,10 @@ function spConsole(method){
 <div class="heroIn">
  <div class="v10HeroCopy">
   <span class="eyebrow">Free TSIA2, SAT &amp; ACT Practice</span>
-  <h1>Free TSIA2, SAT &amp; ACT Practice Tests<br><span class="grad">Practice Smarter. Score Higher.</span></h1>
-  <p>Free, high-quality practice tests for the exams that open doors to your future. No sign-up required to start practicing!</p>
-  <div class="v10TrustLine"><span>✓ Realistic Questions</span><span>✓ Instant Feedback</span><span>✓ Track Progress</span></div>
+  <h1>Free TSIA2, SAT &amp; ACT Practice Tests<br><span class="grad">Know exactly what to practice.</span></h1>
+  <p>A short diagnostic finds your weak skills, shows why you miss questions, and gives you a plan for today. Free, and no sign-up required to start.</p>
+  <div class="v10TrustLine"><span>✓ No sign-up needed</span><span>✓ 100% free</span><span>✓ Original questions, clearly not official</span></div>
+   <div class="tsipp-quick" role="group" aria-label="Try 5 questions"><span>Got 5 minutes? Try 5 questions:</span><button type="button" data-tsipp-quick="TSIA2">TSIA2</button><button type="button" data-tsipp-quick="SAT">SAT</button><button type="button" data-tsipp-quick="ACT">ACT</button></div>
  </div>
  <div class="examcards v10ExamCards">
   <article class="examcard tsi"><div class="hex">📖</div><h3>TSI</h3><div class="sub">Texas Success Initiative</div><p class="examDesc">Get college ready with official-style TSIA2 practice tests.</p><div class="v10CardActions"><button data-v10-open="tsi">Start TSI Practice →</button><button data-v10-diag="tsi">Diagnostic</button></div></article>
@@ -1022,6 +1020,8 @@ function spConsole(method){
 
 <section class="nationalBand v10Band" aria-label="TSI Practice Prep benefits"><div class="nationalBandIn"><div class="credChip"><i>👥</i><div><b>5,800+ Questions</b><span>Practice Every Day</span></div></div><div class="credChip"><i>🛡️</i><div><b>100% Free</b><span>No Hidden Fees</span></div></div><div class="credChip"><i>🏆</i><div><b>Better Scores</b><span>Start Here</span></div></div><div class="credChip"><i>🔒</i><div><b>No Sign-Up Needed</b><span>Jump Right In</span></div></div></div></section>
 
+
+<section id="tsipp-section" aria-label="My dashboard"><div id="tsipp-dashboard"></div></section>
 
 <section class="studentCommand" id="student-dashboard">
  <div class="commandShell">
@@ -1163,7 +1163,7 @@ function spConsole(method){
  <div class="v5Wrap">
   <span class="v5Eyebrow">Question integrity</span>
   <h2 class="v5Title">Correct questions need a quality gate.</h2>
-  <p class="v5Lead">Before a question belongs in serious practice, its answer index, choices, explanation, distractor analysis, skill label, and strategy must all be complete. The page now runs an automatic structural integrity audit on its active question bank.</p>
+  <p class="v5Lead">Before a question belongs in serious practice, its answer index, choices, explanation, distractor analysis, skill label, and strategy must all be complete.</p>
   <div class="qualityShell">
    <div class="qualityTop"><div><h3>Question Bank Integrity Monitor</h3><p>This automated check catches missing explanations, invalid answer keys, duplicate answer choices, incomplete distractor reasoning, and duplicate IDs. It does not replace human academic review, so TSI Practice Prep keeps a correction/report pathway as well.</p></div><span class="qualityBadge" id="qualityStatus">Running checks…</span></div>
    <div class="qualityStats"><div class="qualityStat"><b id="qualityTotal">—</b><span>questions checked</span></div><div class="qualityStat"><b id="qualityPassed">—</b><span>structurally complete</span></div><div class="qualityStat"><b id="qualityIssues">—</b><span>issues detected</span></div><div class="qualityStat"><b id="qualityCoverage">—</b><span>complete explanation coverage</span></div></div>
@@ -1181,13 +1181,13 @@ function spConsole(method){
  <div class="v5Wrap">
   <span class="v5Eyebrow">Search-friendly learning library</span>
   <h2 class="v5Title">Students should find the lesson before they need another website.</h2>
-  <p class="v5Lead">High-value study pages are also the safest long-term SEO and AdSense growth engine: useful explanations first, then practice. Each topic below already has its own dedicated, indexable page with worked examples and a full FAQ.</p>
+  <p class="v5Lead">Stuck on a topic? Each area below has its own study page with a worked example and a short FAQ, followed by practice questions.</p>
   <div class="contentHub">
    <article class="contentCard"><h3>SAT Reading & Writing</h3><p>Information & Ideas, Craft & Structure, Expression of Ideas, and Standard English Conventions.</p><ul><li>Evidence & inference</li><li>Transitions</li><li>Grammar & punctuation</li><li>Words in context</li></ul><a href="sat-reading-writing-practice.html">Practice SAT R&W →</a></article>
    <article class="contentCard"><h3>SAT Math</h3><p>Algebra, Advanced Math, Problem-Solving & Data Analysis, and Geometry/Trigonometry.</p><ul><li>Linear equations</li><li>Quadratics & functions</li><li>Rates & percentages</li><li>Geometry & trig</li></ul><a href="sat-math-practice.html">Practice SAT Math →</a></article>
    <article class="contentCard"><h3>ACT Core</h3><p>English, Math, and Reading skill practice aligned to the enhanced ACT structure, with Science clearly marked optional.</p><ul><li>Conventions & rhetoric</li><li>Higher math</li><li>Reading evidence</li><li>Optional science reasoning</li></ul><a href="act.html">Open ACT Practice Hub →</a></article>
    <article class="contentCard"><h3>TSIA2 Readiness</h3><p>Texas-focused Mathematics, ELAR, diagnostic practice, and essay preparation.</p><ul><li>Quantitative reasoning</li><li>Algebraic reasoning</li><li>Reading & revision</li><li>Essay planning</li></ul><a href="tsia2.html">Open TSIA2 Practice Hub →</a></article>
-   <article class="contentCard"><h3>Mistake Review System</h3><p>Turn missed questions into a learning list, identify why the answer failed, and practice the skill again.</p><ul><li>Concept gaps</li><li>Process errors</li><li>Reading traps</li><li>Pacing issues</li></ul><a href="#my-progress">Review progress →</a></article>
+   <article class="contentCard"><h3>Mistake Review System</h3><p>Turn missed questions into a learning list, identify why the answer failed, and practice the skill again.</p><ul><li>Concept gaps</li><li>Process errors</li><li>Reading traps</li><li>Pacing issues</li></ul><a href="#tsipp-section">Review progress →</a></article>
    <article class="contentCard"><h3>Teacher Resources</h3><p>Create filtered assignments and print a separate answer key from the same original practice bank.</p><ul><li>Quick checks</li><li>Intervention sets</li><li>Homework</li><li>Tutoring practice</li></ul><a href="teacher-login.html">Open Teacher Classroom →</a></article>
   </div>
  </div>
@@ -1216,7 +1216,7 @@ function spConsole(method){
    <div class="faqItem"><button type="button">Why was my answer wrong?<span>+</span></button><div class="faqAnswer">Practice-mode questions include a correct-answer explanation plus choice-by-choice reasoning. Missed questions can also be classified as a concept gap, process error, reading trap, or pacing/guess issue.</div></div>
    <div class="faqItem"><button type="button">Does a practice percentage equal my official score?<span>+</span></button><div class="faqAnswer">No. Practice performance is used for learning analytics only and is never presented as an official TSIA2, SAT, or ACT score.</div></div>
    <div class="faqItem"><button type="button">Can teachers create assignments?<span>+</span></button><div class="faqAnswer">Yes. The Teacher Toolkit can filter the active original question bank and produce a printable student set with a separate answer key.</div></div>
-   <div class="faqItem"><button type="button">Will my progress sync across devices?<span>+</span></button><div class="faqAnswer">In this standalone version, progress is stored locally in the current browser. A production account/sync backend would be required for secure cross-device history.</div></div>
+   <div class="faqItem"><button type="button">Will my progress sync across devices?<span>+</span></button><div class="faqAnswer">Your progress is saved in this browser without an account. Create a free account and sign in if you want to keep it on other devices.</div></div>
    <div class="faqItem"><button type="button">Is the site designed for mobile practice?<span>+</span></button><div class="faqAnswer">Yes. Layouts collapse to single-column controls on smaller screens, tap targets remain large, and full test tools are designed to remain usable on phones and tablets.</div></div>
   </div>
  </div>
@@ -1590,7 +1590,7 @@ function spConsole(method){
 </section>
 
 <section class="section">
-<div class="sectionHead"><h2>Professional Learning Features</h2><p>The working TSI center is designed to behave like a real practice product instead of a static landing page.</p></div>
+<div class="sectionHead"><h2>Professional Learning Features</h2><p>Timed simulations, answer explanations, mistake review and bookmarks, all in one place.</p></div>
 <div class="bottomFeatures">
  <div class="feature"><i>⏱</i><b>Timed Simulation</b><p>Countdown timer, auto-finish, question navigation, and flag-for-review workflow.</p></div>
  <div class="feature"><i>📘</i><b>Answer Explanations</b><p>Practice mode reveals correctness, reasoning, distractor analysis, and strategy after submission.</p></div>
@@ -1704,7 +1704,7 @@ function spConsole(method){
  <div class="feature"><i>📘</i><b>TSIA2 Official Information</b><p>Use College Board ACCUPLACER and Texas education resources for official policies and exam information.</p></div>
  <div class="feature"><i>🎓</i><b>Digital SAT Official Information</b><p>Use College Board for Bluebook, official test structure, and official SAT practice resources.</p></div>
  <div class="feature"><i>🎯</i><b>ACT Official Information</b><p>Use ACT for current test structure, test-day information, and official preparation resources.</p></div>
- <div class="feature"><i>🧠</i><b>TSI Practice Prep Study Guides</b><p>Add original formula sheets, grammar guides, strategies, and topic lessons here.</p></div>
+ <div class="feature"><i>🧠</i><b>TSI Practice Prep Study Guides</b><p>Topic lessons with worked examples for TSIA2, SAT and ACT. Start from the study library.</p></div>
 </div>
 </section>
 
@@ -1823,14 +1823,13 @@ function spConsole(method){
 <a href="contact.html">Contact Us</a>
 <a href="#" id="spCookiePrefsLink">Cookie Preferences</a>
 </div>
- <div class="toolnovaFooterLink">Useful Tools: <a href="https://toolnova.tools" target="_blank" rel="noopener noreferrer">Toolnova.tools ↗</a></div>
  <div class="disclaimer"><b style="color:white">Independent test-prep disclaimer:</b> TSI Practice Prep is an independent educational practice resource. It is not affiliated with, endorsed by, or sponsored by College Board, ACT, Inc., or the Texas Higher Education Coordinating Board. The questions on this page are original practice questions. Practice results are for learning purposes only and are not official test scores.</div>
 </div>
 </footer>
 
 <script src="question-bank-core.js"></script>
 
-<div class="quickMobile" aria-label="Mobile quick navigation"><a href="#practice-hub">Practice</a><a href="#question-bank">Bank</a><a href="#my-progress">Progress</a><a href="teacher-login.html">Teachers</a></div>
+<div class="quickMobile" aria-label="Mobile quick navigation"><a href="#practice-hub">Practice</a><a href="#question-bank">Bank</a><a href="#tsipp-section">Progress</a><a href="teacher-login.html">Teachers</a></div>
 <script id="scorepath-v2-js">
 (function(){
  const examMap={
@@ -2668,6 +2667,22 @@ try{
 
  document.readyState==="loading"?document.addEventListener("DOMContentLoaded",v34EnhanceBar):v34EnhanceBar();
 }catch(e){}
+})();
+</script>
+<script src="tsipp-data.js" defer></script>
+<script src="tsipp-dashboard.js" defer></script>
+<script id="tsipp-phase1-glue">
+(function(){
+  /* Hero "Try 5 questions" buttons use the existing question bank. */
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-tsipp-quick]");if(b&&window.TSIPP&&TSIPP.actions)TSIPP.actions.quick(b.getAttribute("data-tsipp-quick"));});
+  /* Skip the 5-second pre-test ad so nothing interrupts a student before a test.
+     Set window.TSIPP_SKIP_PRETEST_AD=false to bring it back. */
+  var ov=document.getElementById("adInterstitial");
+  if(!ov||window.TSIPP_SKIP_PRETEST_AD===false)return;
+  new MutationObserver(function(){
+    if(!ov.classList.contains("show"))return;
+    var n=0;(function go(){if(!ov.classList.contains("show"))return;var b=document.getElementById("adInterstitialContinue");if(b&&!b.disabled)b.click();if(++n<40)setTimeout(go,150);})();
+  }).observe(ov,{attributes:true,attributeFilter:["class"]});
 })();
 </script>
 </body>
