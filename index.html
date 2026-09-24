@@ -1052,16 +1052,6 @@ function spConsole(method){
     <button class="spConsentBtn accept" id="spConsentAccept" type="button">Accept</button>
   </div>
 </div>
-<div class="adInterstitial" id="adInterstitial" role="dialog" aria-modal="true" aria-label="Advertisement before your practice test">
-  <div class="adInterstitialCard">
-    <div class="adInterstitialHead"><b>Your practice test is almost ready</b><span>Ad</span></div>
-    <div class="adZone" data-ad-location="pre-test" data-slot-key="preTest"><div class="adZoneInner"></div></div>
-    <div class="adInterstitialFoot">
-      <span id="adInterstitialCountdown">Ad — 5s</span>
-      <button class="btn primary" id="adInterstitialContinue" type="button">Continue to test →</button>
-    </div>
-  </div>
-</div>
 <script>
 (function(){
   try{
@@ -1176,7 +1166,7 @@ function spConsole(method){
    <div class="tsipp-quick" role="group" aria-label="Try 5 questions"><span>Got 5 minutes? Try 5 questions:</span><button type="button" data-tsipp-quick="TSIA2">TSIA2</button><button type="button" data-tsipp-quick="SAT">SAT</button><button type="button" data-tsipp-quick="ACT">ACT</button></div>
  </div>
  <div class="examcards v10ExamCards">
-  <article class="examcard tsi"><div class="hex">📖</div><h3>TSI</h3><div class="sub">Texas Success Initiative</div><p class="examDesc">Get college ready with official-style TSIA2 practice tests.</p><div class="v10CardActions"><button data-v10-open="tsi">Start TSI Practice →</button><button data-v10-diag="tsi">Diagnostic</button></div></article>
+  <article class="examcard tsi"><div class="hex">📖</div><h3>TSI</h3><div class="sub">Texas Success Initiative</div><p class="examDesc">Get college ready with exam-style TSIA2 practice tests.</p><div class="v10CardActions"><button data-v10-open="tsi">Start TSI Practice →</button><button data-v10-diag="tsi">Diagnostic</button></div></article>
   <article class="examcard sat" id="sat-info"><div class="hex">📖</div><h3>SAT</h3><div class="sub">Digital SAT</div><p class="examDesc">Build skills, take practice tests, and boost your SAT score.</p><div class="v10CardActions"><button data-v10-open="sat">Start SAT Practice →</button><button data-v10-diag="sat">Diagnostic</button></div></article>
   <article class="examcard act" id="act-info"><div class="hex">🎯</div><h3>ACT</h3><div class="sub">The ACT Test</div><p class="examDesc">Full-length ACT practice tests with detailed explanations.</p><div class="v10CardActions"><button data-v10-open="act">Start ACT Practice →</button><button data-v10-diag="act">Diagnostic</button></div></article>
  </div>
@@ -1191,206 +1181,48 @@ function spConsole(method){
 
 <section class="studentCommand" id="student-dashboard">
  <div class="commandShell">
-  <div class="commandTop"><div><span class="commandBadge">MY TSI PRACTICE PREP COMMAND CENTER</span><h2>Know exactly what to do next.</h2><p>Your browser-based dashboard combines completed practice, recent accuracy, weak-skill signals, saved questions, and your test-date goal without forcing an account.</p></div><div class="commandCountdown"><span>Test-day countdown</span><b id="hubCountdown">Set a date</b><small id="hubGoalLabel">Build your study path below</small></div></div>
+  <div class="commandTop"><div><span class="commandBadge">MY TSI PRACTICE PREP COMMAND CENTER</span><h2>Your next step.</h2><p>Your browser-based dashboard combines completed practice, recent accuracy, weak-skill signals, saved questions, and your test-date goal without forcing an account.</p></div><div class="commandCountdown"><span>Test-day countdown</span><b id="hubCountdown">Set a date</b><small id="hubGoalLabel">Build your study path below</small></div></div>
   <div class="commandMetrics"><div class="commandMetric"><span>Questions</span><b id="hubQuestions">0</b></div><div class="commandMetric"><span>Accuracy</span><b id="hubAccuracy">—</b></div><div class="commandMetric"><span>Completed sessions</span><b id="hubSessions">0</b></div><div class="commandMetric"><span>Review queue</span><b id="hubReview">0</b></div><div class="commandMetric"><span>Saved</span><b id="hubSaved">0</b></div></div>
   <div class="commandGrid">
    <div class="commandPanel"><h3>Mastery snapshot</h3><div class="masteryRows" id="hubMastery"><div class="progressEmpty">Complete a diagnostic to build your mastery profile.</div></div></div>
-   <div class="commandPanel"><h3>Recommended next action</h3><div class="nextAction" id="hubNext"><div class="nextActionCard"><b>Start with a diagnostic</b><span>TSI Practice Prep will use completed-question history to identify your priority skills.</span></div></div><div class="commandActions"><button class="proMiniBtn blue" id="hubSmartPractice">Practice Priority Skill</button><a class="proMiniBtn alt" href="#test-date-center">Set Test Date</a><a class="proMiniBtn alt" href="#question-bank">Question Bank</a></div></div>
+   <div class="commandPanel"><h3>Recommended next action</h3><div class="nextAction" id="hubNext"><div class="nextActionCard"><b>Start with a diagnostic</b><span>TSI Practice Prep will use completed-question history to identify your priority skills.</span></div></div><div class="commandActions"><button class="proMiniBtn blue" id="hubSmartPractice">Practice Priority Skill</button><a class="proMiniBtn alt" href="#tsipp-section">Set Test Date</a><a class="proMiniBtn alt" href="#question-bank">Question Bank</a></div></div>
   </div>
  </div>
 </section>
 
 
-<section class="v7Learning v7Reveal" id="smart-learning">
- <div class="v7Head"><span class="v7Eyebrow">LEARNING INTELLIGENCE</span><h2>Don’t just practice. <span class="v2Grad">Know what is actually improving.</span></h2><p>TSI Practice Prep turns completed practice into three practical signals: skill mastery, spaced review, and pacing. These are independent learning analytics—not official TSIA2, SAT, or ACT scores.</p></div>
- <div class="v7Grid">
-  <article class="v7Card">
-   <div class="v7CardHead"><div><h3>Mastery Engine</h3><p>Accuracy plus evidence volume determines a transparent practice level for each skill.</p></div><div class="v7Icon">🧠</div></div>
-   <div class="v7MasteryList" id="v7MasteryList"><div class="progressEmpty">Complete practice to build mastery evidence.</div></div>
-   <div class="v7Notice">Mastery is deliberately conservative: a high percentage from only one or two questions will not be labeled “Mastered.”</div>
-  </article>
-  <article class="v7Card">
-   <div class="v7CardHead"><div><h3>Spaced Review Queue</h3><p>Missed questions return on a 1 → 3 → 7 → 21 → 45 day review cycle.</p></div><div class="v7Icon">🔁</div></div>
-   <div class="v7ReviewStats"><div class="v7MiniStat"><span>Due now</span><b id="v7DueNow">0</b></div><div class="v7MiniStat"><span>Upcoming</span><b id="v7Upcoming">0</b></div><div class="v7MiniStat"><span>Review items</span><b id="v7ReviewTotal">0</b></div></div>
-   <div class="v7ReviewList" id="v7ReviewList"><div class="progressEmpty">Missed questions will be scheduled for review.</div></div>
-   <div class="v7Buttons"><button class="v7Btn blue" id="v7ReviewTSI">Review TSIA2 Due</button><button class="v7Btn purple" id="v7ReviewSAT">Review SAT Due</button><button class="v7Btn orange" id="v7ReviewACT">Review ACT Due</button></div>
-  </article>
-  <article class="v7Card">
-   <div class="v7CardHead"><div><h3>Pacing Coach</h3><p>Compare your recent practice pace with useful section-level pacing references.</p></div><div class="v7Icon">⏱️</div></div>
-   <div class="v7PaceRows" id="v7PaceRows"><div class="progressEmpty">Complete timed or untimed sets to see practice pacing.</div></div>
-   <div class="v7Notice">TSIA2/ACCUPLACER tests are generally untimed, so TSI Practice Prep emphasizes accuracy rather than creating a false official time target.</div>
-  </article>
- </div>
-</section>
 
-<section class="v7Dates v7Reveal" id="test-date-center">
- <div class="v7DateShell">
-  <div class="v7DateTop"><div><span class="commandBadge">OFFICIAL DATE PLANNER</span><h2>Turn the real test date into a study deadline.</h2><p>Choose an official SAT or ACT weekend date and TSI Practice Prep will copy it into your local study-plan builder. TSIA2 dates are arranged through the testing institution or center rather than a single national calendar.</p></div><span class="v7DateUpdated">2026–27 official schedules</span></div>
-  <div class="v7DateGrid">
-   <article class="v7DateCard"><h3>🎓 SAT Weekend</h3><div class="v7NextDate" id="v7SatNext">Loading…</div><div class="v7Deadline" id="v7SatDeadline"></div><div class="v7DateList" id="v7SatDates"></div><div class="v7DateActions"><button class="v7DateBtn" id="v7UseSatDate">Use next SAT date</button><a class="v7DateBtn alt" href="https://satsuite.collegeboard.org/sat/dates-deadlines" target="_blank" rel="noopener">Official dates ↗</a></div><a class="v7Official" href="https://satsuite.collegeboard.org/sat/dates-deadlines" target="_blank" rel="noopener">Source: College Board SAT dates and deadlines</a></article>
-   <article class="v7DateCard"><h3>🎯 ACT National</h3><div class="v7NextDate" id="v7ActNext">Loading…</div><div class="v7Deadline" id="v7ActDeadline"></div><div class="v7DateList" id="v7ActDates"></div><div class="v7DateActions"><button class="v7DateBtn" id="v7UseActDate">Use next ACT date</button><a class="v7DateBtn alt" href="https://www.act.org/content/act/en/products-and-services/the-act/registration/test-dates.html" target="_blank" rel="noopener">Official dates ↗</a></div><a class="v7Official" href="https://www.act.org/content/act/en/products-and-services/the-act/registration/test-dates.html" target="_blank" rel="noopener">Source: ACT national test dates</a></article>
-   <article class="v7DateCard"><h3>📘 TSIA2</h3><div class="v7NextDate">Institution scheduled</div><div class="v7Deadline">Contact the college, school, or testing center administering your TSIA2. The PAA is required before TSIA2 testing when applicable.</div><div class="v7DateList"><div class="v7DateRow"><b>Testing</b><span>Computerized placement assessment</span></div><div class="v7DateRow"><b>Timing</b><span>ACCUPLACER tests are generally untimed</span></div><div class="v7DateRow"><b>Scheduling</b><span>Local institution / testing center</span></div></div><div class="v7DateActions"><button class="v7DateBtn" id="v7SetTsiDate">Set my TSIA2 date</button><a class="v7DateBtn alt" href="https://accuplacer.collegeboard.org/students/free-tsia2-pre-assessment-and-practice-resources" target="_blank" rel="noopener">Official resources ↗</a></div><a class="v7Official" href="https://accuplacer.collegeboard.org/students/free-tsia2-pre-assessment-and-practice-resources" target="_blank" rel="noopener">Source: College Board ACCUPLACER / TSIA2</a></article>
-  </div>
-  <div class="v7Disclaimer">Dates can change. TSI Practice Prep displays the published 2026–27 schedules for planning convenience; registration, late-registration, testing-center availability, accommodations, and policy details should always be confirmed with College Board, ACT, or the institution administering TSIA2.</div>
- </div>
-</section>
 
-<section class="proLab" id="pro-simulations">
- <div class="proLabHead"><span>REALISTIC EXAM FLOW</span><h2>Full-structure simulations, not short tests labeled “full.”</h2><p>Use full simulations when you are ready for endurance and pacing. Practice results are estimates only and are never presented as official SAT or ACT scores.</p></div>
- <div class="simGrid">
-  <article class="simCard"><div class="simCardTop sat"><small>DIGITAL SAT</small><h3>98-Question Adaptive Simulation</h3></div><div class="simBody"><div class="simFacts"><div class="simFact"><span>R&W</span><b>27 + 27</b></div><div class="simFact"><span>Math</span><b>22 + 22</b></div><div class="simFact"><span>Testing time</span><b>2h 14m</b></div></div><div class="simFlow"><span>R&W Module 1</span><span>Adaptive Module 2</span><span>Math Module 1</span><span>Adaptive Module 2</span></div><div class="simNote">Module 2 question mix changes according to Module 1 practice performance. This is TSI Practice Prep's independent adaptive practice logic, not College Board scoring or Bluebook.</div><button class="simStart sat" id="startSatAdaptive">Start 98-Question SAT Simulation →</button></div></article>
-  <article class="simCard"><div class="simCardTop act"><small>ENHANCED ACT</small><h3>131-Question Core Simulation</h3></div><div class="simBody"><div class="simFacts"><div class="simFact"><span>English</span><b>50 / 35m</b></div><div class="simFact"><span>Math</span><b>45 / 50m</b></div><div class="simFact"><span>Reading</span><b>36 / 40m</b></div></div><div class="simFlow"><span>English</span><span>Math</span><span>Reading</span><span>Science optional separately</span></div><div class="simNote">The core simulation uses the current English + Math + Reading composite structure. Optional Science and Writing remain separate practice areas.</div><button class="simStart act" id="startActFull">Start 131-Question ACT Core Simulation →</button></div></article>
- </div>
-</section>
 
-<section class="v2Section" id="national-start">
- <div class="v2Head"><span class="miniTitle">START HERE</span><h2>Your prep should begin with <span class="v2Grad">a clear next step.</span></h2><p>Choose your test and launch a diagnostic, or build a simple study plan based on your target and test date.</p></div>
- <div class="launchGrid">
-  <div class="launchCard">
-   <h3>Choose your test</h3><p>No long onboarding. Pick an exam and go directly to skill-balanced diagnostic practice.</p>
-   <div class="examLaunch">
-    <button class="launchBtn" type="button" data-national-exam="sat"><strong>SAT</strong><small>Reading & Writing + Math</small><em>START DIAGNOSTIC →</em></button>
-    <button class="launchBtn" type="button" data-national-exam="act"><strong>ACT</strong><small>English + Math + Reading core</small><em>START DIAGNOSTIC →</em></button>
-    <button class="launchBtn" type="button" data-national-exam="tsi"><strong>TSIA2</strong><small>Math + ELAR readiness</small><em>START DIAGNOSTIC →</em></button>
-   </div>
-   <div class="launchTrust"><span>Original questions</span><span>Detailed review</span><span>Bookmarked questions</span><span>Mistake log</span></div>
-  </div>
- </div>
-</section>
 
-<section id="study-plan" style="max-width:1320px;margin:auto;padding:70px 22px">
- <div class="v2Head"><span class="miniTitle">STUDY PLAN</span><h2>Build My Study Path</h2><p>Set your target exam, score, and test date. TSI Practice Prep turns it into a lightweight weekly plan — your selections stay in this browser.</p></div>
- <div style="max-width:560px;margin:0 auto">
-  <div class="goalCard" id="study-plan-builder">
-   <div class="goalForm">
-    <label>Exam<select id="goalExam"><option value="TSIA2">TSIA2</option><option value="SAT">SAT</option><option value="ACT">ACT</option></select></label>
-    <label>Target score / goal<input id="goalScore" type="text" inputmode="numeric" placeholder="e.g. 1400 or 30"></label>
-    <label>Test date<input id="goalDate" type="date"></label>
-    <label>Study hours / week<select id="goalHours"><option value="3">3 hours</option><option value="5" selected>5 hours</option><option value="7">7 hours</option><option value="10">10 hours</option></select></label>
-    <div class="goalFull"><button class="goalBuild" type="button" id="goalBuild">Create My Plan</button></div>
-   </div>
-   <div class="goalResult" id="goalResult" aria-live="polite"></div>
-  </div>
- </div>
-</section>
 
-<section class="v2Section" id="format-guide">
- <div class="v2Head"><span class="miniTitle">CURRENT FORMAT SNAPSHOT</span><h2>Practice the test that <span class="v2Grad">students take now.</span></h2><p>TSI Practice Prep distinguishes official exam structure from its own independently written practice content.</p></div>
- <div class="formatGrid">
-  <article class="formatCard"><div class="formatTop sat"><small>Digital SAT</small><h3>2 Sections • 2 Modules Each</h3></div><div class="formatBody"><div class="formatMetric"><span>Reading & Writing</span><b>54 questions • 64 min</b></div><div class="formatMetric"><span>Math</span><b>44 questions • 70 min</b></div><div class="formatMetric"><span>Total testing time</span><b>2 hr 14 min</b></div><div class="formatMetric"><span>Adaptive structure</span><b>Module 2 varies by performance</b></div><div class="officialNote">Format reference: College Board. TSI Practice Prep simulations are independent practice and are not the Bluebook app.</div></div></article>
-  <article class="formatCard"><div class="formatTop act"><small>Enhanced ACT</small><h3>Core + Optional Add-Ons</h3></div><div class="formatBody"><div class="formatMetric"><span>English</span><b>50 questions • 35 min</b></div><div class="formatMetric"><span>Math</span><b>45 questions • 50 min</b></div><div class="formatMetric"><span>Reading</span><b>36 questions • 40 min</b></div><div class="formatMetric"><span>Science</span><b>Optional • 40 / 40 min</b></div><div class="officialNote">Format reference: ACT. Science and Writing are optional; TSI Practice Prep labels practice estimates separately from official scores.</div></div></article>
-  <article class="formatCard"><div class="formatTop tsi"><small>Texas TSIA2</small><h3>College Readiness Practice</h3></div><div class="formatBody"><div class="formatMetric"><span>Mathematics</span><b>CRC + diagnostic routing</b></div><div class="formatMetric"><span>ELAR</span><b>CRC + diagnostic routing</b></div><div class="formatMetric"><span>Essay</span><b>WritePlacer-style practice</b></div><div class="formatMetric"><span>Delivery</span><b>Computer-based / adaptive components</b></div><div class="officialNote">Format reference: College Board ACCUPLACER / Texas sources. TSI Practice Prep uses original questions rather than previously administered official items.</div></div></article>
- </div>
-</section>
 
-<section class="pathWrap">
- <div class="v2Section">
-  <div class="v2Head"><span class="miniTitle">YOUR PATH TO TEST DAY</span><h2>Stop guessing what to study next.</h2><p>A great prep experience should turn every test session into the next useful action.</p></div>
-  <div class="pathGrid">
-   <article class="pathStep"><span class="num">1</span><h3>Diagnose</h3><p>Sample multiple domains and identify the skills that need attention first.</p></article>
-   <article class="pathStep"><span class="num">2</span><h3>Prioritize</h3><p>Focus your time on high-value weak areas instead of random question sets.</p></article>
-   <article class="pathStep"><span class="num">3</span><h3>Practice</h3><p>Use targeted drills with explanations, strategy, and mistake review.</p></article>
-   <article class="pathStep"><span class="num">4</span><h3>Simulate</h3><p>Switch into timed mode to build pacing, endurance, and navigation habits.</p></article>
-   <article class="pathStep"><span class="num">5</span><h3>Review</h3><p>Rework missed questions and watch accuracy improve over repeat sessions.</p></article>
-  </div>
- </div>
-</section>
 
-<section class="v2Section">
- <div class="v2Head"><span class="miniTitle">SERIOUS PREP TOOLS</span><h2>Everything important is <span class="v2Grad">one click away.</span></h2><p>The experience is designed around practice quality, not distracting gimmicks.</p></div>
- <div class="proFeatureGrid">
-  <article class="proFeature"><i>🧭</i><h3>Diagnostic Practice</h3><p>Mixed skill sampling to reveal where your next study session should go.</p></article>
-  <article class="proFeature"><i>⏱</i><h3>Timed Simulation</h3><p>Answers stay hidden until submission so pacing practice remains meaningful.</p></article>
-  <article class="proFeature"><i>🧮</i><h3>Exam Tools</h3><p>Calculator, reference support, scratch work, and question navigation where appropriate.</p></article>
-  <article class="proFeature"><i>📘</i><h3>Deep Explanations</h3><p>Correct reasoning, distractor analysis, and strategy notes after practice answers.</p></article>
-  <article class="proFeature"><i>❌</i><h3>Mistake Review</h3><p>Return to missed questions instead of allowing weak areas to disappear.</p></article>
-  <article class="proFeature"><i>🔖</i><h3>Saved Questions</h3><p>Bookmark difficult items for a focused review session later.</p></article>
-  <article class="proFeature"><i>📈</i><h3>Progress Tracking</h3><p>See accuracy and activity history stored locally in the current browser.</p></article>
-  <article class="proFeature"><i>✍️</i><h3>Writing Labs</h3><p>Focused workspaces for essay planning, drafting, word count, and self-review.</p></article>
- </div>
-</section>
 
-<section class="v2Section" id="trust-center-preview">
- <div class="trustPanel">
-  <div>
-   <span class="miniTitle" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.13);color:#a7f3d0">TRUST & TRANSPARENCY</span>
-   <h2>Professional prep should never pretend to be “official.”</h2>
-   <p>TSI Practice Prep separates official test-format facts from independently created practice questions. No fabricated student counts, no fake score guarantees, and no claim that original practice items are previously administered official questions.</p>
-   <div class="trustList"><div class="trustItem"><b>Original practice content</b><span>Skill-aligned questions written for practice.</span></div><div class="trustItem"><b>Visible disclaimers</b><span>Independent platform status is clearly stated.</span></div><div class="trustItem"><b>Format-aware updates</b><span>TSIA2, SAT, and ACT structure can be reviewed against primary sources.</span></div><div class="trustItem"><b>Correction-friendly</b><span>Editorial standards make quality issues easier to identify and fix.</span></div></div>
-  </div>
-  <aside class="trustAside"><h3>Quality Center</h3><a href="#accuracy-standards">Accuracy Standards <span>→</span></a><a href="editorial-standards.html">Editorial Standards <span>→</span></a><a href="#resources">Official Resources <span>→</span></a><a href="privacy.html">Privacy <span>→</span></a><a href="disclaimer.html">Independent Disclaimer <span>→</span></a></aside>
- </div>
-</section>
+
+
+
+
+
+
+
+
+
 
 <div class="adSlot" data-ad-ready="true"><span></span></div>
 
 
-<section class="v5Section revealV5" id="quality-engine" style="background:#f8fafc">
- <div class="v5Wrap">
-  <span class="v5Eyebrow">Question integrity</span>
-  <h2 class="v5Title">Correct questions need a quality gate.</h2>
-  <p class="v5Lead">Before a question belongs in serious practice, its answer index, choices, explanation, distractor analysis, skill label, and strategy must all be complete.</p>
-  <div class="qualityShell">
-   <div class="qualityTop"><div><h3>Question Bank Integrity Monitor</h3><p>This automated check catches missing explanations, invalid answer keys, duplicate answer choices, incomplete distractor reasoning, and duplicate IDs. It does not replace human academic review, so TSI Practice Prep keeps a correction/report pathway as well.</p></div><span class="qualityBadge" id="qualityStatus">Running checks…</span></div>
-   <div class="qualityStats"><div class="qualityStat"><b id="qualityTotal">—</b><span>questions checked</span></div><div class="qualityStat"><b id="qualityPassed">—</b><span>structurally complete</span></div><div class="qualityStat"><b id="qualityIssues">—</b><span>issues detected</span></div><div class="qualityStat"><b id="qualityCoverage">—</b><span>complete explanation coverage</span></div></div>
-   <div class="qualityRules">
-    <div class="qualityRule"><i>✓</i><div><b>Answer-key validation</b><span>Correct-answer index must point to an existing answer choice.</span></div></div>
-    <div class="qualityRule"><i>✓</i><div><b>Choice-by-choice analysis</b><span>Each choice needs its own rationale, not just “B is correct.”</span></div></div>
-    <div class="qualityRule"><i>✓</i><div><b>Explanation + strategy</b><span>Questions require both concept reasoning and a reusable solution strategy.</span></div></div>
-    <div class="qualityRule"><i>✓</i><div><b>Original-content labeling</b><span>Independent practice is clearly separated from official exam content.</span></div></div>
-   </div>
-  </div>
- </div>
-</section>
 
-<section class="v5Section revealV5" id="study-library" style="background:#f8fafc">
- <div class="v5Wrap">
-  <span class="v5Eyebrow">Search-friendly learning library</span>
-  <h2 class="v5Title">Students should find the lesson before they need another website.</h2>
-  <p class="v5Lead">Stuck on a topic? Each area below has its own study page with a worked example and a short FAQ, followed by practice questions.</p>
-  <div class="contentHub">
-   <article class="contentCard"><h3>SAT Reading & Writing</h3><p>Information & Ideas, Craft & Structure, Expression of Ideas, and Standard English Conventions.</p><ul><li>Evidence & inference</li><li>Transitions</li><li>Grammar & punctuation</li><li>Words in context</li></ul><a href="sat-reading-writing-practice.html">Practice SAT R&W →</a></article>
-   <article class="contentCard"><h3>SAT Math</h3><p>Algebra, Advanced Math, Problem-Solving & Data Analysis, and Geometry/Trigonometry.</p><ul><li>Linear equations</li><li>Quadratics & functions</li><li>Rates & percentages</li><li>Geometry & trig</li></ul><a href="sat-math-practice.html">Practice SAT Math →</a></article>
-   <article class="contentCard"><h3>ACT Core</h3><p>English, Math, and Reading skill practice aligned to the enhanced ACT structure, with Science clearly marked optional.</p><ul><li>Conventions & rhetoric</li><li>Higher math</li><li>Reading evidence</li><li>Optional science reasoning</li></ul><a href="act.html">Open ACT Practice Hub →</a></article>
-   <article class="contentCard"><h3>TSIA2 Readiness</h3><p>Texas-focused Mathematics, ELAR, diagnostic practice, and essay preparation.</p><ul><li>Quantitative reasoning</li><li>Algebraic reasoning</li><li>Reading & revision</li><li>Essay planning</li></ul><a href="tsia2.html">Open TSIA2 Practice Hub →</a></article>
-   <article class="contentCard"><h3>Mistake Review System</h3><p>Turn missed questions into a learning list, identify why the answer failed, and practice the skill again.</p><ul><li>Concept gaps</li><li>Process errors</li><li>Reading traps</li><li>Pacing issues</li></ul><a href="#tsipp-section">Review progress →</a></article>
-   <article class="contentCard"><h3>Teacher Resources</h3><p>Create filtered assignments and print a separate answer key from the same original practice bank.</p><ul><li>Quick checks</li><li>Intervention sets</li><li>Homework</li><li>Tutoring practice</li></ul><a href="teacher-login.html">Open Teacher Classroom →</a></article>
-  </div>
- </div>
-</section>
 
-<section class="v5Section revealV5" id="monetization-framework">
- <div class="v5Wrap">
-  <span class="v5Eyebrow">Built to stay out of your way</span>
-  <h2 class="v5Title">Nothing interrupts you in the middle of a question.</h2>
-  <p class="v5Lead">TSI Practice Prep is free to use. The parts of the site that keep it free are kept separate from the actual test screens, so nothing shows up next to a question you're actively working on.</p>
-  <div class="v5Grid4">
-   <div class="v5Card"><div class="ico">🛡️</div><h3>Distraction-free test engine</h3><p>Nothing appears beside answer choices, Previous/Next, Submit, the calculator, or any other control you use mid-test.</p></div>
-   <div class="v5Card"><div class="ico">📚</div><h3>Explanations you can actually use</h3><p>The study library, resources, and review pages are written to explain a concept clearly, not just to wrap a keyword.</p></div>
-   <div class="v5Card"><div class="ico">🔎</div><h3>Written around real student questions</h3><p>Each topic page targets the specific thing a student searches for, with its own worked example and FAQ.</p></div>
-   <div class="v5Card"><div class="ico">🤝</div><h3>Honest recommendations</h3><p>Any outside resource we point students to is disclosed clearly and chosen because it's genuinely useful.</p></div>
-  </div>
- </div>
-</section>
 
-<section class="v5Section revealV5" id="faq">
- <div class="v5Wrap">
-  <span class="v5Eyebrow">Student & teacher FAQ</span>
-  <h2 class="v5Title">Clear answers before someone has to ask.</h2>
-  <div class="faqGrid">
-   <div class="faqItem"><button type="button">Are these official TSIA2, SAT, or ACT questions?<span>+</span></button><div class="faqAnswer">No. TSI Practice Prep is independent. The practice questions are original and skill-aligned; official exam information should be confirmed with College Board, ACT, and Texas education sources.</div></div>
-   <div class="faqItem"><button type="button">Why was my answer wrong?<span>+</span></button><div class="faqAnswer">Practice-mode questions include a correct-answer explanation plus choice-by-choice reasoning. Missed questions can also be classified as a concept gap, process error, reading trap, or pacing/guess issue.</div></div>
-   <div class="faqItem"><button type="button">Does a practice percentage equal my official score?<span>+</span></button><div class="faqAnswer">No. Practice performance is used for learning analytics only and is never presented as an official TSIA2, SAT, or ACT score.</div></div>
-   <div class="faqItem"><button type="button">Can teachers create assignments?<span>+</span></button><div class="faqAnswer">Yes. The Teacher Toolkit can filter the active original question bank and produce a printable student set with a separate answer key.</div></div>
-   <div class="faqItem"><button type="button">Will my progress sync across devices?<span>+</span></button><div class="faqAnswer">Your progress is saved in this browser without an account. Create a free account and sign in if you want to keep it on other devices.</div></div>
-   <div class="faqItem"><button type="button">Is the site designed for mobile practice?<span>+</span></button><div class="faqAnswer">Yes. Layouts collapse to single-column controls on smaller screens, tap targets remain large, and full test tools are designed to remain usable on phones and tablets.</div></div>
-  </div>
- </div>
-</section>
+
+
+
+
 
 <section class="v10PracticeHub v20PracticeHub" id="practice-hub"><div class="v10HubTop"><span class="miniLabel">PRACTICE CENTER</span><h2>Choose an exam. Start practicing.</h2><p>Select TSIA2, SAT, or ACT. The matching practice tests open directly below — no confusing progress screen in between.</p><div class="v10ExamSwitch v20ExamSwitch" role="tablist" aria-label="Choose exam"><button class="sat" data-v10-tab="sat">SAT <small>Digital</small></button><button class="act" data-v10-tab="act">ACT <small>Core + Science</small></button><button class="active tsi" data-v10-tab="tsi">TSIA2 <small>Math + ELAR</small></button></div><div class="v20PracticeActions"><button type="button" id="v20ShowResults">My Results</button><a href="#home">Back to Top</a></div></div></section>
 <section class="v12HistoryWrap" id="my-results"><div class="v12HistoryHead"><div><span class="miniLabel">MY RESULTS</span><h2>Your progress, without the clutter.</h2><p>Resume unfinished work or review your most recent completed tests.</p></div><button class="v12Refresh" id="v12RefreshHistory" type="button">Refresh</button></div><div class="v12HistoryGrid"><article class="v12ResumePanel"><h3>Continue where you left off</h3><div id="v12ResumeList" class="v12ResumeList"></div></article><article class="v12TrendPanel"><h3>Recent performance</h3><div class="v12TrendStats"><div><b id="v12TestsCount">0</b><span>Tests</span></div><div><b id="v12RecentAvg">—</b><span>Recent avg.</span></div><div><b id="v12Best">—</b><span>Best</span></div></div><div id="v12Trend" class="v12MiniTrend"></div></article><article class="v12AnalysisPanel"><h3>What your history says</h3><div id="v12HistoryAnalysis" class="v12HistoryAnalysis">Complete a practice test to unlock a focused recommendation.</div></article></div><div class="v12RecentBox"><div class="v12RecentTitle"><h3>Recent tests</h3><span>Saved only in this browser</span></div><div id="v12RecentTests"></div></div></section>
-<section class="v13Power tsipp-collapsed" id="daily-practice"><div class="v13PowerGrid"><article class="v13Daily v7Reveal"><small>Daily focus</small><h3>15 minutes. One useful session.</h3><p>Recent mistakes and weaker skills come first, then fresh blueprint-aligned questions fill the set.</p><div class="v13DailyBtns"><button class="v13DailyTsi" data-v13-daily="TSIA2"><span>🎓</span> Start TSIA2 Daily</button><button class="v13DailySat" data-v13-daily="SAT"><span>📘</span> Start SAT Daily</button><button class="v13DailyAct" data-v13-daily="ACT"><span>🎯</span> Start ACT Daily</button></div></article><article class="v13Goal v7Reveal"><small>Score goal</small><h3>Keep the target visible.</h3><div class="v13GoalRow"><label>TSIA2 Math target<input id="v13TsiMathGoal" type="number" min="910" max="990" placeholder="950"></label><label>TSIA2 English target<input id="v13TsiElarGoal" type="number" min="910" max="990" placeholder="945"></label><label>SAT target<input id="v13SatGoal" type="number" min="400" max="1600" step="10" placeholder="1450"></label><label>ACT target<input id="v13ActGoal" type="number" min="1" max="36" placeholder="32"></label></div><div class="v13GoalNote">TSIA2 targets default to the statewide college-ready benchmarks (Math 950, ELAR 945 + essay ≥5 on the 910–990 scale) — TSIA2 is pass/fail readiness per domain, not a single composite score like SAT or ACT.</div><div class="v13GoalSummary" id="v13GoalSummary">Complete a test to connect your recent practice trend to your target.</div><div class="v13GoalBar"><i id="v13GoalBar"></i></div><div class="v13QuickTools"><button id="v13FlashOpen">Flashcards</button><button id="v13NotesOpen">My Notes</button></div></article></div></section>
+<section class="v13Power tsipp-collapsed" id="daily-practice"><div class="v13PowerGrid"><article class="v13Daily v7Reveal"><small>Daily focus</small><h3>15 minutes. One useful session.</h3><p>Recent mistakes and weaker skills come first, then fresh blueprint-aligned questions fill the set.</p><div class="v13DailyBtns"><button class="v13DailyTsi" data-v13-daily="TSIA2"><span>🎓</span> Start TSIA2 Daily</button><button class="v13DailySat" data-v13-daily="SAT"><span>📘</span> Start SAT Daily</button><button class="v13DailyAct" data-v13-daily="ACT"><span>🎯</span> Start ACT Daily</button></div></article><article class="v13Goal v7Reveal"><small>Score goal</small><h3>Keep the target visible.</h3><div class="v13GoalRow"><label>TSIA2 Math target<input id="v13TsiMathGoal" type="number" min="910" max="990" placeholder="950"></label><label>TSIA2 English target<input id="v13TsiElarGoal" type="number" min="910" max="990" placeholder="945"></label><label>SAT target<input id="v13SatGoal" type="number" min="400" max="1600" step="10" placeholder="1450"></label><label>ACT target<input id="v13ActGoal" type="number" min="1" max="36" placeholder="32"></label></div><div class="v13GoalNote">Texas college-readiness on TSIA2: <b>Math</b> — a CRC score of 950 or higher, or a score below 950 with a diagnostic level of 6. <b>ELAR</b> — a CRC score of 945 or higher with an essay score of 5 or higher, or a score below 945 with a diagnostic level of 5 or 6 and an essay score of 5 or higher. The 950 and 945 boxes are only default targets; this site cannot give an official CRC score, diagnostic level, or essay score.</div><div class="v13GoalSummary" id="v13GoalSummary">Complete a test to connect your recent practice trend to your target.</div><div class="v13GoalBar"><i id="v13GoalBar"></i></div><div class="v13QuickTools"><button id="v13FlashOpen">Flashcards</button><button id="v13NotesOpen">My Notes</button></div></article></div></section>
 <section class="section" id="sat-center">
 <div class="v32Hero"><div class="v32HeroBg"><i class="v32Blob b1"></i><i class="v32Blob b2"></i></div><div class="v32Doodle v32DoodleLeft">You&rsquo;ve got this.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><div class="v32Doodle v32DoodleRight">Small steps bigger scores.<svg viewBox="0 0 64 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c14 0 28 2 34 14 4 8 6 14 6 20"/><path d="M34 32l10 8 4-12"/></svg></div><svg class="v32Peak" viewBox="0 0 140 100" fill="none"><path d="M10 90 L45 30 L62 55 L85 15 L130 90 Z" fill="currentColor" opacity="0.14"/><path d="M85 15 L85 0" stroke="currentColor" stroke-width="2.5"/><path d="M85 0 L103 6 L85 12 Z" fill="currentColor"/></svg><div class="v32Kicker">PRACTICE <span>&bull;</span> IMPROVE <span>&bull;</span> SCORE HIGHER</div><div class="sectionHead compactHead"><h2>Digital SAT <span class="v32Grad">Practice</span></h2><p>Timed, untimed, diagnostic, or section practice.</p></div><div class="v32Divider"></div><div class="v32Doodle v32DoodleBottom">Practice smarter.</div></div>
 <div class="qualityNotice"><b>Content Quality Standard</b><span>Questions on TSI Practice Prep are independently written practice questions. They are reviewed for answer accuracy, explanation accuracy, skill alignment, and clear wording. They are not represented as previously administered official questions.</span></div>
@@ -1755,15 +1587,7 @@ function spConsole(method){
 </div>
 </section>
 
-<section class="section">
-<div class="sectionHead"><h2>Professional Learning Features</h2><p>Timed simulations, answer explanations, mistake review and bookmarks, all in one place.</p></div>
-<div class="bottomFeatures">
- <div class="feature"><i>⏱</i><b>Timed Simulation</b><p>Countdown timer, auto-finish, question navigation, and flag-for-review workflow.</p></div>
- <div class="feature"><i>📘</i><b>Answer Explanations</b><p>Practice mode reveals correctness, reasoning, distractor analysis, and strategy after submission.</p></div>
- <div class="feature"><i>❌</i><b>Mistake Review</b><p>Incorrect questions are saved locally so students can practice weak areas again.</p></div>
- <div class="feature"><i>🔖</i><b>Bookmarks</b><p>Save questions for later review without creating an account.</p></div>
-</div>
-</section>
+
 
 <div class="adSlot" data-ad-ready="true"><span></span></div>
 
@@ -1791,35 +1615,7 @@ function spConsole(method){
 </div>
 </section>
 
-<section class="v5Section revealV5" id="mastery-path">
- <div class="v5Wrap">
-  <span class="v5Eyebrow">Adaptive learning workflow</span>
-  <h2 class="v5Title">A practice site should teach, not just score.</h2>
-  <p class="v5Lead">Every session should answer four student questions: What do I know? What am I missing? Why did I miss it? What should I do next? TSI Practice Prep turns practice history into a repeatable mastery cycle instead of a pile of disconnected quizzes.</p>
-  <div class="masteryShell">
-   <div class="masteryPanel">
-    <h3>Your Mastery Path</h3><p>The next action updates from practice completed in this browser.</p>
-    <div class="masterySteps">
-     <div class="masteryStep"><i>1</i><div><b>Diagnose</b><span>Find strengths, gaps, and pacing problems.</span></div><em>START HERE</em></div>
-     <div class="masteryStep"><i>2</i><div><b>Understand mistakes</b><span>Review the correct reasoning and why distractors fail.</span></div><em>REVIEW</em></div>
-     <div class="masteryStep"><i>3</i><div><b>Target weak skills</b><span>Build focused sets by skill and difficulty.</span></div><em>PRACTICE</em></div>
-     <div class="masteryStep locked"><i>4</i><div><b>Prove mastery</b><span>Re-test the same skill with fresh questions.</span></div><em>VERIFY</em></div>
-     <div class="masteryStep locked"><i>5</i><div><b>Simulate test day</b><span>Use full-structure timed practice only after skill work.</span></div><em>SIMULATE</em></div>
-    </div>
-   </div>
-   <div class="insightPanel">
-    <h3>Today’s Learning Coach</h3><p class="v5Lead" style="font-size:12px;margin-bottom:0">Recommendations are based on your local practice history; no invented score claims.</p>
-    <div class="todayTask" id="v5TodayTask"><b>Take a diagnostic first</b><span>Once you answer questions, this card will point to the skill that needs the most attention.</span></div>
-    <div class="errorLegend">
-     <div class="errorChip"><b>Concept Gap</b><span>You did not yet know the rule, formula, or idea.</span></div>
-     <div class="errorChip"><b>Process Error</b><span>You knew the concept but made a step/calculation error.</span></div>
-     <div class="errorChip"><b>Reading Trap</b><span>You misread wording, evidence, units, or a qualifier.</span></div>
-     <div class="errorChip"><b>Pacing / Guess</b><span>Time pressure or low confidence affected the choice.</span></div>
-    </div>
-   </div>
-  </div>
- </div>
-</section>
+
 
 <section class="bankExplorer" id="question-bank">
  <div class="bankShell"><div class="bankHead"><div><h2>Professional Question Bank</h2><p>Build a focused set by exam, section, skill, difficulty, and question count.</p></div><div class="bankCount" id="bankCount">Loading bank…</div></div><div class="bankBody">
@@ -1855,25 +1651,9 @@ function spConsole(method){
 
 <div class="adZone" data-ad-location="after-teacher-tools"><div class="adZoneInner"></div></div>
 
-<section class="section" id="graduation-guide">
-<div class="sectionHead"><h2>U.S. High School Graduation Guide</h2><p>Graduation requirements are set by states and can also depend on a student's cohort, district, diploma pathway, and local requirements. Use this guide as a starting point and verify the current official source.</p></div>
-<div class="stateGuide">
- <div class="stateTop"><h3 style="margin:0;font-size:27px">State Graduation Guide</h3><p>Select a state. Specific credit or assessment details are displayed only when they have been verified against an official state education source.</p></div>
- <div class="stateControls"><select id="stateSelect"><option value="">Choose a state...</option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>District of Columbia</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select><button class="smallbtn primary2" id="showStateBtn">View Guide</button></div>
- <div class="stateResult" id="stateResult"><h3>Select your state</h3><p>Verified guides currently include Texas, California, and Florida. Additional states can be added after official-source verification.</p></div>
- <div class="stateNote">Important: State minimum requirements may differ from district requirements, college-admission recommendations, NCAA eligibility, or an individual student's graduation plan.</div>
-</div>
-</section>
 
-<section class="section" id="resources">
-<div class="sectionHead"><h2>Resources</h2><p>Official resources and original TSI Practice Prep content should stay clearly separated. This prevents students from confusing independent practice with official exam material.</p></div>
-<div class="bottomFeatures">
- <div class="feature"><i>📘</i><b>TSIA2 Official Information</b><p>Use College Board ACCUPLACER and Texas education resources for official policies and exam information.</p></div>
- <div class="feature"><i>🎓</i><b>Digital SAT Official Information</b><p>Use College Board for Bluebook, official test structure, and official SAT practice resources.</p></div>
- <div class="feature"><i>🎯</i><b>ACT Official Information</b><p>Use ACT for current test structure, test-day information, and official preparation resources.</p></div>
- <div class="feature"><i>🧠</i><b>TSI Practice Prep Study Guides</b><p>Topic lessons with worked examples for TSIA2, SAT and ACT. Start from the study library.</p></div>
-</div>
-</section>
+
+
 
 
 </main>
@@ -1932,31 +1712,9 @@ function spConsole(method){
 
 
 
-<section class="blueprintPanel" id="blueprint-integrity">
- <div class="blueprintBox">
-  <h2>Blueprint-Aligned Question Integrity</h2>
-  <p>Every active practice item is limited to skills that belong to the current TSIA2, SAT, or Enhanced ACT blueprint. TSI Practice Prep uses independently written practice—not recalled, leaked, copied, or lightly rewritten live-test questions.</p>
-  <div class="blueprintGrid">
-   <div class="blueprintCard"><b>🎓 Digital SAT</b><span>Reading & Writing: Information and Ideas, Craft and Structure, Expression of Ideas, Standard English Conventions. Math: Algebra, Advanced Math, Problem-Solving and Data Analysis, Geometry and Trigonometry.</span></div>
-   <div class="blueprintCard"><b>🎯 Enhanced ACT</b><span>English, Math, Reading, and optional Science are aligned to current ACT reporting categories, including Production of Writing, Preparing for Higher Math, Key Ideas & Details, and scientific-data reasoning.</span></div>
-   <div class="blueprintCard"><b>📘 TSIA2</b><span>Math is restricted to Quantitative, Algebraic, Geometric/Spatial, and Probabilistic/Statistical Reasoning. ELAR is restricted to literary/informational analysis plus revision, editing, and sentence conventions.</span></div>
-  </div>
-  <div class="integrityPills"><span class="integrityPill">✓ Original wording</span><span class="integrityPill">✓ Verified answer key</span><span class="integrityPill">✓ Distractor rationales</span><span class="integrityPill">✓ Blueprint filter</span><span class="integrityPill">✓ No unrelated trivia</span></div>
- </div>
-</section>
 
-<section class="section" id="accuracy-standards">
-  <div class="sectionHead">
-    <h2>Accuracy and Content Standards</h2>
-    <p>TSI Practice Prep uses original practice questions written to reflect tested skills. It does not reproduce official test questions unless permission is available, and it does not present practice results as official scores.</p>
-  </div>
-  <div class="bottomFeatures">
-    <div class="feature"><i>✓</i><b>Original Practice Questions</b><p>Questions are independently written for learning and practice, not copied from protected official test banks.</p></div>
-    <div class="feature"><i>📚</i><b>Official Structure Sources</b><p>Exam structure and test-format information should be checked against College Board, ACT, and relevant state education agencies.</p></div>
-    <div class="feature"><i>⚠</i><b>No Score Guarantees</b><p>Practice performance is not an official TSI, SAT, or ACT score and does not guarantee admission, placement, or graduation.</p></div>
-    <div class="feature"><i>🔄</i><b>Review and Correction</b><p>Time-sensitive requirements should be rechecked when official testing organizations or state agencies publish updates.</p></div>
-  </div>
-</section>
+
+
 
 <section class="v10Bottom"><div class="v10Why"><h2>Everything you need to practice.</h2><div class="v10WhyGrid"><div><i>🧭</i><b>Diagnostic</b><span>Find weak skills fast.</span></div><div><i>📈</i><b>Instant result</b><span>Clear practice estimate after each set.</span></div><div><i>🧠</i><b>Mistake review</b><span>See why each wrong answer failed.</span></div><div><i>🔖</i><b>Save & return</b><span>Bookmark difficult questions.</span></div></div></div><div class="v10Faq"><h2>Quick answers</h2><details><summary>Is TSI Practice Prep really free?</summary><p>Yes. Every TSI, SAT, and ACT practice test and skill set on TSI Practice Prep is 100% free, with no sign-up required to start practicing.</p></details><details><summary>Is there a free TSI practice test?</summary><p>Yes. TSI Practice Prep offers a free TSIA2 practice test covering both Math and ELAR (Reading and Writing), with instant feedback and explanations for every question.</p></details><details><summary>Is there a free SAT practice test?</summary><p>Yes. TSI Practice Prep's free SAT practice test covers Reading and Writing plus Math, in a format that mirrors the digital SAT, with mistake analysis after every session.</p></details><details><summary>Is there a free ACT practice test?</summary><p>Yes. TSI Practice Prep's free ACT practice test covers English, Math, Reading, and optional Science, with detailed, skill-by-skill error analysis.</p></details><details><summary>Are these official TSIA2, SAT, or ACT questions?</summary><p>No. TSI Practice Prep uses independently written practice questions aligned to tested skills.</p></details><details><summary>Is the score estimate official?</summary><p>No. It is a practice estimate based on this TSI Practice Prep set. Official scores use the testing organization's scoring process.</p></details><details><summary>Does a college match mean I will be admitted?</summary><p>No. The list only shows schools whose reported score ranges are near your estimate. Admissions consider many other factors.</p></details></div></section>
 <script type="application/ld+json" id="scorepath-faq-schema">
