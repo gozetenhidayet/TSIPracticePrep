@@ -4727,12 +4727,14 @@ return Q;
   function byId(id) { return doc.getElementById(id); }
   function fire(el, type) { el.dispatchEvent(new Event(type, { bubbles: true })); }
   function showCenter(exam) {
-    if (typeof global.v10ShowCenter === 'function') global.v10ShowCenter(KEY[exam]);
+    if (typeof global.v10ShowCenter === 'function') global.v10ShowCenter(KEY[exam], true);
     else location.hash = KEY[exam] + '-center';
   }
   function bank(exam, skill, size) {
     var ex = byId('bankExam'), launch = byId('bankLaunch');
     if (!ex || !launch) { showCenter(exam); return; }
+    // The SAT/ACT start screen lives inside that exam's center: open it first, or nothing visible happens.
+    showCenter(exam);
     ex.value = exam; fire(ex, 'change');
     setTimeout(function () {
       var sec = byId('bankSection'), sk = byId('bankSkill'), sz = byId('bankSize'), dif = byId('bankDifficulty');
