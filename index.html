@@ -1250,6 +1250,250 @@ footer .disclaimer{color:#a9b8cf}
   .tsipp-quick{justify-content:center}
   .tsipp-quick>span{flex:1 1 100%;text-align:center}
 }
+
+/* ===== Design pass 3 ===== */
+/* Hero main button */
+.tsipp-cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:22px;justify-content:center}
+.tsipp-cta-main{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 24px;border-radius:12px;background:#2563eb;color:#fff!important;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 10px 24px rgba(37,99,235,.35)}
+.tsipp-cta-main:hover,.tsipp-cta-main:focus-visible{background:#1d4ed8;transform:translateY(-1px)}
+.tsipp-cta-note{font-size:14px;color:#cbd5e1}
+@media (min-width:980px){.tsipp-heroTop .tsipp-cta{justify-content:flex-start}}
+.v10CardActions button[data-v10-diag].tsipp-flash{animation:tsippFlash 1.4s ease 2}
+@keyframes tsippFlash{0%,100%{box-shadow:0 0 0 0 rgba(96,165,250,0)}50%{box-shadow:0 0 0 5px rgba(96,165,250,.7)}}
+/* Example plan: hidden weakness box */
+.tsipp-plan-alert{display:flex;flex-direction:column;gap:2px;margin:0 0 14px;padding:10px 12px;border-radius:12px;background:#fffbeb;border:1px solid #fcd34d}
+.tsipp-plan-alert b{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#92400e}
+.tsipp-plan-alert span{font-size:13.5px;color:#1e293b}
+/* Exam cards: what each exam contains + exam colours (TSIA2 teal, SAT violet, ACT orange) */
+.tsipp-examparts{margin:8px 0 0!important;font-size:13px!important;font-weight:700;color:#cbd5e1!important;letter-spacing:.01em}
+.examcard.tsi .v10CardActions button:first-child{background:#0f766e!important;border-color:#0f766e!important;color:#fff!important}
+.examcard.sat .v10CardActions button:first-child{background:#6d28d9!important;border-color:#6d28d9!important;color:#fff!important}
+.examcard.tsi .v10CardActions button:first-child:hover{background:#115e59!important}
+.examcard.sat .v10CardActions button:first-child:hover{background:#5b21b6!important}
+/* Benefit cards: soft tint per card */
+@media (min-width:561px){
+  .v10Band .credChip:nth-child(1){background:#eff6ff!important;border-color:#dbeafe!important}
+  .v10Band .credChip:nth-child(2){background:#f0fdf4!important;border-color:#dcfce7!important}
+  .v10Band .credChip:nth-child(3){background:#fff7ed!important;border-color:#ffedd5!important}
+  .v10Band .credChip:nth-child(4){background:#f5f3ff!important;border-color:#ede9fe!important}
+}
+/* Full-test cards: questions, sections, time */
+.tsipp-testmeta{display:flex;flex-direction:column;gap:3px;margin:6px 0 12px;font-size:13px;color:#475569;line-height:1.35}
+.tsipp-testmeta b{font-size:24px;line-height:1;color:#0f172a;margin-right:4px}
+.tsipp-testmeta span{display:block}
+/* Confident-but-wrong share */
+.tsipp-hidden-pct{display:block;margin-top:4px;font-weight:800;color:#b45309}
+/* Footer copyright */
+.tsipp-copy{margin:14px 0 0;font-size:12px;color:#a9b8cf}
+.tsipp-examparts{text-align:center;margin:10px 0 14px!important}
+#exam-choose{scroll-margin-top:84px}
+.examcard:hover .tsipp-examparts{color:#334155!important}
+.examDesc+.tsipp-examparts{margin-top:-8px!important}
+
+/* ===== Dashboard v3 (mockup layout) ===== */
+#tsipp-section{background:linear-gradient(180deg,#f4f7fb 0%,#eef3fa 100%)!important}
+.tsipp .tsipp-card{border-radius:20px;border:1px solid #e6ecf5;box-shadow:0 1px 2px rgba(15,23,42,.04),0 10px 28px rgba(15,23,42,.05);padding:22px}
+.tsipp-ic{flex:0 0 40px;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#eff6ff;color:#1d4ed8}
+.tsipp-ic .tsipp-ico{width:21px;height:21px}
+.tsipp-ic--lg{flex-basis:52px;width:52px;height:52px;border-radius:14px}
+.tsipp-ic--lg .tsipp-ico{width:26px;height:26px}
+.tsipp-ic.is-blue{background:#eff6ff;color:#1d4ed8}.tsipp-ic.is-green{background:#ecfdf5;color:#15803d}
+.tsipp-ic.is-orange{background:#fff7ed;color:#c2410c}.tsipp-ic.is-pink{background:#fdf2f8;color:#be185d}
+.tsipp-ic.is-violet{background:#f5f3ff;color:#6d28d9}
+.tsipp-ic.is-priority{background:#fef2f2;color:#b91c1c}.tsipp-ic.is-developing{background:#fffbeb;color:#b45309}
+.tsipp-ic.is-strong{background:#ecfdf5;color:#15803d}.tsipp-ic.is-none{background:#f1f5f9;color:#64748b}
+.tsipp-ic.is-b0{background:#fffbeb;color:#b45309}.tsipp-ic.is-b1{background:#fff7ed;color:#c2410c}
+.tsipp-ic.is-b2{background:#fef2f2;color:#be123c}.tsipp-ic.is-b3{background:#fefce8;color:#a16207}
+
+/* header row */
+.tsipp .tsipp-head{display:grid!important;grid-template-columns:minmax(0,1.3fr) auto minmax(0,1fr);gap:20px;align-items:start}
+.tsipp .tsipp-h1{font-size:clamp(30px,3.4vw,42px);letter-spacing:-.02em;margin:0}
+.tsipp-lede{margin:4px 0 12px;color:#475569;font-size:15px}
+.tsipp-hello{margin:0 0 6px;font-size:16px;font-weight:700;color:#0f172a}
+.tsipp-namebox{display:flex;align-items:center;gap:10px;max-width:480px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:6px 12px 6px 6px;box-shadow:0 1px 2px rgba(15,23,42,.04);margin-bottom:6px}
+.tsipp-namebox .tsipp-ic{flex-basis:34px;width:34px;height:34px;border-radius:10px}
+.tsipp-namebox .tsipp-name{flex:1;border:0!important;background:transparent;padding:6px 0;font-size:15px;outline:none;min-width:0;box-shadow:none!important}
+.tsipp-namebox>.tsipp-ico{width:18px;height:18px;color:#64748b}
+.tsipp-namebox:focus-within{border-color:#0e7490;box-shadow:0 0 0 3px rgba(14,116,144,.15)}
+.tsipp .tsipp-tabs{align-self:start;margin-top:4px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:5px;box-shadow:0 6px 18px rgba(15,23,42,.06)}
+.tsipp .tsipp-tab{min-width:92px;min-height:44px;border-radius:12px;font-weight:800}
+.tsipp .tsipp-tab.is-on{background:#0f5e6e!important;color:#fff!important}
+.tsipp-cheer{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#f0fdf4,#ecfeff);border:1px solid #d1fae5;border-radius:18px;padding:14px 16px}
+.tsipp-cheer strong{display:block;font-size:16px;color:#0f172a}
+.tsipp-cheer span{display:block;font-size:13.5px;color:#475569;line-height:1.4}
+
+/* shared card header */
+.tsipp-ctop{display:flex;align-items:flex-start;gap:12px}
+.tsipp-ctitle{flex:1;min-width:0}
+.tsipp-ctitle h3{margin:0;font-size:18px;font-weight:800;color:#0f172a;line-height:1.25}
+.tsipp-ctitle p{margin:3px 0 0;font-size:13.5px;color:#475569;line-height:1.45}
+.tsipp-chipbtn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;min-height:38px;padding:0 12px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#0f172a;font-weight:700;font-size:13.5px;cursor:pointer}
+.tsipp-chipbtn .tsipp-ico{width:16px;height:16px}
+.tsipp-chipbtn:hover{border-color:#0e7490;color:#0e7490}
+.tsipp-pill{white-space:nowrap;font-size:12px;font-weight:800;border-radius:999px;padding:4px 10px}
+.tsipp-pill.is-orange{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa}
+.tsipp-vh{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none;overflow:hidden}
+.tsipp .tsipp-c3{position:relative}
+
+/* test day */
+.tsipp-daypanel{display:flex;align-items:center;gap:20px;border-radius:16px;padding:18px 20px;background:linear-gradient(135deg,#eff6ff,#eef2ff);border:1px solid #dbeafe;min-height:128px}
+.tsipp-calart{position:relative;flex:0 0 76px;width:76px;height:76px;border-radius:18px;background:#fff;box-shadow:0 10px 22px rgba(37,99,235,.18);overflow:hidden}
+.tsipp-calart-top{position:absolute;left:0;right:0;top:0;height:20px;background:linear-gradient(135deg,#3b82f6,#6366f1)}
+.tsipp-calart-grid{position:absolute;left:12px;right:12px;top:30px;bottom:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tsipp-calart-grid i{border-radius:4px;background:#dbeafe}
+.tsipp-calart-grid i.is-on{background:#f472b6}
+.tsipp-daynum{font-size:52px;line-height:1;font-weight:800;color:#0f172a;letter-spacing:-.02em}
+.tsipp-daynum.is-empty{color:#94a3b8;font-size:40px}
+.tsipp-daynum.is-orange{color:#ea580c}
+.tsipp-dayunit{font-size:15px;font-weight:800;letter-spacing:.06em;color:#0f172a;margin-top:2px}
+
+/* readiness */
+.tsipp-how{flex:0 0 auto;position:relative}
+.tsipp-how summary{list-style:none;cursor:pointer;font-size:13px;font-weight:700;color:#1d4ed8;white-space:nowrap}
+.tsipp-how summary::-webkit-details-marker{display:none}
+.tsipp-how summary::after{content:" \2192"}
+.tsipp-how p{position:absolute;right:0;top:24px;z-index:5;width:260px;margin:0;padding:12px 14px;background:#0f172a;color:#e2e8f0;border-radius:12px;font-size:12.5px;line-height:1.5;box-shadow:0 14px 30px rgba(2,6,23,.3)}
+.tsipp-readrow{display:flex;align-items:center;gap:18px}
+.tsipp-ring--lg{width:150px;height:150px;flex:0 0 150px}
+.tsipp-ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.tsipp-ring-c b{font-size:32px;line-height:1;font-weight:800;color:#0f172a}
+.tsipp-ring-c span{margin-top:4px;font-size:12.5px;color:#475569;max-width:90px;line-height:1.25}
+.tsipp-readside{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.tsipp-delta{align-self:flex-start;display:flex;flex-direction:column;padding:8px 12px;border-radius:12px;background:#f1f5f9}
+.tsipp-delta b{font-size:22px;line-height:1.1;color:#334155}
+.tsipp-delta span{font-size:12.5px;color:#475569}
+.tsipp-delta.is-up{background:#ecfdf5}.tsipp-delta.is-up b{color:#15803d}
+.tsipp-delta.is-down{background:#fef2f2}.tsipp-delta.is-down b{color:#b91c1c}
+.tsipp-minibars{display:flex;align-items:flex-end;gap:8px;height:96px;border-bottom:1px solid #e2e8f0;padding-bottom:18px;position:relative}
+.tsipp-mb{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
+.tsipp-mb i{display:block;width:100%;max-width:30px;border-radius:6px 6px 2px 2px;background:#bae6fd;animation:tsippGrow .8s cubic-bezier(.2,.7,.2,1) both}
+.tsipp-mb.is-last i{background:linear-gradient(180deg,#14b8a6,#0f766e)}
+.tsipp-mb span{position:absolute;bottom:-18px;font-size:11px;color:#64748b}
+.tsipp-minibars.is-empty i{background:repeating-linear-gradient(135deg,#f1f5f9 0 6px,#e2e8f0 6px 8px);animation:none;opacity:.8}
+.tsipp-minibars.is-empty .tsipp-mb:nth-child(1) i{height:30%!important}.tsipp-minibars.is-empty .tsipp-mb:nth-child(2) i{height:45%!important}
+.tsipp-minibars.is-empty .tsipp-mb:nth-child(3) i{height:55%!important}.tsipp-minibars.is-empty .tsipp-mb:nth-child(4) i{height:70%!important}
+.tsipp-minibars.is-empty .tsipp-mb:nth-child(5) i{height:85%!important}
+@keyframes tsippGrow{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+
+/* streak */
+.tsipp-streakbig{display:flex;align-items:baseline;gap:10px}
+.tsipp-streakbig .tsipp-daynum{font-size:60px}
+.tsipp .tsipp-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.tsipp .tsipp-day{display:flex;flex-direction:column;align-items:center;gap:4px}
+.tsipp .tsipp-dot{width:30px;height:30px;border-radius:50%;border:2px solid #cbd5e1;background:#fff;display:grid;place-items:center}
+.tsipp .tsipp-dot.is-on{background:linear-gradient(135deg,#fb923c,#ea580c);border-color:#ea580c;color:#fff}
+.tsipp .tsipp-dot .tsipp-ico{width:16px;height:16px;stroke-width:3}
+.tsipp .tsipp-dot.is-today{border-style:dashed;border-color:#ea580c}
+.tsipp-badgegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tsipp-badge2{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc;min-width:0}
+.tsipp-badge2 .tsipp-ic{flex-basis:32px;width:32px;height:32px;border-radius:10px}
+.tsipp-badge2 .tsipp-ic .tsipp-ico{width:17px;height:17px}
+.tsipp-badge2 strong{display:block;font-size:13px;color:#0f172a;line-height:1.2}
+.tsipp-badge2 span{display:block;font-size:12px;color:#64748b}
+.tsipp-badge2:not(.is-on) .tsipp-ic{filter:grayscale(.6);opacity:.75}
+.tsipp-badge2.is-on{background:#fffbeb;border-color:#fde68a}
+.tsipp-badge2.is-on span{color:#b45309;font-weight:700}
+
+/* main grid: empty state / mission + weakest skills */
+.tsipp-gridmain{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:20px}
+.tsipp .tsipp-empty{padding:26px}
+.tsipp .tsipp-empty .tsipp-h2{font-size:22px}
+.tsipp .tsipp-flow li{background:#f8fafc}
+.tsipp .tsipp-flow li:nth-child(1){background:#f5f9ff;border-color:#dbeafe}
+.tsipp .tsipp-flow li:nth-child(2){background:#faf7ff;border-color:#ede9fe}
+.tsipp .tsipp-flow li:nth-child(3){background:#f4fdf7;border-color:#dcfce7}
+.tsipp .tsipp-flow-ic{width:52px;height:52px;border-radius:14px}
+.tsipp .tsipp-flow-ic .tsipp-ico{width:26px;height:26px}
+.tsipp-wlist{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column}
+.tsipp-wlist li+li{border-top:1px solid #f1f5f9}
+.tsipp-wrow{width:100%;display:grid;grid-template-columns:40px minmax(0,1.2fr) minmax(60px,1fr) 46px;align-items:center;gap:12px;padding:10px 4px;background:none;border:0;text-align:left;font:inherit;color:inherit;cursor:pointer;border-radius:12px}
+button.tsipp-wrow:hover{background:#f8fafc}
+.tsipp-wrow.is-empty{cursor:default}
+.tsipp-wname{min-width:0}
+.tsipp-wname span{display:block;font-size:14.5px;font-weight:600;color:#0f172a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tsipp-wname small{display:block;font-size:12px;color:#64748b}
+.tsipp-wrow b{text-align:right;font-size:15px}
+.tsipp-wrow .tsipp-bar{height:10px}
+
+/* quick links */
+.tsipp-quicklinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tsipp-ql{display:flex;align-items:center;gap:14px;text-align:left;background:#fff;border:1px solid #e6ecf5;border-radius:18px;padding:16px;cursor:pointer;font:inherit;color:inherit;box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 20px rgba(15,23,42,.04);transition:transform .18s ease,box-shadow .18s ease}
+.tsipp-ql:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(15,23,42,.08)}
+.tsipp-ql-t{flex:1;min-width:0}
+.tsipp-ql-t strong{display:block;font-size:15.5px;color:#0f172a}
+.tsipp-ql-t span{display:block;font-size:13px;color:#475569;line-height:1.4;margin-top:2px}
+.tsipp-ql>.tsipp-ico{flex:0 0 20px;width:20px;height:20px;color:#1d4ed8}
+.tsipp-btn--ic{display:inline-flex;align-items:center;gap:8px}
+.tsipp-btn--ic .tsipp-ico{width:18px;height:18px}
+
+/* responsive */
+@media (max-width:1180px){
+  .tsipp .tsipp-head{grid-template-columns:minmax(0,1fr) auto}
+  .tsipp-cheer{grid-column:1 / -1}
+  .tsipp-quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:1100px){
+  .tsipp .tsipp-grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tsipp .tsipp-grid3>.tsipp-card:nth-child(2){grid-column:1 / -1;order:3}
+}
+@media (max-width:900px){
+  .tsipp-gridmain{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:700px){
+  .tsipp .tsipp-head{grid-template-columns:minmax(0,1fr)}
+  .tsipp .tsipp-tabs{width:100%}
+  .tsipp .tsipp-tab{flex:1;min-width:0}
+  .tsipp .tsipp-grid3{grid-template-columns:minmax(0,1fr)}
+  .tsipp .tsipp-grid3>.tsipp-card:nth-child(2){grid-column:auto;order:0}
+  .tsipp .tsipp-card{padding:18px}
+  .tsipp-readrow{flex-direction:column;align-items:stretch}
+  .tsipp-ring--lg{align-self:center}
+  .tsipp-daynum{font-size:44px}
+  .tsipp-daypanel{padding:14px;gap:14px;min-height:0}
+  .tsipp-calart{flex-basis:60px;width:60px;height:60px}
+  .tsipp-wrow{grid-template-columns:36px minmax(0,1fr) 70px 42px;gap:10px}
+  .tsipp-wrow .tsipp-ic{flex-basis:36px;width:36px;height:36px}
+  .tsipp-quicklinks{grid-template-columns:minmax(0,1fr);gap:10px}
+  .tsipp-ql{padding:12px 14px}
+  .tsipp-how p{right:-8px;width:min(260px,76vw)}
+  .tsipp .tsipp-dot{width:28px;height:28px}
+}
+@media (prefers-reduced-motion:reduce){.tsipp-mb i{animation:none!important}}
+.examcard:hover .tsipp-examparts{color:#334155!important}
+.examDesc+.tsipp-examparts{margin-top:-8px!important}
+.tsipp .tsipp-card>.tsipp-bar{flex:0 0 auto;height:10px}
+.tsipp-ring--lg .tsipp-ring-c b{position:static;inset:auto;display:block}
+.tsipp-wrow{grid-template-columns:40px minmax(0,1fr) minmax(70px,120px) 46px}
+.tsipp-how summary{font-size:12.5px}
+.tsipp .tsipp-wlist li{display:block;width:100%}
+.tsipp .tsipp-wrow{width:100%!important;max-width:none!important;margin:0!important}
+.tsipp-gridmain{align-items:start}
+.tsipp-col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.tsipp-col>.tsipp-card{grid-column:auto!important}
+.tsipp-col>.tsipp-card{margin:0!important;width:100%;max-width:none!important;align-self:stretch}
+@media (max-width:700px){
+  .tsipp-ctop{flex-wrap:wrap}
+  .tsipp-ctop>.tsipp-how{order:3;flex-basis:100%;padding-left:52px}
+  .tsipp-how p{left:0;right:auto}
+}
+.tsipp .tsipp-col{justify-content:flex-start!important;align-items:stretch!important;align-self:start}
+@media (max-width:700px){
+  .tsipp .tsipp-wrow{grid-template-columns:36px minmax(0,1fr) 46px;row-gap:6px}
+  .tsipp-wrow .tsipp-wname span{white-space:normal}
+  .tsipp-wrow .tsipp-bar{grid-column:2 / 4;grid-row:2;height:8px}
+  .tsipp-wrow>b{grid-column:3;grid-row:1}
+}
+@media (max-width:900px){
+  .tsipp .tsipp-gridmain{display:flex;flex-direction:column;gap:20px}
+  .tsipp .tsipp-gridmain>.tsipp-col{display:contents}
+  .tsipp-col:first-child>:nth-child(1){order:1}
+  .tsipp-col:last-child>:nth-child(1){order:2}
+  .tsipp-col:first-child>:nth-child(2){order:3}
+  .tsipp-col:last-child>:nth-child(2){order:4}
+}
+@media (max-width:700px){
+  .tsipp-ctop>.tsipp-link{order:3;flex-basis:100%;padding-left:52px;text-align:left}
+}
 </style>
 <style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress,#test-date-center,#study-plan,#mastery-path,.v10Why{display:none!important}</style>
 </head>
@@ -1386,6 +1630,7 @@ function spConsole(method){
   <h1>Free TSIA2, SAT &amp; ACT Practice Tests<br><span class="grad">Know exactly what to practice.</span></h1>
   <p>A short diagnostic finds your weak skills, shows why you miss questions, and gives you a plan for today. Free, and no sign-up required to start.</p>
   <div class="v10TrustLine"><span>✓ No sign-up needed</span><span>✓ 100% free</span><span>✓ Original questions, clearly not official</span></div>
+   <div class="tsipp-cta"><a class="tsipp-cta-main" href="#exam-choose" data-tsipp-diag-scroll>Start free diagnostic <span aria-hidden="true">↓</span></a><span class="tsipp-cta-note">10–14 questions · no account</span></div>
    <div class="tsipp-quick" role="group" aria-label="Try 5 questions"><span>Got 5 minutes? Try 5 questions:</span><button type="button" data-tsipp-quick="TSIA2">TSIA2</button><button type="button" data-tsipp-quick="SAT">SAT</button><button type="button" data-tsipp-quick="ACT">ACT</button></div>
  </div>
  <aside class="tsipp-plan" aria-label="Example of a study plan">
@@ -1396,6 +1641,7 @@ function spConsole(method){
    <li><span>Percents &amp; ratios</span><i class="tsipp-plan-bar"><i style="width:66%" class="is-dev"></i></i><b>66%</b></li>
    <li><span>Quadratics</span><i class="tsipp-plan-bar"><i style="width:45%" class="is-low"></i></i><b>45%</b></li>
   </ul>
+  <div class="tsipp-plan-alert"><b>Hidden weakness</b><span>Quadratics: missed 5 of 8 marked “Confident”</span></div>
   <ol class="tsipp-plan-steps">
    <li class="is-done"><span>Review 3 missed questions</span></li>
    <li>Practice Quadratics · 10 questions</li>
@@ -1404,10 +1650,10 @@ function spConsole(method){
   <p class="tsipp-plan-note">Sample only. Your own plan appears after a short diagnostic.</p>
  </aside>
 </div>
- <div class="examcards v10ExamCards">
-  <article class="examcard tsi"><div class="hex">📖</div><h3>TSI</h3><div class="sub">Texas Success Initiative</div><p class="examDesc">Get college ready with exam-style TSIA2 practice tests.</p><div class="v10CardActions"><button data-v10-open="tsi">Start TSI Practice →</button><button data-v10-diag="tsi">Diagnostic</button></div></article>
-  <article class="examcard sat" id="sat-info"><div class="hex">📖</div><h3>SAT</h3><div class="sub">Digital SAT</div><p class="examDesc">Build skills, take practice tests, and boost your SAT score.</p><div class="v10CardActions"><button data-v10-open="sat">Start SAT Practice →</button><button data-v10-diag="sat">Diagnostic</button></div></article>
-  <article class="examcard act" id="act-info"><div class="hex">🎯</div><h3>ACT</h3><div class="sub">The ACT Test</div><p class="examDesc">Full-length ACT practice tests with detailed explanations.</p><div class="v10CardActions"><button data-v10-open="act">Start ACT Practice →</button><button data-v10-diag="act">Diagnostic</button></div></article>
+ <div class="examcards v10ExamCards" id="exam-choose">
+  <article class="examcard tsi"><div class="hex">📖</div><h3>TSI</h3><div class="sub">Texas Success Initiative</div><p class="examDesc">Get college ready with exam-style TSIA2 practice tests.</p><p class="tsipp-examparts">Math · ELAR · Essay</p><div class="v10CardActions"><button data-v10-open="tsi">Start TSI Practice →</button><button data-v10-diag="tsi">Diagnostic</button></div></article>
+  <article class="examcard sat" id="sat-info"><div class="hex">📖</div><h3>SAT</h3><div class="sub">Digital SAT</div><p class="examDesc">Build skills, take practice tests, and boost your SAT score.</p><p class="tsipp-examparts">54 Reading &amp; Writing · 44 Math</p><div class="v10CardActions"><button data-v10-open="sat">Start SAT Practice →</button><button data-v10-diag="sat">Diagnostic</button></div></article>
+  <article class="examcard act" id="act-info"><div class="hex">🎯</div><h3>ACT</h3><div class="sub">The ACT Test</div><p class="examDesc">Full-length ACT practice tests with detailed explanations.</p><p class="tsipp-examparts">English · Math · Reading · Science (optional)</p><div class="v10CardActions"><button data-v10-open="act">Start ACT Practice →</button><button data-v10-diag="act">Diagnostic</button></div></article>
  </div>
 </div>
 </section>
@@ -1493,11 +1739,11 @@ function spConsole(method){
    <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="satDifficulty">Difficulty</label><select id="satDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
    <div class="resumeCard" id="satResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved SAT practice</b><span id="satResumeText">A saved SAT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="satResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="satDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
    <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="satAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="satAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="satMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="satSaved">0</b><span>Saved</span></div></div></div>
-   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>98</b> questions<span>Reading &amp; Writing 54 · Math 44</span><span>Timed: 2 h 14 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>98</b> questions<span>Reading &amp; Writing 54 · Math 44</span><span>Timed: 2 h 14 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>98</b> questions<span>Reading &amp; Writing 54 · Math 44</span><span>Timed: 2 h 14 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>98</b> questions<span>Reading &amp; Writing 54 · Math 44</span><span>Timed: 2 h 14 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>98</b> questions<span>Reading &amp; Writing 54 · Math 44</span><span>Timed: 2 h 14 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="SAT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-sat-start="sat-rw"><b>Reading & Writing</b><span>Untimed practice →</span></button><button data-sat-start="sat-timed-rw"><b>Reading & Writing</b><span>Timed module →</span></button><button data-sat-start="sat-math"><b>Math</b><span>Untimed practice →</span></button><button data-sat-start="sat-timed-math"><b>Math</b><span>Timed module →</span></button><button data-sat-start="sat-diagnostic"><b>Diagnostic</b><span>Find weak skills →</span></button><button id="satAdaptiveAction"><b>Full Adaptive SAT</b><span>98-question simulation →</span></button><button data-sat-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-sat-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button></div></details>
   </div>
 
@@ -1590,11 +1836,11 @@ function spConsole(method){
    <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="actDifficulty">Difficulty</label><select id="actDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
    <div class="resumeCard" id="actResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved ACT practice</b><span id="actResumeText">A saved ACT session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="actResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="actDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
    <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="actAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="actAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="actMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="actSaved">0</b><span>Saved</span></div></div></div>
-   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>131</b> questions<span>English 50 · Math 45 · Reading 36</span><span>Timed: 2 h 5 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>131</b> questions<span>English 50 · Math 45 · Reading 36</span><span>Timed: 2 h 5 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>131</b> questions<span>English 50 · Math 45 · Reading 36</span><span>Timed: 2 h 5 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>131</b> questions<span>English 50 · Math 45 · Reading 36</span><span>Timed: 2 h 5 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>131</b> questions<span>English 50 · Math 45 · Reading 36</span><span>Timed: 2 h 5 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed<span>→</span></button><button class="ptBtn untimed" data-v9-test="ACT" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-act-start="act-english"><b>English</b><span>Untimed practice →</span></button><button data-act-start="act-math"><b>Math</b><span>Untimed practice →</span></button><button data-act-start="act-reading"><b>Reading</b><span>Untimed practice →</span></button><button data-act-start="act-science"><b>Science</b><span>Optional practice →</span></button><button data-act-start="act-diagnostic"><b>Diagnostic</b><span>Find weak skills →</span></button><button data-act-start="act-timed"><b>Timed Mixed Practice</b><span>Mixed sections →</span></button><button id="actFullAction"><b>Full ACT Core</b><span>131-question simulation →</span></button><button data-act-start="act-writing"><b>ACT Writing</b><span>Writing practice →</span></button><button data-act-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-act-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button></div></details>
   </div>
 
@@ -1715,11 +1961,11 @@ function spConsole(method){
    <div class="difficultyControl compactControl"><svg class="diffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg><label for="tsiDifficulty">Difficulty</label><select id="tsiDifficulty"><option value="All">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div>
    <div class="resumeCard" id="tsiResume"><div class="resumeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="resumeBody"><b>Continue saved TSIA2 practice</b><span id="tsiResumeText">A saved TSI practice session is available.</span></div><div class="resumeActions"><button class="smallbtn primary2" id="tsiResumeBtn">Resume Practice<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><button class="smallbtn" id="tsiDiscardBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v6h-6"/></svg>Start Fresh</button></div></div>
    <div class="statgrid compactStats"><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div class="statBody"><b id="statAnswered">0</b><span>Answered</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div><div class="statBody"><b id="statAccuracy">—</b><span>Accuracy</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="statBody"><b id="statMistakes">0</b><span>Review</span></div></div><div class="stat"><div class="statIcon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z"/></svg></div><div class="statBody"><b id="statSaved">0</b><span>Saved</span></div></div></div>
-   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
-<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article></div>
+   <div class="practiceTestList"><article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">01</span><span class="spTestIcon">📝</span></div><h3 class="spTestTitle">Practice Test 1<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>44</b> questions<span>Math 20 · ELAR 24</span><span>Timed: 54 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="1" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">02</span><span class="spTestIcon">📘</span></div><h3 class="spTestTitle">Practice Test 2<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>44</b> questions<span>Math 20 · ELAR 24</span><span>Timed: 54 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="2" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">03</span><span class="spTestIcon">🧮</span></div><h3 class="spTestTitle">Practice Test 3<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>44</b> questions<span>Math 20 · ELAR 24</span><span>Timed: 54 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="3" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">04</span><span class="spTestIcon">📚</span></div><h3 class="spTestTitle">Practice Test 4<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>44</b> questions<span>Math 20 · ELAR 24</span><span>Timed: 54 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="4" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article>
+<article class="ptRow spTestCard"><div class="spTestTop"><span class="ptNum spTestNumber">05</span><span class="spTestIcon">🎯</span></div><h3 class="spTestTitle">Practice Test 5<svg class="ptTypeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h6l4 4v13a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></h3><div class="tsipp-testmeta"><b>44</b> questions<span>Math 20 · ELAR 24</span><span>Timed: 54 min</span></div><div class="ptModes spModeStack"><button class="ptBtn timed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="timed"><svg class="ptIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Timed Practice<span>→</span></button><button class="ptBtn untimed" data-v9-test="TSIA2" data-v9-num="5" data-v9-mode="untimed"><span class="ptIcon ptInfinity">&#8734;</span>Untimed • Recommended<span>→</span></button></div></article></div>
    <details class="sectionDrills"><summary>Section practice & review <span>+</span></summary><div class="drillGrid"><button data-start="math"><b>Mathematics</b><span>Untimed practice →</span></button><button data-start="elar"><b>ELAR</b><span>Untimed practice →</span></button><button data-start="diagnostic"><b>Diagnostic</b><span>Mixed readiness check →</span></button><button data-start="timed"><b>Timed Simulation</b><span>Mixed Math + ELAR →</span></button><button data-panel="mistakes"><b>Mistakes</b><span>Review incorrect answers →</span></button><button data-panel="bookmarks"><b>Saved Questions</b><span>Review bookmarked questions →</span></button><button data-start="essay"><b>Essay Lab</b><span>Writing practice →</span></button></div></details>
   </div>
 
@@ -1979,6 +2225,7 @@ function spConsole(method){
   <nav class="tsipp-footcol" aria-label="Company and legal"><b>Company</b><a href="about.html">About</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a><a href="#" id="spCookiePrefsLink">Cookie Preferences</a></nav>
  </div>
  <div class="disclaimer"><b style="color:white">Independent test-prep disclaimer:</b> TSI Practice Prep is an independent educational practice resource. It is not affiliated with, endorsed by, or sponsored by College Board, ACT, Inc., or the Texas Higher Education Coordinating Board. The questions on this page are original practice questions. Practice results are for learning purposes only and are not official test scores.</div>
+ <p class="tsipp-copy">© 2026 TSI Practice Prep · Free practice for TSIA2, SAT and ACT</p>
 </div>
 </footer>
 
@@ -5012,8 +5259,47 @@ return Q;
     device: '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/>',
     search: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
     bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
-    up: '<path d="M4 17l6-6 4 4 6-7M14 8h6v6"/>'
+    up: '<path d="M4 17l6-6 4 4 6-7M14 8h6v6"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    pencil: '<path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/>',
+    sprout: '<path d="M12 21v-9M12 12c0-4-3-6-7-6 0 4 3 6 7 6zM12 10c0-3.5 2.5-6 7-6 0 4-3 6-7 6z"/>',
+    crown: '<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5L3 8z"/>',
+    bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>',
+    target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    star: '<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9L12 3z"/>',
+    bookmark: '<path d="M6 3h12v18l-6-4-6 4V3z"/>',
+    clip: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/>',
+    bars: '<path d="M5 20V11M12 20V5M19 20v-7"/>',
+    calc: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12v5M8 16h2M12 16h2"/>',
+    tri: '<path d="M12 4l9 16H3L12 4z"/>',
+    book: '<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1V5zM12 6v14"/>',
+    flask: '<path d="M9 3h6M10 3v6L4 19a1.5 1.5 0 0 0 1.3 2h13.4A1.5 1.5 0 0 0 20 19l-6-10V3"/>',
+    printer: '<path d="M7 8V3h10v5M7 17H4v-7h16v7h-3M7 14h10v7H7z"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>'
   };
+  var DOMAINS = {
+    TSIA2: ['Quantitative Reasoning', 'Algebraic Reasoning', 'Geometric & Spatial Reasoning', 'Probabilistic & Statistical Reasoning', 'Reading', 'Writing'],
+    SAT: ['Algebra', 'Advanced Math', 'Problem-Solving & Data Analysis', 'Geometry & Trigonometry', 'Information & Ideas', 'Craft & Structure', 'Expression of Ideas', 'Standard English Conventions'],
+    ACT: ['English', 'Math', 'Reading', 'Science']
+  };
+  function skillIcon(name) {
+    var n = String(name).toLowerCase();
+    if (/geomet|trig|spatial|angle|circle|triangle/.test(n)) return 'tri';
+    if (/data|statist|probab|quantitative|percent|ratio|graph|table/.test(n)) return 'bars';
+    if (/science|experiment|scientist/.test(n)) return 'flask';
+    if (/writ|english|convention|grammar|punctuat|sentence|expression|revision|essay/.test(n)) return 'pencil';
+    if (/read|craft|information|ideas|text|vocab|inference|passage|literary/.test(n)) return 'book';
+    return 'calc';
+  }
+  function ico(name, cls) { return h('span', { class: 'tsipp-ic ' + (cls || '') }, [svg(ICON[name])]); }
+  function bookmarks(exam) {
+    try {
+      /* global store, satStore, actStore */
+      var st = exam === 'SAT' ? (typeof satStore !== 'undefined' ? satStore : null) : exam === 'ACT' ? (typeof actStore !== 'undefined' ? actStore : null) : (typeof store !== 'undefined' ? store : null);
+      return st && Array.isArray(st.bookmarks) ? st.bookmarks.length : 0;
+    } catch (e) { return 0; }
+  }
+  var SAVED_BTN = { TSIA2: 'practiceSavedBtn', SAT: 'satPracticeSavedBtn', ACT: 'actPracticeSavedBtn' };
   var NS = 'http://www.w3.org/2000/svg';
   var firstPaint = true;
   // Circle chart; segs = [{pct, color}]. Only ever drawn from the student's real data.
@@ -5042,75 +5328,113 @@ return Q;
 
   // ---------- sections ----------
   function header(S, rerender) {
-    var title;
-    if (S.name) title = h('h2', { class: 'tsipp-h1', text: greeting() + ', ' + S.name });
+    var nameBox;
+    if (S.name) nameBox = h('p', { class: 'tsipp-hello', text: greeting() + ', ' + S.name + '.' });
     else {
       var input = h('input', { type: 'text', class: 'tsipp-name', placeholder: 'Add your first name (optional)', 'aria-label': 'Your first name', maxlength: '30' });
       input.addEventListener('change', function () { T.setName(input.value.trim()); });
-      title = h('div', { class: 'tsipp-namewrap' }, [h('h2', { class: 'tsipp-h1', text: 'My dashboard' }), input]);
+      nameBox = h('label', { class: 'tsipp-namebox' }, [ico('user', 'is-green'), input, svg(ICON.pencil)]);
     }
     var tabs = h('div', { class: 'tsipp-tabs', role: 'group', 'aria-label': 'Choose exam' }, T.EXAMS.map(function (x) {
       return h('button', { type: 'button', class: 'tsipp-tab' + (x === S.exam ? ' is-on' : ''), 'aria-pressed': x === S.exam ? 'true' : 'false',
         onclick: function () { T.setLastExam(x); rerender(x); } }, [x]);
     }));
     var sub = S.answered >= 5
-      ? S.exam + ' · ' + S.mission.tasks.length + ' short tasks today, about ' + S.mission.minutes + ' minutes'
+      ? S.exam + ' · ' + S.mission.tasks.length + ' short task' + (S.mission.tasks.length > 1 ? 's' : '') + ' today, about ' + S.mission.minutes + ' minutes'
       : S.exam + ' · start with a short diagnostic to build your plan';
-    return h('div', { class: 'tsipp-head' }, [h('div', {}, [title, h('p', { class: 'tsipp-muted', text: sub })]), tabs]);
+    var k = S.streak.streak;
+    var cheer = k >= 1
+      ? ['Keep going!', 'You are on a ' + k + '-day streak. Practice today to keep it.']
+      : S.answered ? ['Welcome back!', 'A short set today keeps your skills fresh.']
+      : ['Start small.', 'A little practice each day leads to big results.'];
+    return h('div', { class: 'tsipp-head' }, [
+      h('div', { class: 'tsipp-head-l' }, [
+        h('h2', { class: 'tsipp-h1', text: 'My Dashboard' }),
+        h('p', { class: 'tsipp-lede', text: 'Your progress, practice plan and next steps, all in one place.' }),
+        nameBox,
+        h('p', { class: 'tsipp-muted tsipp-sm', text: sub })
+      ]),
+      tabs,
+      h('div', { class: 'tsipp-cheer' }, [ico('sprout', 'is-green'), h('div', {}, [h('strong', { text: cheer[0] }), h('span', { text: cheer[1] })])])
+    ]);
   }
-
   function testDayCard(S) {
-    var body = (S.daysLeft !== null && S.daysLeft >= 0) ? [
-      h('div', { class: 'tsipp-big' }, [h('span', { class: 'tsipp-num', text: String(S.daysLeft) }), h('span', { class: 'tsipp-unit', text: S.daysLeft === 1 ? 'day left' : 'days left' })]),
-      h('div', { text: fmtDate(S.testDate) }),
-      S.practiced ? h('div', { class: 'tsipp-muted tsipp-sm', text: 'You have practiced ' + S.practiced + ' ' + S.exam + ' skill' + (S.practiced > 1 ? 's' : '') + ' so far.' }) : null
-    ] : [h('p', { class: 'tsipp-muted', text: S.exam === 'TSIA2' ? 'Add your testing-center appointment to get a countdown.' : 'Add your test date to get a countdown and a daily plan.' })];
-    var input = h('input', { type: 'date', class: 'tsipp-date', value: S.testDate || '' });
+    var has = S.daysLeft !== null && S.daysLeft >= 0;
+    var input = h('input', { type: 'date', class: 'tsipp-date tsipp-vh', value: S.testDate || '', 'aria-label': 'Test date' });
     input.addEventListener('change', function () { T.setTestDate(S.exam, input.value); });
-    return card('', [kicker('cal', 'Test day')].concat(body).concat([h('label', { class: 'tsipp-sm tsipp-datelabel' }, [S.testDate ? 'Change date' : 'Set date', input])]));
+    var setBtn = h('button', { type: 'button', class: 'tsipp-chipbtn', onclick: function () {
+      try { if (input.showPicker) { input.showPicker(); return; } } catch (e) { }
+      input.classList.remove('tsipp-vh'); input.focus();
+    } }, [svg(ICON.cal), has ? 'Change' : 'Set date']);
+    var cal = h('div', { class: 'tsipp-calart', 'aria-hidden': 'true' }, [h('span', { class: 'tsipp-calart-top' }), h('span', { class: 'tsipp-calart-grid' }, [h('i'), h('i'), h('i'), h('i'), h('i'), h('i', { class: 'is-on' })])]);
+    var panel = has
+      ? h('div', { class: 'tsipp-daypanel' }, [cal, h('div', {}, [
+          h('div', { class: 'tsipp-daynum', text: String(S.daysLeft) }),
+          h('div', { class: 'tsipp-dayunit', text: S.daysLeft === 1 ? 'DAY' : 'DAYS' }),
+          h('div', { class: 'tsipp-muted', text: 'until your test · ' + fmtDate(S.testDate) })
+        ])])
+      : h('div', { class: 'tsipp-daypanel is-empty' }, [cal, h('div', {}, [
+          h('div', { class: 'tsipp-daynum is-empty', text: '—' }),
+          h('div', { class: 'tsipp-muted', text: 'No date yet. Tap “Set date” to start a countdown.' })
+        ])]);
+    return card('tsipp-c3', [
+      h('div', { class: 'tsipp-ctop' }, [ico('cal', 'is-blue'), h('div', { class: 'tsipp-ctitle' }, [h('h3', { text: 'Test Day' }),
+        h('p', { text: S.exam === 'TSIA2' ? 'Add your testing-center appointment to get a countdown.' : 'Add your test date to get a countdown and a daily plan.' })]), setBtn]),
+      panel, input,
+      has && S.practiced ? h('p', { class: 'tsipp-muted tsipp-sm', text: 'You have practiced ' + S.practiced + ' ' + S.exam + ' skill' + (S.practiced > 1 ? 's' : '') + ' so far.' }) : null
+    ]);
   }
-
   function estimateCard(S) {
-    var kids = [kicker('chart', S.exam === 'TSIA2' ? 'Readiness (practice)' : 'Practice estimate')];
-    var last = (S.trend || []).slice(-3), hasRing = !!(S.estimate && last.length);
-    if (hasRing) {
-      var acc = Math.round(last.reduce(function (s2, x) { return s2 + x.pct; }, 0) / last.length);
-      var tone = S.estimate[0] && S.estimate[0].tone, col = tone === 'good' ? '#15803d' : tone === 'bad' ? '#dc2626' : '#d97706';
-      if (S.exam !== 'TSIA2') col = acc >= 80 ? '#15803d' : acc >= 60 ? '#d97706' : '#dc2626';
-      var ring = h('div', { class: 'tsipp-ring', role: 'img', 'aria-label': 'Recent accuracy ' + acc + ' percent' }, [ringSvg(96, 10, [{ pct: acc, color: col, cls: 'tsipp-ring-fg' }], true), h('b', { text: acc + '%' })]);
-      kids.push(h('div', { class: 'tsipp-ringrow' }, [ring, h('div', { class: 'tsipp-sm tsipp-muted', text: 'Recent accuracy, last ' + last.length + ' practice set' + (last.length > 1 ? 's' : '') })]));
+    var tr = (S.trend || []).slice(-5), last = tr.slice(-3), hasData = !!(S.estimate && last.length);
+    var acc = hasData ? Math.round(last.reduce(function (a, x) { return a + x.pct; }, 0) / last.length) : 0;
+    var col = acc >= 80 ? '#16a34a' : acc >= 60 ? '#0d9488' : '#d97706';
+    var ring = h('div', { class: 'tsipp-ring tsipp-ring--lg', role: 'img', 'aria-label': hasData ? 'Practice readiness ' + acc + ' percent' : 'No readiness data yet' }, [
+      ringSvg(150, 14, hasData ? [{ pct: acc, color: col, cls: 'tsipp-ring-fg' }] : [], true),
+      h('div', { class: 'tsipp-ring-c' }, [h('b', { text: hasData ? acc + '%' : '—' }), h('span', { text: 'Practice readiness' })])
+    ]);
+    var delta = null;
+    if (tr.length >= 2) {
+      var d = tr[tr.length - 1].pct - tr[tr.length - 2].pct;
+      delta = h('div', { class: 'tsipp-delta ' + (d > 0 ? 'is-up' : d < 0 ? 'is-down' : '') }, [h('b', { text: (d > 0 ? '↑ ' : d < 0 ? '↓ ' : '') + Math.abs(d) + '%' }), h('span', { text: 'vs your last set' })]);
     }
+    var bars = h('div', { class: 'tsipp-minibars' + (tr.length ? '' : ' is-empty'), 'aria-hidden': 'true' }, (tr.length ? tr : [0, 0, 0, 0, 0]).map(function (x, i, arr) {
+      var pct = tr.length ? x.pct : 0;
+      return h('div', { class: 'tsipp-mb' + (tr.length && i === arr.length - 1 ? ' is-last' : '') }, [h('i', { style: 'height:' + (tr.length ? Math.max(pct, 6) : 100) + '%' }), h('span', { text: 'S' + (i + 1) })]);
+    }));
+    var kids = [
+      h('div', { class: 'tsipp-ctop' }, [ico('chart', 'is-blue'), h('div', { class: 'tsipp-ctitle' }, [h('h3', { text: S.exam === 'TSIA2' ? 'Readiness (Practice)' : 'Practice Estimate' }),
+        h('p', { text: hasData ? 'Average of your last ' + last.length + ' practice set' + (last.length > 1 ? 's' : '') + '.' : 'Finish a practice set of 5 or more questions to see an estimate.' })]),
+        h('details', { class: 'tsipp-how' }, [h('summary', { text: 'How it works' }), h('p', { text: S.exam === 'TSIA2'
+          ? 'Readiness is your average accuracy on your last 3 practice sets of 5 or more questions. TSIA2 has no predicted scaled score here. Not an official score.'
+          : 'The range comes from your average accuracy on your last 3 practice sets of 5 or more questions. Practice estimate only, not an official score.' })])]),
+      h('div', { class: 'tsipp-readrow' }, [ring, h('div', { class: 'tsipp-readside' }, [delta, bars])])
+    ];
     if (S.estimate) S.estimate.forEach(function (r) {
       kids.push(h('div', { class: 'tsipp-est' }, [
         h('div', { class: 'tsipp-row' }, [h('span', { class: 'tsipp-muted tsipp-sm', text: r.label }), h('span', { class: 'tsipp-status tsipp-status--' + r.tone, text: r.status })]),
-        (S.exam === 'TSIA2' && hasRing) ? null : h('div', { class: 'tsipp-est-range', text: r.range })
+        S.exam === 'TSIA2' ? null : h('div', { class: 'tsipp-est-range', text: r.range })
       ]));
     });
-    else kids.push(h('p', { class: 'tsipp-muted', text: 'Finish a practice set of 5 or more questions to see an estimate.' }));
-    kids.push(h('p', { class: 'tsipp-fine', text: S.exam === 'TSIA2'
-      ? 'TSIA2 has no predicted scaled score here. Based on your last 3 sessions. Not an official score.'
-      : 'Based on your last 3 sessions. Practice estimate only, not an official score.' }));
-    return card('', kids);
+    return card('tsipp-c3', kids);
   }
-
   function streakCard(S) {
-    var d = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    return card('', [
-      kicker('flame', 'Study streak'),
-      h('div', { class: 'tsipp-big' }, [h('span', { class: 'tsipp-num tsipp-warm', text: String(S.streak.streak) }), h('span', { class: 'tsipp-unit', text: S.streak.streak === 1 ? 'day' : 'days' })]),
+    var d = ['M', 'T', 'W', 'T', 'F', 'S', 'S'], BI = ['crown', 'bolt', 'target', 'star'], k = S.streak.streak;
+    return card('tsipp-c3', [
+      h('div', { class: 'tsipp-ctop' }, [ico('flame', 'is-orange'), h('div', { class: 'tsipp-ctitle' }, [h('h3', { text: 'Study Streak' })]),
+        k >= 1 ? h('span', { class: 'tsipp-pill is-orange', text: 'Keep it going!' }) : null]),
+      h('div', { class: 'tsipp-streakbig' }, [h('span', { class: 'tsipp-daynum is-orange', text: String(k) }), h('span', { class: 'tsipp-dayunit', text: k === 1 ? 'DAY STREAK' : 'DAY STREAK' })]),
       h('div', { class: 'tsipp-week', 'aria-label': 'Days studied this week: ' + S.streak.week.filter(function (w) { return w.studied; }).length + ' of 7' },
         S.streak.week.map(function (w, i) {
-          return h('div', { class: 'tsipp-day' }, [h('span', { class: 'tsipp-dot' + (w.studied ? ' is-on' : '') + (w.isToday && !w.studied ? ' is-today' : '') }), h('span', { class: 'tsipp-sm tsipp-muted', text: d[i] })]);
+          return h('div', { class: 'tsipp-day' }, [h('span', { class: 'tsipp-dot' + (w.studied ? ' is-on' : '') + (w.isToday && !w.studied ? ' is-today' : '') }, [w.studied ? svg(ICON.check) : null]), h('span', { class: 'tsipp-sm tsipp-muted', text: d[i] })]);
         })),
-      h('div', { class: 'tsipp-badges' }, S.badges.map(function (b) {
-        return h('span', { class: 'tsipp-badge' + (b.on ? ' is-on' : ''), text: b.on ? b.label : b.label + ' · locked' });
+      h('div', { class: 'tsipp-badgegrid' }, S.badges.map(function (b, i) {
+        return h('div', { class: 'tsipp-badge2' + (b.on ? ' is-on' : '') }, [ico(BI[i] || 'star', 'is-b' + i), h('div', {}, [h('strong', { text: b.label }), h('span', { text: b.on ? 'Unlocked' : 'Locked' })])]);
       }))
     ]);
   }
-
   function missionCard(S) {
     var M = S.mission, done = M.tasks.filter(function (t) { return t.complete; }).length;
-    return card('tsipp-span7', [
+    return card('tsipp-mission', [
       h('div', { class: 'tsipp-row' }, [h('h3', { class: 'tsipp-h2', text: 'Today’s mission' }), h('span', { class: 'tsipp-muted tsipp-sm', text: done + ' of ' + M.tasks.length + ' done · about ' + M.minutes + ' min' })]),
       h('div', { class: 'tsipp-bar', role: 'progressbar', 'aria-label': 'Mission progress', 'aria-valuemin': '0', 'aria-valuemax': String(M.tasks.length), 'aria-valuenow': String(done) },
         [h('span', { style: 'width:' + Math.round(done * 100 / M.tasks.length) + '%' })]),
@@ -5211,7 +5535,8 @@ return Q;
           h('strong', { text: H.count ? 'Confident but wrong' : 'No confident misses' }),
           h('span', { class: 'tsipp-sm', text: H.count
             ? 'You tapped “Confident” and missed ' + H.count + ' of ' + H.sureTotal + ' questions' + (H.skills.length ? ', most in ' + H.skills.map(function (x) { return x.skill; }).join(', ') + '.' : '.')
-            : 'Every question you marked “Confident” was right. Nice calibration.' })
+            : 'Every question you marked “Confident” was right. Nice calibration.' }),
+          H.count ? h('span', { class: 'tsipp-sm tsipp-hidden-pct', text: Math.round(H.count * 100 / H.sureTotal) + '% of your confident answers were wrong' }) : null
         ])
       ]));
     } else kids.push(h('p', { class: 'tsipp-sm tsipp-muted', text: 'Tap Guessing, Not Sure or Confident before you submit. This card then shows where you feel sure but miss.' }));
@@ -5286,27 +5611,65 @@ return Q;
     return h('div', { class: 'tsipp-foot' }, [
       svg(ICON.device),
       h('span', { class: 'tsipp-grow', text: 'Progress is saved in this browser. Sign in to keep it on other devices.' }),
-      btn(function () { printReport(S); }, 'Print weekly report for a parent', 'ghost'),
+      h('button', { type: 'button', class: 'tsipp-btn tsipp-btn--ghost tsipp-btn--ic', onclick: function () { printReport(S); } }, [svg(ICON.printer), 'Print weekly report for a parent']),
       S.testDate ? btn(function () { downloadICS(S); }, 'Add test date to calendar', 'ghost') : null
     ]);
   }
 
+  function weakCard(S, openAll) {
+    var rows = S.skills.filter(function (x) { return x.pct !== null; }).slice(0, 5), real = rows.length > 0;
+    var list;
+    if (real) list = rows.map(function (s) {
+      return h('li', {}, [h('button', { type: 'button', class: 'tsipp-wrow', onclick: function () { ACT.practiceSkill(S.exam, s.name); }, 'aria-label': 'Practice ' + s.name }, [
+        ico(skillIcon(s.name), 'is-' + s.level), h('span', { class: 'tsipp-wname' }, [h('span', { text: s.name }), h('small', { text: s.total + ' questions' })]),
+        h('span', { class: 'tsipp-bar' }, [h('span', { class: 'tsipp-fill--' + s.level, style: 'width:' + Math.max(s.pct, 4) + '%' })]),
+        h('b', { class: 'tsipp-txt--' + s.level, text: s.pct + '%' })
+      ])]);
+    });
+    else list = (DOMAINS[S.exam] || []).slice(0, 5).map(function (n) {
+      return h('li', {}, [h('div', { class: 'tsipp-wrow is-empty' }, [ico(skillIcon(n), 'is-none'), h('span', { class: 'tsipp-wname' }, [h('span', { text: n }), h('small', { text: 'Not started' })]),
+        h('span', { class: 'tsipp-bar' }, [h('span', { style: 'width:0' })]), h('b', { class: 'tsipp-muted', text: '—' })])]);
+    });
+    var top = real && rows[0].level !== 'strong' ? rows[0] : null;
+    return card('tsipp-weak', [
+      h('div', { class: 'tsipp-ctop' }, [ico('bars', 'is-blue'), h('div', { class: 'tsipp-ctitle' }, [h('h3', {}, ['Your Weakest Skills ', h('span', { class: 'tsipp-muted', text: '(so far)' })]),
+        h('p', { text: real ? 'Weakest first. Tap a skill to practice it.' : 'Your skills fill in after your first practice set.' })]),
+        real && openAll ? h('button', { type: 'button', class: 'tsipp-link', onclick: openAll }, ['View all skills →']) : null]),
+      h('ul', { class: 'tsipp-wlist' }, list),
+      top ? h('div', { class: 'tsipp-actions' }, [btn(function () { ACT.practiceSkill(S.exam, top.name); }, 'Practice ' + top.name + ' →'), h('a', { class: 'tsipp-btn tsipp-btn--ghost', href: GUIDE[S.exam] }, ['Study guide'])]) : null
+    ]);
+  }
+
+  function quickLinks(S, openAll) {
+    var missed = S.review.total || 0, due = S.review.due.length, saved = bookmarks(S.exam);
+    var items = [
+      ['bulb', 'is-pink', 'Mistake Review', missed ? (due ? due + ' due today · ' : '') + missed + ' missed question' + (missed > 1 ? 's' : '') + ' to redo' : 'Missed questions show up here to redo.', function () { ACT.review(S.exam); }],
+      ['bookmark', 'is-blue', 'Saved Questions', saved ? saved + ' saved for review' : 'Tap “Save for Review” on any question.', function () {
+        showCenter(S.exam); setTimeout(function () { var b = byId(SAVED_BTN[S.exam]); if (b && !b.disabled) b.click(); }, 250); }],
+      ['clip', 'is-green', 'Today’s Plan', S.answered >= 5 ? S.mission.tasks.length + ' short tasks for your weakest skill' : 'Starts after a short diagnostic.', function () {
+        if (S.answered < 5) { ACT.diagnostic(S.exam); return; } var m = doc.querySelector('.tsipp-mission'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'start' }); }],
+      ['bars', 'is-violet', 'Progress History', S.sessions ? S.sessions + ' practice set' + (S.sessions > 1 ? 's' : '') + ' saved' : 'Your scores and skills over time.', function () {
+        if (S.answered >= 5 && openAll) openAll('tsipp-trend'); else ACT.diagnostic(S.exam); }]
+    ];
+    return h('div', { class: 'tsipp-quicklinks' }, items.map(function (x) {
+      return h('button', { type: 'button', class: 'tsipp-ql', onclick: x[4] }, [ico(x[0], x[1] + ' tsipp-ic--lg'), h('span', { class: 'tsipp-ql-t' }, [h('strong', { text: x[2] }), h('span', { text: x[3] })]), svg(ICON.arrow)]);
+    }));
+  }
   function emptyState(S) {
     return card('tsipp-empty', [
-      h('h3', { class: 'tsipp-h2', text: 'Your dashboard builds itself as you practice' }),
-      h('p', { class: 'tsipp-muted', text: 'Answer a few questions and this page will show your weakest skill, why you miss questions, and a short plan for today.' }),
+      h('div', { class: 'tsipp-ctop' }, [ico('chart', 'is-blue tsipp-ic--lg'), h('div', { class: 'tsipp-ctitle' }, [h('h3', { class: 'tsipp-h2', text: 'Your dashboard builds itself as you practice' }),
+        h('p', { text: 'Answer a few questions and this page will show your weakest skill, why you miss questions, and a short plan for today.' })])]),
       h('ol', { class: 'tsipp-flow' }, [
         ['01', 'search', 'Diagnose', 'A short mixed diagnostic samples every skill and finds your gaps.'],
         ['02', 'bulb', 'Understand', 'Mistake DNA shows why you miss: concept, process, reading or pacing.'],
-        ['03', 'up', 'Improve', 'Get three short tasks a day aimed at your weakest skill.']
+        ['03', 'target', 'Improve', 'Get three short tasks a day aimed at your weakest skill.']
       ].map(function (x) {
         return h('li', {}, [h('span', { class: 'tsipp-flow-ic' }, [svg(ICON[x[1]])]), h('span', { class: 'tsipp-flow-n', text: x[0] }),
           h('strong', { text: x[2] }), h('span', { class: 'tsipp-flow-t', text: x[3] })]);
       })),
-      h('div', { class: 'tsipp-actions' }, [btn(function () { ACT.diagnostic(S.exam); }, 'Take the ' + S.exam + ' diagnostic'), btn(function () { ACT.quick(S.exam); }, 'Try 5 questions', 'ghost')])
+      h('div', { class: 'tsipp-actions' }, [btn(function () { ACT.diagnostic(S.exam); }, 'Take the ' + S.exam + ' diagnostic →'), btn(function () { ACT.quick(S.exam); }, 'Try 5 questions', 'ghost')])
     ]);
   }
-
   // ---------- extras ----------
   function downloadICS(S) {
     var d = S.testDate.replace(/-/g, ''), n = new Date(S.testDate + 'T12:00:00'); n.setDate(n.getDate() + 1);
@@ -5354,14 +5717,23 @@ return Q;
     function render(x) {
       var S = T.summary(x || exam); exam = S.exam;
       var root = h('div', { class: 'tsipp' + (firstPaint ? ' is-first' : '') }, [header(S, render), h('div', { class: 'tsipp-grid3' }, [testDayCard(S), estimateCard(S), streakCard(S)])]);
-      if (S.answered < 5) root.appendChild(emptyState(S));
-      else {
-        root.appendChild(h('div', { class: 'tsipp-grid12' }, [missionCard(S), priorityCard(S)]));
-        root.appendChild(h('div', { class: 'tsipp-grid12' }, [insightsCard(S), fixCard(S)]));
+      function openAll(target) {
+        showAll = true; render(exam);
+        setTimeout(function () { var t = byId(typeof target === 'string' ? target : 'tsipp-analysis'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+      }
+      if (S.answered < 5) {
+        root.appendChild(h('div', { class: 'tsipp-gridmain' }, [emptyState(S), weakCard(S, null)]));
+        root.appendChild(quickLinks(S, null));
+      } else {
+        root.appendChild(h('div', { class: 'tsipp-gridmain' }, [
+          h('div', { class: 'tsipp-col' }, [missionCard(S), insightsCard(S)]),
+          h('div', { class: 'tsipp-col' }, [weakCard(S, openAll), fixCard(S)])
+        ]));
+        root.appendChild(quickLinks(S, openAll));
         // On phones the detailed analysis starts folded so the page stays short.
         var more = h('div', { class: 'tsipp-analysis' + (showAll ? '' : ' is-collapsed'), id: 'tsipp-analysis' }, [
           h('div', { class: 'tsipp-grid2' }, [dnaCard(S), skillCard(S)]),
-          h('div', { class: 'tsipp-grid12' }, [trendCard(S), reviewCard(S)])
+          h('div', { class: 'tsipp-grid12', id: 'tsipp-trend' }, [trendCard(S), reviewCard(S)])
         ]);
         root.appendChild(h('button', { type: 'button', class: 'tsipp-toggle', 'aria-expanded': showAll ? 'true' : 'false', 'aria-controls': 'tsipp-analysis',
           onclick: function () { showAll = !showAll; render(exam); } }, [showAll ? 'Hide full analysis' : 'Show Mistake DNA, skill map & trends']));
@@ -5470,7 +5842,21 @@ return Q;
     }, { threshold: 0.6 });
     Array.prototype.forEach.call(els, function (el) { io.observe(el); });
   }
-  function boot() { try { header(); } catch (e) { } try { countUp(); } catch (e) { } try { reveal(); navSpy(); } catch (e) { } }
+  // "Start free diagnostic": scroll to the three exam cards and point at their Diagnostic buttons.
+  function diagCta() {
+    doc.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('[data-tsipp-diag-scroll]');
+      if (!a) return;
+      var row = doc.getElementById('exam-choose');
+      if (!row) return;
+      e.preventDefault();
+      try { row.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); } catch (x) { row.scrollIntoView(); }
+      var btns = row.querySelectorAll('[data-v10-diag]');
+      Array.prototype.forEach.call(btns, function (b) { b.classList.remove('tsipp-flash'); void b.offsetWidth; b.classList.add('tsipp-flash'); });
+      setTimeout(function () { Array.prototype.forEach.call(btns, function (b) { b.classList.remove('tsipp-flash'); }); }, 3000);
+    });
+  }
+  function boot() { try { diagCta(); } catch (e) { } try { header(); } catch (e) { } try { countUp(); } catch (e) { } try { reveal(); navSpy(); } catch (e) { } }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 350); });
   else setTimeout(boot, 350);
 })(window, document);
