@@ -1721,6 +1721,33 @@ button.tsipp-wrow:hover{background:#f8fafc}
   .tsipp-hup,.tsipp-planwrap,.tsipp-planwrap *,.tsipp-planwrap *::before,.tsipp-planwrap *::after{animation:none!important;transition:none!important}
 }
 @media (min-width:980px){.tsipp-heroTop .v10HeroCopy h1{font-size:clamp(38px,3.7vw,54px)!important}}
+/* hero icons v2 (realistic) + timing without the priority box */
+.tsipp-dk{filter:drop-shadow(0 14px 22px rgba(2,6,23,.45)) drop-shadow(0 2px 4px rgba(2,6,23,.3))}
+.dk-bulb{width:64px;left:-58px;top:-26px}
+.dk-chart{width:86px;left:-84px;top:112px}
+.dk-books{width:118px;left:-100px;bottom:92px}
+.dk-check{width:72px;left:-62px;bottom:-14px}
+.dk-target{width:78px;right:-40px;top:-30px}
+.dk-pencil{width:74px;right:-44px;bottom:-12px}
+.dk-brain{width:66px;right:-54px;top:44%}
+@media (max-width:1180px){.dk-bulb{left:-30px;top:-34px}.dk-check{left:-28px;bottom:-24px}.dk-target{right:-22px}.dk-pencil{right:-26px}}
+@media (prefers-reduced-motion:no-preference){
+  .tsipp-planwrap .tsipp-path .is-1{animation-delay:1s}.tsipp-planwrap .tsipp-path .is-2{animation-delay:1.12s}
+  .tsipp-planwrap .tsipp-path .is-3{animation-delay:1.24s}.tsipp-planwrap .tsipp-path .is-4{animation-delay:1.36s}
+  .tsipp-planwrap .tsipp-path .is-1 .tsipp-dot{animation-delay:1.6s}.tsipp-planwrap .tsipp-path .is-2 .tsipp-dot{animation-delay:1.85s}
+  .tsipp-planwrap .tsipp-path .is-3 .tsipp-dot{animation-delay:2.1s}.tsipp-planwrap .tsipp-path .is-4 .tsipp-dot{animation-delay:2.35s}
+}
+.dk-bulb{left:-40px}
+.dk-chart{width:70px;left:-50px;top:150px}
+.dk-books{width:100px;left:-64px;bottom:96px}
+.dk-check{left:-46px}
+@media (min-width:980px){.tsipp-heroTop .v10HeroCopy h1{font-size:clamp(36px,3.3vw,50px)!important}}
+.dk-books{left:-52px}
+.dk-bulb{width:56px;left:-58px;top:-18px}
+.dk-chart{width:58px;left:-62px;top:132px}
+.dk-books{width:66px;left:-64px;bottom:118px}
+.dk-check{width:56px;left:-60px;bottom:4px}
+@media (max-width:1400px){.dk-target{right:-14px;width:64px}.dk-pencil{right:-16px;width:60px}.dk-brain{display:none}}
 </style>
 <style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress,#test-date-center,#study-plan,#mastery-path,.v10Why{display:none!important}</style>
 </head>
@@ -1862,13 +1889,80 @@ function spConsole(method){
  </div>
  <aside class="tsipp-planwrap" aria-label="Example of a TSIA2 study plan">
   <div class="tsipp-deco" aria-hidden="true">
-   <svg class="tsipp-dk dk-bulb" viewBox="0 0 64 64"><defs><radialGradient id="dkb" cx=".4" cy=".35"><stop offset="0" stop-color="#fff7c2"/><stop offset=".6" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/></radialGradient></defs><path d="M32 8a17 17 0 0 0-10 30.8c2 1.5 3 3.4 3 5.7V47h14v-2.5c0-2.3 1-4.2 3-5.7A17 17 0 0 0 32 8z" fill="url(#dkb)"/><rect x="25" y="47" width="14" height="4" rx="2" fill="#94a3b8"/><rect x="26.5" y="52" width="11" height="4" rx="2" fill="#64748b"/><path d="M8 20l5 2M56 20l-5 2M32 2v3M14 8l3 3M50 8l-3 3" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/></svg>
-   <svg class="tsipp-dk dk-chart" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="52" rx="12" fill="#eef2ff"/><rect x="14" y="34" width="9" height="14" rx="3" fill="#818cf8"/><rect x="27.5" y="26" width="9" height="22" rx="3" fill="#6366f1"/><rect x="41" y="16" width="9" height="32" rx="3" fill="#4f46e5"/></svg>
-   <svg class="tsipp-dk dk-books" viewBox="0 0 80 64"><rect x="6" y="40" width="68" height="14" rx="4" fill="#2563eb"/><rect x="10" y="44" width="60" height="6" rx="2" fill="#dbeafe"/><rect x="10" y="24" width="62" height="14" rx="4" fill="#7c3aed"/><rect x="14" y="28" width="54" height="6" rx="2" fill="#ede9fe"/><rect x="4" y="8" width="64" height="14" rx="4" fill="#0d9488"/><rect x="8" y="12" width="56" height="6" rx="2" fill="#ccfbf1"/></svg>
-   <svg class="tsipp-dk dk-target" viewBox="0 0 64 64"><circle cx="30" cy="34" r="24" fill="#fee2e2"/><circle cx="30" cy="34" r="18" fill="#ef4444"/><circle cx="30" cy="34" r="12" fill="#fff"/><circle cx="30" cy="34" r="6" fill="#ef4444"/><path d="M31 33L56 8" stroke="#1e3a8a" stroke-width="3.5" stroke-linecap="round"/><path d="M52 4l3 6 6 3-7 3-5-5z" fill="#2563eb"/></svg>
-   <svg class="tsipp-dk dk-check" viewBox="0 0 72 56"><rect x="2" y="2" width="68" height="52" rx="10" fill="#f8fafc"/><rect x="10" y="12" width="12" height="12" rx="3" fill="#22c55e"/><path d="M12.5 18l2.5 2.5 5-5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="28" y="15" width="34" height="5" rx="2.5" fill="#bfdbfe"/><rect x="10" y="32" width="12" height="12" rx="3" fill="#22c55e"/><path d="M12.5 38l2.5 2.5 5-5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="28" y="35" width="28" height="5" rx="2.5" fill="#bfdbfe"/></svg>
-   <svg class="tsipp-dk dk-pencil" viewBox="0 0 64 64"><g transform="rotate(40 32 32)"><rect x="26" y="4" width="12" height="42" rx="2" fill="#fbbf24"/><rect x="26" y="4" width="12" height="7" rx="2" fill="#f472b6"/><rect x="26" y="11" width="12" height="3" fill="#cbd5e1"/><path d="M26 46h12l-6 12z" fill="#fde68a"/><path d="M30 54h4l-2 4z" fill="#334155"/></g></svg>
-   <svg class="tsipp-dk dk-brain" viewBox="0 0 64 64"><path d="M24 10a9 9 0 0 0-9 9 9 9 0 0 0-5 16 9 9 0 0 0 8 13 8 8 0 0 0 14 2V14a8 8 0 0 0-8-4zM40 10a9 9 0 0 1 9 9 9 9 0 0 1 5 16 9 9 0 0 1-8 13 8 8 0 0 1-14 2V14a8 8 0 0 1 8-4z" fill="#c4b5fd"/><path d="M32 14v36M22 24c3 0 5 2 5 5M42 24c-3 0-5 2-5 5M20 38c3-1 6 0 7 3M44 38c-3-1-6 0-7 3" stroke="#7c3aed" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+   <svg class="tsipp-dk dk-bulb" viewBox="0 0 80 96"><defs>
+    <radialGradient id="dkBulbGlass" cx=".38" cy=".3" r=".75"><stop offset="0" stop-color="#fffbe6"/><stop offset=".35" stop-color="#fde68a"/><stop offset=".75" stop-color="#fbbf24"/><stop offset="1" stop-color="#d97706"/></radialGradient>
+    <radialGradient id="dkBulbGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fde68a" stop-opacity=".75"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="dkBulbMetal" x1="0" x2="1"><stop offset="0" stop-color="#64748b"/><stop offset=".35" stop-color="#e2e8f0"/><stop offset=".6" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/></linearGradient></defs>
+    <circle cx="40" cy="36" r="36" fill="url(#dkBulbGlow)"/>
+    <path d="M40 8C26 8 16 18.5 16 32c0 8.6 4.3 14.6 8.6 19.4 2.6 2.9 4.2 6 4.2 9.6V64h22.4v-3c0-3.6 1.6-6.7 4.2-9.6C59.7 46.6 64 40.6 64 32 64 18.5 54 8 40 8z" fill="url(#dkBulbGlass)"/>
+    <path d="M33 60V46c0-3 2-5 4-5M47 60V46c0-3-2-5-4-5M37 41c1 3 5 3 6 0" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="30" cy="22" rx="6" ry="9" fill="#fff" opacity=".75" transform="rotate(-25 30 22)"/>
+    <rect x="28" y="63" width="24" height="7" rx="3" fill="url(#dkBulbMetal)"/><rect x="29" y="70" width="22" height="6" rx="3" fill="url(#dkBulbMetal)"/><rect x="30" y="76" width="20" height="6" rx="3" fill="url(#dkBulbMetal)"/>
+    <path d="M34 82h12l-2 5h-8z" fill="#334155"/>
+   </svg>
+   <svg class="tsipp-dk dk-chart" viewBox="0 0 96 88"><defs>
+    <linearGradient id="dkCard" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e0e7ff"/></linearGradient>
+    <linearGradient id="dkBarA" x1="0" x2="1"><stop offset="0" stop-color="#a5b4fc"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+    <linearGradient id="dkBarB" x1="0" x2="1"><stop offset="0" stop-color="#818cf8"/><stop offset="1" stop-color="#4338ca"/></linearGradient>
+    <linearGradient id="dkBarC" x1="0" x2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs>
+    <rect x="4" y="4" width="88" height="80" rx="16" fill="url(#dkCard)" stroke="#fff" stroke-width="2"/>
+    <path d="M16 70h64" stroke="#c7d2fe" stroke-width="2" stroke-linecap="round"/>
+    <path d="M22 52h12v18H22z" fill="url(#dkBarA)"/><path d="M22 52l4-4h12l-4 4z" fill="#c7d2fe"/><path d="M34 52l4-4v18l-4 4z" fill="#4f46e5"/>
+    <path d="M42 38h12v32H42z" fill="url(#dkBarB)"/><path d="M42 38l4-4h12l-4 4z" fill="#c7d2fe"/><path d="M54 38l4-4v32l-4 4z" fill="#3730a3"/>
+    <path d="M62 24h12v46H62z" fill="url(#dkBarC)"/><path d="M62 24l4-4h12l-4 4z" fill="#a5b4fc"/><path d="M74 24l4-4v46l-4 4z" fill="#1e1b4b"/>
+    <path d="M20 44l20-12 16 6 22-20" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="78" cy="18" r="3.5" fill="#f59e0b"/>
+   </svg>
+   <svg class="tsipp-dk dk-books" viewBox="0 0 120 96"><defs>
+    <linearGradient id="dkPages" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffdf5"/><stop offset="1" stop-color="#e7e2d3"/></linearGradient>
+    <linearGradient id="dkBk1" x1="0" x2="1"><stop offset="0" stop-color="#1d4ed8"/><stop offset=".5" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/></linearGradient>
+    <linearGradient id="dkBk2" x1="0" x2="1"><stop offset="0" stop-color="#6d28d9"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
+    <linearGradient id="dkBk3" x1="0" x2="1"><stop offset="0" stop-color="#0f766e"/><stop offset=".5" stop-color="#14b8a6"/><stop offset="1" stop-color="#115e59"/></linearGradient></defs>
+    <path d="M10 70l84-6 16 8-84 8z" fill="#1e3a8a"/><path d="M10 70h0l16 10v10L10 80z" fill="#1e40af"/><path d="M26 80l84-8v10l-84 8z" fill="url(#dkBk1)"/><path d="M29 81.5l78-7.3v4.6l-78 7.3z" fill="url(#dkPages)"/><path d="M40 84l6-.6M60 82.2l20-1.9" stroke="#fde68a" stroke-width="2"/>
+    <path d="M16 44l80 -4 12 9-80 5z" fill="#4c1d95"/><path d="M16 44l12 10v12L16 56z" fill="#5b21b6"/><path d="M28 54l80-5v12l-80 5z" fill="url(#dkBk2)"/><path d="M31 56l74-4.6v5l-74 4.6z" fill="url(#dkPages)"/><path d="M44 58.5l30-1.9" stroke="#fde68a" stroke-width="2"/>
+    <path d="M6 20l82 2 14 8-82-1z" fill="#134e4a"/><path d="M6 20l14 9v12L6 32z" fill="#0f766e"/><path d="M20 29l82 1v12l-82-1z" fill="url(#dkBk3)"/><path d="M23 31.5l76 .8v5l-76-.8z" fill="url(#dkPages)"/><path d="M36 34l40 .4" stroke="#fde68a" stroke-width="2"/>
+   </svg>
+   <svg class="tsipp-dk dk-check" viewBox="0 0 88 100"><defs>
+    <linearGradient id="dkBoard" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient>
+    <linearGradient id="dkClip" x1="0" x2="1"><stop offset="0" stop-color="#94a3b8"/><stop offset=".5" stop-color="#f1f5f9"/><stop offset="1" stop-color="#64748b"/></linearGradient>
+    <linearGradient id="dkTick" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ade80"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs>
+    <rect x="6" y="10" width="76" height="86" rx="10" fill="url(#dkBoard)"/>
+    <rect x="13" y="20" width="62" height="70" rx="5" fill="#fff"/>
+    <path d="M30 6h28a4 4 0 0 1 4 4v10H26V10a4 4 0 0 1 4-4z" fill="url(#dkClip)"/><circle cx="44" cy="10" r="3" fill="#475569"/>
+    <rect x="20" y="32" width="14" height="14" rx="4" fill="url(#dkTick)"/><path d="M23.5 39l3 3 5-6" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="40" y="35" width="28" height="4" rx="2" fill="#bfdbfe"/><rect x="40" y="41" width="18" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="20" y="56" width="14" height="14" rx="4" fill="url(#dkTick)"/><path d="M23.5 63l3 3 5-6" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="40" y="59" width="24" height="4" rx="2" fill="#bfdbfe"/><rect x="40" y="65" width="20" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="20.5" y="76.5" width="13" height="9" rx="3" fill="none" stroke="#cbd5e1" stroke-width="2"/><rect x="40" y="79" width="26" height="4" rx="2" fill="#e2e8f0"/>
+   </svg>
+   <svg class="tsipp-dk dk-target" viewBox="0 0 96 96"><defs>
+    <radialGradient id="dkTgRed" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#be123c"/></radialGradient>
+    <radialGradient id="dkTgWhite" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2e8f0"/></radialGradient>
+    <linearGradient id="dkShaft" x1="0" x2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+    <ellipse cx="42" cy="88" rx="26" ry="5" fill="#020617" opacity=".25"/>
+    <circle cx="42" cy="50" r="36" fill="url(#dkTgRed)"/><circle cx="42" cy="50" r="27" fill="url(#dkTgWhite)"/><circle cx="42" cy="50" r="18" fill="url(#dkTgRed)"/><circle cx="42" cy="50" r="9" fill="url(#dkTgWhite)"/><circle cx="42" cy="50" r="4" fill="#be123c"/>
+    <ellipse cx="30" cy="34" rx="8" ry="4" fill="#fff" opacity=".35" transform="rotate(-35 30 34)"/>
+    <path d="M43 49L80 12" stroke="url(#dkShaft)" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M76 8l4-6 3 10 10 3-6 4-9-2z" fill="#f59e0b"/><path d="M80 12l3-10 3 10 10 3-10 3z" fill="#fbbf24" opacity=".85"/>
+   </svg>
+   <svg class="tsipp-dk dk-pencil" viewBox="0 0 96 96"><defs>
+    <linearGradient id="dkPenBody" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset=".33" stop-color="#fcd34d"/><stop offset=".34" stop-color="#fbbf24"/><stop offset=".66" stop-color="#fbbf24"/><stop offset=".67" stop-color="#d97706"/><stop offset="1" stop-color="#b45309"/></linearGradient>
+    <linearGradient id="dkFerrule" x1="0" x2="1"><stop offset="0" stop-color="#94a3b8"/><stop offset=".45" stop-color="#f8fafc"/><stop offset="1" stop-color="#64748b"/></linearGradient>
+    <linearGradient id="dkWood" x1="0" x2="1"><stop offset="0" stop-color="#f5d0a9"/><stop offset="1" stop-color="#d6a46b"/></linearGradient>
+    <linearGradient id="dkEraser" x1="0" x2="1"><stop offset="0" stop-color="#f9a8d4"/><stop offset="1" stop-color="#db2777"/></linearGradient></defs>
+    <g transform="rotate(45 48 48)">
+     <rect x="40" y="0" width="16" height="11" rx="4" fill="url(#dkEraser)"/>
+     <rect x="40" y="10" width="16" height="10" fill="url(#dkFerrule)"/><path d="M40 13h16M40 17h16" stroke="#64748b" stroke-width="1"/>
+     <rect x="40" y="20" width="16" height="52" fill="url(#dkPenBody)"/>
+     <path d="M40 72h16l-8 16z" fill="url(#dkWood)"/><path d="M45 82h6l-3 6z" fill="#1e293b"/>
+    </g>
+   </svg>
+   <svg class="tsipp-dk dk-brain" viewBox="0 0 96 88"><defs>
+    <radialGradient id="dkBrain" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fbcfe8"/><stop offset=".55" stop-color="#f472b6"/><stop offset="1" stop-color="#be185d"/></radialGradient></defs>
+    <path d="M46 10c-6-5-17-4-21 3-8-1-15 6-14 14-7 4-8 14-3 20-3 8 2 17 11 18 3 8 13 11 20 6 3 2 5 3 7 3V13c0-1 0-2 0-3z" fill="url(#dkBrain)"/>
+    <path d="M50 10c6-5 17-4 21 3 8-1 15 6 14 14 7 4 8 14 3 20 3 8-2 17-11 18-3 8-13 11-20 6-3 2-5 3-7 3V13c0-1 0-2 0-3z" fill="url(#dkBrain)"/>
+    <path d="M48 12v62M30 24c5 0 8 4 8 9M24 42c6-2 12 1 13 7M30 60c3-4 9-5 13-2M66 24c-5 0-8 4-8 9M72 42c-6-2-12 1-13 7M66 60c-3-4-9-5-13-2" fill="none" stroke="#9d174d" stroke-width="2.4" stroke-linecap="round" opacity=".75"/>
+    <ellipse cx="30" cy="20" rx="7" ry="4" fill="#fff" opacity=".45" transform="rotate(-25 30 20)"/>
+   </svg>
   </div>
   <div class="tsipp-plan-glow" aria-hidden="true"></div>
   <div class="tsipp-plan">
@@ -1884,11 +1978,6 @@ function spConsole(method){
     <li class="tsipp-pa" style="--d:0.75s"><button type="button" class="tsipp-prow is-violet" data-tsipp-area="read" aria-label="Practice ELAR – Reading"><span class="tsipp-pic"><svg viewBox="0 0 24 24"><path d="M3 5.5c3-1.3 6-1.3 9 .8 3-2.1 6-2.1 9-.8v13c-3-1.3-6-1.3-9 .8-3-2.1-6-2.1-9-.8z"/><path d="M12 6.3v13"/></svg></span><span class="tsipp-pname">ELAR – Reading</span><span class="tsipp-pbar"><i style="width:68%;--d:0.85s"></i></span><b data-to="68" data-suffix="%">68%</b><span class="tsipp-pgo" aria-hidden="true">›</span></button></li>
     <li class="tsipp-pa" style="--d:0.85s"><button type="button" class="tsipp-prow is-orange" data-tsipp-area="write" aria-label="Practice ELAR – Writing and Language"><span class="tsipp-pic"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span><span class="tsipp-pname">ELAR – Writing &amp; Language</span><span class="tsipp-pbar"><i style="width:55%;--d:0.95s"></i></span><b data-to="55" data-suffix="%">55%</b><span class="tsipp-pgo" aria-hidden="true">›</span></button></li>
    </ul>
-   <div class="tsipp-prio tsipp-pa" style="--d:1s">
-    <span class="tsipp-prio-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span>
-    <div class="tsipp-prio-t"><small>Your Top Priority</small><b>Algebra: Linear Equations</b><span>You missed 5 of 8 questions marked “Confident.”</span></div>
-    <button type="button" class="tsipp-prio-btn" data-tsipp-area="linear">Practice this skill <span aria-hidden="true">→</span></button>
-   </div>
    <ol class="tsipp-path">
     <li class="is-1"><span class="tsipp-dot"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></span><b>Diagnostic</b><small>10–14 questions</small></li>
     <li class="is-2"><span class="tsipp-dot">2</span><b>Practice</b><small>10 questions</small></li>
