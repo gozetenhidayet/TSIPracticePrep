@@ -1494,6 +1494,154 @@ button.tsipp-wrow:hover{background:#f8fafc}
 @media (max-width:700px){
   .tsipp-ctop>.tsipp-link{order:3;flex-basis:100%;padding-left:52px;text-align:left}
 }
+
+/* ===== Question bank (mockup layout) ===== */
+.tsipp-qb .bankShell{background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important;display:flex;flex-direction:column;gap:18px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.tsipp-qb h2,.tsipp-qb h3{margin:0}
+.qb-head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:center}
+.qb-title{display:flex;align-items:center;gap:14px}
+.qb-logo{flex:0 0 56px;width:56px;height:56px;border-radius:16px;background:#eef2ff;display:grid;place-items:center}
+.qb-logo svg{width:40px;height:40px}
+.qb-title h2{font-size:clamp(28px,3.2vw,40px)!important;letter-spacing:-.02em;color:#0f172a;line-height:1.1}
+.qb-title p{margin:4px 0 0;color:#475569;font-size:16px}
+.qb-trust{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.qb-trust li{display:flex;align-items:center;gap:8px;font-size:14.5px;color:#1e293b}
+.qb-trust i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff}
+.qb-trust i.is-green{background:#16a34a}.qb-trust i.is-blue{background:#2563eb}.qb-trust i.is-violet{background:#7c3aed}.qb-trust i.is-amber{background:#d97706}
+.qb-trust b span{display:inline!important}
+.qb-heroCard{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:22px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe}
+.qb-target{flex:0 0 96px;width:96px;height:96px}
+.qb-heroCard b{display:block;font-size:20px;color:#0f172a;line-height:1.2}
+.qb-heroCard span{display:block;margin-top:6px;font-size:14px;color:#475569;line-height:1.45}
+
+/* builder */
+.tsipp-qb .qb-builder{padding:22px!important;background:#fff;border:1px solid #e6ecf5;border-radius:24px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 14px 34px rgba(15,23,42,.06);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1.1fr) minmax(0,.9fr) minmax(0,.7fr) minmax(0,.85fr);gap:18px;align-items:start}
+.qb-step{min-width:0;display:flex;flex-direction:column;gap:12px}
+.qb-step+.qb-step{border-left:1px solid #eef2f7;padding-left:18px}
+.qb-step h3{display:flex;align-items:center;gap:8px;font-size:16px!important;font-weight:800;color:#0f172a}
+.qb-step h3 em{font-style:normal;flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:13px}
+.qb-muted{color:#64748b;font-weight:600;font-size:12.5px}
+.qb-exams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.qb-exam{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px 12px;border-radius:16px;border:2px solid transparent;cursor:pointer;font:inherit;color:#0f172a;min-height:118px}
+.qb-exam.is-tsi{background:#f0fdfa}.qb-exam.is-sat{background:#f5f3ff}.qb-exam.is-act{background:#fff7ed}
+.qb-exam .qb-ex-ic{font-size:24px;line-height:1}
+.qb-exam b{font-size:18px}
+.qb-exam small{font-size:12.5px;color:#475569;line-height:1.35}
+.qb-exam.is-on.is-tsi{border-color:#0f766e}.qb-exam.is-on.is-sat{border-color:#6d28d9}.qb-exam.is-on.is-act{border-color:#c2410c}
+.qb-exam.is-on::after{content:"\2713";position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:#0f766e;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900}
+.qb-exam.is-on.is-sat::after{background:#6d28d9}.qb-exam.is-on.is-act::after{background:#c2410c}
+.qb-secs{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.qb-sec{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:14px;border:2px solid #e2e8f0;background:#f8fafc;cursor:pointer;font:inherit;color:#0f172a}
+.qb-sec b{font-size:14px;line-height:1.25}
+.qb-sec small{font-size:12px;color:#475569}
+.qb-sec.is-on{border-color:#0f766e;background:#f0fdfa}
+.qb-diffs{display:flex;flex-direction:column;gap:6px}
+.qb-diff{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;border:2px solid transparent;cursor:pointer;font:inherit;font-weight:700;font-size:14px;text-align:left}
+.qb-diff i{width:10px;height:10px;border-radius:50%}
+.qb-diff.is-mixed{background:#f5f3ff;color:#5b21b6}.qb-diff.is-mixed i{background:#7c3aed}
+.qb-diff.is-easy{background:#f0fdf4;color:#166534}.qb-diff.is-easy i{background:#16a34a}
+.qb-diff.is-medium{background:#eff6ff;color:#1e40af}.qb-diff.is-medium i{background:#2563eb}
+.qb-diff.is-hard{background:#fff7ed;color:#9a3412}.qb-diff.is-hard i{background:#ea580c}
+.qb-diff.is-on{border-color:currentColor}
+.tsipp-qb .qb-filters{display:flex!important;flex-direction:column;gap:12px;grid-template-columns:none!important}
+.tsipp-qb .qb-filters label{font-size:12px!important;text-transform:none!important;color:#334155!important}
+.tsipp-qb .qb-lbl{display:block;font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#475569}
+.tsipp-qb .qb-filters select{min-height:46px!important;border-radius:12px!important;border:1px solid #cbd5e1!important;background:#fff!important;font-size:14px!important;font-weight:600!important;color:#0f172a!important;padding:0 10px!important}
+.tsipp-qb.qb-ready .qb-sr{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important}
+.tsipp-qb:not(.qb-ready) .qb-js{display:none!important}
+.tsipp-qb:not(.qb-ready) .qb-builder{display:block}
+.tsipp-qb:not(.qb-ready) .qb-step+.qb-step{border:0;padding:0;margin-top:14px}
+.tsipp-qb:not(.qb-ready) .qb-filters{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;flex-direction:row}
+.tsipp-qb.qb-ready .qb-sizesel{order:2}
+.tsipp-qb .bankLaunch{width:100%;min-height:52px;border-radius:14px!important;background:linear-gradient(135deg,#2563eb,#1d4ed8)!important;color:#fff!important;font-size:15.5px!important;font-weight:800!important;box-shadow:0 10px 22px rgba(37,99,235,.3)}
+.tsipp-qb .bankLaunch:hover{background:#1d4ed8!important;transform:translateY(-1px)}
+.tsipp-qb .bankCount{align-self:flex-start;font-size:12.5px!important;background:#eef2ff!important;border-color:#c7d2fe!important;color:#3730a3!important}
+.tsipp-qb .qb-desc{font-size:12.5px;color:#475569;line-height:1.4}
+
+/* popular skills */
+.qb-skills,.qb-examples{background:#fff;border:1px solid #e6ecf5;border-radius:24px;padding:20px 22px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 10px 26px rgba(15,23,42,.05)}
+.qb-rowhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.qb-rowhead h3{font-size:18px!important;font-weight:800;color:#0f172a}
+.qb-rowhead p{margin:3px 0 0;font-size:14px;color:#475569}
+.qb-arrows{display:flex;gap:8px}
+.qb-arrows button,.qb-refresh{min-width:40px;min-height:40px;border-radius:12px;border:1px solid #cbd5e1;background:#fff;color:#0f172a;font-weight:800;font-size:18px;cursor:pointer}
+.qb-refresh{font-size:14px;padding:0 14px}
+.qb-arrows button:hover,.qb-refresh:hover{border-color:#2563eb;color:#1d4ed8}
+.qb-skillrow{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 2px 8px;scrollbar-width:thin}
+.qb-skill{flex:0 0 228px;scroll-snap-align:start;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border-radius:16px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font:inherit;color:#0f172a;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.qb-skill:hover:not(:disabled){transform:translateY(-2px);border-color:#bfdbfe;box-shadow:0 12px 24px rgba(15,23,42,.08)}
+.qb-skill:disabled{opacity:.6;cursor:default}
+.qb-sIc{flex:0 0 48px;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:20px;font-weight:900;color:#fff}
+.qb-sIc.is-blue{background:linear-gradient(135deg,#6366f1,#2563eb)}.qb-sIc.is-green{background:linear-gradient(135deg,#22c55e,#15803d)}
+.qb-sIc.is-pink{background:linear-gradient(135deg,#f472b6,#db2777)}.qb-sIc.is-violet{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
+.qb-sIc.is-amber{background:linear-gradient(135deg,#fbbf24,#ea580c)}.qb-sIc.is-teal{background:linear-gradient(135deg,#2dd4bf,#0f766e)}
+.qb-sT{min-width:0}
+.qb-sT b{display:block;font-size:14.5px;line-height:1.3}
+.qb-sT small{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:#334155;background:#f1f5f9;border-radius:8px;padding:3px 8px}
+.qb-empty{margin:0;color:#475569;font-size:14px}
+
+/* example questions */
+.tsipp-qb .bankPreview{display:none!important}
+.tsipp-qb:not(.qb-ready) .bankPreview{display:grid!important}
+.qb-exgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qb-ex{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:18px;border:1px solid #e2e8f0;background:#fff;min-width:0}
+.qb-exTop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.qb-exMeta{font-size:12.5px;color:#475569;line-height:1.35}
+.qb-badge{flex:0 0 auto;font-size:12px;font-weight:800;border-radius:8px;padding:3px 9px}
+.qb-badge.is-easy{background:#dcfce7;color:#166534}.qb-badge.is-medium{background:#dbeafe;color:#1e40af}.qb-badge.is-hard{background:#ffedd5;color:#9a3412}
+.qb-exPass{margin:0;font-size:13px;line-height:1.5;color:#334155;background:#f8fafc;border-left:3px solid #cbd5e1;border-radius:0 10px 10px 0;padding:8px 10px}
+.qb-exQ{margin:0;font-size:15.5px;font-weight:700;color:#0f172a;line-height:1.4}
+.qb-exCh{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qb-exCh li{display:flex;align-items:flex-start;gap:8px;min-width:0;padding:8px 10px;border:1px solid #e2e8f0;border-radius:10px;font-size:13.5px;color:#1e293b;line-height:1.35}
+.qb-exCh li i{font-style:normal;flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:1.5px solid #94a3b8;display:grid;place-items:center;font-size:11px;font-weight:800;color:#475569}
+.qb-exCh li span{min-width:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.qb-exFt{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding-top:4px}
+.qb-exFt .qb-muted{font-size:12px}
+.qb-try{min-height:38px;padding:0 12px;border-radius:10px;border:0;background:#eff6ff;color:#1d4ed8;font-weight:800;font-size:13.5px;cursor:pointer}
+.qb-try:hover{background:#dbeafe}
+
+/* more tools */
+.tsipp-more.qb-tools{max-width:1336px;margin:0 auto 24px!important;padding:18px 22px!important;display:grid!important;grid-template-columns:minmax(0,1.3fr) repeat(4,minmax(0,1fr));gap:14px;align-items:stretch;background:#fff;border:1px solid #e6ecf5;border-radius:24px;box-shadow:0 10px 26px rgba(15,23,42,.05)}
+.qb-toolsIntro{display:flex;align-items:center;gap:14px}
+.qb-toolsIc{flex:0 0 52px;width:52px;height:52px;border-radius:16px;background:#fef2f2;display:grid;place-items:center;font-size:26px}
+.qb-toolsIntro b{display:block;font-size:17px;color:#0f172a;line-height:1.25}
+.qb-toolsIntro span{display:block;font-size:13.5px;color:#475569;margin-top:3px}
+.tsipp-more .qb-tool{display:flex!important;align-items:center;gap:12px;text-align:left;padding:14px!important;border-radius:16px!important;border:1px solid #e2e8f0!important;background:#fff!important;color:#0f172a!important;cursor:pointer;font:inherit;min-height:0!important;box-shadow:none!important}
+.tsipp-more .qb-tool:hover{border-color:#bfdbfe!important;transform:translateY(-2px);box-shadow:0 10px 22px rgba(15,23,42,.07)!important}
+.qb-tIc{flex:0 0 42px;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px}
+.qb-tIc.is-green{background:#dcfce7}.qb-tIc.is-violet{background:#ede9fe}.qb-tIc.is-amber{background:#fef3c7}.qb-tIc.is-blue{background:#dbeafe}
+.qb-tool b{display:block;font-size:14.5px}
+.qb-tool small{display:block;font-size:12.5px;color:#475569;line-height:1.35;margin-top:2px;font-weight:500}
+
+/* responsive */
+@media (max-width:1240px){
+  .tsipp-qb .qb-builder{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .qb-step--exam{grid-column:span 3}.qb-step--sec{grid-column:span 3}
+  .qb-step--skill{grid-column:span 2;border-left:0!important;padding-left:0!important}.qb-step--diff{grid-column:span 2}.qb-step--go{grid-column:span 2}
+  .tsipp-more.qb-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qb-toolsIntro{grid-column:1 / -1}
+}
+@media (max-width:900px){
+  .qb-head{grid-template-columns:1fr}
+  .qb-heroCard{display:none}
+  .tsipp-qb .qb-builder{grid-template-columns:1fr;padding:16px!important}
+  .qb-step{grid-column:auto!important}
+  .qb-step+.qb-step{border-left:0!important;padding-left:0!important;border-top:1px solid #eef2f7;padding-top:14px}
+  .qb-diffs{flex-direction:row;flex-wrap:wrap}.qb-diff{flex:1 1 40%}
+  .qb-exgrid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .qb-exams{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .qb-exam{min-height:0;padding:10px 8px}.qb-exam b{font-size:16px}.qb-exam small{font-size:11.5px}
+  .qb-trust{gap:8px 14px}.qb-trust li{font-size:13.5px}
+  .qb-skill{flex-basis:200px}
+  .qb-skills,.qb-examples{padding:16px}
+  .qb-exCh{grid-template-columns:1fr}
+  .tsipp-more.qb-tools{grid-template-columns:1fr;padding:16px!important}
+}
+.tsipp-more.qb-tools .qb-toolsIc{display:grid!important;place-items:center;font-size:26px!important;line-height:1}
+.tsipp-more.qb-tools .qb-toolsIntro>div>span{font-size:13.5px}
+@media (max-width:560px){.qb-exgrid .qb-ex:nth-child(n+2){display:none}}
 </style>
 <style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress,#test-date-center,#study-plan,#mastery-path,.v10Why{display:none!important}</style>
 </head>
@@ -2102,14 +2250,66 @@ function spConsole(method){
 
 
 
-<section class="bankExplorer" id="question-bank">
- <div class="bankShell"><div class="bankHead"><div><h2>Professional Question Bank</h2><p>Build a focused set by exam, section, skill, difficulty, and question count.</p></div><div class="bankCount" id="bankCount">Loading bank…</div></div><div class="bankBody">
-  <div class="bankFilters"><label>Exam<select id="bankExam"><option value="TSIA2">TSIA2</option><option value="SAT">SAT</option><option value="ACT">ACT</option></select></label><label>Section<select id="bankSection"><option value="All">All sections</option></select></label><label>Skill<select id="bankSkill"><option value="All">All skills</option></select></label><label>Difficulty<select id="bankDifficulty"><option value="All">Mixed difficulty</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></label><label>Questions<select id="bankSize"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>25</option></select></label></div>
-  <div class="bankPreview" id="bankPreview"></div><div class="bankActions"><span id="bankDescription">Choose filters to preview original practice questions.</span><button class="bankLaunch" id="bankLaunch">Build & Start Practice →</button></div>
- </div></div>
+<section class="bankExplorer tsipp-qb" id="question-bank">
+ <div class="bankShell">
+  <div class="qb-head">
+   <div class="qb-headL">
+    <div class="qb-title"><span class="qb-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="7" y="30" width="34" height="9" rx="3" fill="#2563eb"/><rect x="10" y="20" width="30" height="9" rx="3" fill="#7c3aed"/><rect x="8" y="10" width="32" height="9" rx="3" fill="#0d9488"/><path d="M12 13h20M14 23h18M11 33h22" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".8"/></svg></span>
+     <div><h2>Professional Question Bank</h2><p>Create a custom practice set from original, exam-style questions.</p></div></div>
+    <ul class="qb-trust">
+     <li><i class="is-green" aria-hidden="true">✓</i><span><b><span data-tsipp-count="all">1,200+</span></b> original questions</span></li>
+     <li><i class="is-blue" aria-hidden="true">≡</i><span>Every answer explained</span></li>
+     <li><i class="is-violet" aria-hidden="true">◎</i><span>Exam-style format</span></li>
+     <li><i class="is-amber" aria-hidden="true">★</i><span>Skill-aligned practice</span></li>
+    </ul>
+   </div>
+   <aside class="qb-heroCard" aria-hidden="true">
+    <svg class="qb-target" viewBox="0 0 120 120"><circle cx="56" cy="64" r="44" fill="#fee2e2"/><circle cx="56" cy="64" r="34" fill="#ef4444"/><circle cx="56" cy="64" r="24" fill="#fff"/><circle cx="56" cy="64" r="14" fill="#ef4444"/><circle cx="56" cy="64" r="5" fill="#fff"/><path d="M58 62L100 20" stroke="#1e3a8a" stroke-width="5" stroke-linecap="round"/><path d="M96 12l4 8 8 4-10 4-6-6z" fill="#2563eb"/></svg>
+    <div><b>Build your practice set</b><span>Pick an exam, section, skill and difficulty. Your set starts in seconds.</span></div>
+   </aside>
+  </div>
+  <div class="bankBody qb-builder">
+   <div class="qb-step qb-step--exam qb-js"><h3><em>1</em>Choose an exam</h3>
+    <div class="qb-exams" role="group" aria-label="Exam">
+     <button type="button" class="qb-exam is-tsi" data-qb-exam="TSIA2" aria-pressed="true"><span class="qb-ex-ic" aria-hidden="true">🎓</span><b>TSIA2</b><small>Math · ELAR</small></button>
+     <button type="button" class="qb-exam is-sat" data-qb-exam="SAT" aria-pressed="false"><span class="qb-ex-ic" aria-hidden="true">📘</span><b>SAT</b><small>Reading &amp; Writing · Math</small></button>
+     <button type="button" class="qb-exam is-act" data-qb-exam="ACT" aria-pressed="false"><span class="qb-ex-ic" aria-hidden="true">📊</span><b>ACT</b><small>English · Math · Reading · Science</small></button>
+    </div></div>
+   <div class="qb-step qb-step--sec qb-js"><h3><em>2</em>Select a section <span class="qb-muted" id="qbSecExam">(TSIA2)</span></h3><div class="qb-secs" id="qbSections" role="group" aria-label="Section"></div></div>
+   <div class="qb-step qb-step--skill"><h3 class="qb-js"><em>3</em>Choose a skill</h3>
+    <div class="bankFilters qb-filters">
+     <label class="qb-sr">Exam<select id="bankExam"><option value="TSIA2">TSIA2</option><option value="SAT">SAT</option><option value="ACT">ACT</option></select></label>
+     <label class="qb-sr">Section<select id="bankSection"><option value="All">All sections</option></select></label>
+     <label class="qb-skillsel"><span class="qb-lbl">Skill</span><select id="bankSkill"><option value="All">All skills</option></select></label>
+     <label class="qb-sr">Difficulty<select id="bankDifficulty"><option value="All">Mixed difficulty</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></label>
+     <label class="qb-sizesel"><span class="qb-lbl">Questions</span><select id="bankSize"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>25</option></select></label>
+    </div></div>
+   <div class="qb-step qb-step--diff qb-js"><h3><em>4</em>Set difficulty</h3>
+    <div class="qb-diffs" role="group" aria-label="Difficulty">
+     <button type="button" class="qb-diff is-mixed" data-qb-diff="All" aria-pressed="true"><i aria-hidden="true"></i>Mixed</button>
+     <button type="button" class="qb-diff is-easy" data-qb-diff="Easy" aria-pressed="false"><i aria-hidden="true"></i>Easy</button>
+     <button type="button" class="qb-diff is-medium" data-qb-diff="Medium" aria-pressed="false"><i aria-hidden="true"></i>Medium</button>
+     <button type="button" class="qb-diff is-hard" data-qb-diff="Hard" aria-pressed="false"><i aria-hidden="true"></i>Hard</button>
+    </div></div>
+   <div class="qb-step qb-step--go"><h3 class="qb-js"><em>5</em>Start</h3>
+    <button class="bankLaunch" id="bankLaunch">Build &amp; Start Practice →</button>
+    <div class="bankCount" id="bankCount">Loading bank…</div>
+    <span class="qb-desc" id="bankDescription">Choose filters to preview original practice questions.</span>
+   </div>
+  </div>
+  <div class="qb-skills qb-js">
+   <div class="qb-rowhead"><h3 id="qbSkillsTitle">Popular skills</h3><div class="qb-arrows"><button type="button" data-qb-scroll="-1" aria-label="Scroll skills left">‹</button><button type="button" data-qb-scroll="1" aria-label="Scroll skills right">›</button></div></div>
+   <div class="qb-skillrow" id="qbSkillRow"></div>
+  </div>
+  <div class="qb-examples">
+   <div class="qb-rowhead qb-js"><div><h3>Example questions</h3><p>Real questions from your filters. Practice sets are shuffled.</p></div><button type="button" class="qb-refresh" id="qbRefresh">↻ New examples</button></div>
+   <div class="qb-exgrid qb-js" id="qbExamples"></div>
+   <div class="bankPreview" id="bankPreview"></div>
+  </div>
+ </div>
 </section>
 
-<div class="tsipp-more" role="group" aria-label="More tools"><span>More tools:</span><button type="button" data-tsipp-more="daily-practice" aria-expanded="false">Score goals, flashcards &amp; daily focus</button><button type="button" data-tsipp-more="teacher-center" aria-expanded="false">Teacher toolkit</button></div>
+<div class="tsipp-more qb-tools" role="group" aria-label="More tools"><div class="qb-toolsIntro"><span class="qb-toolsIc" aria-hidden="true">🎯</span><div><b>More tools to help you practice</b><span>Go beyond practice sets and study smarter.</span></div></div><button type="button" class="qb-tool" data-tsipp-more="daily-practice" aria-expanded="false"><span class="qb-tIc is-green" aria-hidden="true">📈</span><span><b>Score goals</b><small>Set a target score for each exam.</small></span></button><button type="button" class="qb-tool" data-qb-flash="1"><span class="qb-tIc is-violet" aria-hidden="true">🗂️</span><span><b>Flashcards</b><small>Review key rules and formulas.</small></span></button><button type="button" class="qb-tool" data-tsipp-more="daily-practice" aria-expanded="false"><span class="qb-tIc is-amber" aria-hidden="true">📅</span><span><b>Daily focus</b><small>A 15-minute set from your weak skills.</small></span></button><button type="button" class="qb-tool" data-tsipp-more="teacher-center" aria-expanded="false"><span class="qb-tIc is-blue" aria-hidden="true">👩‍🏫</span><span><b>Teacher toolkit</b><small>Build and print assignments.</small></span></button></div>
 <section class="v5Section revealV5 tsipp-collapsed" id="teacher-center">
  <div class="v5Wrap">
   <span class="v5Eyebrow">For teachers & tutors</span>
@@ -5168,6 +5368,7 @@ return Q;
   T.planFix = planFix;
   T.launchFix = launchFix;
   T.practiceSkillSet = practiceSkill;
+  T.startCustomSet = startCustomSet;
   T._log = readLog;
 })(window, document);
 </script>
@@ -5859,6 +6060,175 @@ return Q;
   function boot() { try { diagCta(); } catch (e) { } try { header(); } catch (e) { } try { countUp(); } catch (e) { } try { reveal(); navSpy(); } catch (e) { } }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 350); });
   else setTimeout(boot, 350);
+})(window, document);
+</script>
+<script id="tsipp-bank">
+/*! TSI Practice Prep - visual question bank builder (tsipp-bank.js)
+ * Adds exam / section / difficulty cards, popular skills and example questions on top of the
+ * site's own bank controls (#bankExam, #bankSection, #bankSkill, #bankDifficulty, #bankSize,
+ * #bankLaunch). Those selects stay the single source of truth, so "Build & Start Practice"
+ * still runs through practice-engine-core.js exactly as before.
+ */
+(function (global, doc) {
+  'use strict';
+  var T = global.TSIPP || (global.TSIPP = {});
+  function byId(id) { return doc.getElementById(id); }
+  function el(tag, cls, text) { var e = doc.createElement(tag); if (cls) e.className = cls; if (text !== undefined && text !== null) e.textContent = text; return e; }
+  function bank(exam) { var b = global.ScorePathBank && global.ScorePathBank[exam]; return Array.isArray(b) ? b : []; }
+  function fire(node) { try { node.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) { var ev = doc.createEvent('HTMLEvents'); ev.initEvent('change', true, false); node.dispatchEvent(ev); } }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function val(id) { var s = byId(id); return s ? s.value : 'All'; }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+  // "Geometric and Spatial Reasoning — Area" and "Geometric & Spatial Reasoning" are one skill family.
+  function family(q) {
+    var s = String((q && (q.blueprintDomain || q.skill)) || '').split(' — ')[0].split(' - ')[0].trim();
+    return s.replace(/ and /g, ' & ');
+  }
+  function iconFor(name) {
+    var n = name.toLowerCase();
+    if (/geomet|trig|spatial/.test(n)) return ['△', 'is-green'];
+    if (/probab|statist|data/.test(n)) return ['▦', 'is-pink'];
+    if (/quantitative|number|arithmetic|percent/.test(n)) return ['%', 'is-violet'];
+    if (/function|advanced|essential/.test(n)) return ['ƒ', 'is-amber'];
+    if (/algebra/.test(n)) return ['x²', 'is-blue'];
+    if (/science|scientific|experiment|interpretation of data|investigation/.test(n)) return ['⚗', 'is-teal'];
+    if (/convention|grammar|punctuat|usage|sentence|revision|editing|production|language|transition|expression/.test(n)) return ['✎', 'is-amber'];
+    return ['📖', 'is-blue'];
+  }
+  function filtered(opts) {
+    opts = opts || {};
+    var exam = val('bankExam'), sec = val('bankSection'), sk = opts.ignoreSkill ? 'All' : val('bankSkill'), diff = val('bankDifficulty');
+    return bank(exam).filter(function (q) {
+      return (sec === 'All' || q.section === sec) && (sk === 'All' || q.skill === sk) && (diff === 'All' || q.difficulty === diff);
+    });
+  }
+  function setSelect(id, v) {
+    var s = byId(id); if (!s) return;
+    var ok = Array.prototype.some.call(s.options, function (o) { return o.value === v; });
+    s.value = ok ? v : 'All'; fire(s);
+  }
+  function press(sel, attr, v) {
+    Array.prototype.forEach.call(doc.querySelectorAll(sel), function (b) {
+      var on = b.getAttribute(attr) === v; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  // ---------- step 2: section cards (counts are live from the bank) ----------
+  function renderSections() {
+    var box = byId('qbSections'); if (!box) return;
+    var exam = val('bankExam'), cur = val('bankSection'), diff = val('bankDifficulty'), pool = bank(exam), counts = {}, order = [];
+    pool.forEach(function (q) { if (!(q.section in counts)) { counts[q.section] = 0; order.push(q.section); } if (diff === 'All' || q.difficulty === diff) counts[q.section]++; });
+    order.sort();
+    var t = byId('qbSecExam'); if (t) t.textContent = '(' + exam + ')';
+    while (box.firstChild) box.removeChild(box.firstChild);
+    var total = order.reduce(function (s, k) { return s + counts[k]; }, 0);
+    [['All', 'All sections', total]].concat(order.map(function (k) { return [k, k.replace(' (Optional)', ''), counts[k]]; })).forEach(function (x) {
+      var b = el('button', 'qb-sec' + (cur === x[0] ? ' is-on' : ''));
+      b.type = 'button'; b.setAttribute('data-qb-sec', x[0]); b.setAttribute('aria-pressed', cur === x[0] ? 'true' : 'false');
+      b.appendChild(el('b', null, x[1])); b.appendChild(el('small', null, fmt(x[2]) + ' question' + (x[2] === 1 ? '' : 's')));
+      box.appendChild(b);
+    });
+  }
+
+  // ---------- popular skills row ----------
+  function renderSkills() {
+    var row = byId('qbSkillRow'); if (!row) return;
+    var exam = val('bankExam'), sec = val('bankSection'), pool = filtered({ ignoreSkill: true }), map = {}, list = [];
+    pool.forEach(function (q) { var f = family(q); if (!f) return; if (!map[f]) { map[f] = []; list.push(f); } map[f].push(q); });
+    list.sort(function (a, b) { return map[b].length - map[a].length; });
+    var title = byId('qbSkillsTitle');
+    if (title) title.textContent = 'Popular skills (' + exam + (sec === 'All' ? '' : ' ' + sec.replace(' (Optional)', '')) + ')';
+    while (row.firstChild) row.removeChild(row.firstChild);
+    if (!list.length) { row.appendChild(el('p', 'qb-empty', 'No questions match these filters. Try Mixed difficulty or All sections.')); return; }
+    list.forEach(function (f) {
+      var n = map[f].length, ic = iconFor(f), b = el('button', 'qb-skill');
+      b.type = 'button'; b.setAttribute('data-qb-skill', f); b.disabled = n < 3;
+      b.setAttribute('aria-label', 'Practice ' + f + ', ' + n + ' questions');
+      b.appendChild(el('span', 'qb-sIc ' + ic[1], ic[0]));
+      var t = el('span', 'qb-sT'); t.appendChild(el('b', null, f)); t.appendChild(el('small', null, n < 3 ? 'Only ' + n + ' now' : fmt(n) + ' questions'));
+      b.appendChild(t); row.appendChild(b);
+    });
+  }
+  function practiceFamily(f) {
+    var pool = filtered({ ignoreSkill: true }).filter(function (q) { return family(q) === f; });
+    var n = parseInt(val('bankSize'), 10) || 10;
+    if (pool.length < 3 || typeof T.startCustomSet !== 'function') return;
+    T.startCustomSet(val('bankExam'), shuffle(pool).slice(0, n), f + ' practice');
+  }
+
+  // ---------- example questions ----------
+  var shown = [];
+  function renderExamples() {
+    var box = byId('qbExamples'); if (!box) return;
+    var pool = filtered(), pick = shuffle(pool).slice(0, 3), L = ['A', 'B', 'C', 'D', 'E'];
+    shown = pick;
+    while (box.firstChild) box.removeChild(box.firstChild);
+    if (!pick.length) { box.appendChild(el('p', 'qb-empty', 'No questions match these filters. Broaden your selection.')); return; }
+    pick.forEach(function (q, i) {
+      var c = el('article', 'qb-ex');
+      var top = el('div', 'qb-exTop');
+      top.appendChild(el('span', 'qb-exMeta', q.section.replace(' (Optional)', '') + ' · ' + family(q)));
+      var d = String(q.difficulty || 'Medium');
+      top.appendChild(el('span', 'qb-badge is-' + d.toLowerCase(), d));
+      c.appendChild(top);
+      if (q.passage) {
+        var ps = String(q.passage).replace(/\s+/g, ' ').trim();
+        c.appendChild(el('p', 'qb-exPass', ps.length > 170 ? ps.slice(0, 167).replace(/\s+\S*$/, '') + '…' : ps));
+      }
+      c.appendChild(el('p', 'qb-exQ', q.q));
+      var ul = el('ul', 'qb-exCh');
+      (q.choices || []).slice(0, 5).forEach(function (ch, k) { var li = el('li'); li.appendChild(el('i', null, L[k])); li.appendChild(el('span', null, String(ch))); ul.appendChild(li); });
+      c.appendChild(ul);
+      var ft = el('div', 'qb-exFt');
+      ft.appendChild(el('span', 'qb-muted', (q.choices || []).length + ' choices · explanation after you answer'));
+      var go = el('button', 'qb-try', 'Try this question →'); go.type = 'button'; go.setAttribute('data-qb-try', String(i));
+      ft.appendChild(go); c.appendChild(ft); box.appendChild(c);
+    });
+  }
+
+  function sync() {
+    press('[data-qb-exam]', 'data-qb-exam', val('bankExam'));
+    press('[data-qb-diff]', 'data-qb-diff', val('bankDifficulty'));
+    renderSections(); renderSkills(); renderExamples();
+  }
+
+  function boot() {
+    var root = doc.querySelector('.tsipp-qb'), ex = byId('bankExam');
+    if (!root || !ex || !bank('TSIA2').length) return;
+    // The engine drew its first preview before the bank was cleaned; redraw so the count and
+    // the "Build & Start" set come from the cleaned bank.
+    fire(ex);
+    root.classList.add('qb-ready');
+    ['bankExam', 'bankSection', 'bankSkill', 'bankDifficulty'].forEach(function (id) {
+      var s = byId(id); if (s) s.addEventListener('change', function () { setTimeout(sync, 0); });
+    });
+    root.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target : null; if (!t) return;
+      var b;
+      if ((b = t.closest('[data-qb-exam]'))) { var s = byId('bankExam'); s.value = b.getAttribute('data-qb-exam'); fire(s); setSelect('bankSection', 'All'); return; }
+      if ((b = t.closest('[data-qb-sec]'))) { setSelect('bankSection', b.getAttribute('data-qb-sec')); return; }
+      if ((b = t.closest('[data-qb-diff]'))) { setSelect('bankDifficulty', b.getAttribute('data-qb-diff')); return; }
+      if ((b = t.closest('[data-qb-skill]'))) { practiceFamily(b.getAttribute('data-qb-skill')); return; }
+      if ((b = t.closest('[data-qb-try]'))) { var q = shown[+b.getAttribute('data-qb-try')]; if (q && T.startCustomSet) T.startCustomSet(val('bankExam'), [q], 'Single question'); return; }
+      if ((b = t.closest('[data-qb-scroll]'))) { var r = byId('qbSkillRow'); if (r) { var dx = (+b.getAttribute('data-qb-scroll')) * Math.max(240, r.clientWidth * 0.8); try { r.scrollBy({ left: dx, behavior: 'smooth' }); } catch (x) { r.scrollLeft += dx; } } return; }
+      if (t.closest('#qbRefresh')) { renderExamples(); }
+    });
+    // SAT and ACT show their start screen inside their own practice center, which is hidden until
+    // opened. Open it first (capture phase runs before the engine's own click handler).
+    doc.addEventListener('click', function (e) {
+      if (!(e.target.closest && e.target.closest('#bankLaunch'))) return;
+      var k = { TSIA2: 'tsi', SAT: 'sat', ACT: 'act' }[val('bankExam')];
+      try { if (k && typeof global.v10ShowCenter === 'function') global.v10ShowCenter(k, true); } catch (x) { }
+    }, true);
+    doc.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-qb-flash]');
+      if (!b) return; var f = byId('v13FlashOpen'); if (f) f.click();
+    });
+    sync();
+  }
+  function start() { setTimeout(function () { try { boot(); } catch (e) { } }, 400); }
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', start); else start();
 })(window, document);
 </script>
 </body>
