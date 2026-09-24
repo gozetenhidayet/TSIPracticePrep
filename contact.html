@@ -2,40 +2,207 @@
 <style>
 .contactForm .formRow{margin-bottom:14px}
 .contactForm label{display:block;font-size:12.5px;font-weight:800;color:#334155;margin-bottom:6px}
-.contactForm input[type=text],.contactForm input[type=email],.contactForm select,.contactForm textarea{width:100%;padding:11px 13px;border:1px solid #dbe3ee;border-radius:11px;font:inherit;background:#fbfdff;box-sizing:border-box}
+.contactForm .opt{font-weight:600;color:#64748b}
+.contactForm input[type=text],.contactForm input[type=email],.contactForm select,.contactForm textarea{width:100%;padding:11px 13px;border:1px solid #cbd5e1;border-radius:11px;font:inherit;font-size:15px;background:#fbfdff;box-sizing:border-box;color:#0f172a}
+.contactForm input:focus,.contactForm select:focus,.contactForm textarea:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
 .contactForm textarea{resize:vertical}
-.sendBtn{border:0;background:#2563eb;color:#fff;font-weight:900;padding:12px 22px;border-radius:12px;cursor:pointer;font-size:14px}
-.sendBtn:hover{background:#1d4ed8}
-.sendBtn:disabled{opacity:.6;cursor:not-allowed}
-.formStatus{margin-top:12px;font-size:12.5px;font-weight:700;min-height:1.4em}
-.formStatus.success{color:#166534}
+.twoCol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:620px){.twoCol{grid-template-columns:1fr}}
+.drop{position:relative;border:2px dashed #93c5fd;border-radius:16px;background:#f5f9ff;padding:22px 16px;text-align:center;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,transform .18s ease}
+.drop:hover,.drop:focus-within{background:#eaf2ff;border-color:#2563eb}
+.drop.is-over{background:#dbeafe;border-color:#1d4ed8;transform:scale(1.01)}
+.drop input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.dropIc{width:48px;height:48px;margin:0 auto 8px;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(37,99,235,.15)}
+.dropIc svg{width:26px;height:26px;fill:none;stroke:#2563eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dropT{font-weight:800;color:#0f172a;font-size:15px}
+.dropT u{color:#1d4ed8;text-decoration:none;border-bottom:2px solid #93c5fd}
+.dropS{font-size:12.5px;color:#475569;margin-top:4px;line-height:1.5}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px}
+.thumb{position:relative;border:1px solid #dbe3ee;border-radius:12px;overflow:hidden;background:#fff}
+.thumb img{display:block;width:100%;height:90px;object-fit:cover;background:#f1f5f9}
+.thumb span{display:block;padding:5px 8px;font-size:11.5px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb button{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(15,23,42,.8);color:#fff;font-size:15px;line-height:26px;cursor:pointer}
+.thumb button:hover{background:#b91c1c}
+.fileNote{font-size:12.5px;color:#475569;margin-top:8px;min-height:1.2em}
+.fileNote.error{color:#991b1b;font-weight:700}
+.sendBtn{border:0;background:#2563eb;color:#fff;font-weight:900;padding:13px 24px;border-radius:12px;cursor:pointer;font-size:15px;transition:transform .18s ease,background-color .18s ease,box-shadow .18s ease}
+.sendBtn:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 10px 22px rgba(37,99,235,.3)}
+.sendBtn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.formStatus{margin-top:12px;font-size:13.5px;font-weight:700;min-height:1.4em}
+.formStatus.success{color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px}
 .formStatus.error{color:#991b1b}
 .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 <div class="card">
 <h2>Send us a message</h2>
-<p>Use this for anything: a possible error in a practice question (include the question ID shown above the prompt, for example <code>SAT-V17-M-ALG-104</code>), a Teacher Classroom question, a partnership note, or general feedback. Messages are routed privately to the TSI Practice Prep team.</p>
-<form id="contactForm" class="contactForm">
+<p>Use this for anything: a possible error in a practice question, a Teacher Classroom question, a partnership note, or general feedback. <b>A screenshot helps us fix things fastest</b> — drag it in, tap to choose a photo, or paste it with Ctrl+V / ⌘V. Messages are routed privately to the TSI Practice Prep team.</p>
+<form id="contactForm" class="contactForm" novalidate>
   <input type="hidden" name="_subject" value="New message — TSI Practice Prep contact form">
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_captcha" value="false">
   <div class="honeypot"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
-  <div class="formRow"><label for="cName">Name</label><input id="cName" type="text" name="name" required></div>
-  <div class="formRow"><label for="cEmail">Your email (so we can reply)</label><input id="cEmail" type="email" name="email" required></div>
-  <div class="formRow"><label for="cTopic">What is this about?</label>
-    <select id="cTopic" name="topic">
-      <option>Question or content issue</option>
-      <option>Teacher Classroom</option>
-      <option>Account or technical issue</option>
-      <option>Partnership or press</option>
-      <option>General feedback</option>
-    </select>
+  <div class="twoCol">
+    <div class="formRow"><label for="cName">Name</label><input id="cName" type="text" name="name" autocomplete="name" required></div>
+    <div class="formRow"><label for="cEmail">Your email (so we can reply)</label><input id="cEmail" type="email" name="email" autocomplete="email" required></div>
   </div>
-  <div class="formRow"><label for="cMessage">Message</label><textarea id="cMessage" name="message" rows="5" required></textarea></div>
+  <div class="twoCol">
+    <div class="formRow"><label for="cTopic">What is this about?</label>
+      <select id="cTopic" name="topic">
+        <option>Question or content issue</option>
+        <option>Teacher Classroom</option>
+        <option>Account or technical issue</option>
+        <option>Partnership or press</option>
+        <option>General feedback</option>
+      </select>
+    </div>
+    <div class="formRow"><label for="cQid">Question ID <span class="opt">(optional)</span></label><input id="cQid" type="text" name="question_id" placeholder="e.g. SAT-V17-M-ALG-104" maxlength="80"></div>
+  </div>
+  <div class="formRow"><label for="cMessage">Message</label><textarea id="cMessage" name="message" rows="5" required placeholder="What looks wrong, or what would you like to ask?"></textarea></div>
+  <div class="formRow">
+    <label for="cFiles">Screenshot or photo <span class="opt">(optional, up to 4 images)</span></label>
+    <div class="drop" id="dropZone">
+      <input id="cFiles" type="file" accept="image/*" multiple aria-describedby="fileNote">
+      <div class="dropIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+      <div class="dropT">Drag &amp; drop images here, or <u>choose a file</u></div>
+      <div class="dropS">PNG, JPG, GIF or WebP · You can also paste a screenshot (Ctrl+V / ⌘V)</div>
+    </div>
+    <div class="thumbs" id="thumbs"></div>
+    <div class="fileNote" id="fileNote" role="status" aria-live="polite"></div>
+    <input type="file" name="attachment" id="cAttach" hidden>
+  </div>
   <button type="submit" class="sendBtn" id="contactSubmit">Send Message</button>
   <div class="formStatus" id="contactStatus" role="status" aria-live="polite"></div>
 </form>
 </div>
+<script>
+(function(){
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('contactStatus');
+  var btn = document.getElementById('contactSubmit');
+  var drop = document.getElementById('dropZone');
+  var picker = document.getElementById('cFiles');
+  var attach = document.getElementById('cAttach');
+  var thumbs = document.getElementById('thumbs');
+  var note = document.getElementById('fileNote');
+  // Messages are delivered by FormSubmit.co (no signup, no API key). Text-only messages go through its
+  // AJAX endpoint; messages with images use its normal file-upload endpoint, which supports attachments
+  // up to 10 MB in total, and then return here.
+  var EMAIL = 'hynngozeten@gmail.com';
+  var AJAX = 'https://formsubmit.co/ajax/' + EMAIL, POST = 'https://formsubmit.co/' + EMAIL;
+  var MAX_FILES = 4, MAX_SIDE = 2000, LIMIT = 9.5 * 1024 * 1024;
+  var files = [];
+
+  function setNote(t, bad){ note.textContent = t || ''; note.className = 'fileNote' + (bad ? ' error' : ''); }
+  function kb(n){ return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function isImage(f){ return f && /^image\//.test(f.type || '') || /\.(png|jpe?g|gif|webp|heic|heif|bmp)$/i.test((f && f.name) || ''); }
+
+  function render(){
+    thumbs.innerHTML = '';
+    files.forEach(function(f, i){
+      var d = document.createElement('div'); d.className = 'thumb';
+      var img = document.createElement('img'); img.alt = 'Attached image ' + (i + 1);
+      try { img.src = URL.createObjectURL(f); img.onload = function(){ URL.revokeObjectURL(img.src); }; } catch (e) {}
+      var s = document.createElement('span'); s.textContent = (f.name || 'screenshot.png') + ' · ' + kb(f.size);
+      var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'Remove ' + (f.name || 'image'));
+      x.addEventListener('click', function(){ files.splice(i, 1); render(); setNote(files.length ? files.length + ' image' + (files.length > 1 ? 's' : '') + ' attached.' : ''); });
+      d.appendChild(img); d.appendChild(s); d.appendChild(x); thumbs.appendChild(d);
+    });
+  }
+  function add(list){
+    var added = 0, skipped = 0;
+    status.textContent = ''; status.className = 'formStatus';
+    Array.prototype.forEach.call(list || [], function(f){
+      if (!isImage(f)) { skipped++; return; }
+      if (files.length >= MAX_FILES) { skipped++; return; }
+      if (!f.name) { try { f = new File([f], 'screenshot-' + Date.now() + '.png', { type: f.type || 'image/png' }); } catch (e) {} }
+      files.push(f); added++;
+    });
+    render();
+    if (skipped) setNote(files.length >= MAX_FILES ? 'You can attach up to ' + MAX_FILES + ' images.' : 'Only image files can be attached.', true);
+    else if (added) setNote(files.length + ' image' + (files.length > 1 ? 's' : '') + ' attached.');
+  }
+
+  picker.addEventListener('change', function(){ add(picker.files); picker.value = ''; });
+  ['dragenter', 'dragover'].forEach(function(t){ drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.add('is-over'); }); });
+  ['dragleave', 'dragend', 'drop'].forEach(function(t){ drop.addEventListener(t, function(){ drop.classList.remove('is-over'); }); });
+  drop.addEventListener('drop', function(e){ e.preventDefault(); if (e.dataTransfer) add(e.dataTransfer.files); });
+  // Dropping an image anywhere else on the page should not open it in the browser.
+  window.addEventListener('dragover', function(e){ e.preventDefault(); });
+  window.addEventListener('drop', function(e){ if (!drop.contains(e.target)) { e.preventDefault(); if (e.dataTransfer && e.dataTransfer.files.length) add(e.dataTransfer.files); } });
+  document.addEventListener('paste', function(e){
+    var items = (e.clipboardData && e.clipboardData.items) || [], got = [];
+    for (var i = 0; i < items.length; i++) if (items[i].kind === 'file') { var f = items[i].getAsFile(); if (f && isImage(f)) got.push(f); }
+    if (got.length) { e.preventDefault(); add(got); }
+  });
+
+  // Several images become one tall JPEG (FormSubmit takes one attachment field); big photos are scaled down.
+  function loadImg(f){
+    return new Promise(function(res, rej){
+      var u = URL.createObjectURL(f), im = new Image();
+      im.onload = function(){ res(im); }; im.onerror = function(){ URL.revokeObjectURL(u); rej(new Error('decode')); };
+      im.src = u;
+    });
+  }
+  function combine(){
+    if (files.length === 1 && files[0].size <= LIMIT && /^image\/(png|jpeg|gif|webp)$/.test(files[0].type)) return Promise.resolve(files[0]);
+    return Promise.all(files.map(loadImg)).then(function(imgs){
+      var W = Math.min(MAX_SIDE, Math.max.apply(null, imgs.map(function(i){ return i.naturalWidth; }))), gap = 24, H = 0;
+      var sizes = imgs.map(function(i){ var s = Math.min(1, W / i.naturalWidth); var h = Math.round(i.naturalHeight * s); H += h; return [Math.round(i.naturalWidth * s), h]; });
+      H += gap * (imgs.length - 1);
+      var scale = H > 8000 ? 8000 / H : 1, c = document.createElement('canvas');
+      c.width = Math.round(W * scale); c.height = Math.round(H * scale);
+      var g = c.getContext('2d'); g.fillStyle = '#ffffff'; g.fillRect(0, 0, c.width, c.height);
+      var y = 0;
+      imgs.forEach(function(im, k){ g.drawImage(im, 0, y * scale, sizes[k][0] * scale, sizes[k][1] * scale); y += sizes[k][1] + gap; });
+      function toBlob(q){ return new Promise(function(r){ c.toBlob(function(b){ r(b); }, 'image/jpeg', q); }); }
+      return toBlob(0.88).then(function(b){ return b && b.size > LIMIT ? toBlob(0.7) : b; }).then(function(b){
+        if (!b) throw new Error('encode');
+        return new File([b], files.length > 1 ? 'screenshots-combined.jpg' : 'screenshot.jpg', { type: 'image/jpeg' });
+      });
+    });
+  }
+
+  function done(msg, ok){ status.textContent = msg; status.className = 'formStatus ' + (ok ? 'success' : 'error'); btn.disabled = false; btn.textContent = 'Send Message'; }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (form._honey.value) return; // bot
+    if (!form.checkValidity()) { form.reportValidity && form.reportValidity(); return; }
+    btn.disabled = true; btn.textContent = files.length ? 'Uploading…' : 'Sending…';
+    status.textContent = ''; status.className = 'formStatus';
+    if (!files.length) {
+      var payload = {};
+      new FormData(form).forEach(function(v, k){ if (typeof v === 'string') payload[k] = v; });
+      fetch(AJAX, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(data){ return { ok: r.ok, data: data }; }); })
+        .then(function(res){
+          if (res.ok && (!res.data || res.data.success !== false)) { done("Sent — thanks, we'll get back to you soon.", true); form.reset(); }
+          else done((res.data && res.data.message) || 'Something went wrong. Please try again in a moment.', false);
+        })
+        .catch(function(){ done('Could not reach the message service. Please try again, or check your connection.', false); });
+      return;
+    }
+    combine().then(function(file){
+      if (file.size > 10 * 1024 * 1024) throw new Error('size');
+      var dt = new DataTransfer(); dt.items.add(file); attach.files = dt.files;
+      var next = document.createElement('input'); next.type = 'hidden'; next.name = '_next';
+      next.value = location.origin + location.pathname + '?sent=1#contactForm';
+      form.appendChild(next);
+      form.setAttribute('action', POST); form.setAttribute('method', 'POST'); form.setAttribute('enctype', 'multipart/form-data');
+      HTMLFormElement.prototype.submit.call(form); // normal upload; FormSubmit sends the visitor back here
+    }).catch(function(err){
+      done(err && err.message === 'size' ? 'The images are too large together (10 MB limit). Please remove one and try again.'
+        : 'This browser could not prepare the image. Please try a PNG or JPG screenshot, or send the message without it.', false);
+    });
+  });
+
+  if (/[?&]sent=1/.test(location.search)) {
+    status.textContent = "Sent — thanks, we'll get back to you soon. Your images were attached.";
+    status.className = 'formStatus success';
+    try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  }
+})();
+</script>
 <div class="card">
 <h2>Official exam questions</h2>
 <p>TSI Practice Prep cannot help with official test registration, accommodations, scores, or technical issues on test day — those go through College Board, ACT, or the relevant Texas education agency directly. See <a href="resources.html">Resources</a> for the right official contact in each case.</p>
