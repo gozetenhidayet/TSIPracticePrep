@@ -1,22 +1,24 @@
 # TSI Practice Prep – 1. Aşama kurulumu
 
-## Dosyalar
+## Tek dosya
 
-| Dosya | Ne yapar |
+Her şey artık **tek bir `index.html` dosyasının içinde**. Panel, 365 yeni soru, soru bankası temizliği, düzeltmeler ve stiller bu dosyaya gömülü. Ayrı `.js` ya da `.css` dosyası yüklemeniz gerekmiyor.
+
+| Dosya | Ne yapmalı |
 |---|---|
-| `index.html` | Sizin dosyanızın düzenlenmiş hali (değişiklikler aşağıda) |
-| `tsipp-data.js` | Sitenin **zaten kaydettiği** verileri okur (yeni veri toplamaz) |
-| `tsipp-insights.js` | Güven seçimi kaydı, Hidden Weaknesses, hata kalıpları, Fix My Mistakes, gelişmiş Study Tutor |
-| `tsipp-dashboard.js` | Yeni tek paneli çizer, düğmeleri mevcut motora bağlar |
-| `tsipp.css` | Panelin stilleri (hepsi `.tsipp` altında, sitenin CSS'ine karışmaz) |
+| `index.html` | GitHub'daki eski `index.html`'in yerine koyun. |
+| `question-bank-core.js` | **Dokunmayın.** Eski iPhone/iPad hatasını `index.html` kendisi düzeltiyor. |
+| `practice-engine-core.js` | **Dokunmayın** (isteğe bağlı olarak düzeltilmiş hali yüklenebilir, gerekli değil). |
+| Daha önce yüklediyseniz `tsipp-*.js`, `tsipp.css` | Artık kullanılmıyor. Silebilir ya da bırakabilirsiniz, zararı yok. |
 
-## Yükleme
+## GitHub'a yükleme
 
-1. Mevcut `index.html` dosyanızın **yedeğini alın**.
-2. 5 dosyayı sitenin kök klasörüne (`index.html`'in olduğu yere) yükleyin.
-3. Tarayıcıda Ctrl+F5 ile yenileyin.
+1. GitHub'da deponuzu açın → **Add file → Upload files**.
+2. Yeni `index.html` dosyasını sürükleyip bırakın. GitHub "aynı adlı dosyayı değiştir" olarak alır.
+3. Alttaki yeşil **Commit changes** düğmesine basın.
+4. 1–2 dakika sonra siteyi açıp **Ctrl+F5** ile yenileyin (telefonda sekmeyi kapatıp yeniden açın).
 
-Geri almak için eski `index.html` dosyasını geri koymanız yeterli. Diğer 3 dosya o durumda hiçbir şey yapmaz.
+**Kontrol:** Ana sayfadaki "Questions" kutusunda **1,200+** görünmeli. Bilgisayarda F12 → Console'a `TSIPP.bankStats()` yazınca `added: 365` görünmeli.
 
 ## index.html'de değişenler
 
@@ -31,6 +33,11 @@ Geri almak için eski `index.html` dosyasını geri koymanız yeterli. Diğer 3 
 8. **Ana sayfa kısaltıldı.** Şu bölümler de gizlendi: Official Date Planner, Study Plan, Adaptive Learning Workflow ve "Everything you need" kutusu. Bunların işini artık panel yapıyor. Daily focus/hedefler/flashcard ile Teacher Toolkit ise silinmedi; "More tools" düğmeleriyle tek dokunuşta açılıyor.
 9. **"Quality checked" satırı eklendi:** "✓ Every question quality-checked · ✓ Original · ✓ Every answer explained", Editorial Standards sayfasına link veriyor.
 10. **Desmos artık ilk açılışta yüklenmiyor.** Yaklaşık 1 MB'lık bu dosya, öğrenci SAT hesap makinesini ilk açtığında yükleniyor. Telefonda açılış hızlanıyor.
+11. **"5,800+ Questions" kaldırıldı.** Bankada gerçekte 3.896 soru vardı ve çoğu kopyaydı. Sayı artık bankadan canlı hesaplanıyor. Temizlikten sonra "1,200+" görünür. İsterseniz başka bir yere de `<span data-tsipp-count="all"></span>` ekleyebilirsiniz. Tek sınav için `data-tsipp-count="SAT"` kullanın.
+12. **ACT ipucu düzeltildi:** Enhanced ACT English 50 soru / 35 dakika, yani soru başına yaklaşık 42 saniye.
+13. **Tüm eklentiler sayfanın içine gömüldü** (tek dosya).
+14. **Eski Safari kurtarıcısı (`tsipp-rescue`) ve sürüm etiketleri (`?v=20260923`) eklendi.** Sürüm etiketi, tarayıcının eski JS dosyalarını önbellekten kullanmasını önler.
+
 
 ## Yeni özellikler (tsipp-insights.js)
 
@@ -55,12 +62,16 @@ SAT ve ACT tahmini, sitenin v7 betiğindeki doğruluk → puan tablosunun aynıs
 
 ## Test edilenler
 
+- Tek dosyalık `index.html`, gerçek `practice-engine-core.js` ile Chromium'da açıldı: sayfa hatası 0. Soru bankası temizlendi (1.291 soru, 365 yeni). Panel çizildi, soru sayısı kutusu "1,200+" gösterdi. (`question-bank-core.js` elimde olmadığı için onun yerine boş bir taklit dosya kullanıldı.)
+
 - Chromium'da masaüstü, iPad (768/820/1024) ve telefon (390) genişliğinde denendi; yatay taşma yok.
-- Tüm yeni kodun ES2015 sözdizimiyle ayrıştığı doğrulandı. iOS 10.3 ve sonrası Safari'de çalışması beklenir; gerçek Safari'de ayrıca denenmedi.
+- Tüm yeni kodun ES5 sözdizimiyle ayrıştığı doğrulandı (acorn). iOS 10.3 ve sonrası Safari'de çalışması beklenir; gerçek Safari'de ayrıca denenmedi.
 - Sahte bir motorla uçtan uca akış denendi: güven seçimi → cevap kaydı → Hidden Weaknesses → Fix My Mistakes oturumunun başlatılması → Tutor'un 5 düğmesi.
 - Yeni kullanıcı için sayfa boyu: masaüstü 9.279 → 4.810 px (−48%), telefon 16.992 → 8.176 px (−52%).
 
 ## Kontrol edilmesi gerekenler
 
-- `practice-engine-core.js` bana gelmedi. `store`, `satStore` ve `actStore` değişkenlerinin **global** olduğunu ve `.history` kayıtlarında `date`, `score`, `total`, `skills` alanlarının bulunduğunu `index.html`'deki kullanımlardan çıkardım. Panel boş görünürse o dosyayı gönderin, eşleştirmeyi düzelteyim.
+- `practice-engine-core.js` ile eşleşme doğrulandı. Motor da `store` / `satStore` / `actStore` değişkenlerini ve `.history[].skills` kayıtlarını (`{correct, total}`) aynı biçimde kullanıyor.
+- Soru bankası testleri sunucu ortamında motorun kendisiyle çalıştırıldı. Bölümlerin hepsinde tam uzunlukta test oluşuyor: SAT 54 + 44, ACT 50 + 45 + 36 (+ Science 40), TSIA2 20 + 24. Bu, dört zorluk yolunun (tam test, foundation, standard, hard) her biri için 40'ar kez denendi.
+- `question-bank-core.js` elimde yok, o yüzden sitenin tamamı gerçek tarayıcıda birlikte çalıştırılamadı. Yüklemeden sonra bir SAT, bir ACT ve bir TSIA2 testi açıp birkaç soru çözmenizi öneririm.
 - SSS'te artık "hesap açarsan ilerlemen cihazlar arası saklanır" yazıyor, çünkü sayfa `firebase-config.js` ve `sync-engine.js` yüklüyor. Senkronun gerçekten çalıştığını bir kez test edin.
