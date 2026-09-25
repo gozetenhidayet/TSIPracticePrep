@@ -3424,7 +3424,20 @@ const v23PrevFinishACTAd=finishACT;finishACT=function(auto=false){v23PrevFinishA
 // otherwise every click behaves with zero added delay, same as always.
 // Rate-limited (one interstitial per COOLDOWN_MS) so a student running
 // several short practice sets back to back isn't stopped every time, and
-// never touches the exam itself once it's running. --
+// never touches the exam itself once it's running.
+//
+// PERMANENT FIX (per KURULUM.md item 6, "kalıcı çözüm ... practice-engine-core.js
+// içinden kapatılmalı"): this must never force the student to wait before
+// reaching the content they came for. Google's AdSense ad placement policy
+// prohibits showing an ad "for a preset time before users can view content"
+// (support.google.com/adsense/answer/1346295), and the Coalition for Better
+// Ads names this exact pattern -- a full-screen ad with a countdown that
+// blocks the user -- a disruptive "prestitial ad with countdown" (betterads.org).
+// "Continue to test" is therefore enabled immediately; the countdown is only
+// passive, informational feedback and never disables or gates the button.
+// (index.html's own TSIPP_SKIP_PRETEST_AD/MutationObserver safety net already
+// works around this from the outside; this fixes it at the source so both
+// layers agree and neither is needed as a crutch for the other.) --
 (function(){
   const COOLDOWN_MS=12*60*1000; // at most one interstitial every 12 minutes
   const LAST_KEY='scorepath_last_interstitial';
@@ -3444,9 +3457,11 @@ const v23PrevFinishACTAd=finishACT;finishACT=function(auto=false){v23PrevFinishA
     const countdown=document.getElementById('adInterstitialCountdown');
     if(!modal||!btn||!countdown){proceed();return}
     modal.classList.add('show');
-    btn.disabled=true;
+    // Never disabled: the student can continue to their test at any time,
+    // even while the ad is still visible.
+    btn.disabled=false;
     let seconds=AD_SECONDS;
-    countdown.textContent=`Starting in ${seconds}s…`;
+    countdown.textContent=`Ad — ${seconds}s`;
     let done=false;
     let timer=null;
     function finish(){
@@ -3460,10 +3475,9 @@ const v23PrevFinishACTAd=finishACT;finishACT=function(auto=false){v23PrevFinishA
       seconds--;
       if(seconds<=0){
         clearInterval(timer);
-        btn.disabled=false;
-        countdown.textContent='Ready — thanks for supporting free practice!';
+        countdown.textContent='Thanks for supporting free practice!';
       }else{
-        countdown.textContent=`Starting in ${seconds}s…`;
+        countdown.textContent=`Ad — ${seconds}s`;
       }
     },1000);
     btn.onclick=finish;
