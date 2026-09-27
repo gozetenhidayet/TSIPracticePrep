@@ -626,18 +626,69 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
    navigator (higher z-index) visually covered its buttons/labels — the same
    class of bug the v58 mobile fix below already solved for phones, now fixed
    here for tablet/desktop too with a matching, fully-clearing offset. */
-.practiceShell.show .confidence{margin-top:22px!important;background:#f7fafc!important;border:1px solid #e2e9f1!important;border-radius:15px!important;padding:13px!important}.practiceShell.show .hintBox,.practiceShell.show .explanation{border-radius:16px!important;font-size:14px!important;line-height:1.6!important}.practiceShell.show .encourage{margin:18px 0 0!important;border:0!important;background:transparent!important;color:#728197!important;font-size:12px!important;text-align:center}.practiceShell.show .qactions{position:sticky;bottom:180px;margin:26px -42px -42px!important;padding:15px 26px!important;background:rgba(255,255,255,.96);border-top:1px solid #e1e8f0;backdrop-filter:blur(12px);z-index:16;gap:12px}.practiceShell.show .smallbtn,.practiceShell.show .studyToolBtn{min-height:43px;border-radius:12px!important;font-size:13px!important;padding:10px 14px!important}.practiceShell.show .primary2{background:linear-gradient(135deg,#315fe8,#247edc)!important;box-shadow:0 8px 18px rgba(41,100,224,.18)}.practiceShell.show .navigator{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-content:flex-start!important;gap:7px!important;position:fixed!important;bottom:15px!important;left:50%!important;transform:translateX(-50%);z-index:18!important;width:min(780px,90vw)!important;max-width:min(780px,90vw)!important;max-height:150px!important;padding:9px 12px!important;border:1px solid #d8e3ef!important;border-radius:16px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 10px 30px rgba(20,49,87,.16)!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin}.practiceShell.show .navigator button{width:32px!important;height:32px!important;min-width:32px!important;flex:0 0 32px!important;font-size:11px!important;border-radius:9px!important}
+.practiceShell.show .confidence{margin-top:22px!important;background:#f7fafc!important;border:1px solid #e2e9f1!important;border-radius:15px!important;padding:13px!important}.practiceShell.show .hintBox,.practiceShell.show .explanation{border-radius:16px!important;font-size:14px!important;line-height:1.6!important}.practiceShell.show .encourage{margin:18px 0 0!important;border:0!important;background:transparent!important;color:#728197!important;font-size:12px!important;text-align:center}.practiceShell.show .qactions{position:sticky;bottom:0;margin:26px -42px -42px!important;padding:15px 26px!important;background:rgba(255,255,255,.96);border-top:1px solid #e1e8f0;backdrop-filter:blur(12px);z-index:16;gap:12px}.practiceShell.show .smallbtn,.practiceShell.show .studyToolBtn{min-height:43px;border-radius:12px!important;font-size:13px!important;padding:10px 14px!important}.practiceShell.show .primary2{background:linear-gradient(135deg,#315fe8,#247edc)!important;box-shadow:0 8px 18px rgba(41,100,224,.18)}
+/* v61: the question navigator used to float permanently, fixed to the bottom
+   of the screen, during the whole test — which meant it could overlap the
+   Submit/Flag/Next action row on shorter question cards (the .qactions
+   bottom offset above used to compensate for this with magic pixel values
+   per breakpoint). It is now an on-demand popup instead: hidden until the
+   "▦ Questions" toolbar button opens it, centered over a dim backdrop, and
+   closed by its own × button, the backdrop, Escape, or picking a question.
+   This is simpler, matches how real digital exam interfaces do it, and
+   removes the whole class of overlap bug structurally instead of patching
+   around it. */
+#examNavBackdrop{display:none;position:fixed;inset:0;z-index:10060;background:rgba(2,6,23,.55)}
+#examNavBackdrop.show{display:block}
+.practiceShell.show .navPopupWrap{display:none;flex-direction:column;gap:4px;position:fixed!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;z-index:10061!important;width:min(600px,90vw)!important;max-width:min(600px,90vw)!important;max-height:min(76vh,560px)!important;padding:18px 20px 20px!important;border:1px solid #d8e3ef!important;border-radius:20px!important;background:#fff!important;box-shadow:0 30px 80px rgba(0,0,0,.35)!important}
+.practiceShell.show .navPopupWrap.navOpen{display:flex!important}
+.practiceShell.show .navPopupHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.practiceShell.show .navPopupHead b{font-size:16px;color:#0f2854}
+.practiceShell.show .navPopupClose{width:32px;height:32px;border:1px solid #d6e0eb;background:#f8fafc;color:#334155;border-radius:9px;font-size:17px;font-weight:900;cursor:pointer;flex-shrink:0}
+.practiceShell.show .navPopupClose:hover{background:#eef2f7}
+.practiceShell.show .navLegend{display:flex;flex-wrap:wrap;gap:12px;margin:2px 0 14px;font-size:11px;color:#64748b;font-weight:750}
+.practiceShell.show .navLegend span{display:inline-flex;align-items:center;gap:5px}
+.practiceShell.show .navLegendDot{width:10px;height:10px;border-radius:50%;background:#fff;border:1.5px solid #dbe3ec;display:inline-block}
+.practiceShell.show .navLegendDot.current{background:#e9f1ff;border-color:#3b82f6}
+.practiceShell.show .navLegendDot.answered{background:#e4f6eb;border-color:#9bd5b5}
+.practiceShell.show .navLegendDot.flagged{background:#fff3d6;border-color:#f3c765}
+.practiceShell.show .navigator{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;align-content:flex-start!important;gap:7px!important;position:static!important;width:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin;max-height:min(56vh,420px)!important}
+.practiceShell.show .navigator button{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important;font-size:12px!important;border-radius:9px!important}
 body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceShell.show .explanation:empty{display:none!important}body.v11-testing.v11-timed .practiceShell.show .studyToolBtn,body.v11-testing.v11-timed .practiceShell.show .confidence,body.v11-testing.v11-timed .practiceShell.show [id$="BookmarkBtn"],body.v11-testing.v11-timed #bookmarkBtn{display:none!important}
 .v11Next{margin:18px 16px;padding:18px 20px;border:1px solid #cfe0f7;border-radius:18px;background:linear-gradient(135deg,#f6faff,#effbf8);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}.v11Next small{display:block;color:#64748b;font-size:12px;margin-bottom:4px}.v11Next b{font-size:19px;color:#0f2854}.v11Next p{margin:4px 0 0;color:#52647d;font-size:13px;line-height:1.45}.v11Next button{border:0;border-radius:12px;padding:12px 16px;background:#173f85;color:white;font-weight:900}.results.show{animation:v11Fade .32s ease-out}.results.show .resultHero{padding:22px 26px!important}.results.show .resultHero h3{font-size:25px!important}.results.show .resultStats{gap:9px!important;padding:14px 16px!important}.results.show .rstat{padding:13px!important}
-/* v58 (corrected): on phones, the fixed question-navigator pill (bottom:8px,
-   up to 150px tall on a long test) and the sticky Submit/Prev/Next action bar
-   used to float in the exact same bottom strip of the screen, so the
-   navigator's opaque pill could cover the Submit button's label. The old
-   .qactions bottom:110px override only cleared the navigator's *typical*
-   height on a short test, not its true max (158px from the viewport edge on
-   phones) — a long test (e.g. a 131-question ACT set) could still overlap.
-   bottom:170px below fully clears it in every case. */
-@media(max-width:760px){.practiceShell.show .testbar{grid-template-columns:1fr auto!important;min-height:66px;padding:10px 13px!important}.practiceShell.show .testmode{display:none}.practiceShell.show .testbar>div:first-child b{font-size:14px}.practiceShell.show .practiceTools{gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.practiceShell.show .practiceTools::-webkit-scrollbar{display:none}.practiceShell.show .practiceTools>*{flex-shrink:0}.practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}.practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}.practiceShell.show .timer{font-size:16px;min-width:58px}.v11Progress{top:66px}.practiceShell.show .qbody{margin:14px 10px 102px!important;padding:20px 16px 26px!important;border-radius:18px}.practiceShell.show .question{font-size:18px!important}.practiceShell.show .passage{font-size:15px!important;padding:15px!important}.practiceShell.show .option{font-size:15px!important;padding:11px!important}.practiceShell.show .qactions{margin:22px -16px -26px!important;padding:11px!important;flex-direction:column!important;position:sticky!important;bottom:170px!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.practiceShell.show .navigator{bottom:8px!important;max-width:94vw!important}.v11Next{grid-template-columns:1fr;margin:12px}.v11Next button{width:100%}}
+/* v58/v61: on phones, the fixed question-navigator pill and the sticky
+   Submit/Prev/Next action bar used to float in the exact same bottom strip
+   of the screen, so the navigator could cover the Submit button's label.
+   Now that the navigator is an on-demand popup (v61 above) instead of a
+   permanently floating pill, .qactions no longer needs a bottom offset to
+   dodge it — reverted to bottom:0. Only the popup's own width is tuned for
+   narrow screens here. */
+@media(max-width:760px){.practiceShell.show .testbar{grid-template-columns:1fr auto!important;min-height:66px;padding:10px 13px!important}.practiceShell.show .testmode{display:none}.practiceShell.show .testbar>div:first-child b{font-size:14px}.practiceShell.show .practiceTools{gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.practiceShell.show .practiceTools::-webkit-scrollbar{display:none}.practiceShell.show .practiceTools>*{flex-shrink:0}.practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}.practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}.practiceShell.show .timer{font-size:16px;min-width:58px}.v11Progress{top:66px}.practiceShell.show .qbody{margin:14px 10px 30px!important;padding:20px 16px 26px!important;border-radius:18px}.practiceShell.show .question{font-size:18px!important}.practiceShell.show .passage{font-size:15px!important;padding:15px!important}.practiceShell.show .option{font-size:15px!important;padding:11px!important}.practiceShell.show .qactions{margin:22px -16px -26px!important;padding:11px!important;flex-direction:column!important;position:sticky!important;bottom:0!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.practiceShell.show .navPopupWrap{width:92vw!important;max-width:92vw!important;max-height:80vh!important;padding:16px!important}.v11Next{grid-template-columns:1fr;margin:12px}.v11Next button{width:100%}}
+/* v62: side-by-side passage + question layout for Reading/English-style items
+   (SAT Reading & Writing, ACT English/Reading, TSIA2 ELAR) once the viewport
+   is wide enough (>=1080px) to give both columns real room. Today's stacked
+   layout forced re-reading a long passage every time you scrolled down to
+   the question -- real digital exam interfaces (including the Bluebook SAT
+   app this site is modeled on) instead pin the passage in its own scrolling
+   column beside the question. Gated on :has(), which every evergreen browser
+   now supports, so a browser without it just keeps the current, already-
+   correct stacked layout: a pure enhancement, never a regression path. */
+@media(min-width:1080px){
+ .practiceShell.show .qbody:has(>.passage:not(.hidden)){max-width:1280px!important;display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)!important;column-gap:32px!important;align-items:start!important;grid-template-areas:"meta meta" "passage question" "passage options" "passage confidence" "passage hint" "explanation explanation" "encourage encourage" "actions actions"!important}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.qmeta{grid-area:meta}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.passage{grid-area:passage!important;margin:0!important;position:sticky!important;top:90px!important;max-height:min(75vh,780px)!important;overflow-y:auto!important;align-self:start!important}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.passage::-webkit-scrollbar{width:8px}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.passage::-webkit-scrollbar-thumb{background:#c7d4e3;border-radius:8px}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.question{grid-area:question;margin-top:0!important}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.options{grid-area:options}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.confidence{grid-area:confidence}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.hintBox{grid-area:hint}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.explanation{grid-area:explanation}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.encourage{grid-area:encourage}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden))>.qactions{grid-area:actions}
+}
+@media(min-width:1080px) and (max-width:1300px){
+ .practiceShell.show .qbody:has(>.passage:not(.hidden)){max-width:calc(100vw - 60px)!important}
+}
 @media(prefers-reduced-motion:reduce){.practiceShell.show,.practiceShell.show .qbody,.results.show{animation:none!important}.practiceShell.show .option,.v11Progress i{transition:none!important}}
 </style><style id="v12-progress-css">
 .v12HistoryWrap{max-width:1100px;margin:18px auto 6px;padding:22px;background:linear-gradient(145deg,#fff,#f5f8ff);border:1px solid #d8e2f0;border-radius:22px;box-shadow:0 16px 40px rgba(15,23,42,.07)}.v12HistoryHead{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:16px}.v12HistoryHead h2{font-size:27px;margin:4px 0;color:#0f172a}.v12HistoryHead p{margin:0;color:#64748b;font-size:14px}.v12Refresh{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:9px 13px;font-weight:850;color:#334155;cursor:pointer}.v12HistoryGrid{display:grid;grid-template-columns:1.1fr 1fr 1.2fr;gap:12px}.v12HistoryGrid article{background:#fff;border:1px solid #dbe3ef;border-radius:16px;padding:16px;min-height:145px}.v12HistoryGrid h3,.v12RecentBox h3{margin:0 0 12px;color:#0f172a;font-size:16px}.v12ResumeList{display:grid;gap:8px}.v12ResumeItem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px}.v12ResumeItem b{font-size:13px}.v12ResumeItem span{display:block;color:#64748b;font-size:11px;margin-top:2px}.v12ResumeItem button{border:0;border-radius:9px;padding:8px 10px;color:#fff;background:#2563eb;font-weight:900;cursor:pointer}.v12Empty{font-size:13px;color:#64748b;padding:12px;border:1px dashed #cbd5e1;border-radius:11px;background:#fafcff}.v12TrendStats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.v12TrendStats div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:9px}.v12TrendStats b{display:block;font-size:18px;color:#0f2b5c}.v12TrendStats span{font-size:10px;color:#64748b}.v12MiniTrend{height:58px;display:flex;align-items:end;gap:5px;margin-top:12px}.v12MiniTrend i{flex:1;min-width:7px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#22c55e,#2563eb);transform-origin:bottom;animation:v12Grow .65s ease both}.v12HistoryAnalysis{font-size:13px;line-height:1.6;color:#475569}.v12HistoryAnalysis b{color:#0f172a}.v12Positive{display:block;margin-bottom:7px;color:#047857;font-size:14px;font-weight:900}.v12RecentBox{margin-top:12px;background:#fff;border:1px solid #dbe3ef;border-radius:16px;padding:15px}.v12RecentTitle{display:flex;justify-content:space-between;align-items:center;gap:12px}.v12RecentTitle span{font-size:11px;color:#94a3b8}.v12RecentRow{display:grid;grid-template-columns:80px 1fr 90px 90px;gap:10px;align-items:center;border-top:1px solid #eef2f7;padding:10px 3px;font-size:12px}.v12RecentRow:first-child{border-top:0}.v12RecentRow strong{color:#0f172a}.v12RecentRow span{color:#64748b}.v12ScorePill{justify-self:end;background:#eff6ff;color:#1d4ed8!important;font-weight:900;padding:5px 8px;border-radius:999px}.v12ResultBoost{margin:12px 0 18px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #bbf7d0;animation:v12Pop .45s ease}.v12ResultBoost b{display:block;color:#047857;font-size:17px;margin-bottom:5px}.v12ResultBoost span{font-size:13px;color:#475569;line-height:1.55}.v12FreshBadge{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:11px;font-weight:850;color:#0369a1;background:#e0f2fe;border-radius:999px;padding:5px 8px}@keyframes v12Grow{from{transform:scaleY(.08);opacity:.3}to{transform:scaleY(1);opacity:1}}@keyframes v12Pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}@media(max-width:850px){.v12HistoryGrid{grid-template-columns:1fr}.v12HistoryHead{align-items:flex-start;flex-direction:column}.v12RecentRow{grid-template-columns:70px 1fr 70px}.v12RecentRow .v12Mode{display:none}}@media(max-width:520px){.v12HistoryWrap{margin:12px 12px 4px;padding:15px}.v12HistoryHead h2{font-size:22px}.v12RecentRow{grid-template-columns:64px 1fr 58px;font-size:11px}.v12ScorePill{font-size:10px}.v12TrendStats b{font-size:16px}}@media(prefers-reduced-motion:reduce){.v12MiniTrend i,.v12ResultBoost{animation:none!important}}
@@ -1097,7 +1148,9 @@ button,a{transition:background-color .2s ease,color .2s ease,border-color .2s ea
 /* practice screen */
 .smallbtn.submit{background:#15803d!important;border-color:#15803d!important;color:#fff!important}
 button[data-reason]{font-size:12px!important}
-/* practice screen on phones: compact header, compact action bar, navigator not covering the text */
+/* practice screen on small phones: compact header, compact action bar. The
+   navigator is a popup now (v61), so it no longer needs a "don't cover the
+   text" override here — it isn't on-screen at all until opened. */
 @media (max-width:560px){
   .practiceShell.show .testbar{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:6px 8px!important;padding:8px 12px!important}
   .practiceShell.show .testbar > div:first-child{flex:1 1 100%!important;width:100%!important;max-width:100%!important;min-width:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1110,7 +1163,7 @@ button[data-reason]{font-size:12px!important}
   .practiceShell .qactions{padding:8px!important;gap:6px!important}
   .practiceShell .qactions .leftActs,.practiceShell .qactions .rightActs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important}
   .practiceShell .qactions button{min-width:0!important;width:100%!important;padding:8px 4px!important;font-size:12.5px!important;min-height:42px!important;white-space:normal!important;line-height:1.15!important}
-  .practiceShell.show .navigator{position:static!important;transform:none!important;grid-template-rows:none!important;margin:12px auto 90px!important;width:auto!important;max-width:100%!important;display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:6px!important;box-shadow:none!important;background:transparent!important;border:0!important}
+  .practiceShell.show .navPopupWrap{width:94vw!important;max-width:94vw!important}
 }
 .practiceShell .timer:not(.dangerTime){color:#e2e8f0}
 
@@ -1928,7 +1981,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="satTestTitle">SAT Practice</b><br><small id="satTestSub">Question 1</small></div>
     <div class="testmode"><small id="satModeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="satTimer">15:00</div><button class="examToolBtn" id="satRefBtn" hidden>▤ Reference</button><button class="examToolBtn desmosBtn" id="satCalcBtn" hidden>📈 Desmos</button><button class="examToolBtn" id="satScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="satReadBtn" hidden>🔊 Read</button><button class="iconCtl examFullscreenBtn" id="satFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="satCloseBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="satTimer">15:00</div><button class="examToolBtn" id="satRefBtn" hidden>▤ Reference</button><button class="examToolBtn desmosBtn" id="satCalcBtn" hidden>📈 Desmos</button><button class="examToolBtn" id="satScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="satReadBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="satNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="satFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="satCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -1943,7 +1996,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="satPrevBtn">← Previous</button><button class="smallbtn submit" id="satSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="satNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="satFinishBtn">Finish Module</button></div>
     </div>
    </div>
-   <div class="navigator" id="satNavigator"></div>
+   <div class="navPopupWrap" id="satNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="satNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="satNavigator"></div></div>
   </div>
 
   <div class="results" id="satResults">
@@ -2024,7 +2077,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="actTestTitle">ACT Practice</b><br><small id="actTestSub">Question 1</small></div>
     <div class="testmode"><small id="actModeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="actTimer">15:00</div><button class="examToolBtn" id="actRefBtn" hidden>▤ Reference</button><button class="examToolBtn" id="actCalcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="actScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="actReadBtn" hidden>🔊 Read</button><button class="iconCtl examFullscreenBtn" id="actFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="actCloseBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="actTimer">15:00</div><button class="examToolBtn" id="actRefBtn" hidden>▤ Reference</button><button class="examToolBtn" id="actCalcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="actScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="actReadBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="actNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="actFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="actCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -2039,7 +2092,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="actPrevBtn">← Previous</button><button class="smallbtn submit" id="actSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="actNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="actFinishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navigator" id="actNavigator"></div>
+   <div class="navPopupWrap" id="actNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="actNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="actNavigator"></div></div>
   </div>
 
   <div class="results" id="actResults">
@@ -2148,7 +2201,7 @@ function spConsole(method){
    <div class="testbar">
     <div><b id="testTitle">TSI Practice</b><br><small id="testSub">Question 1</small></div>
     <div class="testmode"><small id="modeLabel"></small></div>
-    <div class="practiceTools"><div class="timer" id="timer">15:00</div><button class="examToolBtn" id="refBtn" hidden>▤ Reference</button><button class="examToolBtn" id="calcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="scratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="readBtn" hidden>🔊 Read</button><button class="iconCtl examFullscreenBtn" id="fullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="closePracticeBtn" title="Close test">×</button></div>
+    <div class="practiceTools"><div class="timer" id="timer">15:00</div><button class="examToolBtn" id="refBtn" hidden>▤ Reference</button><button class="examToolBtn" id="calcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="scratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="readBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="tsiNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="fullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="closePracticeBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
    <div class="qbody">
@@ -2166,7 +2219,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="prevBtn">← Previous</button><button class="smallbtn submit" id="submitAnswerBtn">Submit Answer</button><button class="smallbtn primary2" id="nextBtn">Next →</button><button class="smallbtn primary2 hidden" id="finishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navigator" id="navigator"></div>
+   <div class="navPopupWrap" id="tsiNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="tsiNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="navigator"></div></div>
   </div>
 
   <div class="moduleBreak" id="tsiAdaptiveBreak"><h3 id="tsiAdaptiveBreakTitle">Module complete</h3><p id="tsiAdaptiveBreakText"></p><div class="moduleBreakStats" id="tsiAdaptiveBreakStats"></div><button class="btn primary" id="tsiAdaptiveContinue">Continue →</button></div>
@@ -2366,6 +2419,21 @@ function spConsole(method){
   </div>
  </div>
 </div>
+
+<div class="examModal" id="exitConfirmModal" aria-hidden="true">
+ <div class="examModalCard" role="dialog" aria-modal="true" aria-labelledby="exitConfirmTitle" style="width:min(440px,100%)">
+  <div class="examModalHead"><h3 id="exitConfirmTitle">Exit practice test?</h3><button class="modalClose" id="exitConfirmClose" aria-label="Close">×</button></div>
+  <div class="examModalBody">
+   <p style="margin:0 0 20px;color:#475569;font-size:14px;line-height:1.6">Your progress has been saved. You can continue this test later from where you left off.</p>
+   <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+    <button type="button" id="exitCancelBtn" style="border:1px solid #d6e0eb;background:#fff;color:#334155;padding:11px 16px;border-radius:11px;font-weight:850;font-size:13px;cursor:pointer;min-height:42px">Continue Test</button>
+    <button type="button" id="exitConfirmBtn" style="border:0;background:#dc2626;color:#fff;padding:11px 16px;border-radius:11px;font-weight:850;font-size:13px;cursor:pointer;min-height:42px">Exit Test</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div id="examNavBackdrop"></div>
 
 <div class="examModal" id="scratchModal" aria-hidden="true">
  <div class="examModalCard" role="dialog" aria-modal="true" aria-labelledby="scratchTitle">
@@ -6129,6 +6197,101 @@ return Q;
   function start() { setTimeout(function () { try { boot(); } catch (e) { } }, 400); }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', start); else start();
 })(window, document);
+</script>
+<script id="v60-exit-confirm">
+/* Clicking the red "Exit test" (X) button used to leave the practice session
+ * immediately with no confirmation — a real risk now that the button is
+ * intentionally more visually prominent (easier to tap by accident). This
+ * intercepts the three close buttons, shows a "progress is saved, are you
+ * sure?" modal (reusing the site's existing .examModal component and
+ * modalOpen/modalClose helpers from question-bank-core.js), and only calls
+ * the original leavePractice() once the user confirms. Runs after both
+ * question-bank-core.js and practice-engine-core.js have loaded, matching
+ * this file's existing "load AFTER the engines" patch convention. */
+(function () {
+  function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  ready(function () {
+    try {
+      if (typeof modalOpen !== 'function' || typeof modalClose !== 'function' || typeof leavePractice !== 'function') return;
+      var pending = null;
+      function requestExit(shellId, dashFn) { pending = { shellId: shellId, dashFn: dashFn }; modalOpen('exitConfirmModal'); }
+      function confirmExit() { var p = pending; pending = null; modalClose('exitConfirmModal'); if (p) leavePractice(p.shellId, p.dashFn); }
+      function cancelExit() { pending = null; modalClose('exitConfirmModal'); }
+
+      var closeBtn = document.getElementById('closePracticeBtn');
+      var satCloseBtn = document.getElementById('satCloseBtn');
+      var actCloseBtn = document.getElementById('actCloseBtn');
+      if (closeBtn && typeof showDash === 'function') closeBtn.onclick = function () { requestExit('practiceShell', showDash); };
+      if (satCloseBtn && typeof satDash === 'function') satCloseBtn.onclick = function () { requestExit('satPracticeShell', satDash); };
+      if (actCloseBtn && typeof actDash === 'function') actCloseBtn.onclick = function () { requestExit('actPracticeShell', actDash); };
+
+      var confirmBtn = document.getElementById('exitConfirmBtn');
+      var cancelBtn = document.getElementById('exitCancelBtn');
+      var xBtn = document.getElementById('exitConfirmClose');
+      if (confirmBtn) confirmBtn.onclick = confirmExit;
+      if (cancelBtn) cancelBtn.onclick = cancelExit;
+      if (xBtn) xBtn.onclick = cancelExit;
+      var modal = document.getElementById('exitConfirmModal');
+      if (modal) modal.addEventListener('click', function (e) { if (e.target.id === 'exitConfirmModal') cancelExit(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal && modal.classList.contains('show')) cancelExit(); });
+    } catch (e) {}
+  });
+})();
+</script>
+<script id="v61-nav-popup">
+/* Turns the question navigator from a permanently-floating panel into an
+ * on-demand popup, opened by the new "▦ Questions" toolbar button. This is
+ * the structural fix for the navigator-overlaps-content bug class (see the
+ * v61 CSS comment above .navPopupWrap): nothing floats over the page any
+ * more, so there is nothing left to overlap. The grid of question buttons
+ * itself (#navigator / #satNavigator / #actNavigator) is untouched — it is
+ * still rendered by question-bank-core.js's renderNav()/renderSATNav() etc,
+ * which only ever does navEl.innerHTML = ...; this script just shows/hides
+ * the wrapper around it and never touches that markup itself. */
+(function () {
+  function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  ready(function () {
+    try {
+      var backdrop = document.getElementById('examNavBackdrop');
+      var panels = [
+        { toggle: 'tsiNavToggleBtn', wrap: 'tsiNavPopupWrap', close: 'tsiNavPopupClose' },
+        { toggle: 'satNavToggleBtn', wrap: 'satNavPopupWrap', close: 'satNavPopupClose' },
+        { toggle: 'actNavToggleBtn', wrap: 'actNavPopupWrap', close: 'actNavPopupClose' }
+      ];
+      var openWrapEl = null;
+
+      function closeOpen() {
+        if (openWrapEl) openWrapEl.classList.remove('navOpen');
+        openWrapEl = null;
+        if (backdrop) backdrop.classList.remove('show');
+      }
+      function openPanel(wrapEl) {
+        if (openWrapEl && openWrapEl !== wrapEl) openWrapEl.classList.remove('navOpen');
+        wrapEl.classList.add('navOpen');
+        openWrapEl = wrapEl;
+        if (backdrop) backdrop.classList.add('show');
+      }
+
+      panels.forEach(function (p) {
+        var toggleBtn = document.getElementById(p.toggle);
+        var wrapEl = document.getElementById(p.wrap);
+        var closeBtn = document.getElementById(p.close);
+        if (!toggleBtn || !wrapEl) return;
+        toggleBtn.onclick = function () {
+          if (wrapEl.classList.contains('navOpen')) closeOpen(); else openPanel(wrapEl);
+        };
+        if (closeBtn) closeBtn.onclick = closeOpen;
+        // Close automatically once a question number is picked, so the
+        // student immediately sees the question they just jumped to.
+        var grid = wrapEl.querySelector('.navigator');
+        if (grid) grid.addEventListener('click', function (e) { if (e.target.closest('.navq')) closeOpen(); });
+      });
+
+      if (backdrop) backdrop.addEventListener('click', closeOpen);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openWrapEl) closeOpen(); });
+    } catch (e) {}
+  });
+})();
 </script>
 </body>
 </html>
