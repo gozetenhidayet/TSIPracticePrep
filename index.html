@@ -1868,6 +1868,73 @@ button.tsipp-wrow:hover{background:#f8fafc}
 @media (max-width:1400px){.dk-target{right:-14px;width:64px}.dk-pencil{right:-16px;width:60px}.dk-brain{display:none}}
 </style>
 <style id="tsipp-phase1-hide">#student-dashboard,#smart-learning,#my-results,#my-progress,#test-date-center,#study-plan,#mastery-path,.v10Why{display:none!important}</style>
+<style id="v70-professional-exam-ui">
+/* V70 -- presentation-only exam workspace upgrade (ported from a separately
+ * uploaded file, ported+reconciled here). No question/answer/scoring logic
+ * changed. Two things were fixed while porting, and one v70 rule was
+ * deliberately dropped -- see the v71 reconciliation block right after this
+ * one for why. */
+.practiceShell.show{--exam-accent:#2563eb;--exam-accent-soft:#eff6ff;--exam-accent-line:#93c5fd}
+#satPracticeShell.show{--exam-accent:#7c3aed;--exam-accent-soft:#f5f3ff;--exam-accent-line:#c4b5fd}
+#actPracticeShell.show{--exam-accent:#ea580c;--exam-accent-soft:#fff7ed;--exam-accent-line:#fdba74}
+#practiceShell.show{--exam-accent:#0284c7;--exam-accent-soft:#f0f9ff;--exam-accent-line:#7dd3fc}
+.practiceShell.show .testbar{min-height:78px!important;padding:12px clamp(16px,3vw,44px)!important;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(8,24,52,.16)}
+.practiceShell.show .testbar>div:first-child b{font-size:18px!important;line-height:1.2}.practiceShell.show .testbar>div:first-child small{display:inline-block;margin-top:3px;font-size:12px!important}
+.practiceShell.show .practiceTools{gap:8px!important}.practiceShell.show .timer{font-size:21px!important;font-weight:950!important;min-width:78px!important;letter-spacing:normal!important}
+.practiceShell.show .examToolBtn{height:42px!important;padding:0 12px!important;border-radius:11px!important;white-space:nowrap}
+.practiceShell.show .iconCtl.examFullscreenBtn,.practiceShell.show .iconCtl.examCloseBtn{width:auto!important;min-width:44px!important;height:42px!important;padding:0 13px!important;border-radius:11px!important;gap:7px!important;white-space:nowrap;font-size:14px!important}
+.practiceShell.show .examFullscreenBtn{background:#1d4ed8!important;border-color:#60a5fa!important}.practiceShell.show .examCloseBtn{background:#991b1b!important;border-color:#ef4444!important}
+.v70CtlIcon{font-size:17px;line-height:1}.v70CtlLabel{font-size:12px;font-weight:900;letter-spacing:.01em}
+.practiceShell.show .v11Progress{height:6px!important;background:#dce6f2!important}.practiceShell.show .v11Progress i{background:linear-gradient(90deg,var(--exam-accent),#14b8a6)!important}
+.practiceShell.show .infoChip{min-height:56px!important;border-radius:14px!important}.practiceShell.show .infoChipIcon{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:var(--exam-accent-soft)}
+.practiceShell.show .qbody{max-width:1040px!important;margin:22px auto 22px!important;padding:clamp(22px,3.5vw,42px)!important;border-radius:22px!important;border:1px solid #d9e4f0!important;box-shadow:0 22px 60px rgba(15,42,78,.10)!important}
+.practiceShell.show .qmeta{gap:7px!important}.practiceShell.show .question{font-size:clamp(21px,1.65vw,26px)!important;line-height:1.48!important;letter-spacing:-.018em!important;max-width:900px}
+.practiceShell.show .passage{font-size:17px!important;line-height:1.78!important;border-left-color:var(--exam-accent)!important;background:#f8fbff!important}
+.practiceShell.show .options{gap:12px!important}.practiceShell.show .option{min-height:68px!important;border:1.5px solid #d6e1ee!important;border-radius:15px!important;padding:14px 16px!important;font-size:17px!important;line-height:1.5!important;align-items:center!important}.practiceShell.show .option:hover{border-color:var(--exam-accent-line)!important;background:#fbfdff!important}.practiceShell.show .option.selected{border-color:var(--exam-accent)!important;background:var(--exam-accent-soft)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--exam-accent) 14%,transparent)!important}.practiceShell.show .letter{width:38px!important;height:38px!important;min-width:38px!important;border-radius:11px!important;font-size:15px!important;background:#edf3fa!important}.practiceShell.show .option.selected .letter{background:var(--exam-accent)!important;color:#fff!important}
+.practiceShell.show .qactions{margin:28px calc(clamp(22px,3.5vw,42px) * -1) calc(clamp(22px,3.5vw,42px) * -1)!important;padding:14px clamp(18px,3vw,30px)!important;box-shadow:0 -10px 28px rgba(15,42,78,.05)}
+.practiceShell.show .smallbtn,.practiceShell.show .studyToolBtn{min-height:44px!important;font-size:12.5px!important}.practiceShell.show .smallbtn.submit{background:#15803d!important;border-color:#15803d!important}.practiceShell.show .smallbtn.primary2{background:var(--exam-accent)!important;border-color:var(--exam-accent)!important}
+.practiceShell.show .navPopupWrap{max-width:1040px!important;margin:0 auto 38px!important;padding:20px!important;border-radius:20px!important}.practiceShell.show .navPopupHead b{font-size:17px!important}.practiceShell.show .navLegend{margin:5px 0 14px!important}.practiceShell.show .navigator{gap:8px!important}.practiceShell.show .navigator button{width:38px!important;height:38px!important;min-width:38px!important;flex:0 0 38px!important;border-radius:10px!important;font-size:12.5px!important}.practiceShell.show .navigator .navq.current{outline:3px solid color-mix(in srgb,var(--exam-accent) 38%,transparent)!important;border-color:var(--exam-accent)!important;color:var(--exam-accent)!important}
+@media(min-width:1080px){.practiceShell.show .qbody:has(>.passage:not(.hidden)){max-width:1360px!important;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr)!important;column-gap:34px!important}.practiceShell.show .qbody:has(>.passage:not(.hidden))>.passage{top:104px!important;max-height:calc(100vh - 150px)!important}}
+@media(max-width:900px){.practiceShell.show .testbar{grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important}.practiceShell.show .testmode{display:none!important}.practiceShell.show .practiceTools{max-width:60vw!important}.practiceShell.show .examToolBtn{padding:0 10px!important}.practiceShell.show .examInfoStrip{padding:0 12px!important}.practiceShell.show .qbody{margin:14px 12px 18px!important;padding:22px 18px!important;border-radius:18px!important}.practiceShell.show .qactions{margin:24px -18px -22px!important;padding:12px 14px!important}.practiceShell.show .navPopupWrap{margin:0 12px 24px!important;width:auto!important}.practiceShell.show .qbody:has(>.passage:not(.hidden)){display:block!important}.practiceShell.show .qbody:has(>.passage:not(.hidden))>.passage{position:static!important;max-height:none!important;margin-bottom:22px!important}}
+@media(max-width:640px){.practiceShell.show .testbar{min-height:70px!important;padding:9px 10px!important}.practiceShell.show .testbar>div:first-child b{font-size:14px!important}.practiceShell.show .testbar>div:first-child small{font-size:10.5px!important}.practiceShell.show .practiceTools{gap:5px!important;max-width:58vw!important}.practiceShell.show .timer{font-size:17px!important;min-width:55px!important}.practiceShell.show .examToolBtn{height:38px!important;padding:0 9px!important;font-size:11px!important}.practiceShell.show .iconCtl.examFullscreenBtn,.practiceShell.show .iconCtl.examCloseBtn{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;border-radius:10px!important}.practiceShell.show .iconCtl .v70CtlLabel{display:none}.practiceShell.show .question{font-size:20px!important}.practiceShell.show .passage{font-size:16px!important;padding:16px!important}.practiceShell.show .option{min-height:62px!important;padding:12px!important;font-size:16px!important}.practiceShell.show .letter{width:36px!important;height:36px!important;min-width:36px!important}.practiceShell.show .qactions{position:static!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%!important}.practiceShell.show .rightActs{display:grid!important;grid-template-columns:1fr 1fr!important}.practiceShell.show .rightActs .submit{grid-column:1/-1!important}.practiceShell.show .rightActs button{width:100%!important}.practiceShell.show .navigator button{width:36px!important;height:36px!important;min-width:36px!important;flex-basis:36px!important}}
+@media(max-width:390px){.practiceShell.show .practiceTools{max-width:55vw!important}.practiceShell.show .qbody{margin-left:8px!important;margin-right:8px!important}.practiceShell.show .navPopupWrap{margin-left:8px!important;margin-right:8px!important;padding:15px!important}}
+@media(prefers-reduced-motion:reduce){.practiceShell.show *{scroll-behavior:auto!important}}
+</style>
+<style id="v71-v70-reconcile">
+/* v71: reconcile v70's wider qbody (1040px normal / 1360px passage-mode)
+ * with the info-strip width-matching system built earlier (v64/v62). Two
+ * deliberate changes from a straight copy-paste of the uploaded v70 block:
+ *
+ * 1) v70's own ".examInfoStrip{max-width:1040px!important}" rule was NOT
+ *    copied above -- it hardcoded a FIXED width that never widened for the
+ *    side-by-side passage layout, while v70's own qbody rule widens to
+ *    1360px in that same layout. Copying it as-is would have reintroduced
+ *    the exact 320px header/question misalignment bug already found and
+ *    fixed once (see the original :has()-based alignment rules). Instead,
+ *    the base 1040px width and the matching 1360px/calc() passage-mode
+ *    widths are set here, reusing the same :has() sibling technique.
+ *
+ * 2) v70's own "@media(max-width:390px){.examToolBtn:not(.examNavToggleBtn)
+ *    {display:none!important}}" rule was NOT copied. On real phones at or
+ *    near 390px width (a very common width, not a rare edge case) that rule
+ *    would hide the Reference/Calculator/Scratchpad/Read buttons entirely,
+ *    removing a student's access to those tools during a real test -- not
+ *    a purely visual change. The existing fix already makes the toolbar
+ *    horizontally scrollable with Fullscreen/Close pinned reachable via
+ *    position:sticky, so every tool stays reachable at any phone width
+ *    without removing any of them. That scrollable-toolbar behavior is
+ *    left untouched; only the harmless spacing parts of v70's <=390px
+ *    block were kept above (practiceTools/qbody/navPopupWrap margins).
+ */
+.practiceShell.show .examInfoStrip{max-width:1040px;margin:18px auto 0}
+@media(min-width:1080px){
+ .practiceShell.show .examInfoStrip:has(~.qbody>.passage:not(.hidden)){max-width:1360px}
+}
+@media(min-width:1080px) and (max-width:1300px){
+ .practiceShell.show .examInfoStrip:has(~.qbody>.passage:not(.hidden)){max-width:calc(100vw - 60px)}
+ .practiceShell.show .qbody:has(>.passage:not(.hidden)){max-width:calc(100vw - 60px)!important}
+}
+</style>
 </head>
 <body data-scorepath-version="USA-PRO-V17-2026-08-27">
 <script>
@@ -6660,6 +6727,26 @@ return Q;
       });
     } catch (e) {}
   });
+})();
+</script>
+<script id="v70-professional-exam-ui-js">
+/* v70 -- ported from the uploaded comparison file. Fixed one id bug while
+ * porting: the source used 'closeBtn' for TSI's exit button, but TSI's real
+ * id (see the markup) is 'closePracticeBtn' -- 'closeBtn' does not exist
+ * anywhere in this document. With the wrong id, TSI's Exit button silently
+ * never got the icon+label upgrade (stayed a bare "x", 44px wide) while SAT
+ * ('satCloseBtn') and ACT ('actCloseBtn') correctly became labeled "x Exit
+ * Test" pills. Corrected below so all three exams match. */
+(function(){
+  function upgradeControl(id, icon, label, aria){
+    var b=document.getElementById(id); if(!b || b.dataset.v70Upgraded) return;
+    b.dataset.v70Upgraded='1'; b.setAttribute('aria-label',aria);
+    b.innerHTML='<span class="v70CtlIcon" aria-hidden="true">'+icon+'</span><span class="v70CtlLabel">'+label+'</span>';
+  }
+  function init(){
+    [['fullscreenBtn','⛶','Full Screen','Toggle full screen'],['satFullscreenBtn','⛶','Full Screen','Toggle full screen'],['actFullscreenBtn','⛶','Full Screen','Toggle full screen'],['closePracticeBtn','×','Exit Test','Exit test'],['satCloseBtn','×','Exit Test','Exit test'],['actCloseBtn','×','Exit Test','Exit test']].forEach(function(x){upgradeControl.apply(null,x)});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
 </body>
