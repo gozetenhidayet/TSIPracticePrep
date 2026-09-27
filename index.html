@@ -651,6 +651,26 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
 .practiceShell.show .navLegendDot.current{background:#e9f1ff;border-color:#3b82f6}
 .practiceShell.show .navLegendDot.answered{background:#e4f6eb;border-color:#9bd5b5}
 .practiceShell.show .navLegendDot.flagged{background:#fff3d6;border-color:#f3c765}
+/* v63: filter tabs, jump-to-section and a Go-to box inside the question
+   navigator popup -- the counts (All/Not Answered/Flagged) and the section
+   list are computed client-side from the live navq buttons and the test's
+   own question set, so they always match what renderNav()/renderGeneric()
+   just drew and never need those functions to be touched. */
+.practiceShell.show .navToolsRow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:0 0 12px}
+.practiceShell.show .navFilterTabs{display:flex;flex-wrap:wrap;gap:6px}
+.practiceShell.show .navFilterTab{border:1px solid #dbe3ec;background:#f8fafc;color:#475569;border-radius:999px;padding:6px 11px;font-size:11.5px;font-weight:800;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.practiceShell.show .navFilterTab:hover{background:#eef2f7}
+.practiceShell.show .navFilterTab.active{background:#173f85;border-color:#173f85;color:#fff}
+.practiceShell.show .navSectionJump{border:1px solid #dbe3ec;border-radius:10px;padding:7px 10px;font-size:11.5px;font-weight:800;color:#334155;background:#fff;max-width:180px}
+.practiceShell.show .navigator .navq.navFilteredOut{display:none!important}
+.practiceShell.show .navSummaryRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid #eef2f7}
+.practiceShell.show .navSummary{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:#64748b;font-weight:750}
+.practiceShell.show .navSummary b{color:#1f2937}
+.practiceShell.show .navGoto{display:flex;gap:6px}
+.practiceShell.show .navGotoInput{width:72px;border:1px solid #dbe3ec;border-radius:10px;padding:7px 9px;font-size:12.5px;font-weight:800;color:#0f172a}
+.practiceShell.show .navGotoBtn{border:0;border-radius:10px;padding:7px 14px;background:#2563eb;color:#fff;font-weight:850;font-size:12px}
+.practiceShell.show .navGotoBtn:hover{background:#1d4ed8}
+@media(max-width:560px){.practiceShell.show .navToolsRow{flex-direction:column;align-items:stretch}.practiceShell.show .navSectionJump{max-width:none}.practiceShell.show .navSummaryRow{flex-direction:column;align-items:stretch}}
 .practiceShell.show .navigator{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;align-content:flex-start!important;gap:7px!important;position:static!important;width:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin;max-height:min(56vh,420px)!important}
 .practiceShell.show .navigator button{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important;font-size:12px!important;border-radius:9px!important}
 body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceShell.show .explanation:empty{display:none!important}body.v11-testing.v11-timed .practiceShell.show .studyToolBtn,body.v11-testing.v11-timed .practiceShell.show .confidence,body.v11-testing.v11-timed .practiceShell.show [id$="BookmarkBtn"],body.v11-testing.v11-timed #bookmarkBtn{display:none!important}
@@ -1996,7 +2016,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="satPrevBtn">← Previous</button><button class="smallbtn submit" id="satSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="satNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="satFinishBtn">Finish Module</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="satNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="satNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="satNavigator"></div></div>
+   <div class="navPopupWrap" id="satNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="satNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="satNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="satNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="satNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="satNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="satNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="results" id="satResults">
@@ -2092,7 +2112,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="actPrevBtn">← Previous</button><button class="smallbtn submit" id="actSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="actNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="actFinishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="actNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="actNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="actNavigator"></div></div>
+   <div class="navPopupWrap" id="actNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="actNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="actNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="actNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="actNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="actNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="actNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="results" id="actResults">
@@ -2219,7 +2239,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="prevBtn">← Previous</button><button class="smallbtn submit" id="submitAnswerBtn">Submit Answer</button><button class="smallbtn primary2" id="nextBtn">Next →</button><button class="smallbtn primary2 hidden" id="finishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="tsiNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="tsiNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navigator" id="navigator"></div></div>
+   <div class="navPopupWrap" id="tsiNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="tsiNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="tsiNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="tsiNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="navigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="tsiNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="tsiNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="moduleBreak" id="tsiAdaptiveBreak"><h3 id="tsiAdaptiveBreakTitle">Module complete</h3><p id="tsiAdaptiveBreakText"></p><div class="moduleBreakStats" id="tsiAdaptiveBreakStats"></div><button class="btn primary" id="tsiAdaptiveContinue">Continue →</button></div>
@@ -6289,6 +6309,129 @@ return Q;
 
       if (backdrop) backdrop.addEventListener('click', closeOpen);
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openWrapEl) closeOpen(); });
+    } catch (e) {}
+  });
+})();
+</script>
+<script id="v63-nav-extras">
+/* v63: adds filter tabs (All / Not Answered / Flagged with live counts), a
+ * "Jump to Section" dropdown and a "Go to #" box inside the question
+ * navigator popup added in v61 -- closing the gap with the reviewed mockup's
+ * richer navigator design. None of this touches renderNav()/renderGeneric()
+ * in question-bank-core.js: those still just rebuild #navigator's plain
+ * .navq buttons exactly as before. This script only reads that output (via
+ * a MutationObserver, since innerHTML is replaced on every question change)
+ * and layers the extra controls, counts and section tags on top of it. */
+(function () {
+  function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  ready(function () {
+    try {
+      var panels = [
+        { prefix: 'tsi', navId: 'navigator', wrapId: 'tsiNavPopupWrap', toggleId: 'tsiNavToggleBtn', getState: function () { return (typeof state !== 'undefined') ? state : null; }, renderFn: function () { if (typeof renderQ === 'function') renderQ(); } },
+        { prefix: 'sat', navId: 'satNavigator', wrapId: 'satNavPopupWrap', toggleId: 'satNavToggleBtn', getState: function () { return (typeof satState !== 'undefined') ? satState : null; }, renderFn: function () { if (typeof renderSAT === 'function') renderSAT(); } },
+        { prefix: 'act', navId: 'actNavigator', wrapId: 'actNavPopupWrap', toggleId: 'actNavToggleBtn', getState: function () { return (typeof actState !== 'undefined') ? actState : null; }, renderFn: function () { if (typeof renderACT === 'function') renderACT(); } }
+      ];
+      var backdrop = document.getElementById('examNavBackdrop');
+
+      function closePopup(wrapEl) {
+        wrapEl.classList.remove('navOpen');
+        if (backdrop) backdrop.classList.remove('show');
+      }
+
+      panels.forEach(function (p) {
+        var navEl = document.getElementById(p.navId);
+        var wrapEl = document.getElementById(p.wrapId);
+        var tabsEl = document.getElementById(p.prefix + 'NavFilterTabs');
+        var sectionSel = document.getElementById(p.prefix + 'NavSectionJump');
+        var gotoInput = document.getElementById(p.prefix + 'NavGotoInput');
+        var gotoBtn = document.getElementById(p.prefix + 'NavGotoBtn');
+        if (!navEl || !wrapEl || !tabsEl) return;
+        tabsEl.dataset.filter = 'all';
+
+        function applyFilter() {
+          var f = tabsEl.dataset.filter;
+          var btns = navEl.querySelectorAll('.navq');
+          for (var i = 0; i < btns.length; i++) {
+            var b = btns[i];
+            var hide = (f === 'notanswered' && b.classList.contains('answered')) || (f === 'flagged' && !b.classList.contains('flagged'));
+            b.classList.toggle('navFilteredOut', !!hide);
+          }
+        }
+
+        function updateExtras() {
+          var st = p.getState();
+          var btns = navEl.querySelectorAll('.navq');
+          var total = btns.length, answered = 0, flagged = 0;
+          for (var i = 0; i < btns.length; i++) {
+            if (btns[i].classList.contains('answered')) answered++;
+            if (btns[i].classList.contains('flagged')) flagged++;
+            if (st && st.set && st.set[i]) btns[i].dataset.section = st.set[i].section || '';
+          }
+          var notAnswered = total - answered;
+          var root = wrapEl;
+          var setText = function (cls, val) { var el = root.querySelector('.' + cls); if (el) el.textContent = val; };
+          setText('navCountAll', total);
+          setText('navCountNot', notAnswered);
+          setText('navCountFlag', flagged);
+          setText('navSumAnswered', answered);
+          setText('navSumTotal', total);
+          setText('navSumFlagged', flagged);
+          setText('navSumNotAnswered', notAnswered);
+          if (gotoInput) gotoInput.max = String(total || '');
+          if (sectionSel && st && st.set && String(sectionSel.dataset.forTotal) !== String(total) && total > 0) {
+            var seen = {}, opts = ['<option value="">Jump to Section</option>'];
+            for (var j = 0; j < st.set.length; j++) {
+              var s = st.set[j].section || '';
+              if (s && !seen[s]) { seen[s] = true; opts.push('<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>'); }
+            }
+            sectionSel.innerHTML = opts.join('');
+            sectionSel.dataset.forTotal = String(total);
+          }
+          applyFilter();
+        }
+
+        tabsEl.addEventListener('click', function (e) {
+          var btn = e.target.closest('.navFilterTab');
+          if (!btn) return;
+          tabsEl.dataset.filter = btn.dataset.filter;
+          Array.prototype.forEach.call(tabsEl.querySelectorAll('.navFilterTab'), function (b) { b.classList.toggle('active', b === btn); });
+          applyFilter();
+        });
+
+        if (sectionSel) sectionSel.addEventListener('change', function () {
+          var val = sectionSel.value;
+          if (!val) return;
+          tabsEl.dataset.filter = 'all';
+          Array.prototype.forEach.call(tabsEl.querySelectorAll('.navFilterTab'), function (b) { b.classList.toggle('active', b.dataset.filter === 'all'); });
+          applyFilter();
+          var btns = navEl.querySelectorAll('.navq');
+          for (var i = 0; i < btns.length; i++) {
+            if (btns[i].dataset.section === val) { btns[i].scrollIntoView({ block: 'nearest', inline: 'center' }); break; }
+          }
+        });
+
+        function goToQuestion() {
+          var st = p.getState();
+          if (!gotoInput || !st || !st.set) return;
+          var n = parseInt(gotoInput.value, 10);
+          if (!n || n < 1 || n > st.set.length) {
+            gotoInput.style.borderColor = '#dc2626';
+            setTimeout(function () { gotoInput.style.borderColor = ''; }, 900);
+            return;
+          }
+          st.i = n - 1;
+          p.renderFn();
+          gotoInput.value = '';
+          closePopup(wrapEl);
+        }
+        if (gotoBtn) gotoBtn.addEventListener('click', goToQuestion);
+        if (gotoInput) gotoInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goToQuestion(); } });
+
+        new MutationObserver(updateExtras).observe(navEl, { childList: true });
+        var toggleBtn = document.getElementById(p.toggleId);
+        if (toggleBtn) toggleBtn.addEventListener('click', updateExtras);
+        updateExtras();
+      });
     } catch (e) {}
   });
 })();
