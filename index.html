@@ -671,6 +671,24 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
 .practiceShell.show .navGotoBtn{border:0;border-radius:10px;padding:7px 14px;background:#2563eb;color:#fff;font-weight:850;font-size:12px}
 .practiceShell.show .navGotoBtn:hover{background:#1d4ed8}
 @media(max-width:560px){.practiceShell.show .navToolsRow{flex-direction:column;align-items:stretch}.practiceShell.show .navSectionJump{max-width:none}.practiceShell.show .navSummaryRow{flex-direction:column;align-items:stretch}}
+/* v64: the header info strip (Test/Section/Progress/Difficulty/Tools), the
+   "+N Correct!" badge on right answers, and the Related Skill / Practice
+   More card at the end of the explanation. All three are pure additions on
+   top of state the engine already computes -- q.section/q.skill/q.difficulty,
+   state.i/state.set.length, and the .expHead.good/bad class -- so nothing
+   here changes how a question is scored, only how that real state is shown. */
+.practiceShell.show .examInfoStrip{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.practiceShell.show .infoChip{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e3e9f1;border-radius:12px;padding:8px 12px;box-shadow:0 2px 8px rgba(15,35,65,.05);flex:1 1 150px;min-width:130px}
+.practiceShell.show .infoChipIcon{font-size:16px;flex-shrink:0}
+.practiceShell.show .infoChip small{display:block;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:#94a3b8;font-weight:800}
+.practiceShell.show .infoChip b{display:block;font-size:12.5px;color:#1e293b;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.practiceShell.show .correctBadge{display:inline-block;margin-left:8px;background:#16a34a;color:#fff;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:900;vertical-align:middle}
+.practiceShell.show .relatedSkillCard{margin-top:14px;padding:13px 15px;border:1px solid #dbeafe;background:#f5f9ff;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.practiceShell.show .relatedSkillCard b{display:block;font-size:12.5px;color:#0f2854}
+.practiceShell.show .relatedSkillCard small{display:block;color:#64748b;font-size:11px;margin-top:2px}
+.practiceShell.show .relatedSkillBtn{border:0;border-radius:10px;padding:9px 14px;background:#2563eb;color:#fff;font-weight:850;font-size:12px;white-space:nowrap;cursor:pointer}
+.practiceShell.show .relatedSkillBtn:hover{background:#1d4ed8}
+@media(max-width:760px){.practiceShell.show .examInfoStrip{margin:10px 0 0;gap:7px}.practiceShell.show .infoChip{padding:6px 9px;flex:1 1 46%;min-width:0}.practiceShell.show .infoChip b{font-size:11.5px;max-width:none}}
 .practiceShell.show .navigator{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;align-content:flex-start!important;gap:7px!important;position:static!important;width:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin;max-height:min(56vh,420px)!important}
 .practiceShell.show .navigator button{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important;font-size:12px!important;border-radius:9px!important}
 body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceShell.show .explanation:empty{display:none!important}body.v11-testing.v11-timed .practiceShell.show .studyToolBtn,body.v11-testing.v11-timed .practiceShell.show .confidence,body.v11-testing.v11-timed .practiceShell.show [id$="BookmarkBtn"],body.v11-testing.v11-timed #bookmarkBtn{display:none!important}
@@ -2004,6 +2022,13 @@ function spConsole(method){
     <div class="practiceTools"><div class="timer" id="satTimer">15:00</div><button class="examToolBtn" id="satRefBtn" hidden>▤ Reference</button><button class="examToolBtn desmosBtn" id="satCalcBtn" hidden>📈 Desmos</button><button class="examToolBtn" id="satScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="satReadBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="satNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="satFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="satCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
+   <div class="examInfoStrip" id="satInfoStrip">
+    <div class="infoChip"><span class="infoChipIcon">📘</span><div><small>Test</small><b class="infoChipTest">SAT</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📂</span><div><small>Section</small><b class="infoChipSection">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📊</span><div><small>Progress</small><b class="infoChipProgress">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🎯</span><div><small>Difficulty</small><b class="infoChipDifficulty">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🛠️</span><div><small>Tools</small><b class="infoChipTools">—</b></div></div>
+   </div>
    <div class="qbody">
     <div class="qmeta" id="satQmeta"></div>
     <div class="passage hidden" id="satPassage"></div>
@@ -2012,7 +2037,7 @@ function spConsole(method){
     <div class="confidence" id="satConfidenceBox"><b>How confident are you?</b><div class="confrow"><button class="conf satconf" data-sat-conf="Guessing">Guessing</button><button class="conf satconf" data-sat-conf="Not Sure">Not Sure</button><button class="conf satconf" data-sat-conf="Confident">Confident</button></div></div>
     <div class="hintBox" id="satHintBox"><div class="hintBoxCard"><button class="hintCloseBtn" type="button" aria-label="Close hint">×</button><div class="hintBoxInner" id="satHintBoxInner"></div></div></div><div class="explanation" id="satExplanation"></div><div class="encourage" id="satEncourage"><b>Stay focused.</b> One careful question at a time.</div>
     <div class="qactions">
-     <div class="leftActs"><button class="studyToolBtn" id="satHintBtn">💡 Hint</button><button class="smallbtn warn" id="satFlagBtn">⚑ Flag for Review</button><button class="smallbtn" id="satBookmarkBtn">🔖 Bookmark</button></div>
+     <div class="leftActs"><button class="studyToolBtn" id="satHintBtn">💡 Hint</button><button class="smallbtn" id="satClearSelBtn">↺ Clear Selection</button><button class="smallbtn warn" id="satFlagBtn">⚑ Flag for Review</button><button class="smallbtn" id="satBookmarkBtn">🔖 Bookmark</button></div>
      <div class="rightActs"><button class="smallbtn" id="satPrevBtn">← Previous</button><button class="smallbtn submit" id="satSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="satNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="satFinishBtn">Finish Module</button></div>
     </div>
    </div>
@@ -2100,6 +2125,13 @@ function spConsole(method){
     <div class="practiceTools"><div class="timer" id="actTimer">15:00</div><button class="examToolBtn" id="actRefBtn" hidden>▤ Reference</button><button class="examToolBtn" id="actCalcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="actScratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="actReadBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="actNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="actFullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="actCloseBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
+   <div class="examInfoStrip" id="actInfoStrip">
+    <div class="infoChip"><span class="infoChipIcon">📘</span><div><small>Test</small><b class="infoChipTest">ACT</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📂</span><div><small>Section</small><b class="infoChipSection">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📊</span><div><small>Progress</small><b class="infoChipProgress">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🎯</span><div><small>Difficulty</small><b class="infoChipDifficulty">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🛠️</span><div><small>Tools</small><b class="infoChipTools">—</b></div></div>
+   </div>
    <div class="qbody">
     <div class="qmeta" id="actQmeta"></div>
     <div class="passage hidden" id="actPassage"></div>
@@ -2108,7 +2140,7 @@ function spConsole(method){
     <div class="confidence" id="actConfidenceBox"><b>How confident are you?</b><div class="confrow"><button class="conf actconf" data-act-conf="Guessing">Guessing</button><button class="conf actconf" data-act-conf="Not Sure">Not Sure</button><button class="conf actconf" data-act-conf="Confident">Confident</button></div></div>
     <div class="hintBox" id="actHintBox"><div class="hintBoxCard"><button class="hintCloseBtn" type="button" aria-label="Close hint">×</button><div class="hintBoxInner" id="actHintBoxInner"></div></div></div><div class="explanation" id="actExplanation"></div><div class="encourage" id="actEncourage"><b>Keep moving.</b> Accuracy first, then pacing.</div>
     <div class="qactions">
-     <div class="leftActs"><button class="studyToolBtn" id="actHintBtn">💡 Hint</button><button class="smallbtn warn" id="actFlagBtn">⚑ Flag for Review</button><button class="smallbtn" id="actBookmarkBtn">🔖 Bookmark</button></div>
+     <div class="leftActs"><button class="studyToolBtn" id="actHintBtn">💡 Hint</button><button class="smallbtn" id="actClearSelBtn">↺ Clear Selection</button><button class="smallbtn warn" id="actFlagBtn">⚑ Flag for Review</button><button class="smallbtn" id="actBookmarkBtn">🔖 Bookmark</button></div>
      <div class="rightActs"><button class="smallbtn" id="actPrevBtn">← Previous</button><button class="smallbtn submit" id="actSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="actNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="actFinishBtn">Finish Test</button></div>
     </div>
    </div>
@@ -2224,6 +2256,13 @@ function spConsole(method){
     <div class="practiceTools"><div class="timer" id="timer">15:00</div><button class="examToolBtn" id="refBtn" hidden>▤ Reference</button><button class="examToolBtn" id="calcBtn" hidden>⌨ Calculator</button><button class="examToolBtn" id="scratchBtn" hidden>✎ Scratchpad</button><button class="examToolBtn" id="readBtn" hidden>🔊 Read</button><button class="examToolBtn examNavToggleBtn" id="tsiNavToggleBtn" title="Question navigator">▦ Questions</button><button class="iconCtl examFullscreenBtn" id="fullscreenBtn" title="Full screen">⛶</button><button class="iconCtl examCloseBtn" id="closePracticeBtn" title="Close test">×</button></div>
    </div>
    <div class="v11Progress" aria-hidden="true"><i></i></div>
+   <div class="examInfoStrip" id="tsiInfoStrip">
+    <div class="infoChip"><span class="infoChipIcon">📘</span><div><small>Test</small><b class="infoChipTest">TSIA2</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📂</span><div><small>Section</small><b class="infoChipSection">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">📊</span><div><small>Progress</small><b class="infoChipProgress">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🎯</span><div><small>Difficulty</small><b class="infoChipDifficulty">—</b></div></div>
+    <div class="infoChip"><span class="infoChipIcon">🛠️</span><div><small>Tools</small><b class="infoChipTools">—</b></div></div>
+   </div>
    <div class="qbody">
     <div class="qmeta" id="qmeta"></div>
     <div class="passage hidden" id="passage"></div>
@@ -2235,7 +2274,7 @@ function spConsole(method){
     </div>
     <div class="hintBox" id="hintBox"><div class="hintBoxCard"><button class="hintCloseBtn" type="button" aria-label="Close hint">×</button><div class="hintBoxInner" id="hintBoxInner"></div></div></div><div class="explanation" id="explanation"></div><div class="encourage" id="encourage"><b>Keep going.</b> Focus on the reasoning, not just the answer.</div>
     <div class="qactions">
-     <div class="leftActs"><button class="studyToolBtn" id="hintBtn">💡 Hint</button><button class="smallbtn warn" id="flagBtn">⚑ Flag for Review</button><button class="smallbtn" id="bookmarkBtn">🔖 Bookmark</button></div>
+     <div class="leftActs"><button class="studyToolBtn" id="hintBtn">💡 Hint</button><button class="smallbtn" id="clearSelBtn">↺ Clear Selection</button><button class="smallbtn warn" id="flagBtn">⚑ Flag for Review</button><button class="smallbtn" id="bookmarkBtn">🔖 Bookmark</button></div>
      <div class="rightActs"><button class="smallbtn" id="prevBtn">← Previous</button><button class="smallbtn submit" id="submitAnswerBtn">Submit Answer</button><button class="smallbtn primary2" id="nextBtn">Next →</button><button class="smallbtn primary2 hidden" id="finishBtn">Finish Test</button></div>
     </div>
    </div>
@@ -6431,6 +6470,159 @@ return Q;
         var toggleBtn = document.getElementById(p.toggleId);
         if (toggleBtn) toggleBtn.addEventListener('click', updateExtras);
         updateExtras();
+      });
+    } catch (e) {}
+  });
+})();
+</script>
+<script id="v64-header-tools">
+/* v64: header info strip (Test/Section/Progress/Difficulty/Tools), a real
+ * Clear Selection action, a "+1 Correct!" badge on right answers, and a
+ * Related Skill / Practice More card in the explanation.
+ *
+ * IMPORTANT: this deliberately does NOT use the codebase's own current()/
+ * curQ() helper (used internally by addTools() for Eliminate Answer /
+ * Highlight selection) -- that helper is declared inside the <script
+ * id="v13-js"> IIFE ((function(){...})()), so it is private to that closure
+ * and is NOT reachable as a bare identifier from a later, separate <script>
+ * tag (verified live: typeof curQ is "undefined" here). The plain `state` /
+ * `satState` / `actState` objects, and the render functions renderQ() /
+ * renderSAT() / renderACT(), ARE reachable -- they are declared with
+ * top-level `let`/`function` in question-bank-core.js, which has no IIFE
+ * wrapper, so this script reads/writes those same objects directly instead.
+ * This mirrors the v63 nav-popup-extras script, which already relies on the
+ * exact same fact.
+ *
+ * "Practice More" reuses randomizeSet()/secureShuffle()/window.ScorePathBank
+ * plus the same window.v9SetPending/window.v9Launch pair daily() already
+ * uses, so it starts a REAL practice set filtered to that exact skill from
+ * the real question bank -- nothing here is fabricated data, and nothing
+ * here changes how a question is scored: the badge and the info strip only
+ * display state the engine already computed. */
+(function () {
+  function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  ready(function () {
+    try {
+      var panels = [
+        { prefix: '', infoId: 'tsiInfoStrip', clearId: 'clearSelBtn', expId: 'explanation', shellId: 'practiceShell', getState: function () { return (typeof state !== 'undefined') ? state : null; }, renderFn: function () { if (typeof renderQ === 'function') renderQ(); } },
+        { prefix: 'sat', infoId: 'satInfoStrip', clearId: 'satClearSelBtn', expId: 'satExplanation', shellId: 'satPracticeShell', getState: function () { return (typeof satState !== 'undefined') ? satState : null; }, renderFn: function () { if (typeof renderSAT === 'function') renderSAT(); } },
+        { prefix: 'act', infoId: 'actInfoStrip', clearId: 'actClearSelBtn', expId: 'actExplanation', shellId: 'actPracticeShell', getState: function () { return (typeof actState !== 'undefined') ? actState : null; }, renderFn: function () { if (typeof renderACT === 'function') renderACT(); } }
+      ];
+
+      function examKeyFor(prefix) { return prefix === 'sat' ? 'SAT' : prefix === 'act' ? 'ACT' : 'TSIA2'; }
+
+      function isActive(panel) {
+        var shell = document.getElementById(panel.shellId);
+        return !!(shell && shell.classList.contains('show'));
+      }
+
+      function updateInfoStrip(panel) {
+        if (!isActive(panel)) return;
+        var st = panel.getState();
+        if (!st || !st.set || !st.set[st.i]) return;
+        var q = st.set[st.i];
+        var strip = document.getElementById(panel.infoId);
+        if (!strip) return;
+        var setText = function (cls, val) { var el = strip.querySelector('.' + cls); if (el) el.textContent = val; };
+        setText('infoChipSection', q.section || '—');
+        setText('infoChipProgress', (st.i + 1) + ' / ' + st.set.length);
+        setText('infoChipDifficulty', q.difficulty || '—');
+        var toolsBar = document.querySelector('#' + panel.shellId + ' .practiceTools');
+        var toolCount = 0;
+        if (toolsBar) {
+          Array.prototype.forEach.call(toolsBar.querySelectorAll('button'), function (b) {
+            if (!b.hidden && getComputedStyle(b).display !== 'none' && !b.classList.contains('examNavToggleBtn') && !b.classList.contains('examFullscreenBtn') && !b.classList.contains('examCloseBtn')) toolCount++;
+          });
+        }
+        setText('infoChipTools', toolCount + (toolCount === 1 ? ' tool' : ' tools'));
+      }
+
+      function clearSelection(panel) {
+        if (!isActive(panel)) return;
+        var st = panel.getState();
+        if (!st || !st.set) return;
+        var q = st.set[st.i];
+        if (!q) return;
+        if (!st.timed && st.submitted[q.id]) return;
+        if (st.answers[q.id] === undefined) return;
+        delete st.answers[q.id];
+        panel.renderFn();
+      }
+
+      window.practiceSkillMore = function (exam, skillName) {
+        try {
+          var bank = (window.ScorePathBank && window.ScorePathBank[exam]) || [];
+          var pool = bank.filter(function (q) { return q.skill === skillName; });
+          if (!pool.length || typeof secureShuffle !== 'function' || typeof randomizeSet !== 'function' || typeof window.v9SetPending !== 'function' || typeof window.v9Launch !== 'function') {
+            alert('No additional practice questions are available for this skill right now.');
+            return;
+          }
+          var count = exam === 'ACT' ? 12 : 10;
+          var set = randomizeSet(secureShuffle(pool).slice(0, count));
+          if (!set.length) { alert('No additional practice questions are available for this skill right now.'); return; }
+          if (window.v10ShowCenter) window.v10ShowCenter(exam === 'ACT' ? 'act' : exam === 'SAT' ? 'sat' : 'tsi', true);
+          window.v9SetPending({ exam: exam, set: set, num: 0, timed: false, duration: 900, title: skillName + ' Focused Practice' });
+          window.v9Launch(exam);
+        } catch (e) {}
+      };
+
+      function decorateExplanation(panel) {
+        var exp = document.getElementById(panel.expId);
+        if (!exp) return;
+        var head = exp.querySelector('.expHead');
+        if (!head) return;
+        if (head.classList.contains('good') && !head.querySelector('.correctBadge')) {
+          var badge = document.createElement('span');
+          badge.className = 'correctBadge';
+          badge.textContent = '+1 Correct!';
+          head.appendChild(badge);
+        }
+        if (!exp.querySelector('.relatedSkillCard')) {
+          var st = panel.getState();
+          var q = (st && st.set) ? st.set[st.i] : null;
+          if (q && q.skill) {
+            var body = exp.querySelector('.expBody');
+            if (body) {
+              var card = document.createElement('div');
+              card.className = 'relatedSkillCard';
+              var info = document.createElement('div');
+              info.innerHTML = '<b>Related Skill: ' + q.skill + '</b><small>Practice more questions on this exact skill.</small>';
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'relatedSkillBtn';
+              btn.textContent = 'Practice More →';
+              (function (skill, examKey) { btn.onclick = function () { window.practiceSkillMore(examKey, skill); }; })(q.skill, examKeyFor(panel.prefix));
+              card.appendChild(info);
+              card.appendChild(btn);
+              body.appendChild(card);
+            }
+          }
+        }
+      }
+
+      panels.forEach(function (panel) {
+        var navSourceId = panel.prefix ? panel.prefix + 'Navigator' : 'navigator';
+        var navEl = document.getElementById(navSourceId);
+        if (navEl) new MutationObserver(function () { updateInfoStrip(panel); }).observe(navEl, { childList: true });
+        var clearBtn = document.getElementById(panel.clearId);
+        if (clearBtn) clearBtn.addEventListener('click', function () { clearSelection(panel); });
+        var expEl = document.getElementById(panel.expId);
+        if (expEl) new MutationObserver(function () { decorateExplanation(panel); }).observe(expEl, { childList: true });
+      });
+
+      // Dynamic Full Screen / Exit Full Screen tooltip -- toggleFullscreen()
+      // in question-bank-core.js only ever swaps the ⛶/⤢ glyph; this just
+      // keeps the accessible title in sync with that same real state.
+      [['fullscreenBtn', 'practiceShell'], ['satFullscreenBtn', 'satPracticeShell'], ['actFullscreenBtn', 'actPracticeShell']].forEach(function (pair) {
+        var btn = document.getElementById(pair[0]), shellId = pair[1];
+        if (!btn) return;
+        var prev = btn.onclick;
+        btn.onclick = function (e) {
+          if (typeof prev === 'function') prev.call(btn, e);
+          var shell = document.getElementById(shellId);
+          var isFS = shell && shell.classList.contains('fullscreenMode');
+          btn.title = isFS ? 'Exit Full Screen' : 'Full Screen';
+        };
       });
     } catch (e) {}
   });
