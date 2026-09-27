@@ -135,7 +135,18 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 }
 @media(max-width:560px){.hero{padding-top:42px}.actiongrid,.statgrid,.bottomFeatures{grid-template-columns:1fr}.welcome{grid-template-columns:1fr}.progressRing{display:none}.navigator{grid-template-columns:repeat(5,1fr)}.qbody{padding:17px}.question{font-size:18px}.resultStats{grid-template-columns:1fr}.topline{font-size:10px}}
 
-.practiceTools{display:flex;gap:7px;align-items:center}
+.practiceTools{display:flex;gap:7px;align-items:center;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;min-width:0;scrollbar-width:thin;grid-column:-2/-1}
+.practiceTools>*{flex:0 0 auto}
+.testbar{min-width:0}
+.testbar>*{min-width:0}
+/* When .testmode is display:none (<=870px, see line ~134), the 3-column
+   grid defined by .practiceShell.show .testbar (always-on, !important,
+   not width-gated) would otherwise auto-place .practiceTools into the
+   now-vacant MIDDLE track instead of its intended right-hand track,
+   starving it of width and pushing the fullscreen/close buttons off
+   past the right edge of the screen on tablet widths (e.g. 768px iPad)
+   that fall outside the <=760px phone-only overflow-scroll fix below.
+   Pinning it to the last grid track fixes this at every width. */
 .iconCtl{width:36px;height:36px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;border-radius:9px;font-size:18px;font-weight:900;display:grid;place-items:center}
 .iconCtl:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
 /* Always-colored, always-present in every exam (TSI/SAT/ACT) and every mode --
@@ -701,6 +712,17 @@ body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceSh
    dodge it — reverted to bottom:0. Only the popup's own width is tuned for
    narrow screens here. */
 @media(max-width:760px){.practiceShell.show .testbar{grid-template-columns:1fr auto!important;min-height:66px;padding:10px 13px!important}.practiceShell.show .testmode{display:none}.practiceShell.show .testbar>div:first-child b{font-size:14px}.practiceShell.show .practiceTools{gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.practiceShell.show .practiceTools::-webkit-scrollbar{display:none}.practiceShell.show .practiceTools>*{flex-shrink:0}.practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}.practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}.practiceShell.show .timer{font-size:16px;min-width:58px}.v11Progress{top:66px}.practiceShell.show .qbody{margin:14px 10px 30px!important;padding:20px 16px 26px!important;border-radius:18px}.practiceShell.show .question{font-size:18px!important}.practiceShell.show .passage{font-size:15px!important;padding:15px!important}.practiceShell.show .option{font-size:15px!important;padding:11px!important}.practiceShell.show .qactions{margin:22px -16px -26px!important;padding:11px!important;flex-direction:column!important;position:sticky!important;bottom:0!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.practiceShell.show .navPopupWrap{width:92vw!important;max-width:92vw!important;max-height:80vh!important;padding:16px!important}.v11Next{grid-template-columns:1fr;margin:12px}.v11Next button{width:100%}}
+/* v65: tablets (761-870px, e.g. iPad portrait 768px) fall between the phone
+   fix above and the desktop 3-column testbar: .testmode is hidden here too
+   (see .testbar .testmode{display:none} at <=870px) but the phone-only
+   block above stops at 760px, so on a Math question with every optional
+   tool active (Reference+Calculator+Scratchpad+Read+Questions+Fullscreen+
+   Close) the toolbar can still need to scroll to reach Close. Give it the
+   same always-reachable pinned Fullscreen/Close treatment here too. */
+@media(min-width:761px) and (max-width:870px){
+  .practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}
+  .practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}
+}
 /* v62: side-by-side passage + question layout for Reading/English-style items
    (SAT Reading & Writing, ACT English/Reading, TSIA2 ELAR) once the viewport
    is wide enough (>=1080px) to give both columns real room. Today's stacked
