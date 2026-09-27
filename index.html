@@ -638,24 +638,32 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
    class of bug the v58 mobile fix below already solved for phones, now fixed
    here for tablet/desktop too with a matching, fully-clearing offset. */
 .practiceShell.show .confidence{margin-top:22px!important;background:#f7fafc!important;border:1px solid #e2e9f1!important;border-radius:15px!important;padding:13px!important}.practiceShell.show .hintBox,.practiceShell.show .explanation{border-radius:16px!important;font-size:14px!important;line-height:1.6!important}.practiceShell.show .encourage{margin:18px 0 0!important;border:0!important;background:transparent!important;color:#728197!important;font-size:12px!important;text-align:center}.practiceShell.show .qactions{position:sticky;bottom:0;margin:26px -42px -42px!important;padding:15px 26px!important;background:rgba(255,255,255,.96);border-top:1px solid #e1e8f0;backdrop-filter:blur(12px);z-index:16;gap:12px}.practiceShell.show .smallbtn,.practiceShell.show .studyToolBtn{min-height:43px;border-radius:12px!important;font-size:13px!important;padding:10px 14px!important}.practiceShell.show .primary2{background:linear-gradient(135deg,#315fe8,#247edc)!important;box-shadow:0 8px 18px rgba(41,100,224,.18)}
-/* v61: the question navigator used to float permanently, fixed to the bottom
-   of the screen, during the whole test — which meant it could overlap the
-   Submit/Flag/Next action row on shorter question cards (the .qactions
-   bottom offset above used to compensate for this with magic pixel values
-   per breakpoint). It is now an on-demand popup instead: hidden until the
-   "▦ Questions" toolbar button opens it, centered over a dim backdrop, and
-   closed by its own × button, the backdrop, Escape, or picking a question.
-   This is simpler, matches how real digital exam interfaces do it, and
-   removes the whole class of overlap bug structurally instead of patching
-   around it. */
-#examNavBackdrop{display:none;position:fixed;inset:0;z-index:10060;background:rgba(2,6,23,.55)}
-#examNavBackdrop.show{display:block}
-.practiceShell.show .navPopupWrap{display:none;flex-direction:column;gap:4px;position:fixed!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;z-index:10061!important;width:min(600px,90vw)!important;max-width:min(600px,90vw)!important;max-height:min(76vh,560px)!important;padding:18px 20px 20px!important;border:1px solid #d8e3ef!important;border-radius:20px!important;background:#fff!important;box-shadow:0 30px 80px rgba(0,0,0,.35)!important}
-.practiceShell.show .navPopupWrap.navOpen{display:flex!important}
+/* v61 (superseded by v66, see below): the question navigator used to float
+   permanently, fixed to the bottom of the screen, during the whole test --
+   which meant it could overlap the Submit/Flag/Next action row on shorter
+   question cards. v61 turned it into an on-demand popup instead: hidden
+   until the "▦ Questions" toolbar button opened it, centered over a dim
+   backdrop.
+   v66: students found the popup confusing -- a dark overlay appearing out
+   of nowhere, disconnected from the question they were just reading, with
+   no visible content until they clicked a small header button. Per direct
+   feedback, the navigator is now an always-visible INLINE section again,
+   living in its normal place in the page (right after the answer/actions
+   row, exactly where it already sits in the HTML), not a floating overlay.
+   This does not reintroduce the original pre-v61 overlap bug: that bug was
+   caused specifically by `position:fixed` pinning the navigator over the
+   sticky action row. A normal in-flow block never overlaps its siblings --
+   it just pushes them down -- so the fix here is to make the wrapper a
+   plain static card (below) instead of resurrecting position:fixed. The
+   "▦ Questions" header button now smoothly scrolls down to this section
+   instead of opening/closing anything, and picking a question number
+   smoothly scrolls back up to the question text, so the button and the
+   section always have an obvious, visible connection to each other. */
+#examNavBackdrop{display:none}
+.practiceShell.show .navPopupWrap{display:flex;flex-direction:column;gap:4px;position:relative;width:100%;max-width:980px;margin:0 auto 30px;padding:18px 20px 20px;border:1px solid #d8e3ef;border-radius:20px;background:#fff;box-shadow:0 10px 30px rgba(15,40,84,.08);scroll-margin-top:90px}
 .practiceShell.show .navPopupHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
 .practiceShell.show .navPopupHead b{font-size:16px;color:#0f2854}
-.practiceShell.show .navPopupClose{width:32px;height:32px;border:1px solid #d6e0eb;background:#f8fafc;color:#334155;border-radius:9px;font-size:17px;font-weight:900;cursor:pointer;flex-shrink:0}
-.practiceShell.show .navPopupClose:hover{background:#eef2f7}
+.practiceShell.show .navPopupClose{display:none}
 .practiceShell.show .navLegend{display:flex;flex-wrap:wrap;gap:12px;margin:2px 0 14px;font-size:11px;color:#64748b;font-weight:750}
 .practiceShell.show .navLegend span{display:inline-flex;align-items:center;gap:5px}
 .practiceShell.show .navLegendDot{width:10px;height:10px;border-radius:50%;background:#fff;border:1.5px solid #dbe3ec;display:inline-block}
@@ -711,7 +719,7 @@ body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceSh
    permanently floating pill, .qactions no longer needs a bottom offset to
    dodge it — reverted to bottom:0. Only the popup's own width is tuned for
    narrow screens here. */
-@media(max-width:760px){.practiceShell.show .testbar{grid-template-columns:1fr auto!important;min-height:66px;padding:10px 13px!important}.practiceShell.show .testmode{display:none}.practiceShell.show .testbar>div:first-child b{font-size:14px}.practiceShell.show .practiceTools{gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.practiceShell.show .practiceTools::-webkit-scrollbar{display:none}.practiceShell.show .practiceTools>*{flex-shrink:0}.practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}.practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}.practiceShell.show .timer{font-size:16px;min-width:58px}.v11Progress{top:66px}.practiceShell.show .qbody{margin:14px 10px 30px!important;padding:20px 16px 26px!important;border-radius:18px}.practiceShell.show .question{font-size:18px!important}.practiceShell.show .passage{font-size:15px!important;padding:15px!important}.practiceShell.show .option{font-size:15px!important;padding:11px!important}.practiceShell.show .qactions{margin:22px -16px -26px!important;padding:11px!important;flex-direction:column!important;position:sticky!important;bottom:0!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.practiceShell.show .navPopupWrap{width:92vw!important;max-width:92vw!important;max-height:80vh!important;padding:16px!important}.v11Next{grid-template-columns:1fr;margin:12px}.v11Next button{width:100%}}
+@media(max-width:760px){.practiceShell.show .testbar{grid-template-columns:1fr auto!important;min-height:66px;padding:10px 13px!important}.practiceShell.show .testmode{display:none}.practiceShell.show .testbar>div:first-child b{font-size:14px}.practiceShell.show .practiceTools{gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.practiceShell.show .practiceTools::-webkit-scrollbar{display:none}.practiceShell.show .practiceTools>*{flex-shrink:0}.practiceShell.show .practiceTools .examFullscreenBtn{position:sticky!important;right:44px!important;z-index:2;background:rgba(37,71,138,.94)!important}.practiceShell.show .practiceTools .examCloseBtn{position:sticky!important;right:0!important;z-index:3;background:rgba(153,27,27,.94)!important}.practiceShell.show .timer{font-size:16px;min-width:58px}.v11Progress{top:66px}.practiceShell.show .qbody{margin:14px 10px 30px!important;padding:20px 16px 26px!important;border-radius:18px}.practiceShell.show .question{font-size:18px!important}.practiceShell.show .passage{font-size:15px!important;padding:15px!important}.practiceShell.show .option{font-size:15px!important;padding:11px!important}.practiceShell.show .qactions{margin:22px -16px -26px!important;padding:11px!important;flex-direction:column!important;position:sticky!important;bottom:0!important}.practiceShell.show .leftActs,.practiceShell.show .rightActs{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.practiceShell.show .navPopupWrap{margin:14px 10px 30px!important;width:auto!important;max-width:none!important;padding:16px!important}.v11Next{grid-template-columns:1fr;margin:12px}.v11Next button{width:100%}}
 /* v65: tablets (761-870px, e.g. iPad portrait 768px) fall between the phone
    fix above and the desktop 3-column testbar: .testmode is hidden here too
    (see .testbar .testmode{display:none} at <=870px) but the phone-only
@@ -1223,7 +1231,6 @@ button[data-reason]{font-size:12px!important}
   .practiceShell .qactions{padding:8px!important;gap:6px!important}
   .practiceShell .qactions .leftActs,.practiceShell .qactions .rightActs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important}
   .practiceShell .qactions button{min-width:0!important;width:100%!important;padding:8px 4px!important;font-size:12.5px!important;min-height:42px!important;white-space:normal!important;line-height:1.15!important}
-  .practiceShell.show .navPopupWrap{width:94vw!important;max-width:94vw!important}
 }
 .practiceShell .timer:not(.dangerTime){color:#e2e8f0}
 
@@ -6319,57 +6326,45 @@ return Q;
   });
 })();
 </script>
-<script id="v61-nav-popup">
-/* Turns the question navigator from a permanently-floating panel into an
- * on-demand popup, opened by the new "▦ Questions" toolbar button. This is
- * the structural fix for the navigator-overlaps-content bug class (see the
- * v61 CSS comment above .navPopupWrap): nothing floats over the page any
- * more, so there is nothing left to overlap. The grid of question buttons
- * itself (#navigator / #satNavigator / #actNavigator) is untouched — it is
+<script id="v66-nav-inline">
+/* v66: replaces the v61 modal popup with the always-visible inline section
+ * (see the CSS comment above .navPopupWrap for why). The navigator element
+ * itself (#navigator / #satNavigator / #actNavigator) is untouched -- it is
  * still rendered by question-bank-core.js's renderNav()/renderSATNav() etc,
- * which only ever does navEl.innerHTML = ...; this script just shows/hides
- * the wrapper around it and never touches that markup itself. */
+ * which only ever does navEl.innerHTML = ...; this script only wires up two
+ * conveniences around the now-static wrapper:
+ *   1. The "▦ Questions" toolbar button smoothly scrolls the page down to
+ *      the navigator section instead of opening/closing anything.
+ *   2. Picking a question number in the navigator smoothly scrolls back up
+ *      to the question text, so jumping to a question is still immediately
+ *      visible even though the navigator itself no longer closes. */
 (function () {
   function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
   ready(function () {
     try {
-      var backdrop = document.getElementById('examNavBackdrop');
       var panels = [
-        { toggle: 'tsiNavToggleBtn', wrap: 'tsiNavPopupWrap', close: 'tsiNavPopupClose' },
-        { toggle: 'satNavToggleBtn', wrap: 'satNavPopupWrap', close: 'satNavPopupClose' },
-        { toggle: 'actNavToggleBtn', wrap: 'actNavPopupWrap', close: 'actNavPopupClose' }
+        { toggle: 'tsiNavToggleBtn', wrap: 'tsiNavPopupWrap', qbody: 'practiceShell' },
+        { toggle: 'satNavToggleBtn', wrap: 'satNavPopupWrap', qbody: 'satPracticeShell' },
+        { toggle: 'actNavToggleBtn', wrap: 'actNavPopupWrap', qbody: 'actPracticeShell' }
       ];
-      var openWrapEl = null;
-
-      function closeOpen() {
-        if (openWrapEl) openWrapEl.classList.remove('navOpen');
-        openWrapEl = null;
-        if (backdrop) backdrop.classList.remove('show');
-      }
-      function openPanel(wrapEl) {
-        if (openWrapEl && openWrapEl !== wrapEl) openWrapEl.classList.remove('navOpen');
-        wrapEl.classList.add('navOpen');
-        openWrapEl = wrapEl;
-        if (backdrop) backdrop.classList.add('show');
-      }
 
       panels.forEach(function (p) {
         var toggleBtn = document.getElementById(p.toggle);
         var wrapEl = document.getElementById(p.wrap);
-        var closeBtn = document.getElementById(p.close);
+        var shellEl = document.getElementById(p.qbody);
+        var qbodyEl = shellEl ? shellEl.querySelector('.qbody') : null;
         if (!toggleBtn || !wrapEl) return;
         toggleBtn.onclick = function () {
-          if (wrapEl.classList.contains('navOpen')) closeOpen(); else openPanel(wrapEl);
+          wrapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
-        if (closeBtn) closeBtn.onclick = closeOpen;
-        // Close automatically once a question number is picked, so the
-        // student immediately sees the question they just jumped to.
+        // Jumping to a question re-renders it above the navigator, in place
+        // -- scroll back up so the student sees the question they picked
+        // instead of staying parked next to the number grid.
         var grid = wrapEl.querySelector('.navigator');
-        if (grid) grid.addEventListener('click', function (e) { if (e.target.closest('.navq')) closeOpen(); });
+        if (grid && qbodyEl) grid.addEventListener('click', function (e) {
+          if (e.target.closest('.navq')) qbodyEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       });
-
-      if (backdrop) backdrop.addEventListener('click', closeOpen);
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openWrapEl) closeOpen(); });
     } catch (e) {}
   });
 })();
@@ -6377,8 +6372,9 @@ return Q;
 <script id="v63-nav-extras">
 /* v63: adds filter tabs (All / Not Answered / Flagged with live counts), a
  * "Jump to Section" dropdown and a "Go to #" box inside the question
- * navigator popup added in v61 -- closing the gap with the reviewed mockup's
- * richer navigator design. None of this touches renderNav()/renderGeneric()
+ * navigator section (inline as of v66, was a popup in v61) -- closing the
+ * gap with the reviewed mockup's richer navigator design. None of this
+ * touches renderNav()/renderGeneric()
  * in question-bank-core.js: those still just rebuild #navigator's plain
  * .navq buttons exactly as before. This script only reads that output (via
  * a MutationObserver, since innerHTML is replaced on every question change)
@@ -6388,15 +6384,15 @@ return Q;
   ready(function () {
     try {
       var panels = [
-        { prefix: 'tsi', navId: 'navigator', wrapId: 'tsiNavPopupWrap', toggleId: 'tsiNavToggleBtn', getState: function () { return (typeof state !== 'undefined') ? state : null; }, renderFn: function () { if (typeof renderQ === 'function') renderQ(); } },
-        { prefix: 'sat', navId: 'satNavigator', wrapId: 'satNavPopupWrap', toggleId: 'satNavToggleBtn', getState: function () { return (typeof satState !== 'undefined') ? satState : null; }, renderFn: function () { if (typeof renderSAT === 'function') renderSAT(); } },
-        { prefix: 'act', navId: 'actNavigator', wrapId: 'actNavPopupWrap', toggleId: 'actNavToggleBtn', getState: function () { return (typeof actState !== 'undefined') ? actState : null; }, renderFn: function () { if (typeof renderACT === 'function') renderACT(); } }
+        { prefix: 'tsi', navId: 'navigator', wrapId: 'tsiNavPopupWrap', toggleId: 'tsiNavToggleBtn', shellId: 'practiceShell', getState: function () { return (typeof state !== 'undefined') ? state : null; }, renderFn: function () { if (typeof renderQ === 'function') renderQ(); } },
+        { prefix: 'sat', navId: 'satNavigator', wrapId: 'satNavPopupWrap', toggleId: 'satNavToggleBtn', shellId: 'satPracticeShell', getState: function () { return (typeof satState !== 'undefined') ? satState : null; }, renderFn: function () { if (typeof renderSAT === 'function') renderSAT(); } },
+        { prefix: 'act', navId: 'actNavigator', wrapId: 'actNavPopupWrap', toggleId: 'actNavToggleBtn', shellId: 'actPracticeShell', getState: function () { return (typeof actState !== 'undefined') ? actState : null; }, renderFn: function () { if (typeof renderACT === 'function') renderACT(); } }
       ];
-      var backdrop = document.getElementById('examNavBackdrop');
 
-      function closePopup(wrapEl) {
-        wrapEl.classList.remove('navOpen');
-        if (backdrop) backdrop.classList.remove('show');
+      function scrollToQuestion(p) {
+        var shell = document.getElementById(p.shellId);
+        var qbodyEl = shell ? shell.querySelector('.qbody') : null;
+        if (qbodyEl) qbodyEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       panels.forEach(function (p) {
@@ -6483,7 +6479,7 @@ return Q;
           st.i = n - 1;
           p.renderFn();
           gotoInput.value = '';
-          closePopup(wrapEl);
+          scrollToQuestion(p);
         }
         if (gotoBtn) gotoBtn.addEventListener('click', goToQuestion);
         if (gotoInput) gotoInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goToQuestion(); } });
