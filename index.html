@@ -697,8 +697,8 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
    top of state the engine already computes -- q.section/q.skill/q.difficulty,
    state.i/state.set.length, and the .expHead.good/bad class -- so nothing
    here changes how a question is scored, only how that real state is shown. */
-.practiceShell.show .examInfoStrip{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
-.practiceShell.show .infoChip{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e3e9f1;border-radius:12px;padding:8px 12px;box-shadow:0 2px 8px rgba(15,35,65,.05);flex:1 1 150px;min-width:130px}
+.practiceShell.show .examInfoStrip{display:flex;flex-wrap:wrap;gap:8px;margin:14px auto 0;max-width:980px;width:auto;box-sizing:border-box}
+.practiceShell.show .infoChip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e3e9f1;border-radius:11px;padding:6px 10px;box-shadow:0 2px 8px rgba(15,35,65,.05);flex:1 1 0;min-width:0}
 .practiceShell.show .infoChipIcon{font-size:16px;flex-shrink:0}
 .practiceShell.show .infoChip small{display:block;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:#94a3b8;font-weight:800}
 .practiceShell.show .infoChip b{display:block;font-size:12.5px;color:#1e293b;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
@@ -708,7 +708,7 @@ body.v11-testing{overflow:hidden;background:var(--focus-bg)}body.v11-testing .he
 .practiceShell.show .relatedSkillCard small{display:block;color:#64748b;font-size:11px;margin-top:2px}
 .practiceShell.show .relatedSkillBtn{border:0;border-radius:10px;padding:9px 14px;background:#2563eb;color:#fff;font-weight:850;font-size:12px;white-space:nowrap;cursor:pointer}
 .practiceShell.show .relatedSkillBtn:hover{background:#1d4ed8}
-@media(max-width:760px){.practiceShell.show .examInfoStrip{margin:10px 0 0;gap:7px}.practiceShell.show .infoChip{padding:6px 9px;flex:1 1 46%;min-width:0}.practiceShell.show .infoChip b{font-size:11.5px;max-width:none}}
+@media(max-width:760px){.practiceShell.show .examInfoStrip{margin:10px 10px 0;max-width:none;gap:7px}.practiceShell.show .infoChip{padding:6px 9px;flex:1 1 46%;min-width:0}.practiceShell.show .infoChip b{font-size:11.5px;max-width:none}}
 .practiceShell.show .navigator{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;align-content:flex-start!important;gap:7px!important;position:static!important;width:auto!important;max-width:none!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin;max-height:min(56vh,420px)!important}
 .practiceShell.show .navigator button{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important;font-size:12px!important;border-radius:9px!important}
 body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceShell.show .explanation:empty{display:none!important}body.v11-testing.v11-timed .practiceShell.show .studyToolBtn,body.v11-testing.v11-timed .practiceShell.show .confidence,body.v11-testing.v11-timed .practiceShell.show [id$="BookmarkBtn"],body.v11-testing.v11-timed #bookmarkBtn{display:none!important}
@@ -757,6 +757,17 @@ body.v11-testing .practiceShell.show .hintBox:empty,body.v11-testing .practiceSh
 }
 @media(min-width:1080px) and (max-width:1300px){
  .practiceShell.show .qbody:has(>.passage:not(.hidden)){max-width:calc(100vw - 60px)!important}
+}
+/* Keep the info strip's width locked to the question card's width at all
+   times, including when the card widens for the side-by-side passage
+   layout above -- otherwise the two visibly stop lining up. :has() with a
+   general sibling combinator lets a PRECEDING element (the strip) react to
+   its LATER sibling (the qbody) containing a visible passage. */
+@media(min-width:1080px){
+ .practiceShell.show .examInfoStrip:has(~.qbody>.passage:not(.hidden)){max-width:1280px}
+}
+@media(min-width:1080px) and (max-width:1300px){
+ .practiceShell.show .examInfoStrip:has(~.qbody>.passage:not(.hidden)){max-width:calc(100vw - 60px)}
 }
 @media(prefers-reduced-motion:reduce){.practiceShell.show,.practiceShell.show .qbody,.results.show{animation:none!important}.practiceShell.show .option,.v11Progress i{transition:none!important}}
 </style><style id="v12-progress-css">
@@ -2071,7 +2082,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="satPrevBtn">← Previous</button><button class="smallbtn submit" id="satSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="satNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="satFinishBtn">Finish Module</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="satNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="satNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="satNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="satNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="satNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="satNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="satNavGotoBtn">Go</button></div></div></div>
+   <div class="navPopupWrap" id="satNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="satNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="satNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div></div><div class="navigator" id="satNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="satNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="satNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="results" id="satResults">
@@ -2174,7 +2185,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="actPrevBtn">← Previous</button><button class="smallbtn submit" id="actSubmitBtn">Submit Answer</button><button class="smallbtn primary2" id="actNextBtn">Next →</button><button class="smallbtn primary2 hidden" id="actFinishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="actNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="actNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="actNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="actNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="actNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="actNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="actNavGotoBtn">Go</button></div></div></div>
+   <div class="navPopupWrap" id="actNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="actNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="actNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div></div><div class="navigator" id="actNavigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="actNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="actNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="results" id="actResults">
@@ -2308,7 +2319,7 @@ function spConsole(method){
      <div class="rightActs"><button class="smallbtn" id="prevBtn">← Previous</button><button class="smallbtn submit" id="submitAnswerBtn">Submit Answer</button><button class="smallbtn primary2" id="nextBtn">Next →</button><button class="smallbtn primary2 hidden" id="finishBtn">Finish Test</button></div>
     </div>
    </div>
-   <div class="navPopupWrap" id="tsiNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="tsiNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="tsiNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div><select class="navSectionJump" id="tsiNavSectionJump" aria-label="Jump to section"><option value="">Jump to Section</option></select></div><div class="navigator" id="navigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="tsiNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="tsiNavGotoBtn">Go</button></div></div></div>
+   <div class="navPopupWrap" id="tsiNavPopupWrap"><div class="navPopupHead"><b>Question Navigator</b><button type="button" class="navPopupClose" id="tsiNavPopupClose" aria-label="Close question navigator">×</button></div><div class="navLegend"><span><i class="navLegendDot current"></i>Current</span><span><i class="navLegendDot answered"></i>Answered</span><span><i class="navLegendDot flagged"></i>Flagged</span><span><i class="navLegendDot"></i>Not answered</span></div><div class="navToolsRow"><div class="navFilterTabs" id="tsiNavFilterTabs"><button type="button" class="navFilterTab active" data-filter="all">All (<b class="navCountAll">0</b>)</button><button type="button" class="navFilterTab" data-filter="notanswered">Not Answered (<b class="navCountNot">0</b>)</button><button type="button" class="navFilterTab" data-filter="flagged">Flagged (<b class="navCountFlag">0</b>)</button></div></div><div class="navigator" id="navigator"></div><div class="navSummaryRow"><div class="navSummary"><span>Answered: <b class="navSumAnswered">0</b>/<b class="navSumTotal">0</b></span><span>Flagged: <b class="navSumFlagged">0</b></span><span>Not answered: <b class="navSumNotAnswered">0</b></span></div><div class="navGoto"><input type="number" class="navGotoInput" id="tsiNavGotoInput" min="1" placeholder="Go to"><button type="button" class="navGotoBtn" id="tsiNavGotoBtn">Go</button></div></div></div>
   </div>
 
   <div class="moduleBreak" id="tsiAdaptiveBreak"><h3 id="tsiAdaptiveBreakTitle">Module complete</h3><p id="tsiAdaptiveBreakText"></p><div class="moduleBreakStats" id="tsiAdaptiveBreakStats"></div><button class="btn primary" id="tsiAdaptiveContinue">Continue →</button></div>
@@ -6371,11 +6382,15 @@ return Q;
 })();
 </script>
 <script id="v63-nav-extras">
-/* v63: adds filter tabs (All / Not Answered / Flagged with live counts), a
- * "Jump to Section" dropdown and a "Go to #" box inside the question
- * navigator section (inline as of v66, was a popup in v61) -- closing the
- * gap with the reviewed mockup's richer navigator design. None of this
- * touches renderNav()/renderGeneric()
+/* v63: adds filter tabs (All / Not Answered / Flagged with live counts) and
+ * a "Go to #" box inside the question navigator section (inline as of v66,
+ * was a popup in v61). v67 removes the "Jump to Section" dropdown this
+ * originally shipped with -- per feedback, jumping to a different section
+ * mid-test doesn't match how the exam is actually taken, so it was just
+ * confusing. Its element (navSectionJump) no longer exists in the HTML;
+ * every reference to it below is already null-checked (`if (sectionSel)`),
+ * so it's simply inert now rather than something that needs rewiring.
+ * None of this touches renderNav()/renderGeneric()
  * in question-bank-core.js: those still just rebuild #navigator's plain
  * .navq buttons exactly as before. This script only reads that output (via
  * a MutationObserver, since innerHTML is replaced on every question change)
