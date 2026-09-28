@@ -177,7 +177,18 @@ footer{background:#06132c;color:#a9b8cf;padding:32px 22px}.foot{max-width:1320px
 
 
 /* Professional question tools */
-.confidence,.testmode,.encourage{display:none!important}
+/* .testmode intentionally removed from this blanket hide (v72 fix): it holds
+   #modeLabel / #satModeLabel / #actModeLabel, the "Timed Practice" /
+   "Untimed Practice" / adaptive-module status text shown in the test header.
+   It had NO re-enable rule anywhere (unlike .confidence, which is switched
+   back on via the higher-specificity .confidence.tsipp-conf-on{display:block
+   !important} rule below), so this line was silently hiding the timed/
+   untimed status at every screen width, in every exam, in every launch flow.
+   The later .practiceShell.show .testmode{text-align:center} rule and the
+   mobile-only display:none overrides at <=760px/<=900px already assume
+   .testmode is visible by default, so removing it here (rather than adding
+   another override) is the correct, minimal fix. */
+.confidence,.encourage{display:none!important}
 .questionTools{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 .examToolBtn{border:1px solid rgba(255,255,255,.23);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:850;display:inline-flex;align-items:center;gap:6px}
 .examToolBtn:hover{background:rgba(255,255,255,.16)}
