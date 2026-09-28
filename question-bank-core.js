@@ -273,7 +273,7 @@ function renderQ(){
  $("testSub").innerHTML=`Question ${state.i+1} of ${state.set.length}`;
  $("qmeta").innerHTML=`<span class="tag">${q.section}</span><span class="tag">${q.skill}</span><span class="tag difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span><span class="sourceTag">Original Practice</span><span class="reviewTag">Reviewed</span>`;
  if(q.passage){$("passage").textContent=q.passage;$("passage").classList.remove("hidden")}else $("passage").classList.add("hidden");
- $("questionText").textContent=q.q;
+ $("questionText").textContent=(state.i+1)+". "+q.q;
  $("options").innerHTML=q.choices.map((c,idx)=>{
    let cls="option";
    const selected=state.answers[q.id]===idx;
@@ -453,7 +453,7 @@ function renderGeneric(state,prefix,store,saveFn,renderFn){
  $(prefix+"TestSub").innerHTML=`Question ${state.i+1} of ${state.set.length}`;
  $(prefix+"Qmeta").innerHTML=`<span class="tag">${q.section}</span><span class="tag">${q.skill}</span><span class="tag difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span><span class="sourceTag">Original Practice</span><span class="reviewTag">Reviewed</span>`;
  if(q.passage){$(prefix+"Passage").textContent=q.passage;$(prefix+"Passage").classList.remove("hidden")}else $(prefix+"Passage").classList.add("hidden");
- $(prefix+"QuestionText").textContent=q.q;
+ $(prefix+"QuestionText").textContent=(state.i+1)+". "+q.q;
  $(prefix+"Options").innerHTML=q.choices.map((c,i)=>{let cls="option";let sel=state.answers[q.id]===i;if(sel)cls+=" selected";if(!state.timed&&state.submitted[q.id]){if(i===q.a)cls+=" correct";if(sel&&i!==q.a)cls+=" wrong"}return `<button class="${cls}" data-${prefix.toLowerCase()}-opt="${i}"><span class="letter">${String.fromCharCode(65+i)}</span><span>${c}</span></button>`}).join("");
  document.querySelectorAll(`[data-${prefix.toLowerCase()}-opt]`).forEach(b=>b.onclick=()=>{if(!state.timed&&state.submitted[q.id])return;state.answers[q.id]=+b.dataset[prefix.toLowerCase()+"Opt"];renderFn()});
  document.querySelectorAll("."+prefix.toLowerCase()+"conf").forEach(b=>b.classList.toggle("active",state.confidence[q.id]===b.dataset[prefix.toLowerCase()+"Conf"]));

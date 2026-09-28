@@ -2955,9 +2955,14 @@ const TSI_ADAPTIVE_THRESHOLD=60;
 function tsiV9AdaptiveStageConfig(stage){return [
  {section:'Mathematics',name:'Mathematics Module 1',count:10,duration:12*60,route:'mixed'},
  {section:'Mathematics',name:'Mathematics Module 2',count:10,duration:12*60,route:tsiV9Adaptive?.mathRoute||'mixed'},
- {section:'ELAR',name:'ELAR Module 1',count:12,duration:15*60,route:'mixed'},
- {section:'ELAR',name:'ELAR Module 2',count:12,duration:15*60,route:tsiV9Adaptive?.elarRoute||'mixed'}
+ {section:'ELAR',name:'ELAR Module 1',count:15,duration:19*60,route:'mixed'},
+ {section:'ELAR',name:'ELAR Module 2',count:15,duration:19*60,route:tsiV9Adaptive?.elarRoute||'mixed'}
 ][stage]}
+/* v73: counts matched to the real TSIA2 CRC test per the official Accuplacer
+   TSIA2 student brochure -- Mathematics CRC = 20 questions (10+10 here),
+   ELAR CRC = 30 questions (15+15 here, previously 12+12=24, which undercounted
+   the real ELAR length). Durations scaled proportionally to the prior per-
+   question pace since TSIA2 itself has no official fixed per-section timer. */
 function tsiV9LaunchAdaptiveStage(){const cfg=tsiV9AdaptiveStageConfig(tsiV9Adaptive.stage),pool=PRO_BANK.TSIA2.filter(q=>q.section===cfg.section),set=adaptivePick(pool,cfg.count,cfg.route,tsiV9Adaptive.used,'TSIA2',cfg.section);if(set.length<cfg.count){alert('This practice test module could not be built with enough unique questions.');tsiV9Adaptive.active=false;return}cacheSet(store,set);save();hideAll();$v3('tsiAdaptiveBreak')?.classList.remove('show');$v3('practiceShell').classList.add('show');state={set,i:0,answers:{},confidence:{},flags:[],timed:true,start:Date.now(),seconds:cfg.duration,timerId:null,mode:`v9-tsi-pt${tsiV9Adaptive.num}-${tsiV9Adaptive.stage+1}`,submitted:{},duration:cfg.duration,sessionCode:sessionCode('TSI')};$v3('testTitle').textContent=`TSIA2 Practice Test ${tsiV9Adaptive.num} — ${cfg.name}`;$v3('modeLabel').textContent=`Module ${tsiV9Adaptive.stage+1} of 4 • Adaptive Practice`;$v3('submitAnswerBtn').classList.add('hidden');beginPacing('tsi',state,'timer',finishTest,cfg.duration);renderQ();location.hash='tsi-center'}
 const finishTestBeforeV21=finishTest;
 finishTest=function(auto=false){
