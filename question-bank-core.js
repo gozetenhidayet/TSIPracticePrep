@@ -270,10 +270,11 @@ function startTest(mode){
 function formatTime(sec){sec=Math.max(0,sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
 function renderQ(){
  const q=state.set[state.i]; if(!q)return;
- $("testSub").innerHTML=`Question ${state.i+1} of ${state.set.length}`;
+ const qNum=state.subjectTotal?state.subjectOffset+state.i+1:state.i+1,qTotal=state.subjectTotal||state.set.length;
+ $("testSub").innerHTML=`Question ${qNum} of ${qTotal}`;
  $("qmeta").innerHTML=`<span class="tag">${q.section}</span><span class="tag">${q.skill}</span><span class="tag difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span><span class="sourceTag">Original Practice</span><span class="reviewTag">Reviewed</span>`;
  if(q.passage){$("passage").textContent=q.passage;$("passage").classList.remove("hidden")}else $("passage").classList.add("hidden");
- $("questionText").textContent=(state.i+1)+". "+q.q;
+ $("questionText").textContent=qNum+". "+q.q;
  $("options").innerHTML=q.choices.map((c,idx)=>{
    let cls="option";
    const selected=state.answers[q.id]===idx;
@@ -311,8 +312,8 @@ function showExplanation(q){
  <div class="expBody"><h4>Step-by-Step Explanation</h4><p>${q.ex}</p><h4>Choice Analysis</h4><ul>${q.why.map((w,i)=>`<li><b>${String.fromCharCode(65+i)}.</b> ${w}</li>`).join("")}</ul><div class="strategy"><b>Solution Strategy:</b> ${q.strategy}</div><div class="answerKeyBox"><b>Answer Key</b>${String.fromCharCode(65+q.a)}. ${q.choices[q.a]}</div></div>`;
 }
 function renderNav(){
- const navEl=$("navigator");
- navEl.innerHTML=state.set.map((q,idx)=>`<button class="navq ${state.answers[q.id]!==undefined?"answered":""} ${idx===state.i?"current":""} ${state.flags.includes(q.id)?"flagged":""}" data-jump="${idx}">${idx+1}</button>`).join("");
+ const navEl=$("navigator"),navBase=state.subjectOffset||0;
+ navEl.innerHTML=state.set.map((q,idx)=>`<button class="navq ${state.answers[q.id]!==undefined?"answered":""} ${idx===state.i?"current":""} ${state.flags.includes(q.id)?"flagged":""}" data-jump="${idx}">${navBase+idx+1}</button>`).join("");
  document.querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>{state.i=+b.dataset.jump;renderQ()});
  // The navigator lays out as a 2-row grid (see .practiceShell.show .navigator)
  // so every question number is visible two-at-a-time per column instead of

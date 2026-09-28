@@ -2678,7 +2678,7 @@ function spConsole(method){
 </div>
 </footer>
 
-<script src="question-bank-core.js?v=20260928"></script>
+<script src="question-bank-core.js?v=20260928c"></script>
 <script id="tsipp-rescue">
 /* Old iPhone/iPad Safari (iOS older than 16.4) cannot read the regex "(?<=...)". When a file
    contains one, that browser skips the WHOLE file and no test opens. If a core file did not run,
@@ -2747,7 +2747,7 @@ tsippRescue('question-bank-core.js', function () { return typeof secureShuffle =
 </script>
 
 
-<script id="scorepath-v3-js" src="practice-engine-core.js?v=20260928b"></script>
+<script id="scorepath-v3-js" src="practice-engine-core.js?v=20260928c"></script>
 <script id="tsipp-rescue-engine">
 tsippRescue('practice-engine-core.js', function () { return !!window.ScorePathBank; }, [
   ["raw.split(/(?<=[.;])\\s+/)", "raw.replace(/([.;])\\s+/g,'$1\\u0000').split('\\u0000')"]
@@ -6582,12 +6582,19 @@ return Q;
           var st = p.getState();
           if (!gotoInput || !st || !st.set) return;
           var n = parseInt(gotoInput.value, 10);
-          if (!n || n < 1 || n > st.set.length) {
+          // v74: when a subject is split into two continuously-numbered
+          // halves (state.subjectTotal set -- see tsiV9LaunchAdaptiveStage),
+          // the nav buttons/header show subject-wide numbers (e.g. 11-20 in
+          // the 2nd half), so "Go to" must accept and convert those same
+          // numbers rather than the underlying per-half array index.
+          var base = st.subjectOffset || 0;
+          var lo = base + 1, hi = base + st.set.length;
+          if (!n || n < lo || n > hi) {
             gotoInput.style.borderColor = '#dc2626';
             setTimeout(function () { gotoInput.style.borderColor = ''; }, 900);
             return;
           }
-          st.i = n - 1;
+          st.i = n - 1 - base;
           p.renderFn();
           gotoInput.value = '';
           scrollToQuestion(p);
