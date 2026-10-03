@@ -192,8 +192,11 @@
 
     /* Avoid overlapping the site's cookie consent bar (also fixed to the
        bottom of the screen, full width) — sit above it while it's shown,
-       then settle back to the default corner spot once it's dismissed. */
-    var cookieBar = document.getElementById("cookie-bar");
+       then settle back to the default corner spot once it's dismissed.
+       tsipracticeprep.com's real banner is #spConsent (consent-banner.js),
+       toggled by adding/removing a "hidden" CLASS -- not inline style --
+       so this watches for class changes too, not just style. */
+    var cookieBar = document.getElementById("spConsent") || document.getElementById("cookie-bar");
     function adjustForCookieBar() {
       if (cookieBar && window.getComputedStyle(cookieBar).display !== "none") {
         widget.style.bottom = (cookieBar.offsetHeight + 16) + "px";
@@ -203,7 +206,7 @@
     }
     adjustForCookieBar();
     if (cookieBar && window.MutationObserver) {
-      new MutationObserver(adjustForCookieBar).observe(cookieBar, { attributes: true, attributeFilter: ["style"] });
+      new MutationObserver(adjustForCookieBar).observe(cookieBar, { attributes: true, attributeFilter: ["style", "class"] });
     }
   })();
 </script>
