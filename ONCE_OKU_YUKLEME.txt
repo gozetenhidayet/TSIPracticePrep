@@ -1,0 +1,27 @@
+TSI PRACTICE PREP — YÜKLEME TALİMATI
+
+Bu paket mevcut siteye uygulanacak 11 dosyalık güncellemedir; tam site yedeği değildir.
+
+1. ZIP dosyasını bilgisayarınızda açın.
+2. https://github.com/gozetenhidayet/TSIPracticePrep adresine gidin.
+3. Ana dizinde Add file > Upload files seçeneğini açın.
+4. Paketteki 11 HTML/CSS/XML dosyasını yükleyin. ZIP dosyasını veya bu talimat dosyasını yüklemeyin. Dosyaları yeni bir alt klasör içine koymayın.
+5. Commit changes ile main dalına kaydedin. Mevcut diğer dosyaları silmeyin.
+6. Actions bölümünde Deploy static site to GitHub Pages işleminin başarılı olmasını bekleyin.
+7. Aşağıdaki sayfaları kontrol edin:
+https://tsipracticeprep.com/tsia2-math-study-guide.html
+https://tsipracticeprep.com/tsia2-reading-study-guide.html
+https://tsipracticeprep.com/tsia2-essay-study-guide.html
+8. Ana sayfadaki Learn the skill before your next practice test bölümünü ve ders bağlantılarını kontrol edin.
+
+İÇERİK
+- Matematik: 5 açıklamalı örnek + cevap anahtarlı 6 bağımsız soru.
+- Okuma: özgün metin + tüm seçeneklerin gerekçeleriyle 5 soru.
+- Essay: plan, model yazı, paragraf geliştirme ve düzeltme listesi.
+- Ana sayfa ve ilgili konu sayfalarında ders bağlantıları.
+- Sitemap güncellemesi ve doğrulanamayan kalite iddialarının düzeltilmesi.
+
+DOĞRULAMA VE SINIRLAR
+Ders bağlantıları ve sayfa içi bağlantılar kontrol edildi. 31 ana sayfa JavaScript bloğu sözdizimi kontrolünden geçti. Sitemap XML kontrolü ve eklenen matematik hesapları geçti. Tam soru bankası denetimi, tarayıcıdaki tüm etkileşimler ve canlı yayın doğrulaması tamamlanmadı.
+
+Bu paket Google AdSense onay garantisi veya sitenin tüm politikalara uygunluk sertifikası değildir. AdSense inceleme isteği gönderilmedi. Canlı siteyi ve önemli test akışlarını doğruladıktan sonra yeniden inceleme değerlendirilmelidir.

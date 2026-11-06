@@ -22,15 +22,15 @@
   for hosts that support them, so the two URLs never compete as duplicates.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tsipracticeprep.com/</loc><lastmod>2026-09-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://tsipracticeprep.com/tsia2.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://tsipracticeprep.com/</loc><lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://tsipracticeprep.com/tsia2.html</loc><lastmod>2026-11-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://tsipracticeprep.com/sat.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://tsipracticeprep.com/act.html</loc><lastmod>2026-08-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://tsipracticeprep.com/tsi-math-practice-test.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tsipracticeprep.com/tsi-math-practice-test.html</loc><lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tsipracticeprep.com/tsi-elar-practice-test.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tsipracticeprep.com/tsi-reading-practice-test.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tsipracticeprep.com/tsi-reading-practice-test.html</loc><lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tsipracticeprep.com/tsi-writing-practice-test.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tsipracticeprep.com/tsi-essay-practice.html</loc><lastmod>2026-09-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tsipracticeprep.com/tsi-essay-practice.html</loc><lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tsipracticeprep.com/tsi-practice-questions.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tsipracticeprep.com/sat-math-practice.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tsipracticeprep.com/sat-reading-writing-practice.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -42,7 +42,7 @@
   <url><loc>https://tsipracticeprep.com/about.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://tsipracticeprep.com/resources.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://tsipracticeprep.com/graduation-guide.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://tsipracticeprep.com/editorial-standards.html</loc><lastmod>2026-08-28</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://tsipracticeprep.com/editorial-standards.html</loc><lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://tsipracticeprep.com/disclaimer.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://tsipracticeprep.com/privacy.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://tsipracticeprep.com/terms.html</loc><lastmod>2026-08-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
@@ -75,4 +75,7 @@
   <url><loc>https://tsipracticeprep.com/skills/tsia2-vocabulary-in-context.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://tsipracticeprep.com/skills/tsia2-sentence-structure-grammar.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://tsipracticeprep.com/skills/tsia2-essay-revision-editing.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+<url><loc>https://tsipracticeprep.com/tsia2-math-study-guide.html</loc><lastmod>2026-11-06</lastmod></url>
+<url><loc>https://tsipracticeprep.com/tsia2-reading-study-guide.html</loc><lastmod>2026-11-06</lastmod></url>
+<url><loc>https://tsipracticeprep.com/tsia2-essay-study-guide.html</loc><lastmod>2026-11-06</lastmod></url>
 </urlset>
