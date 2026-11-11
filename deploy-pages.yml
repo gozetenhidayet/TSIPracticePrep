@@ -24,19 +24,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Assemble the static site (exclude backend source and internal-only files)
+      - name: Assemble the static site (exclude backend source and non-public files)
         run: |
           mkdir -p _site
           rsync -a --exclude='.git' --exclude='.github' --exclude='_site' \
             --exclude='functions' --exclude='scripts' --exclude='node_modules' \
-            --exclude='tsipracticeprep-full-site' \
-            --exclude='README.md' --exclude='BACKEND-SETUP.md' \
-            --exclude='FIREBASE-SETUP.md' --exclude='LAUNCH-CHECKLIST.md' \
-            --exclude='QUESTION-BANK-QUALITY.md' --exclude='_redirects' \
-            --exclude='firestore.rules' --exclude='database.rules.json' \
-            --exclude='ads.txt.template' --exclude='seo-update.zip' \
+            --exclude='package.json' --exclude='package-lock.json' \
+            --exclude='firebase.json' --exclude='firestore.rules' --exclude='database.rules.json' \
+            --exclude='test-backend.js' --exclude='vercel.json' --exclude='_redirects' \
+            --exclude='README.md' \
+            --exclude='*.md' --exclude='*-SETUP.txt' --exclude='ONCE_OKU_YUKLEME.txt' \
+            --exclude='YUKLEME-TALIMATI.md' --exclude='COLLEGE-RANGE-SOURCES.txt' \
+            --exclude='practice-engine-core.txt' --exclude='practice-engine-core.js.txt' \
+            --exclude='practice-engine-core-INDIRIP-JS-YAP.txt' \
+            --exclude='404 (1).html' \
+            --exclude='crop_d.png' --exclude='dashboard-telefon.png' \
+            --exclude='dashboard-veriyle-ornek.png' --exclude='dashboard-yeni-ogrenci.png' \
+            --exclude='examcards-mobile.png' --exclude='hero-animasyon.gif' \
+            --exclude='soru-bankasi-masaustu.png' --exclude='soru-bankasi-telefon.png' \
             ./ _site/
           touch _site/.nojekyll
+          # Sanity check: fail the deploy loudly instead of silently publishing
+          # debris again if one of these ever reappears in _site (renamed,
+          # re-added, or this exclude list falls out of date).
+          for f in "practice-engine-core.txt" "practice-engine-core.js.txt" \
+                   "practice-engine-core-INDIRIP-JS-YAP.txt" "404 (1).html" \
+                   "hero-animasyon.gif" "KURULUM.md" "BACKEND-SETUP.md"; do
+            if [ -e "_site/$f" ]; then
+              echo "::error::'$f' leaked into _site/ -- this file should not be public. Check the rsync --exclude list above."
+              exit 1
+            fi
+          done
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
